@@ -295,9 +295,9 @@ __device__ void inject_GPR_error(SASSICoreParams* cp, SASSIRegisterParams *rp, S
 		injectedVal.asUint = 0; 
 	}
 
-	printf(":::Injecting: pc=%llx bbId=%d opcode=%s tid=%d instCount=%lld GlobalInstCount=%lld instType=GPR regNum=%d injBID=%d:::", 
-			cp->GetPUPC(), cp->GetBBID(), SASSIInstrOpcodeStrings[cp->GetOpcode()], get_flat_tid(), injInstID,
-			injCounterAllInst, srp->GetRegNum(regInfo), injBID);
+	printf(":::Injecting: pc=%llx bbId=%d GlobalInstCount=%lld opcode=%s tid=%d instCount=%lld instType=GPR regNum=%d injBID=%d:::", 
+			cp->GetPUPC(), cp->GetBBID(), injCounterAllInsts, SASSIInstrOpcodeStrings[cp->GetOpcode()], get_flat_tid(), injInstID,
+			 rp->GetRegNum(regInfo), injBID);
 
 	if (!DUMMY_INJECTION) {
 		rp->SetRegValue(cp, regInfo, injectedVal); 

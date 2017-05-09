@@ -65,19 +65,21 @@ def parse_results_file(app, igid, bfm, c):
 		words = line.split(":")
 		inj_site_info = words[0].split("-")
 		[kname, invocation_index, opcode, injBID, runtime, outcome] = \
-			[inj_site_info[0], int(inj_site_info[1]), words[3], int(words[5]), float(words[6]), int(words[7])]
+			[inj_site_info[0], int(inj_site_info[1]), words[4], int(words[6]), float(words[7]), int(words[8])]
 		inst_id = int(inj_site_info[2])
 #		print "words[1]: "+ str(words[1]),
 		pc_text = '0x'+str(words[1])
                 bb_id = int(words[2])
+                global_inst_id = int(words[3])
 		if pc_text == '0x':
 			pc_text = "0x0"
 #		print "PC text: "  + " => " + pc_text
 #		pc = int(pc_text,0)
-		tId = int(words[4])
+		tId = int(words[5])
 		c.execute('INSERT OR IGNORE INTO Results '\
-            'VALUES(NULL, \'%s\',\'%s\', \'%s\', %d, %d, %d, %d, \'%s\', %d, \'%s\', %d, %d, %f, %d)'
-            %(suite,app, kname, igid, bfm, invocation_index, inst_id, pc_text, bb_id, opcode, tId, injBID, runtime, (outcome-1)))
+            'VALUES(NULL, \'%s\',\'%s\', \'%s\', %d, %d, %d, %d, \'%s\', %d, %d, \'%s\', %d, %d, %f, %d)'
+            %(suite,app, kname, igid, bfm, invocation_index, inst_id, pc_text,
+                bb_id, global_inst_id, opcode, tId, injBID, runtime, (outcome-1)))
 
 		num_lines += 1
 	rf.close()
@@ -90,6 +92,7 @@ def parse_results_file(app, igid, bfm, c):
 ###################################################################################
 def parse_results_apps(typ,c): 
 	for app in sp.parse_apps:
+                print app
 		if typ == "inst":
 			for igid in sp.parse_igid_bfm_map:
 				for bfm in sp.parse_igid_bfm_map[igid]:
@@ -129,7 +132,8 @@ def CreateNewDB(c):
 	print "creating data DB"
 	c.execute('CREATE TABLE IF NOT EXISTS '\
           'Results(ID INTEGER PRIMARY KEY, Suite TEXT, App TEXT, kName TEXT, IgId INTEGER, '\
-          'BFM INTEGER, InvocationIdx INTEGER, IId INTERGER, PC TEXT, BBId INTEGER, '\
+          'BFM INTEGER, InvocationIdx INTEGER, InstId INTERGER, PC TEXT, BBId '\
+          'INTEGER, GlobalInstId INTEGER, '\
           'Opcode TEXT, TId INTEGER, InjBId INTEGER, Runtime INTEGER, OutcomeID INTEGER)')
 	c.execute('CREATE TABLE IF NOT EXISTS '\
           'OutcomeMap(ID INTEGER PRIMARY KEY, Description TEXT)')
@@ -179,7 +183,7 @@ def CreateNewDB(c):
 	###########
 	opcode_list_str = "ATOM:ATOMS:B2R:BAR:BFE:BFI:BPT:BRA:BRK:BRX:CAL:CAS:CCTL:CCTLL:CCTLT:CONT:CS2R:CSET:CSETP:DADD:DEPBAR:DFMA:DMNMX:DMUL:DSET:DSETP:EXIT:F2F:F2I:FADD:FADD32I:FCHK:FCMP:FFMA:FFMA32I:FLO:FMNMX:FMUL:FMUL32I:FSET:FSETP:FSWZ:FSWZADD:I2F:I2I:IADD:IADD3:IADD32I:ICMP:IMAD:IMAD32I:IMADSP:IMNMX:IMUL:IMUL32I:ISAD:ISCADD:ISCADD32I:ISET:ISETP:JCAL:JMX:LD:LDC:LDG:LDL:LDLK:LDS:LDSLK:LDS_LDU:LDU:LD_LDU:LEA:LEPC:LONGJMP:LOP:LOP3:LOP32I:MEMBAR:MOV:MUFU:NOP:P2R:PBK:PCNT:PEXIT:PLONGJMP:POPC:PRET:PRMT:PSET:PSETP:R2B:R2P:RED:RET:RRO:S2R:SEL:SHF:SHFL:SHL:SHR:SSY:ST:STG:STL:STS:STSCUL:STSUL:STUL:SUATOM:SUBFM:SUCLAMP:SUEAU:SULD:SULDGA:SULEA:SUQ:SURED:SUST:SUSTGA:SYNC:TEX:TEXDEPBAR:TEXS:TLD:TLD4:TLD4S:TLDS:TXQ:UNMAPPED:USER_DEFINED:VMNMX:VOTE:XMAD"
 	opcode_list = opcode_list_str.split(":")
-	print "OPCODE LIST: " + str(opcode_list)
+#	print "OPCODE LIST: " + str(opcode_list)
 
 	for app in sp.apps:
 		countList = cf.read_inst_counts(sp.app_dir[app], app)
@@ -187,8 +191,8 @@ def CreateNewDB(c):
 		for i in range(len(opcode_list)):
 			c.execute('INSERT OR IGNORE INTO OpcodeMap '\
 					'VALUES(NULL, \'%s\', \'%s\',%d)' %(opcode_list[i], app, total_count[i+cp.NUM_INST_TYPES+1]))
-		print "len total counts " + str(len(total_count))
-		print "len opcode_list: " + str(len(opcode_list))
+	#	print "len total counts " + str(len(total_count))
+	#	print "len opcode_list: " + str(len(opcode_list))
 
 	for app in sp.apps:
 #		print "App: " + app
