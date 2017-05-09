@@ -1,0 +1,28 @@
+Address          Total/32   Dvrge/32   Active     Taken      NTaken     Type     .U       Location
+341033fe00000d70 25886                 622984     596        622388     BRA               /home/previlon/nusassifi/suites/rodinia/hotspot/hotspot.cu, line 190
+341033fe00000928 14792                 473344     462336     11008      BRA               /home/previlon/nusassifi/suites/rodinia/hotspot/hotspot.cu, line 175
+341033fe00000d40 29584      25886      946688     323704     622984     BRA               no source
+341033fe00001720 14792      14620      473344     118128     355216     BRA               /home/previlon/nusassifi/suites/rodinia/hotspot/hotspot.cu, line 204
+341033fe00000af8 14792      14792      473344     439632     33712      BRA               /home/previlon/nusassifi/suites/rodinia/hotspot/hotspot.cu, line 185
+55765fa200000068 44376                 1420032    1420032               BRA               Location not known, line -1
+341033fe00000cf8 25886      344        628660     602        628058     BRA               /home/previlon/nusassifi/suites/rodinia/hotspot/hotspot.cu, line 190
+341033fe00000a30 14792      1849       473344     439632     33712      BRA               /home/previlon/nusassifi/suites/rodinia/hotspot/hotspot.cu, line 183
+341033fe00000c30 29584      29584      946688     177504     769184     BRA               /home/previlon/nusassifi/suites/rodinia/hotspot/hotspot.cu, line 190
+341033fe00000a98 14792      14792      473344     442384     30960      BRA               /home/previlon/nusassifi/suites/rodinia/hotspot/hotspot.cu, line 184
+341033fe00000db0 29584      25628      946688     329328     617360     BRA               /home/previlon/nusassifi/suites/rodinia/hotspot/hotspot.cu, line 190
+518c7e0600000058 14792                 473344                473344     BRA               Location not known, line -1
+341033fe000004b8 14792      680        473344     10944      462400     BRA               /home/previlon/nusassifi/suites/rodinia/hotspot/hotspot.cu, line 163
+341033fe000007d0 14792                 473344     462336     11008      BRA               /home/previlon/nusassifi/suites/rodinia/hotspot/hotspot.cu, line 172
+341033fe000009d0 14792      1849       473344     442384     30960      BRA               /home/previlon/nusassifi/suites/rodinia/hotspot/hotspot.cu, line 182
+341033fe00000c68 29584      1849       769184     70262      698922     BRA               /home/previlon/nusassifi/suites/rodinia/hotspot/hotspot.cu, line 190
+341033fe00000838 14792                 473344     462336     11008      BRA               /home/previlon/nusassifi/suites/rodinia/hotspot/hotspot.cu, line 173
+341033fe000008b8 14792                 473344     462336     11008      BRA               /home/previlon/nusassifi/suites/rodinia/hotspot/hotspot.cu, line 174
+341033fe00000bd0 29584      29584      946688     88752      857936     BRA               /home/previlon/nusassifi/suites/rodinia/hotspot/hotspot.cu, line 190
+341033fe000003f0 14792                 473344     1376       471968     BRA               /home/previlon/nusassifi/suites/rodinia/hotspot/hotspot.cu, line 163
+341033fe00000cd0 29584      25886      946688     318028     628660     BRA               /home/previlon/nusassifi/suites/rodinia/hotspot/hotspot.cu, line 190
+341033fe00000470 14620      340        467840     1360       466480     BRA               /home/previlon/nusassifi/suites/rodinia/hotspot/hotspot.cu, line 163
+341033fe000016b0 29584                 946688     473344     473344     BRA               /home/previlon/nusassifi/suites/rodinia/hotspot/hotspot.cu, line 202
+341033fe00000028 14792                 473344     473344                BRA               /home/previlon/sassi7/include/cuda_device_runtime_api.h, line 86
+341033fe00000440 14792                 473344     5504       467840     BRA               no source
+341033fe000019b0 14792      11008      473344     211200     262144     BRA               /home/previlon/nusassifi/suites/rodinia/hotspot/hotspot.cu, line 212
+341033fe00000b70 29584                 946688                946688     BRA               /home/previlon/nusassifi/suites/rodinia/hotspot/hotspot.cu, line 188

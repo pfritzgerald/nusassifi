@@ -1,0 +1,95 @@
+\section{Introduction}
+\label{sec:intro}
+
+SASSIFI can quantify how architecture-level errors propagate to the program
+output level through architecture-level error injections experiments. It can be
+used in two modes: (1) Inject errors in the outputs of the instructions. This
+is useful if you want to find out what can happen if a low-level soft-error
+manifests at the architecture-level. See the Resilience case study in the SASSI
+ISCA 2015 paper~\cite{SASSI_ISCA} and SASSIFI SELSE 2015
+presentation~\cite{SASSIFI_SELSE} for more details. We call this mode of
+operation as {\it D-mode} because the injections are dependent on the
+instruction. (2) Inject bit-flips in the Register File (RF), randomly spread
+across time and space (among allocated registers). The purpose of such
+injections is to compute Architectural Vulnerability Factor (AVF) of the RF.
+The results would tell us the importance of using ECC/parity on the RF.  We
+call this mode {\it I-mode} because the register selected for injection is
+independent of the instruction executing at the time of injection. 
+
+\section{Where can SASSIFI inject errors?}
+\label{sec:where}
+
+For the D-mode (instruction output-level injections), SASSIFI can inject
+errors in the outputs of randomly selected instructions. SASSIFI allows us to
+select different types of instructions to study how error in them will
+propagate to the application output. As of now (7/22/2016), SASSIFI supports
+selecting the following instruction groups. 
+\begin{itemize}
+\item Instructions that write to general purpose registers (GPR) 
+\item Instructions that write to condition code (CC) 
+\item Instructions that write to a predicate register (PR) 
+\item Store instruction (Store value) 
+\item Integer add and multiply instructions (IADD-IMAD-OP)
+\item Single and double precision floating point add and multiply instructions (FADD-FMUL-OP)
+\item Integer fused multiply and add (MAD) instructions (MAD-OP)
+\item Single and double precision floating point fused multiply and add (FMA) instructions  (FMA-OP)
+\item Instructions that compare source registers and set a predicate register (SETP-OP)
+\item Loads from shared memory (LDS-OP)
+\item Load instructions, excluding LDS instructions (LD-OP)
+\end{itemize}
+
+SASSIFI can be extended to include custom instruction groups. Follow
+instructions in Section~\ref{sec:new_inst_group} to create new instruction
+groups. Details about the current instruction grouping, i.e., which SASS
+instructions are included in different groups, can be found in
+\$SASSIFI\_HOME/err\_injector/error\_injector.h.
+
+
+For the I-mode (injections to measure RF AVF), SASSIFI selects a dynamic
+instruction randomly from a program and injects an error in a randomly selected
+register among the allocated registers. The NVIDIA compiler specifies the
+maximum number of registers allocated per thread (using {\it -Xptxas -v}
+option) and this mode randomly selects a register from that pool for injection.
+SASSIFI quantifies the masking, DUE, and SDC rates from error injections in
+allocated registers.  These DUE/SDC rates can be further derated by the average
+fraction of physical registers that are unallocated on a target GPU to obtain
+AVF of the RF.  The average fraction of unallocated registers can be obtained
+by using performance metrics that measure (1) average fraction of Streaming
+Multiprocessors (SMs) used in the device and (2) average fraction of warps used
+per SM. Profiling tools such as {\it nvprof} can be used to obtain these
+parameters.  
+
+\section{What errors can SASSIFI inject?}
+\label{sec:what}
+
+For the D-mode, SASSIFI can inject the error in a destination register based on
+the different Bit Flip Models ({\it BFM}).  In the current release (as of
+7/23/2016), the following BFMs are implemented. 
+
+\begin{enumerate}
+\item Single bit-flip: one bit-flip in one register in one thread
+\item Double bit-flip: bit-flips in two adjacent bits in one register in one thread
+\item Random value: random value in one register in one thread
+\item Zero value: zero out the value of one register in one thread
+\item Warp wide single bit-flip: one bit-flip in one register in all the threads in a warp
+\item Warp wide double bit-flip: bit-flips in two adjacent bits in one register in all the threads in a warp
+\item Warp wide random value: random value in one register in all the threads in a warp
+\item Warp wide zero value: zero out the value of one register in all the threads in a warp
+\end{enumerate}
+
+In the current implementation, we can only inject single bit-flip in one
+register in one thread (first bit-flip model) for the CC and PR injections. For
+the SETP-OP instruction group, we can inject only single bit-flip and warp
+wide single bit-flip (first and fifth bit-flip models, respectively).
+
+For the I-mode, SASSIFI only considers the following two bit-flip models.  
+\begin{itemize}
+\item Single bit-flip 
+\item Double bit-flip 
+\end{itemize}
+
+These BFMs can be extended to include different bit-flip pattern. To add a new
+bit-flip model err\_injector.h and injector.cu files in err\_injector directory
+and common\_params.py and specific\_params.py files in the scripts directory
+need to be modified. 
+

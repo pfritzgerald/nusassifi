@@ -1,0 +1,1 @@
+select COUNT(Results.ID),Results.InvocationIDx,OutcomeMap.Description from Results INNER JOIN OutcomeMap ON Results.OutcomeID=OutcomeMap.ID where kName is '_Z7Kernel2PbS_S_S_i' group by OutcomeID,InvocationIdx order by InvocationIdx;

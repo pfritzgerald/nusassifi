@@ -1,0 +1,6 @@
+1. Files seem to have been edited with DOS, I had to run dos2unix on all of
+them.
+2. In Makefile for simple_add, should $(CUPTI) be at the end of the link flags?
+3. OutcomeID returned by run_one_injection does not correspond to the CAT_STR in
+common_parameters
+

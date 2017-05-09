@@ -1,0 +1,35 @@
+cfg: _Z17ComputePhiMag_GPUPfS_S_i
+	blockID: 0, 1 INS, fnName:_Z17ComputePhiMag_GPUPfS_S_i
+		start: a29b3463000002a0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/mri-q/src/cuda/computeQ.cu, line:44
+		end: a29b3463000002a0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/mri-q/src/cuda/computeQ.cu, line:44
+	blockID: 1, 5 INS, fnName:_Z17ComputePhiMag_GPUPfS_S_i
+		start: a29b346300000260,file:/home/previlon/nusassifi/suites/parboil/benchmarks/mri-q/src/cuda/computeQ.cu, line:40
+		end: a29b346300000058,file:/home/previlon/nusassifi/suites/parboil/benchmarks/mri-q/src/cuda/computeQ.cu, line:41
+	blockID: 2, 12 INS, fnName:_Z17ComputePhiMag_GPUPfS_S_i
+		start: a29b346300000220,file:/home/previlon/nusassifi/suites/parboil/benchmarks/mri-q/src/cuda/computeQ.cu, line:40
+		end: a29b3463000000c8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/mri-q/src/cuda/computeQ.cu, line:44
+	blockID: 3, 1 INS, fnName:_Z17ComputePhiMag_GPUPfS_S_i
+		start: a29b346300000108,file:/home/previlon/nusassifi/suites/parboil/benchmarks/mri-q/src/cuda/computeQ.cu, line:46
+		end: a29b346300000108,file:/home/previlon/nusassifi/suites/parboil/benchmarks/mri-q/src/cuda/computeQ.cu, line:46
+cfg: _Z12ComputeQ_GPUiiPfS_S_S_S_
+	blockID: 0, 1 INS, fnName:_Z12ComputeQ_GPUiiPfS_S_S_S_
+		start: 172aad7400000758,file:/home/previlon/nusassifi/suites/parboil/benchmarks/mri-q/src/cuda/computeQ.cu, line:76
+		end: 172aad7400000758,file:/home/previlon/nusassifi/suites/parboil/benchmarks/mri-q/src/cuda/computeQ.cu, line:76
+	blockID: 1, 25 INS, fnName:_Z12ComputeQ_GPUiiPfS_S_S_S_
+		start: 172aad7400000718,file:/home/previlon/nusassifi/suites/parboil/benchmarks/mri-q/src/cuda/computeQ.cu, line:59
+		end: 172aad7400000110,file:/home/previlon/nusassifi/suites/parboil/benchmarks/mri-q/src/cuda/computeQ.cu, line:71
+	blockID: 2, 17 INS, fnName:_Z12ComputeQ_GPUiiPfS_S_S_S_
+		start: 0000000000000000,		no source for start
+		end: 172aad74000001a8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/mri-q/src/cuda/computeQ.cu, line:74
+	blockID: 3, 2 INS, fnName:_Z12ComputeQ_GPUiiPfS_S_S_S_
+		start: 172aad7400000588,file:/home/previlon/nusassifi/suites/parboil/benchmarks/mri-q/src/cuda/computeQ.cu, line:79
+		end: 172aad74000001b8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/mri-q/src/cuda/computeQ.cu, line:79
+	blockID: 4, 0 INS, fnName:_Z12ComputeQ_GPUiiPfS_S_S_S_
+		start: 0000000000000000,		no source for start
+		end: 0000000000000000,		no source for end
+	blockID: 5, 33 INS, fnName:_Z12ComputeQ_GPUiiPfS_S_S_S_
+		start: 172aad7400000490,file:/home/previlon/nusassifi/suites/parboil/benchmarks/mri-q/src/cuda/computeQ.cu, line:81
+		end: 172aad74000002e8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/mri-q/src/cuda/computeQ.cu, line:79
+	blockID: 6, 3 INS, fnName:_Z12ComputeQ_GPUiiPfS_S_S_S_
+		start: 172aad7400000398,file:/home/previlon/nusassifi/suites/parboil/benchmarks/mri-q/src/cuda/computeQ.cu, line:95
+		end: 172aad7400000308,file:/home/previlon/nusassifi/suites/parboil/benchmarks/mri-q/src/cuda/computeQ.cu, line:97

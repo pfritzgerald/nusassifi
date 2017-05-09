@@ -1,0 +1,11 @@
+0,1,3072,0x2a0,0x2a0,_Z17ComputePhiMag_GPUPfS_S_i
+1,5,3072,0x260,0x58,_Z17ComputePhiMag_GPUPfS_S_i
+2,12,3072,0x220,0xc8,_Z17ComputePhiMag_GPUPfS_S_i
+3,1,3072,0x108,0x108,_Z17ComputePhiMag_GPUPfS_S_i
+0,1,98304,0x758,0x758,_Z12ComputeQ_GPUiiPfS_S_S_S_
+1,25,98304,0x718,0x110,_Z12ComputeQ_GPUiiPfS_S_S_S_
+2,17,0,0x6d8,0x1a8,_Z12ComputeQ_GPUiiPfS_S_S_S_
+3,2,98304,0x588,0x1b8,_Z12ComputeQ_GPUiiPfS_S_S_S_
+4,0,0,0xb,0xb,_Z12ComputeQ_GPUiiPfS_S_S_S_
+5,33,50331648,0x490,0x2e8,_Z12ComputeQ_GPUiiPfS_S_S_S_
+6,3,98304,0x398,0x308,_Z12ComputeQ_GPUiiPfS_S_S_S_

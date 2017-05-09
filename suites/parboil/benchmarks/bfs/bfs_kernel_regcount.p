@@ -1,0 +1,11 @@
+(dp1
+S'_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_'
+p2
+I36
+sS'_Z17BFS_in_GPU_kernelPiS_P4int2S1_S_S_iS_iiS_'
+p3
+I30
+sS'_Z10BFS_kernelPiS_P4int2S1_S_S_iS_iiS_'
+p4
+I18
+s.

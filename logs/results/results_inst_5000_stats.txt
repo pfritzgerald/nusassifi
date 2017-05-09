@@ -1,0 +1,2 @@
+App	IGID	Injection Model	Num Jobs	Total Runtime	Total Runtime without Timeouts
+bfs	GPR	FLIP_SINGLE_BIT	5000	21699.678669	21699.678669

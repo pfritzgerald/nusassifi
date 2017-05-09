@@ -1,0 +1,248 @@
+cfg: _Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+	blockID: 0, 1 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb000045a8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:295
+		end: a872d6eb000045a8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:295
+	blockID: 1, 16 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00004560,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:292
+		end: a872d6eb000000b8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:292
+	blockID: 2, 5 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00004518,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:293
+		end: a872d6eb000000e8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:294
+	blockID: 3, 5 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb000043f0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:295
+		end: a872d6eb00000118,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:295
+	blockID: 4, 18 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb000042e0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:64
+		end: a872d6eb000001b8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:64
+	blockID: 5, 6 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb000041b8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:299
+		end: a872d6eb000001f0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:298
+	blockID: 6, 5 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00004098,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:303
+		end: a872d6eb00000220,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:303
+	blockID: 7, 1 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00003f70,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:304
+		end: a872d6eb00003f70,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:304
+	blockID: 8, 5 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00003e50,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:307
+		end: a872d6eb00000258,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:307
+	blockID: 9, 22 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00003d28,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:310
+		end: a872d6eb00000320,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:158
+	blockID: 10, 2 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00003c08,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:158
+		end: a872d6eb00000330,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:76
+	blockID: 11, 12 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00003ab8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:159
+		end: a872d6eb000003a0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:167
+	blockID: 12, 6 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00003970,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:167
+		end: a872d6eb000003d8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:169
+	blockID: 13, 2 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00003818,file:/home/previlon/sassi7/include/device_functions.hpp, line:1514
+		end: a872d6eb000003e8,file:/home/previlon/sassi7/include/device_functions.hpp, line:1514
+	blockID: 14, 4 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb000036b8,file:/home/previlon/sassi7/include/device_functions.hpp, line:1514
+		end: a872d6eb00000410,file:/home/previlon/sassi7/include/device_functions.hpp, line:1514
+	blockID: 15, 1 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00003550,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:75
+		end: a872d6eb00003550,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:75
+	blockID: 16, 5 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb000033f0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:76
+		end: a872d6eb00000448,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:76
+	blockID: 17, 3 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00003288,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:158
+		end: a872d6eb00000460,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:158
+	blockID: 18, 1 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00003138,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:158
+		end: a872d6eb00003138,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:158
+	blockID: 19, 1 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00003018,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:318
+		end: a872d6eb00003018,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:318
+	blockID: 20, 1 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00002ef0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:321
+		end: a872d6eb00002ef0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:321
+	blockID: 21, 29 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00002dd0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:92
+		end: a872d6eb00000588,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:323
+	blockID: 22, 1 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00002c60,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:325
+		end: a872d6eb00002c60,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:325
+	blockID: 23, 6 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00002b38,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:108
+		end: a872d6eb000005c8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:108
+	blockID: 24, 10 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00002a18,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:109
+		end: a872d6eb00000620,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:328
+	blockID: 25, 10 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb000028d0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:109
+		end: a872d6eb00000678,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:108
+	blockID: 26, 1 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00002788,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:331
+		end: a872d6eb00002788,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:331
+	blockID: 27, 1 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00002650,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:331
+		end: a872d6eb00002650,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:331
+	blockID: 28, 9 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00002518,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:332
+		end: a872d6eb000006e0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:334
+	blockID: 29, 1 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb000023a8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:125
+		end: a872d6eb000023a8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:125
+	blockID: 30, 2 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00002288,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:127
+		end: a872d6eb000006f8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:127
+	blockID: 31, 7 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00002160,file:/home/previlon/sassi7/include/device_functions.hpp, line:1514
+		end: a872d6eb00000738,file:/home/previlon/sassi7/include/device_functions.hpp, line:1514
+	blockID: 32, 14 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: 0000000000000000,		no source for start
+		end: a872d6eb000007b8,file:/home/previlon/sassi7/include/device_functions.hpp, line:1514
+	blockID: 33, 2 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00001ee0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:129
+		end: a872d6eb000007d0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:129
+	blockID: 34, 5 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00001db8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:129
+		end: a872d6eb000007f8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:129
+	blockID: 35, 1 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00001c88,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:129
+		end: a872d6eb00001c88,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:129
+	blockID: 36, 1 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00001b60,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:133
+		end: a872d6eb00001b60,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:133
+	blockID: 37, 2 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00001a38,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:342
+		end: a872d6eb00000820,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:133
+	blockID: 38, 7 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00001918,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:342
+		end: a872d6eb00000860,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:343
+	blockID: 39, 9 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb000017f0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:344
+		end: a872d6eb000008b0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:346
+	blockID: 40, 1 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb000016d0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:125
+		end: a872d6eb000016d0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:125
+	blockID: 41, 2 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb000015a8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:127
+		end: a872d6eb000008d0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:127
+	blockID: 42, 7 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00001488,file:/home/previlon/sassi7/include/device_functions.hpp, line:1514
+		end: a872d6eb00000910,file:/home/previlon/sassi7/include/device_functions.hpp, line:1514
+	blockID: 43, 14 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: 0000000000000000,		no source for start
+		end: a872d6eb00000990,file:/home/previlon/sassi7/include/device_functions.hpp, line:1514
+	blockID: 44, 2 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00001208,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:129
+		end: a872d6eb000009a0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:129
+	blockID: 45, 5 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb000010e0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:129
+		end: a872d6eb000009d0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:129
+	blockID: 46, 1 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00000fa8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:133
+		end: a872d6eb00000fa8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:133
+	blockID: 47, 1 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00000e88,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:133
+		end: a872d6eb00000e88,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:133
+	blockID: 48, 6 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00000d60,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:351
+		end: a872d6eb00000a18,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:351
+	blockID: 49, 2 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00000c38,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:353
+		end: a872d6eb00000a30,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:353
+	blockID: 50, 13 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00000b98,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:356
+		end: a872d6eb00000aa8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:357
+	blockID: 51, 1 INS, fnName:_Z26BFS_kernel_multi_blk_inGPUPiS_P4int2S1_S_S_S_S_iiS_S_S_S_
+		start: a872d6eb00000af0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:359
+		end: a872d6eb00000af0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:359
+cfg: _Z17BFS_in_GPU_kernelPiS_P4int2S1_S_S_iS_iiS_
+	blockID: 0, 1 INS, fnName:_Z17BFS_in_GPU_kernelPiS_P4int2S1_S_S_iS_iiS_
+		start: 903fa87a00002228,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:206
+		end: 903fa87a00002228,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:206
+	blockID: 1, 32 INS, fnName:_Z17BFS_in_GPU_kernelPiS_P4int2S1_S_S_iS_iiS_
+		start: 903fa87a000021e0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:205
+		end: 903fa87a00000150,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:106
+	blockID: 2, 1 INS, fnName:_Z17BFS_in_GPU_kernelPiS_P4int2S1_S_S_iS_iiS_
+		start: 903fa87a00002188,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:238
+		end: 903fa87a00002188,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:238
+	blockID: 3, 5 INS, fnName:_Z17BFS_in_GPU_kernelPiS_P4int2S1_S_S_iS_iiS_
+		start: 903fa87a00002088,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:239
+		end: 903fa87a00000188,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:242
+	blockID: 4, 4 INS, fnName:_Z17BFS_in_GPU_kernelPiS_P4int2S1_S_S_iS_iiS_
+		start: 903fa87a00001f70,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:208
+		end: 903fa87a000001a8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:211
+	blockID: 5, 3 INS, fnName:_Z17BFS_in_GPU_kernelPiS_P4int2S1_S_S_iS_iiS_
+		start: 903fa87a00001e88,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:213
+		end: 903fa87a000001c8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:213
+	blockID: 6, 17 INS, fnName:_Z17BFS_in_GPU_kernelPiS_P4int2S1_S_S_iS_iiS_
+		start: 903fa87a00001d98,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:216
+		end: 903fa87a00000260,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:158
+	blockID: 7, 2 INS, fnName:_Z17BFS_in_GPU_kernelPiS_P4int2S1_S_S_iS_iiS_
+		start: 903fa87a00001ca8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:158
+		end: 903fa87a00000270,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:76
+	blockID: 8, 12 INS, fnName:_Z17BFS_in_GPU_kernelPiS_P4int2S1_S_S_iS_iiS_
+		start: 903fa87a00001ba8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:159
+		end: 903fa87a000002e0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:167
+	blockID: 9, 6 INS, fnName:_Z17BFS_in_GPU_kernelPiS_P4int2S1_S_S_iS_iiS_
+		start: 903fa87a00001aa8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:167
+		end: 903fa87a00000318,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:169
+	blockID: 10, 2 INS, fnName:_Z17BFS_in_GPU_kernelPiS_P4int2S1_S_S_iS_iiS_
+		start: 903fa87a00001998,file:/home/previlon/sassi7/include/device_functions.hpp, line:1514
+		end: 903fa87a00000328,file:/home/previlon/sassi7/include/device_functions.hpp, line:1514
+	blockID: 11, 4 INS, fnName:_Z17BFS_in_GPU_kernelPiS_P4int2S1_S_S_iS_iiS_
+		start: 903fa87a00001888,file:/home/previlon/sassi7/include/device_functions.hpp, line:1514
+		end: 903fa87a00000350,file:/home/previlon/sassi7/include/device_functions.hpp, line:1514
+	blockID: 12, 1 INS, fnName:_Z17BFS_in_GPU_kernelPiS_P4int2S1_S_S_iS_iiS_
+		start: 903fa87a00001738,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:75
+		end: 903fa87a00001738,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:75
+	blockID: 13, 5 INS, fnName:_Z17BFS_in_GPU_kernelPiS_P4int2S1_S_S_iS_iiS_
+		start: 903fa87a00001618,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:76
+		end: 903fa87a00000388,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:76
+	blockID: 14, 3 INS, fnName:_Z17BFS_in_GPU_kernelPiS_P4int2S1_S_S_iS_iiS_
+		start: 903fa87a000014b8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:158
+		end: 903fa87a000003a0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:158
+	blockID: 15, 1 INS, fnName:_Z17BFS_in_GPU_kernelPiS_P4int2S1_S_S_iS_iiS_
+		start: 903fa87a000013b8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:158
+		end: 903fa87a000013b8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:158
+	blockID: 16, 1 INS, fnName:_Z17BFS_in_GPU_kernelPiS_P4int2S1_S_S_iS_iiS_
+		start: 903fa87a000012e0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:226
+		end: 903fa87a000012e0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:226
+	blockID: 17, 1 INS, fnName:_Z17BFS_in_GPU_kernelPiS_P4int2S1_S_S_iS_iiS_
+		start: 903fa87a000011e0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:227
+		end: 903fa87a000011e0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:227
+	blockID: 18, 28 INS, fnName:_Z17BFS_in_GPU_kernelPiS_P4int2S1_S_S_iS_iiS_
+		start: 903fa87a000010e0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:92
+		end: 903fa87a000004b8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:228
+	blockID: 19, 1 INS, fnName:_Z17BFS_in_GPU_kernelPiS_P4int2S1_S_S_iS_iiS_
+		start: 903fa87a00000f70,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:230
+		end: 903fa87a00000f70,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:230
+	blockID: 20, 4 INS, fnName:_Z17BFS_in_GPU_kernelPiS_P4int2S1_S_S_iS_iiS_
+		start: 903fa87a00000e70,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:232
+		end: 903fa87a000004e8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:232
+	blockID: 21, 3 INS, fnName:_Z17BFS_in_GPU_kernelPiS_P4int2S1_S_S_iS_iiS_
+		start: 903fa87a00000d70,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:234
+		end: 903fa87a00000508,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:234
+	blockID: 22, 3 INS, fnName:_Z17BFS_in_GPU_kernelPiS_P4int2S1_S_S_iS_iiS_
+		start: 903fa87a00000c60,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:108
+		end: 903fa87a00000520,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:108
+	blockID: 23, 4 INS, fnName:_Z17BFS_in_GPU_kernelPiS_P4int2S1_S_S_iS_iiS_
+		start: 903fa87a00000b50,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:109
+		end: 903fa87a00000548,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:109
+	blockID: 24, 8 INS, fnName:_Z17BFS_in_GPU_kernelPiS_P4int2S1_S_S_iS_iiS_
+		start: 903fa87a00000a38,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:109
+		end: 903fa87a00000590,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:108
+	blockID: 25, 1 INS, fnName:_Z17BFS_in_GPU_kernelPiS_P4int2S1_S_S_iS_iiS_
+		start: 903fa87a000008f0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:108
+		end: 903fa87a000008f0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:108
+	blockID: 26, 2 INS, fnName:_Z17BFS_in_GPU_kernelPiS_P4int2S1_S_S_iS_iiS_
+		start: 903fa87a000007f0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:108
+		end: 903fa87a000005b0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:108
+	blockID: 27, 4 INS, fnName:_Z17BFS_in_GPU_kernelPiS_P4int2S1_S_S_iS_iiS_
+		start: 903fa87a00000788,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:109
+		end: 903fa87a000005d8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:113
+	blockID: 28, 9 INS, fnName:_Z17BFS_in_GPU_kernelPiS_P4int2S1_S_S_iS_iiS_
+		start: 903fa87a00000718,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:113
+		end: 903fa87a00000628,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:108
+	blockID: 29, 1 INS, fnName:_Z17BFS_in_GPU_kernelPiS_P4int2S1_S_S_iS_iiS_
+		start: 903fa87a00000670,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:250
+		end: 903fa87a00000670,file:/home/previlon/nusassifi/suites/parboil/benchmarks/bfs/src/cuda/kernel.cu, line:250

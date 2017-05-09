@@ -1,0 +1,10 @@
+App	IGID	Injection Model	Masked: Error was never read	Masked: Write before read	Masked: other reasons	DUE: Timeout	DUE: Non Zero Exit Status	Pot DUE: Masked but Kernel Error	Pot DUE: SDC but Kernel Error	Pot DUE: Different Error Message	Pot DUE: Error Message in Standard Output	Pot DUE: Stderr is different	Pot DUE:Stderr is different, but dmesg recorded	Pot DUE: Standard output is different, but dmesg recorded	Pot DUE: Output file is different, but dmesg recorded	Pot DUE: App specific check failed, but dmesg recorded	SDC: Standard output is different	SDC: Output file is different	SDC: App specific check failed
+hotspot	IADD_IMUL	FLIP_SINGLE_BIT	0	0	4	0	0	0	0	0	0	0	0	0	0	0	0	0	10
+FADD_FMUL	FLIP_SINGLE_BIT	0	0	8	0	0	0	0	0	0	0	0	0	0	0	0	0	2
+MAD	FLIP_SINGLE_BIT	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0FMA	FLIP_SINGLE_BIT	0	0	10	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+SETP	FLIP_SINGLE_BIT	0	0	6	0	0	0	0	0	0	0	0	0	0	0	0	0	4
+LDS	FLIP_SINGLE_BIT	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0LD	FLIP_SINGLE_BIT	0	0	5	0	0	0	0	0	0	0	0	0	0	0	0	0	5
+GPR	FLIP_SINGLE_BIT	0	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	8
+CC	FLIP_SINGLE_BIT	0	0	7	0	0	0	0	0	0	0	0	0	0	2	0	0	1
+PR	FLIP_SINGLE_BIT	0	0	6	0	0	0	0	0	0	0	0	0	0	0	0	0	4
+STORE_VAL	FLIP_SINGLE_BIT	0	0	4	0	0	0	0	0	0	0	0	0	0	0	0	0	6
