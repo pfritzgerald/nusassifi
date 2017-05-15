@@ -19,3 +19,4 @@ suites/*/*/*/std*
 suites/*/*/*/golden*
 suites/*/*/*.pyc
 suites/*/*/*/*.pyc
+suites/lonestargpu-2.0/inputs/
