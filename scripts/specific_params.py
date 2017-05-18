@@ -43,12 +43,12 @@ import common_params as p
 # campaign. This is essentially the maximum number of injections one can run
 # per instruction group (IGID) and bit-flip model (BFM).
 # 
-NUM_INJECTIONS = 10#000
+NUM_INJECTIONS = 10000
 
 
 # Specify how many injections you want to perform per IGID and BFM combination. 
 # Only the first THRESHOLD_JOBS will be selected from the generated NUM_INJECTIONS.
-THRESHOLD_JOBS = 10#000 # test
+THRESHOLD_JOBS = 10000 # test
 
 # THRESHOLD_JOBS sould be <= NUM_INJECTIONS
 assert THRESHOLD_JOBS <= NUM_INJECTIONS
@@ -103,9 +103,9 @@ apps = {
 #	'mri-gridding': ['parboil', 'mri-gridding', 56],
 #	'stencil': ['parboil', 'stencil', 60],
 #	'tpacf': ['parboil', 'tpacf', 30],
-#        'mst' : ['lonestargpu-2.0', 'mst', 26],
-#        'bh' : ['lonestargpu-2.0', 'bh', 106],
-#        'sp' : ['lonestargpu-2.0', 'sp', 75],
+        'mst' : ['lonestargpu-2.0', 'mst', 26],
+        'bh' : ['lonestargpu-2.0', 'bh', 106],
+        'sp' : ['lonestargpu-2.0', 'sp', 75],
         'pta' : ['lonestargpu-2.0', 'pta', 10],
 
 }
