@@ -20,3 +20,4 @@ suites/*/*/*/golden*
 suites/*/*/*.pyc
 suites/*/*/*/*.pyc
 suites/lonestargpu-2.0/inputs/
+suites/lonestargpu-2.0/cub-1.6.4/
