@@ -463,7 +463,6 @@ __device__ void sassi_before_handler(SASSIBeforeParams* bp, SASSIMemoryParams *m
 __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp, SASSIRegisterParams *rp) { // order is important
 
 //	unsigned long long GlobalInstCounter = 
-	atomicAdd(&injCounterAllInsts, 1LL) + 1;  // update counter, returns old value
 
 #if EMPTY_HANDLER && INJ_MODE != INST_INJECTIONS // if you don't want to inject instruction level errors, return
 	return;
@@ -471,6 +470,7 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp,
 
 	if (!inj_info.areParamsReady) // Check if this is the kernel of interest 
 		return; // This is not the selected kernel. No need to proceed.
+ 	atomicAdd(&injCounterAllInsts, 1LL) + 1;  // update counter, returns old value
 
 	switch (inj_info.injIGID) {
 		case GPR: {
