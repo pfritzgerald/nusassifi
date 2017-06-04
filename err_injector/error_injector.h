@@ -36,6 +36,7 @@
 // configuration parameters 
 #define NUM_INJ_PARAMS 5
 #define MAX_REGS_PERINST 5
+#define NUM_INJECTIONS 2
 
 // Injection mode 
 #define RF_INJECTIONS 0

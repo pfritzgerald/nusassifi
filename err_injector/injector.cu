@@ -77,28 +77,37 @@ typedef struct {
 	float injBIDSeed; // bit id seed (random number between 0-1)
 } inj_info_t; 
 
-__managed__ inj_info_t inj_info; 
+__managed__ inj_info_t inj_info[NUM_INJECTIONS]; 
+int current_injection_id = 0;
 
 void reset_inj_info() {
-	inj_info.areParamsReady = false;
-	inj_info.errorInjected = false;
-	inj_info.writeBeforeRead = false;
-	inj_info.readyToInject = false;
-	inj_info.injThreadID = -1; 
-	inj_info.injKernelName[0] = '\0';
-	inj_info.injKCount = 0;
-	inj_info.injIGID = 0; // arch state id 
-	inj_info.injInstID = 0; // instruction id 
-	inj_info.injOpSeed = 0; // destination id seed (float, 0-1)
-	inj_info.injBIDSeed = 0; // bit location seed (float, 0-1)
-	inj_info.injBFM = 0; // fault model: single bit flip, all bit flip, random value
+	int i=0;
+	for (i=0; i<NUM_INJECTIONS; i++)
+	{
+		inj_info[i].areParamsReady = false;
+		inj_info[i].errorInjected = false;
+		inj_info[i].writeBeforeRead = false;
+		inj_info[i].readyToInject = false;
+		inj_info[i].injThreadID = -1; 
+		inj_info[i].injKernelName[0] = '\0';
+		inj_info[i].injKCount = 0;
+		inj_info[i].injIGID = 0; // arch state id 
+		inj_info[i].injInstID = 0; // instruction id 
+		inj_info[i].injOpSeed = 0; // destination id seed (float, 0-1)
+		inj_info[i].injBIDSeed = 0; // bit location seed (float, 0-1)
+		inj_info[i].injBFM = 0; // fault model: single bit flip, all bit flip, random value
+	}
 }
 
 // for debugging 
 void print_inj_info() {
-	printf("inj_kname=%s, inj_kcount=%d, ", inj_info.injKernelName, inj_info.injKCount);
-	printf("inj_igid=%d, inj_fault_model=%d, inj_inst_id=%lld, ", inj_info.injIGID, inj_info.injBFM, inj_info.injInstID);
-	printf("inj_destination_id=%f, inj_bit_location=%f \n", inj_info.injOpSeed, inj_info.injBIDSeed);
+	int i;
+	for (i=0; i<NUM_INJECTIONS; i++)
+	{
+		printf("Error %d\n: inj_kname=%s, inj_kcount=%d, ", i, inj_info[i].injKernelName, inj_info[i].injKCount);
+		printf("inj_igid=%d, inj_fault_model=%d, inj_inst_id=%lld, ", inj_info[i].injIGID, inj_info[i].injBFM, inj_info[i].injInstID);
+		printf("inj_destination_id=%f, inj_bit_location=%f \n", inj_info[i].injOpSeed, inj_info[i].injBIDSeed);
+	}
 }
 
 // Parse error injection site info from a file. This should be done on host side.
@@ -106,28 +115,33 @@ void parse_params(std::string filename) {
 	reset_inj_info(); 
 
  	std::ifstream ifs (filename.c_str(), std::ifstream::in);
+	int i;
+	
 	if (ifs.is_open()) {
+		for (i=0; i<NUM_INJECTIONS; i++)
+		{
 #if INJ_MODE != RF_INJECTIONS
-		ifs >> inj_info.injIGID; // arch state id 
-		assert(inj_info.injIGID >=0 && inj_info.injIGID < NUM_INST_TYPES); // ensure that the value is in the expected range
+			ifs >> inj_info[i].injIGID; // arch state id 
+			assert(inj_info[i].injIGID >=0 && inj_info[i].injIGID < NUM_INST_TYPES); // ensure that the value is in the expected range
 #endif
 
-		ifs >> inj_info.injBFM; // fault model: single bit flip, all bit flip, random value
-		assert(inj_info.injBFM < NUM_BFM_TYPES); // ensure that the value is in the expected range
+			ifs >> inj_info[i].injBFM; // fault model: single bit flip, all bit flip, random value
+			assert(inj_info[i].injBFM < NUM_BFM_TYPES); // ensure that the value is in the expected range
 
-		ifs >> inj_info.injKernelName;
-		ifs >> inj_info.injKCount;
-		ifs >> inj_info.injInstID; // instruction id 
+			ifs >> inj_info[i].injKernelName;
+			ifs >> inj_info[i].injKCount;
+			ifs >> inj_info[i].injInstID; // instruction id 
 
-		ifs >> inj_info.injOpSeed; // destination id seed (float, 0-1 for inst injections and 0-256 for reg)
+			ifs >> inj_info[i].injOpSeed; // destination id seed (float, 0-1 for inst injections and 0-256 for reg)
 #if INJ_MODE != RF_INJECTIONS
-		assert(inj_info.injOpSeed >=0 && inj_info.injOpSeed < 1.01); // ensure that the value is in the expected range
+			assert(inj_info[i].injOpSeed >=0 && inj_info[i].injOpSeed < 1.01); // ensure that the value is in the expected range
 #else
-		assert(inj_info.injOpSeed >=0 && inj_info.injOpSeed < 257); // ensure that the value is in the expected range
+			assert(inj_info[i].injOpSeed >=0 && inj_info[i].injOpSeed < 257); // ensure that the value is in the expected range
 #endif
 
-		ifs >> inj_info.injBIDSeed; // bit location seed (float, 0-1)
-		assert(inj_info.injBIDSeed >= 0 && inj_info.injBIDSeed < 1.01); // ensure that the value is in the expected range
+			ifs >> inj_info[i].injBIDSeed; // bit location seed (float, 0-1)
+			assert(inj_info[i].injBIDSeed >= 0 && inj_info[i].injBIDSeed < 1.01); // ensure that the value is in the expected range
+		}
 	}
 	ifs.close();
 
@@ -271,7 +285,7 @@ __device__ void inject_store_error(SASSIAfterParams* ap, SASSIMemoryParams *mp, 
 ////////////////////////////////////////////////////////////////////////////////////
 // Injecting errors in GPR registers 
 ////////////////////////////////////////////////////////////////////////////////////
-__device__ void inject_GPR_error(SASSICoreParams* cp, SASSIRegisterParams *rp, SASSIRegisterParams::GPRRegInfo regInfo, float injBIDSeed, unsigned long long injInstID, uint32_t injBFM) {
+__device__ void inject_GPR_error(uint32_t error_id, SASSICoreParams* cp, SASSIRegisterParams *rp, SASSIRegisterParams::GPRRegInfo regInfo, float injBIDSeed, unsigned long long injInstID, uint32_t injBFM) {
 
 	// get the value in the register, and inject error
 	int32_t valueInReg = rp->GetRegValue(cp, regInfo).asInt; 
@@ -295,8 +309,8 @@ __device__ void inject_GPR_error(SASSICoreParams* cp, SASSIRegisterParams *rp, S
 		injectedVal.asUint = 0; 
 	}
 
-	printf(":::Injecting: pc=%llx bbId=%d GlobalInstCount=%lld opcode=%s tid=%d instCount=%lld instType=GPR regNum=%d injBID=%d:::", 
-			cp->GetPUPC(), cp->GetBBID(), injCounterAllInsts, SASSIInstrOpcodeStrings[cp->GetOpcode()], get_flat_tid(), injInstID,
+	printf("\n:::Injecting: ErrorId=%d pc=%llx bbId=%d GlobalInstCount=%lld opcode=%s tid=%d instCount=%lld instType=GPR regNum=%d injBID=%d:::", 
+			error_id, cp->GetPUPC(), cp->GetBBID(), injCounterAllInsts, SASSIInstrOpcodeStrings[cp->GetOpcode()], get_flat_tid(), injInstID,
 			 rp->GetRegNum(regInfo), injBID);
 
 	if (!DUMMY_INJECTION) {
@@ -361,7 +375,7 @@ __device__ void inject_PR_error(SASSIAfterParams* ap, SASSIRegisterParams *rp, f
 ////////////////////////////////////////////////////////////////////////////////////
 // Injecting errors in any destination register 
 ////////////////////////////////////////////////////////////////////////////////////
-__device__ __noinline__ void inject_reg_error(SASSIAfterParams* ap, SASSIRegisterParams *rp, float injOpSeed, float injBIDSeed, unsigned long long injInstID, uint32_t injBFM) {
+__device__ __noinline__ void inject_reg_error(uint32_t error_id, SASSIAfterParams* ap, SASSIRegisterParams *rp, float injOpSeed, float injBIDSeed, unsigned long long injInstID, uint32_t injBFM) {
 
 	int32_t numDestRegs = rp->GetNumGPRDsts(); // Get the number of destination registers assigned by this instruction.
 	int32_t numDestOps = numDestRegs + rp->IsCCDefined() +  rp->GetPredicateDstMask() != 0; // num gpr regs + 1 for CC + 1 for PR
@@ -373,7 +387,7 @@ __device__ __noinline__ void inject_reg_error(SASSIAfterParams* ap, SASSIRegiste
 	int32_t injOpID = get_int_inj_id(numDestOps, injOpSeed);
 	if (injOpID < numDestRegs) { // inject in a GPR
 		SASSIRegisterParams::GPRRegInfo regInfo = rp->GetGPRDst(injOpID); // get destination register info, get the value in that register, and inject error
-		inject_GPR_error(ap, rp, regInfo, injBIDSeed, injInstID, injBFM);
+		inject_GPR_error(error_id, ap, rp, regInfo, injBIDSeed, injInstID, injBFM);
 	} else if (injOpID - numDestRegs + 1  == rp->IsCCDefined()) { // inject in CC register
 		inject_CC_error(ap, rp, injBIDSeed, injInstID, injBFM);
 	} else { // inject in PR Register
@@ -418,36 +432,45 @@ __device__ void sassi_before_handler(SASSIBeforeParams* bp, SASSIMemoryParams *m
 #if EMPTY_HANDLER && INJ_MODE != RF_INJECTIONS // if you don't want to inject RF based errors, return
 	return;
 #endif
-
-	if (!inj_info.areParamsReady) 	// Check if this is the kernel of interest 
-		return; 											// This is not the selected kernel. No need to proceed.
+	int i;
+	bool ready=false;
+	for (int i=0; i<NUM_INJECTIONS; i++)
+	{
+		if (inj_info[i].areParamsReady) 	// Check if this is the kernel of interest 
+		ready = true;							// This is not the selected kernel. No need to proceed.
+	}
+	if (!ready)
+		return;
 
 	unsigned long long currInstCounter = atomicAdd(&injCounterAllInsts, 1LL) + 1;  // update counter, returns old value
-	if (inj_info.injInstID == currInstCounter) { // the current instruction count matches injInstID matches, time to inject the erorr
-		// record thread number, and RF to inject.	
-		// Note we are not injecting the error here, we are just recording it. We
-		// will inject the error when it is used as a source register by the
-		// subsequent instructions. 
-		inj_info.injThreadID = get_flat_tid();
-		inj_info.readyToInject = true;
-		DEBUG_PRINT(INJ_DEBUG_LIGHT, "Injection point reached: tid=%lld instCount=%lld \n", inj_info.injThreadID, inj_info.injInstID);
-	} 
+	for (i=0; i<NUM_INJECTIONS; i++) {
+		if (inj_info[i].injInstID == currInstCounter) { // the current instruction count matches injInstID matches, time to inject the erorr
+			// record thread number, and RF to inject.	
+			// Note we are not injecting the error here, we are just recording it. We
+			// will inject the error when it is used as a source register by the
+			// subsequent instructions. 
+			inj_info[i].injThreadID = get_flat_tid();
+			inj_info[i].readyToInject = true;
+			DEBUG_PRINT(INJ_DEBUG_LIGHT, "Injection point reached: tid=%lld instCount=%lld \n", inj_info[i].injThreadID, inj_info[i].injInstID);
+			break;
+		}
+	}
 
 	// if readyToInject is set and this is the thread that was selected, check for error injection
-	if (inj_info.readyToInject && inj_info.injThreadID == get_flat_tid() && !inj_info.errorInjected) {
+	if (inj_info[i].readyToInject && inj_info[i].injThreadID == get_flat_tid() && !inj_info[i].errorInjected) {
 		// check if the selected register is either in source registers or destination registers
-		if (is_dest_reg(rp, inj_info.injOpSeed) != 0) {
-			DEBUG_PRINT(INJ_DEBUG_LIGHT, "Terminating run: Write found before a read tid=%lld\n", inj_info.injThreadID);
+		if (is_dest_reg(rp, inj_info[i].injOpSeed) != 0) {
+			DEBUG_PRINT(INJ_DEBUG_LIGHT, "Terminating run: Write found before a read tid=%lld\n", inj_info[i].injThreadID);
 			// Record this injection as Masked and terminate
-			inj_info.writeBeforeRead = true;
+			inj_info[i].writeBeforeRead = true;
 		  __threadfence();         // ensure store issued before trap
 		  asm("trap;");            // kill kernel with error
 		}
-		int32_t src_reg = is_src_reg(rp, inj_info.injOpSeed);
+		int32_t src_reg = is_src_reg(rp, inj_info[i].injOpSeed);
 		if (src_reg != 0) {
-			DEBUG_PRINT(INJ_DEBUG_LIGHT, "Reached actual injection point tid=%lld\n", inj_info.injThreadID);
-			inj_info.errorInjected = true;
-			inject_GPR_error(bp, rp, rp->GetGPRSrc(src_reg), inj_info.injBIDSeed, inj_info.injInstID, inj_info.injBFM); // Inject the error and contine
+			DEBUG_PRINT(INJ_DEBUG_LIGHT, "Reached actual injection point tid=%lld\n", inj_info[i].injThreadID);
+			inj_info[i].errorInjected = true;
+			inject_GPR_error(i, bp, rp, rp->GetGPRSrc(src_reg), inj_info[i].injBIDSeed, inj_info[i].injInstID, inj_info[i].injBFM); // Inject the error and contine
 		}
 	}
 	
@@ -468,24 +491,33 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp,
 #if EMPTY_HANDLER && INJ_MODE != INST_INJECTIONS // if you don't want to inject instruction level errors, return
 	return;
 #endif
-
-	if (!inj_info.areParamsReady) // Check if this is the kernel of interest 
+	int i;
+	bool ready = false;
+	for (i=0; i<NUM_INJECTIONS; i++)
+	{
+		if (inj_info[i].areParamsReady) // Check if this is the kernel of interest 
+			ready = true;
+	}
+	if (!ready)
 		return; // This is not the selected kernel. No need to proceed.
-
-	switch (inj_info.injIGID) {
+	for (i=0; i<NUM_INJECTIONS; i++)
+	{
+		switch (inj_info[i].injIGID) {
 		case GPR: {
 				if (has_dest_GPR(rp)) {
 
 					unsigned long long currInstCounter = atomicAdd(&injCountersInstType[GPR], 1LL); // update counter, return old value 
-					bool cond = inj_info.injInstID == currInstCounter; // the current opcode matches injIGID and injInstID matches
-					if (inj_info.injBFM == WARP_FLIP_SINGLE_BIT || inj_info.injBFM == WARP_FLIP_TWO_BITS  || inj_info.injBFM == WARP_RANDOM_VALUE || inj_info.injBFM == ZERO_VALUE || inj_info.injBFM == WARP_ZERO_VALUE) {  // For warp wide injections 
+					bool cond = inj_info[i].injInstID == currInstCounter; // the current opcode matches injIGID and injInstID matches
+					if (inj_info[i].injBFM == WARP_FLIP_SINGLE_BIT || inj_info[i].injBFM == WARP_FLIP_TWO_BITS  || inj_info[i].injBFM == WARP_RANDOM_VALUE || inj_info[i].injBFM == ZERO_VALUE || inj_info[i].injBFM == WARP_ZERO_VALUE) {  // For warp wide injections 
 						cond = (__any(cond) != 0) ; // __any() evaluates cond for all active threads of the warp and return non-zero if and only if cond evaluates to non-zero for any of them.
 					}
 	
-					if(cond) { 
+					if(cond) {
+						/// TESTING - Fritz
+						printf("\n|||||||| Injecting error %d||||||||\n", i);
 						 // get destination register info, get the value in that register, and inject error
-						SASSIRegisterParams::GPRRegInfo regInfo = rp->GetGPRDst(get_int_inj_id(rp->GetNumGPRDsts(), inj_info.injOpSeed));
-						inject_GPR_error(ap, rp, regInfo, inj_info.injBIDSeed, inj_info.injInstID, inj_info.injBFM);
+						SASSIRegisterParams::GPRRegInfo regInfo = rp->GetGPRDst(get_int_inj_id(rp->GetNumGPRDsts(), inj_info[i].injOpSeed));
+						inject_GPR_error(i, ap, rp, regInfo, inj_info[i].injBIDSeed, inj_info[i].injInstID, inj_info[i].injBFM);
 					}
 				}
 			}
@@ -493,16 +525,16 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp,
 
 		case CC: {
 				if (has_dest_CC(rp)) {
-					if (inj_info.injInstID == atomicAdd(&injCountersInstType[CC], 1LL)) {
-						inject_CC_error(ap, rp, inj_info.injBIDSeed, inj_info.injInstID, inj_info.injBFM);
+					if (inj_info[i].injInstID == atomicAdd(&injCountersInstType[CC], 1LL)) {
+						inject_CC_error(ap, rp, inj_info[i].injBIDSeed, inj_info[i].injInstID, inj_info[i].injBFM);
 					}
 				}
 			}
 			break;
 		case PR: {
 				if (has_dest_PR(rp)) {
-					if (inj_info.injInstID == atomicAdd(&injCountersInstType[PR], 1LL)) {
-						inject_PR_error(ap, rp, inj_info.injBIDSeed, inj_info.injInstID, inj_info.injBFM);
+					if (inj_info[i].injInstID == atomicAdd(&injCountersInstType[PR], 1LL)) {
+						inject_PR_error(ap, rp, inj_info[i].injBIDSeed, inj_info[i].injInstID, inj_info[i].injBFM);
 					}
 				}
 			}
@@ -510,13 +542,13 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp,
 		case STORE_VAL: {
 				if (is_store_inst(ap, mp)) {
 					unsigned long long currInstCounter = atomicAdd(&injCountersInstType[STORE_VAL], 1LL); // update counter, return old value 
-					bool cond = inj_info.injInstID == currInstCounter; // the current opcode matches injIGID and injInstID matches
-					if (inj_info.injBFM == WARP_FLIP_SINGLE_BIT || inj_info.injBFM == WARP_FLIP_TWO_BITS  || inj_info.injBFM == WARP_RANDOM_VALUE || inj_info.injBFM == ZERO_VALUE || inj_info.injBFM == WARP_ZERO_VALUE) {  // For warp wide injections 
+					bool cond = inj_info[i].injInstID == currInstCounter; // the current opcode matches injIGID and injInstID matches
+					if (inj_info[i].injBFM == WARP_FLIP_SINGLE_BIT || inj_info[i].injBFM == WARP_FLIP_TWO_BITS  || inj_info[i].injBFM == WARP_RANDOM_VALUE || inj_info[i].injBFM == ZERO_VALUE || inj_info[i].injBFM == WARP_ZERO_VALUE) {  // For warp wide injections 
 						cond = (__any(cond) != 0) ; // __any() evaluates cond for all active threads of the warp and return non-zero if and only if cond evaluates to non-zero for any of them.
 					}
 	
 					if(cond) { 
-						inject_store_error(ap, mp, inj_info.injBIDSeed, inj_info.injInstID, inj_info.injBFM);
+						inject_store_error(ap, mp, inj_info[i].injBIDSeed, inj_info[i].injInstID, inj_info[i].injBFM);
 					}
 				}
 			}
@@ -532,18 +564,19 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp,
 				int32_t currInstCat = get_op_category(ap->GetOpcode());
 				unsigned long long currInstCounter = atomicAdd(&injCountersInstType[currInstCat], 1LL);  // update counter, return old value 
 			
-				bool cond = inj_info.injIGID == currInstCat && inj_info.injInstID == currInstCounter; // the current opcode matches injIGID and injInstID matches
+				bool cond = inj_info[i].injIGID == currInstCat && inj_info[i].injInstID == currInstCounter; // the current opcode matches injIGID and injInstID matches
 				
-				if (inj_info.injBFM == WARP_FLIP_SINGLE_BIT || inj_info.injBFM == WARP_FLIP_TWO_BITS  || inj_info.injBFM == WARP_RANDOM_VALUE || inj_info.injBFM == ZERO_VALUE || inj_info.injBFM == WARP_ZERO_VALUE) {  // For warp wide injections 
+				if (inj_info[i].injBFM == WARP_FLIP_SINGLE_BIT || inj_info[i].injBFM == WARP_FLIP_TWO_BITS  || inj_info[i].injBFM == WARP_RANDOM_VALUE || inj_info[i].injBFM == ZERO_VALUE || inj_info[i].injBFM == WARP_ZERO_VALUE) {  // For warp wide injections 
 					cond = (__any(cond) != 0) ; // __any() evaluates cond for all active threads of the warp and return non-zero if and only if cond evaluates to non-zero for any of them.
 				}
 	
 				if(cond) { 
-					inject_reg_error(ap, rp, inj_info.injOpSeed, inj_info.injBIDSeed, inj_info.injInstID, inj_info.injBFM); 
+					inject_reg_error(i, ap, rp, inj_info[i].injOpSeed, inj_info[i].injBIDSeed, inj_info[i].injInstID, inj_info[i].injBFM); 
 				}
 			}
 			break;
 		case MISC_OP:  break;
+		}
 	}
 }
 
@@ -574,17 +607,20 @@ static void onKernelEntry(const CUpti_CallbackData *cbInfo) {
 	} else {
 		knameCount[currKernelName] += 1;
 	}
+	
+	int i;
+	for (i=0; i<NUM_INJECTIONS; i++)
+	{
+		std::string injKernelName = inj_info[i].injKernelName;
+ 		// pass injParams if this is not the kernel of interest
+		bool is_inj_kernel_name = injKernelName.compare(cbInfo->symbolName) == 0; // if the current kernel name is not same as injKernelName
+		bool is_inj_kernel_count = (knameCount.find(injKernelName) != knameCount.end()) ? knameCount[injKernelName] == inj_info[i].injKCount : false; // if kernel name is found, check if injKCount matches knameCount[injKernelName]
 
-	std::string injKernelName = inj_info.injKernelName;
- 	// pass injParams if this is not the kernel of interest
-	bool is_inj_kernel_name = injKernelName.compare(cbInfo->symbolName) == 0; // if the current kernel name is not same as injKernelName
-	bool is_inj_kernel_count = (knameCount.find(injKernelName) != knameCount.end()) ? knameCount[injKernelName] == inj_info.injKCount : false; // if kernel name is found, check if injKCount matches knameCount[injKernelName]
+		inj_info[i].areParamsReady = is_inj_kernel_name && is_inj_kernel_count; // mark the injection params ready
 
-	inj_info.areParamsReady = is_inj_kernel_name && is_inj_kernel_count; // mark the injection params ready
-
-	if (inj_info.areParamsReady) 
-		DEBUG_PRINT(INJ_DEBUG_LIGHT, "areParamsReady=%d, injkname=%s, curr kname=%s, injKCount=%d, is_inj_kernel_count=%d \n", inj_info.areParamsReady, injKernelName.c_str(), cbInfo->symbolName, inj_info.injKCount, is_inj_kernel_count);
-
+		if (inj_info[i].areParamsReady) 
+			DEBUG_PRINT(INJ_DEBUG_LIGHT, "Error %d: areParamsReady=%d, injkname=%s, curr kname=%s, injKCount=%d, is_inj_kernel_count=%d \n", i, inj_info[i].areParamsReady, injKernelName.c_str(), cbInfo->symbolName, inj_info[i].injKCount, is_inj_kernel_count);
+	}
 #if TIMING 
 	gettimeofday(&start, NULL);
 #endif
@@ -601,13 +637,17 @@ static void onKernelExit(const CUpti_CallbackData *cbInfo) {
 	}
 
 #if INJ_MODE == RF_INJECTIONS 
-	if (inj_info.areParamsReady) { // Check if this is the kernel of interest 
-		if (inj_info.readyToInject && inj_info.writeBeforeRead) { // error was ready to be injected, but the register was overwritten before being read
-			printf("Masked: Write before read\n");
-			exit(0); // exit the simulation
-		} else if (inj_info.readyToInject && !inj_info.errorInjected) { // error was ready to be injected, but was never injected 
-			printf("Masked: Error was never read\n");
-			exit(0); // exit the simulation
+	int i;
+	for (i=0; i<NUM_INJECTIONS; i++)
+	{
+		if (inj_info[i].areParamsReady) { // Check if this is the kernel of interest 
+			if (inj_info[i].readyToInject && inj_info[i].writeBeforeRead) { // error was ready to be injected, but the register was overwritten before being read
+				printf("Error %d => Masked: Write before read\n", i);
+				exit(0); // exit the simulation
+			} else if (inj_info[i].readyToInject && !inj_info[i].errorInjected) { // error was ready to be injected, but was never injected 
+				printf("Error %d => Masked: Error was never read\n", i);
+				exit(0); // exit the simulation
+			}
 		}
 	}
 #endif

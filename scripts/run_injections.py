@@ -109,7 +109,7 @@ def run_multiple_injections_igid(app, is_rf, igid, where_to_run):
 		total_jobs = 0
 		inj_list_filenmae = sp.app_log_dir[app] + "/injection-list/igid" + str(igid) + ".bfm" + str(bfm) + "." + str(sp.NUM_INJECTIONS) + ".txt"
 		inf = open(inj_list_filenmae, "r")
-		for line in inf: # for each injection site 
+		for line in inf: # for each injection site 	
 			total_jobs += 1
 			if total_jobs > sp.THRESHOLD_JOBS: 
 				break; # no need to run more jobs
@@ -118,7 +118,7 @@ def run_multiple_injections_igid(app, is_rf, igid, where_to_run):
 			if len(line.split()) >= 5: 
 				[kname, kcount, iid, opid, bid] = line.split() # obtains params for this injection
 				if cp.verbose: print "\n%d: app=%s, Kernel=%s, kcount=%s, igid=%d, bfm=%d, instID=%s, opID=%s, bitLocation=%s" %(total_jobs, app, kname, kcount, igid, bfm, iid, opid, bid)
-				cmd = "%s %s/scripts/run_one_injection.py %s %s %s %s %s %s %s %s" %(cp.PYTHON_P, sp.SASSIFI_HOME, str(igid), str(bfm), app, kname, kcount, iid, opid, bid)
+				cmd = "%s %s/scripts/run_one_injection.py %s %s %s %s %s %s %s %s %s " %(cp.PYTHON_P, sp.SASSIFI_HOME, str(igid), str(bfm), app, kname, kcount, iid, opid, bid, str(total_jobs))
 				if where_to_run == "cluster":
 					check_and_submit_cluster(cmd)
 				elif where_to_run == "multigpu":
