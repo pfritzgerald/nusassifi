@@ -500,13 +500,13 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp,
 	}
 	if (!ready)
 		return; // This is not the selected kernel. No need to proceed.
-	for (i=0; i<NUM_INJECTIONS; i++)
-	{
-		switch (inj_info[i].injIGID) {
+		switch (inj_info[0].injIGID) {
 		case GPR: {
 				if (has_dest_GPR(rp)) {
 
-					unsigned long long currInstCounter = atomicAdd(&injCountersInstType[GPR], 1LL); // update counter, return old value 
+					unsigned long long currInstCounter = atomicAdd(&injCountersInstType[GPR], 1LL); // update counter, return old value
+        	                        for (i=0; i<NUM_INJECTIONS; i++)
+	                                {
 					bool cond = inj_info[i].injInstID == currInstCounter; // the current opcode matches injIGID and injInstID matches
 					if (inj_info[i].injBFM == WARP_FLIP_SINGLE_BIT || inj_info[i].injBFM == WARP_FLIP_TWO_BITS  || inj_info[i].injBFM == WARP_RANDOM_VALUE || inj_info[i].injBFM == ZERO_VALUE || inj_info[i].injBFM == WARP_ZERO_VALUE) {  // For warp wide injections 
 						cond = (__any(cond) != 0) ; // __any() evaluates cond for all active threads of the warp and return non-zero if and only if cond evaluates to non-zero for any of them.
@@ -519,7 +519,8 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp,
 						SASSIRegisterParams::GPRRegInfo regInfo = rp->GetGPRDst(get_int_inj_id(rp->GetNumGPRDsts(), inj_info[i].injOpSeed));
 						inject_GPR_error(i, ap, rp, regInfo, inj_info[i].injBIDSeed, inj_info[i].injInstID, inj_info[i].injBFM);
 					}
-				}
+				        }
+                                }
 			}
 			break;
 
@@ -576,8 +577,7 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp,
 			}
 			break;
 		case MISC_OP:  break;
-		}
-	}
+        }	
 }
 
 //////////////////////////////////////////////////////////////////////
