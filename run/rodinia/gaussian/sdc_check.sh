@@ -8,7 +8,7 @@ diff stderr.txt ${APP_DIR}/golden_stderr.txt > stderr_diff.log
 # Application specific output: The following check will be performed only if at least one of diff.log, stdout_diff.log, and stderr_diff.log is different
 sed 's/:::Injecting.*::://g' stdout.txt | sed '/Time/d' | sed '/Read/d' > selected_output.txt 
 sed '/Time/d' ${APP_DIR}/golden_stdout.txt | sed '/Read/d' > selected_golden_output.txt 
-diff selected_output.txt selected_golden_output.txt > stdout_diff.log
+diff -B selected_output.txt selected_golden_output.txt > stdout_diff.log
 #if [ -s stdout_diff.log ]
 #then
 #  ACCEPT=1

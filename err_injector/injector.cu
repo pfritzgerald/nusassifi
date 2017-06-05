@@ -514,7 +514,8 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp,
 	
 					if(cond) {
 						/// TESTING - Fritz
-						printf("\n|||||||| Injecting error %d||||||||\n", i);
+                                                if (INJ_DEBUG_HEAVY)
+						  printf("\n|||||||| Injecting error %d||||||||\n", i);
 						 // get destination register info, get the value in that register, and inject error
 						SASSIRegisterParams::GPRRegInfo regInfo = rp->GetGPRDst(get_int_inj_id(rp->GetNumGPRDsts(), inj_info[i].injOpSeed));
 						inject_GPR_error(i, ap, rp, regInfo, inj_info[i].injBIDSeed, inj_info[i].injInstID, inj_info[i].injBFM);
