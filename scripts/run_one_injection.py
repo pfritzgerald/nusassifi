@@ -257,7 +257,7 @@ def is_timeout(app, pr): # check if the process is active every 'factor' sec for
 ###############################################################################
 def run_one_injection_job(igid, bfm, app, kname, kcount, iid, opid, bid):
 	start = datetime.datetime.now() # current time
-	[pc, bb_id, global_iid, inst_type, tid, injBID, ret_vat] = ["", -1, -1, "", -1, -1, -1]
+#	[pc, bb_id, global_iid, inst_type, tid, injBID, ret_vat] = ["", -1, -1, "", -1, -1, -1]
 
 	shutil.rmtree(new_directory, True)
 	os.system("mkdir -p " + new_directory) # create directory to store temp_results
@@ -280,11 +280,12 @@ def run_one_injection_job(igid, bfm, app, kname, kcount, iid, opid, bid):
 
 	if cp.verbose: os.system("cat " + sp.stdout_file + " " + sp.stderr_file)
 	
+        [pc, bb_id, global_iid, inst_type, tid, injBID] = [sp.multiple_injections*[""], sp.multiple_injections*[-1], sp.multiple_injections*[-1], sp.multiple_injections*[""], sp.multiple_injections*[-1], sp.multiple_injections*[-1]]
+
 	if timeout_flag:
 		ret_cat = cp.TIMEOUT 
 	else:
 		ret_cat = classify_injection(app, igid, kname, kcount, iid, opid, bid, retcode, dmesg_delta)
-		[pc, bb_id, global_iid, inst_type, tid, injBID] = [sp.multiple_injections*[""], sp.multiple_injections*[-1], sp.multiple_injections*[-1], sp.multiple_injections*[""], sp.multiple_injections*[-1], sp.multiple_injections*[-1]]
 		[pc, bb_id, global_iid, inst_type, tid, injBID] = get_inj_info()
 	
 	os.chdir(cwd) # return to the main dir
