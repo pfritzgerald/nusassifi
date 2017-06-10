@@ -115,11 +115,15 @@ def create_p_file(p_filename, igid, bfm, kname, kcount, iid, opid, bid, app):
 		
 		knames[0], kcounts[0], iids[0] = kname, kcount, iid
 		for i in range(1,sp.multiple_injections):
-			injection_num = random.randint(0, total_count)
-			[inj_kname, inj_kcount, inj_icount] = cf.get_injection_site_info(countList, injection_num, int(igid)) # convert injection index to [kname, kernel count, inst index]
-			while not inj_kname:
-				if cp.verbose: print "re-generating additional faults"
-				[inj_kname, inj_kcount, inj_icount] = cf.get_injection_site_info(countList, injection_num, int(igid)) 
+#			injection_num = random.randint(0, total_count)
+                        inj_kname=kname
+                        inj_kcount=kcount
+                        inj_icount=int(iids[i-1])+1
+
+#			[inj_kname, inj_kcount, inj_icount] = cf.get_injection_site_info(countList, injection_num, int(igid)) # convert injection index to [kname, kernel count, inst index]
+		#	while not inj_kname:
+#				if cp.verbose: print "re-generating additional faults"
+#				[inj_kname, inj_kcount, inj_icount] = cf.get_injection_site_info(countList, injection_num, int(igid)) 
 			knames[i],kcounts[i],iids[i] = inj_kname, inj_kcount, inj_icount
 			outf.write("\n" + igid + "\n" + bfm + "\n" + inj_kname + "\n" + str(inj_kcount) + "\n" + str(inj_icount) + "\n" + str(opid) + "\n" + str(bid))
 
