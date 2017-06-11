@@ -104,7 +104,7 @@ apps = {
 #	'mri-gridding': ['parboil', 'mri-gridding', 56],
 #	'stencil': ['parboil', 'stencil', 60],
 #	'tpacf': ['parboil', 'tpacf', 30],
-#        'mst' : ['lonestargpu-2.0', 'mst', 26],
+#	'mst' : ['lonestargpu-2.0', 'mst', 26],
 #        'bh' : ['lonestargpu-2.0', 'bh', 106],
 #        'sp' : ['lonestargpu-2.0', 'sp', 75],
 #        'pta' : ['lonestargpu-2.0', 'pta', 10],
