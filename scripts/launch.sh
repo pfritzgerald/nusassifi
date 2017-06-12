@@ -1,8 +1,13 @@
 #!/bin/bash
-python_script='
+python_app_dirs='
 import specific_params as sp
 for app in sp.apps:
   print sp.app_dir[app]
+'
+python_app_log_dirs='
+import specific_params as sp
+for app in sp.apps:
+  print sp.app_log_dir[app]
 '
 inst_rf="inst"
 if [ "$inst_rf" == "inst" ] || [ "$inst_rf" == "rf" ] ; then
@@ -13,14 +18,14 @@ else
   printf "Proceeding with $inst_rf\n"
 fi
 #printf "\nEnter directory for your application: "
-app_dir_list=`python -c "$python_script"`
-printf "\nDirectory list:\n$app_dir_list" 
+app_dir_list=`python -c "$python_app_dirs"`
+printf "\nDirectory list:\n" 
 #set -x 
 
 ################################################
 # Step 1: Set environment variables
 ################################################
-printf "\nStep 1: Setting environment variables"
+printf "\n--------\nStep 1: Setting environment variables"
 if [ `hostname -s` == "kepler1" ]; then
 	export SASSIFI_HOME=/home/previlon/nusassifi/
 	export SASSI_SRC=/home/previlon/SASSI/
@@ -32,16 +37,34 @@ else
   . env.sh
 fi
 
+printf "\n------\nStep 1a: CLEAN?\n"
+clean=$1
+if [ "$clean" == "clean" ] ; then
+  printf "Removing logs: \n"
+  app_log_dir_list=`python -c "$python_app_log_dirs"`
+#  printf "app log dir list: $app_log_dir_list"
+  for app_log_dir in $app_log_dir_list
+  do
+    printf "\nRemoving from $app_log_dir ..."
+    rm -rf "$app_log_dir/*"
+    if [ $? -ne 0 ]; then
+      echo "Could not clear app log directory: $app_log_dir"
+      exit -1
+    fi
+    printf " ..Done"
+  done
+fi
+
 for app_directory in $app_dir_list
 do
-  printf "$app_directory"
-
+  printf "\n--------------------------------\n$app_directory"
+  printf "\n--------------------------------\n"
 
 ################################################
 # Step 4.a: Build the app without instrumentation.
 # Collect golden stdout and stderr files.
 ################################################
-printf "\nStep 4.1: Collect golden stdout.txt and stderr.txt files"
+printf "\n-----------\nStep 4.1: Collect golden stdout.txt and stderr.txt files"
 cd $app_directory
 if [ $? -ne 0 ]; then
   echo "Problem with app directory"
@@ -58,7 +81,7 @@ fi
 # Step 5: Build the app for profiling and
 # collect the instruction profile
 ################################################
-printf "\nStep 5: Profile the application\n"
+printf "\n------------\nStep 5: Profile the application\n"
 make OPTION=profiler
 make test 
 if [ $? -ne 0 ]; then
@@ -69,7 +92,7 @@ fi
 ################################################
 # Step 6: Build the app for error injectors
 ################################################
-printf "\nStep 6: Prepare application for error injection\n"
+printf "\n-------------\nStep 6: Prepare application for error injection\n"
 make OPTION=inst_injector
 
 done
@@ -77,7 +100,7 @@ done
 # Step 7.b: Generate injection list for the 
 # selected error injection model
 ################################################
-printf "\nStep 7.2: Generate injection list for instruction-level error injections\n"
+printf "\n------------\nStep 7.2: Generate injection list for instruction-level error injections\n"
 #cd -
 cd $SASSIFI_HOME/scripts/
 python generate_injection_list.py $inst_rf 
@@ -89,7 +112,7 @@ fi
 ################################################
 # Step 8: Run the error injection campaign 
 ################################################
-printf "\nStep 8: Run the error injection campaign\n"
+printf "\n------------\nStep 8: Run the error injection campaign\n"
 python run_injections.py $inst_rf standalone 
 # to run the injection campaign on a single machine with single gpu
 
@@ -99,6 +122,6 @@ python run_injections.py $inst_rf standalone
 ################################################
 # Step 9: Parse the results
 ################################################
-printf "\nStep 9: Parse results\n"
+#printf "\nStep 9: Parse results\n"
 #python parse_results.py $inst_rf
 
