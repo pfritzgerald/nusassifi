@@ -88,13 +88,13 @@ igid_bfm_map = {
 
 apps = {
 #	'b+tree': ['rodinia', 'b+tree.out', 3],
-#	'lavaMD': ['rodinia','lavaMD',3],
+	'lavaMD': ['rodinia','lavaMD',3],
 	'nw': ['rodinia','nw', 3],
-#	'gaussian': ['rodinia', 'gaussian', 2],
+	'gaussian': ['rodinia', 'gaussian', 2],
 #	'backprop': ['rodinia', 'backprop', 4],
-#	'hotspot': ['rodinia', 'hotspot',5],
-#	'kmeans': ['rodinia', 'kmeans',5],
-#	'bfs': ['rodinia', 'bfs', 10],
+	'hotspot': ['rodinia', 'hotspot',5],
+	'kmeans': ['rodinia', 'kmeans',5],
+	'bfs': ['rodinia', 'bfs', 10],
 #	'matrixMul': ['example', 'matrixMul', 2],
 #	'bfs': ['parboil', 'bfs', 10],
 #	'cutcp': ['parboil', 'cutcp', 5],
