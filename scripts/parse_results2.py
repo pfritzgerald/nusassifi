@@ -67,6 +67,8 @@ def parse_results_file(app, igid, bfm, c):
 		[job_id, kname, invocation_index, opcode, injBID, runtime, outcome] = \
 			[int(inj_site_info[0]), inj_site_info[1], int(inj_site_info[2]), words[4], int(words[6]), float(words[7]), int(words[8])]
 		inst_id = int(inj_site_info[3])
+		opIdSeed = inj_site_info[4]
+		bIdSeed = inj_site_info[5]
 #		print "words[1]: "+ str(words[1]),
 		pc_text = '0x'+str(words[1])
                 bb_id = int(words[2])
@@ -77,8 +79,8 @@ def parse_results_file(app, igid, bfm, c):
 #		pc = int(pc_text,0)
 		tId = int(words[5])
 		c.execute('INSERT OR IGNORE INTO Results '\
-            'VALUES(NULL, %d, \'%s\',\'%s\', \'%s\', %d, %d, %d, %d, \'%s\', %d, %d, \'%s\', %d, %d, %f, %d)'     
-            %(job_id,suite,app, kname, igid, bfm, invocation_index, inst_id, pc_text,
+            'VALUES(NULL, %d, \'%s\',\'%s\', \'%s\', \'%s\', \'%s\', %d, %d, %d, %d, \'%s\', %d, %d, \'%s\', %d, %d, %f, %d)'     
+            %(job_id,suite,app, kname, opIdSeed, bIdSeed, igid, bfm, invocation_index, inst_id, pc_text,
                 bb_id, global_inst_id, opcode, tId, injBID, runtime, (outcome-1)))
 
 		num_lines += 1
@@ -131,7 +133,8 @@ def print_usage():
 def CreateNewDB(c):
 	print "creating data DB"
 	c.execute('CREATE TABLE IF NOT EXISTS '\
-          'Results(ID INTEGER PRIMARY KEY, JobId INTEGER, Suite TEXT, App TEXT, kName TEXT, IgId INTEGER, '\
+          'Results(ID INTEGER PRIMARY KEY, JobId INTEGER, Suite TEXT, App TEXT,  kName TEXT, '\
+	  'OpIdSeed TEXT, BIDSeed TEXT, IgId INTEGER, '\
           'BFM INTEGER, InvocationIdx INTEGER, InstId INTERGER, PC TEXT, BBId '\
           'INTEGER, GlobalInstId INTEGER, '\
           'Opcode TEXT, TId INTEGER, InjBId INTEGER, Runtime INTEGER, OutcomeID INTEGER)')
