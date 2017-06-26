@@ -72,7 +72,7 @@ typedef struct {
 	int32_t injKCount;
 	int32_t injIGID; // arch state id
 	unsigned long long injInstID; // injection inst id
-	unsigned long long injTID; // injection thread id
+	long long injTID; // injection thread id
 	float injOpSeed; // injection operand id seed (random number between 0-1)
 	uint32_t injBFM; // error model 
 	float injBIDSeed; // bit id seed (random number between 0-1)
@@ -85,7 +85,7 @@ void reset_inj_info() {
 	inj_info.errorInjected = false;
 	inj_info.writeBeforeRead = false;
 	inj_info.readyToInject = false;
-	inj_info.injTID = -1;
+	inj_info.injTID = 0;
 	inj_info.injThreadID = -1; 
 	inj_info.injKernelName[0] = '\0';
 	inj_info.injKCount = 0;
@@ -479,19 +479,32 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp,
 	switch (inj_info.injIGID) {
 		case GPR: {
 				if (has_dest_GPR(rp)) {
-
-					unsigned long long currInstCounter = atomicAdd(&injCountersInstType[GPR], 1LL); // update counter, return old value 
-					bool cond = inj_info.injInstID == currInstCounter; // the current opcode matches injIGID and injInstID matches
-					/// -- FRITZ - requiring a specific thread Id for injection
-					bool cond = cond == (inj_info.injTID == get_flat_tid());
-					if (inj_info.injBFM == WARP_FLIP_SINGLE_BIT || inj_info.injBFM == WARP_FLIP_TWO_BITS  || inj_info.injBFM == WARP_RANDOM_VALUE || inj_info.injBFM == ZERO_VALUE || inj_info.injBFM == WARP_ZERO_VALUE) {  // For warp wide injections 
-						cond = (__any(cond) != 0) ; // __any() evaluates cond for all active threads of the warp and return non-zero if and only if cond evaluates to non-zero for any of them.
+					unsigned long long currInstCounter = atomicAdd(&injCountersInstType[GPR], 1LL);
+					//printf("currinstcounter = %lld\n", currInstCounter);
+					bool cond1 = inj_info.injInstID == currInstCounter; // the current opcode matches injIGID and injInstID matches
+					if(cond1)
+					{
+						cudaDeviceSynchronize();
+						//threadfence();
+						inj_info.readyToInject = true;
 					}
+					if (inj_info.readyToInject && !inj_info.errorInjected && (int)inj_info.injTID == get_flat_tid()) 
+					{
+				
+//							printf("INJECTOR.CU ::: Found the correct thread\n");
+							cond1 = true;	
+					/// -- FRITZ - requiring a specific thread Id for injection
+
+						if (inj_info.injBFM == WARP_FLIP_SINGLE_BIT || inj_info.injBFM == WARP_FLIP_TWO_BITS  || inj_info.injBFM == WARP_RANDOM_VALUE || inj_info.injBFM == ZERO_VALUE || inj_info.injBFM == WARP_ZERO_VALUE) {  // For warp wide injections 
+							cond1 = (__any(cond1) != 0) ; // __any() evaluates cond for all active threads of the warp and return non-zero if and only if cond evaluates to non-zero for any of them.
+						}
 	
-					if(cond) { 
-						 // get destination register info, get the value in that register, and inject error
-						SASSIRegisterParams::GPRRegInfo regInfo = rp->GetGPRDst(get_int_inj_id(rp->GetNumGPRDsts(), inj_info.injOpSeed));
-						inject_GPR_error(ap, rp, regInfo, inj_info.injBIDSeed, inj_info.injInstID, inj_info.injBFM);
+						if(cond1) { 
+							// get destination register info, get the value in that register, and inject error
+							SASSIRegisterParams::GPRRegInfo regInfo = rp->GetGPRDst(get_int_inj_id(rp->GetNumGPRDsts(), inj_info.injOpSeed));
+							inj_info.errorInjected = true;
+							inject_GPR_error(ap, rp, regInfo, inj_info.injBIDSeed, inj_info.injInstID, inj_info.injBFM);
+						}
 					}
 				}
 			}

@@ -232,13 +232,14 @@ def is_timeout(app, pr): # check if the process is active every 'factor' sec for
 ###############################################################################
 # Run the actual injection run 
 ###############################################################################
-def run_one_injection_job(igid, bfm, app, kname, kcount, iid, tid, opid, bid):
+def run_one_injection_job(igid, bfm, app, kname, kcount, iid, Tid, opid, bid):
 	start = datetime.datetime.now() # current time
 	[pc, bb_id, global_iid, inst_type, tid, injBID, ret_vat] = ["", -1, -1, "", -1, -1, -1]
 
 	shutil.rmtree(new_directory, True)
 	os.system("mkdir -p " + new_directory) # create directory to store temp_results
-	create_p_file(injection_seeds_file, igid, bfm, kname, kcount, iid, tid, opid, bid)
+	create_p_file(injection_seeds_file, igid, bfm, kname, kcount, iid,
+                Tid, opid, bid)
 
 	dmesg_before = cmdline("dmesg")
 
@@ -260,7 +261,8 @@ def run_one_injection_job(igid, bfm, app, kname, kcount, iid, tid, opid, bid):
 	if timeout_flag:
 		ret_cat = cp.TIMEOUT 
 	else:
-		ret_cat = classify_injection(app, igid, kname, kcount, iid, opid, bid, retcode, dmesg_delta)
+		ret_cat = classify_injection(app, igid, kname, kcount, iid,
+                        opid, bid, retcode, dmesg_delta)
 		[pc, bb_id, global_iid, inst_type, tid, injBID] = get_inj_info()
 	
 	os.chdir(cwd) # return to the main dir
@@ -282,13 +284,22 @@ def main():
 	if not os.path.isdir(sp.SASSIFI_HOME): print "Error: Regression dir not found!"
 	if not os.path.isdir(sp.logs_base_dir + "/results"): os.system("mkdir -p " + sp.logs_base_dir + "/results") # create directory to store summary
 
-	if len(sys.argv) == 9:
+	if len(sys.argv) == 10:
 		start= datetime.datetime.now()
-		[igid, bfm, app, kname, kcount, iid, opid, bid] = [sys.argv[1], sys.argv[2], sys.argv[3], str(sys.argv[4]), str(sys.argv[5]), str(sys.argv[6]), str(sys.argv[7]), str(sys.argv[8])]
+		[igid, bfm, app, kname, kcount, iid, tid, opid, bid] = \
+                [sys.argv[1], sys.argv[2], sys.argv[3], str(sys.argv[4]),\
+                        str(sys.argv[5]), str(sys.argv[6]), str(sys.argv[7]),\
+                        str(sys.argv[8]), str(sys.argv[9])]
 		set_env_variables(igid, bfm, app, kname, kcount, iid, opid, bid) 
-		
-		err_cat = run_one_injection_job(igid, bfm, app, kname, kcount, iid, opid, bid) 
-	
+	        if tid == '-1':
+                    if cp.verbose: print "Invalid Thread Id - tId= " + tid
+                    return
+		err_cat = run_one_injection_job(igid, bfm, app, kname, kcount,\
+                        iid,tid, opid, bid) 
+#                if err_cat == 18:
+#                    if cp.verbose: print "RE - TRYING"
+#	            err_cat = run_one_injection_job(igid, bfm, app, kname, kcount,\
+#                        iid,tid, opid, bid)   
 		elapsed = datetime.datetime.now() - start
 		print "App=%s, IGID=%s, EM=%s, Time=%f, Outcome: %s" %(app, igid, bfm, get_seconds(elapsed), cp.CAT_STR[err_cat-1])
 	else:
