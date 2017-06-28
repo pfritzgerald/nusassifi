@@ -275,7 +275,9 @@ __device__ void inject_store_error(SASSIAfterParams* ap, SASSIMemoryParams *mp, 
 ////////////////////////////////////////////////////////////////////////////////////
 // Injecting errors in GPR registers 
 ////////////////////////////////////////////////////////////////////////////////////
-__device__ void inject_GPR_error(SASSICoreParams* cp, SASSIRegisterParams *rp, SASSIRegisterParams::GPRRegInfo regInfo, float injBIDSeed, unsigned long long injInstID, uint32_t injBFM) {
+__device__ void inject_GPR_error(SASSICoreParams* cp, SASSIRegisterParams *rp, 
+		SASSIRegisterParams::GPRRegInfo regInfo, float injBIDSeed, 
+		unsigned long long injInstID, uint32_t injBFM) {
 
 	// get the value in the register, and inject error
 	int32_t valueInReg = rp->GetRegValue(cp, regInfo).asInt; 
@@ -491,11 +493,11 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp,
 					if (inj_info.readyToInject && !inj_info.errorInjected && (int)inj_info.injTID == get_flat_tid()) 
 					{
 				
-//							printf("INJECTOR.CU ::: Found the correct thread\n");
 							cond1 = true;	
-					/// -- FRITZ - requiring a specific thread Id for injection
 
-						if (inj_info.injBFM == WARP_FLIP_SINGLE_BIT || inj_info.injBFM == WARP_FLIP_TWO_BITS  || inj_info.injBFM == WARP_RANDOM_VALUE || inj_info.injBFM == ZERO_VALUE || inj_info.injBFM == WARP_ZERO_VALUE) {  // For warp wide injections 
+						if (inj_info.injBFM == WARP_FLIP_SINGLE_BIT || inj_info.injBFM == WARP_FLIP_TWO_BITS  || 
+								inj_info.injBFM == WARP_RANDOM_VALUE || inj_info.injBFM == ZERO_VALUE || 
+								inj_info.injBFM == WARP_ZERO_VALUE) {  // For warp wide injections 
 							cond1 = (__any(cond1) != 0) ; // __any() evaluates cond for all active threads of the warp and return non-zero if and only if cond evaluates to non-zero for any of them.
 						}
 	
