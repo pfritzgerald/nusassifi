@@ -67,7 +67,7 @@ main (int argc, char *argv[]) {
 
   struct pb_Parameters *params;
   struct pb_TimerSet timers;
-  cudaSetDevice(1);
+ // cudaSetDevice(1);
   pb_InitializeTimerSet(&timers);
 
   /* Read command line */
