@@ -32,11 +32,11 @@
 #include <set>
 #include <string>
 #include "sassi/sassi-opcodes.h"
-
+#include "sassi_dictionary.hpp"
 // configuration parameters 
 #define NUM_INJ_PARAMS 5
 #define MAX_REGS_PERINST 5
-#define NUM_INJECTIONS 3
+#define NUM_INJECTIONS 2
 
 // Injection mode 
 #define RF_INJECTIONS 0

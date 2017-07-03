@@ -53,6 +53,7 @@
 // cuda kernels that executed so far during the application execution.
 std::map<std::string, int> knameCount; 
 
+static __managed__ sassi::dictionary<uint64_t, unsigned long long> *pcOccurrenceCounter;
 #if TIMING
 struct timeval start, end;
 float mTotalTime = 0;
@@ -286,7 +287,7 @@ __device__ void inject_store_error(SASSIAfterParams* ap, SASSIMemoryParams *mp, 
 // Injecting errors in GPR registers 
 ////////////////////////////////////////////////////////////////////////////////////
 __device__ void inject_GPR_error(uint32_t error_id, SASSICoreParams* cp, SASSIRegisterParams *rp, SASSIRegisterParams::GPRRegInfo regInfo, float injBIDSeed, unsigned long long injInstID, uint32_t injBFM) {
-
+//	printf("----INJECTING GPR ERROR--------------\n");
 	// get the value in the register, and inject error
 	int32_t valueInReg = rp->GetRegValue(cp, regInfo).asInt; 
 
@@ -308,9 +309,11 @@ __device__ void inject_GPR_error(uint32_t error_id, SASSICoreParams* cp, SASSIRe
 	} else if (injBFM == ZERO_VALUE || injBFM == WARP_ZERO_VALUE) {
 		injectedVal.asUint = 0; 
 	}
-
-	printf("\n:::Injecting: ErrorId=%d pc=%llx bbId=%d GlobalInstCount=%lld opcode=%s tid=%d instCount=%lld instType=GPR regNum=%d injBID=%d:::", 
-			error_id, cp->GetPUPC(), cp->GetBBID(), injCounterAllInsts, SASSIInstrOpcodeStrings[cp->GetOpcode()], get_flat_tid(), injInstID,
+	unsigned long long *pc_counter =
+		pcOccurrenceCounter->getOrInit(cp->GetPUPC(), [](unsigned long long
+					*counter) { assert(0);});
+	printf("\n:::Injecting: ErrorId=%d pc=%llx pcCounter=%lld bbId=%d GlobalInstCount=%lld opcode=%s tid=%d instCount=%lld instType=GPR regNum=%d injBID=%d:::", 
+			error_id, cp->GetPUPC(), *pc_counter, cp->GetBBID(), injCounterAllInsts, SASSIInstrOpcodeStrings[cp->GetOpcode()], get_flat_tid(), injInstID,
 			 rp->GetRegNum(regInfo), injBID);
 
 	if (!DUMMY_INJECTION) {
@@ -500,25 +503,35 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp,
 	}
 	if (!ready)
 		return; // This is not the selected kernel. No need to proceed.
-		switch (inj_info[0].injIGID) {
+	switch (inj_info[0].injIGID) {
 		case GPR: {
 				if (has_dest_GPR(rp)) {
 
 					unsigned long long currInstCounter = atomicAdd(&injCountersInstType[GPR], 1LL); // update counter, return old value
-        	                        for (i=0; i<NUM_INJECTIONS; i++)
-	                                {
-					bool cond = inj_info[i].injInstID == currInstCounter; // the current opcode matches injIGID and injInstID matches
-					if (inj_info[i].injBFM == WARP_FLIP_SINGLE_BIT || inj_info[i].injBFM == WARP_FLIP_TWO_BITS  || inj_info[i].injBFM == WARP_RANDOM_VALUE || inj_info[i].injBFM == ZERO_VALUE || inj_info[i].injBFM == WARP_ZERO_VALUE) {  // For warp wide injections 
+					uint64_t pupc = ap->GetPUPC();
+					unsigned long long *pc_counter =
+						pcOccurrenceCounter->getOrInit(pupc,[](unsigned
+									long long *count){
+								*count = 1ULL;
+								});
+					atomicAdd(pc_counter, 1);
+					for (i=0; i<NUM_INJECTIONS; i++)
+					{
+						bool cond = inj_info[i].injInstID == currInstCounter &&
+							inj_info[i].areParamsReady; // the current opcode matches injIGID and injInstID matches
+						if (inj_info[i].injBFM == WARP_FLIP_SINGLE_BIT || inj_info[i].injBFM == WARP_FLIP_TWO_BITS  || inj_info[i].injBFM == WARP_RANDOM_VALUE || inj_info[i].injBFM == ZERO_VALUE || inj_info[i].injBFM == WARP_ZERO_VALUE) {  // For warp wide injections 
 						cond = (__any(cond) != 0) ; // __any() evaluates cond for all active threads of the warp and return non-zero if and only if cond evaluates to non-zero for any of them.
 					}
 	
 					if(cond) {
-						/// TESTING - Fritz
-                                                if (INJ_DEBUG_HEAVY)
-						  printf("\n|||||||| Injecting error %d||||||||\n", i);
+						//  printf("\n|||||||| Injecting error %d||||||||\n", i);
 						 // get destination register info, get the value in that register, and inject error
 						SASSIRegisterParams::GPRRegInfo regInfo = rp->GetGPRDst(get_int_inj_id(rp->GetNumGPRDsts(), inj_info[i].injOpSeed));
-						inject_GPR_error(i, ap, rp, regInfo, inj_info[i].injBIDSeed, inj_info[i].injInstID, inj_info[i].injBFM);
+						if (!inj_info[i].errorInjected)
+						{
+							inject_GPR_error(i, ap, rp, regInfo, inj_info[i].injBIDSeed, inj_info[i].injInstID, inj_info[i].injBFM);
+							inj_info[i].errorInjected = true;
+						}
 					}
 				        }
                                 }
@@ -589,6 +602,8 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp,
 static void sassi_init() {
 	 // read seeds for random error injection
 	parse_params(injInputFilename.c_str());  // injParams are updated based on injection seed file
+	pcOccurrenceCounter = new sassi::dictionary<uint64_t, unsigned long
+			long>();
 }
 
 //////////////////////////////////////////////////////////////////////

@@ -39,7 +39,7 @@ import common_params as p
 # - Confdience interval at 95% condence level is at most 3.1% with 1000 injections
 #########################################################################
 
-multiple_injections = 3
+multiple_injections = 2
 # Specify the number of injection sites to create before starting the injection
 # campaign. This is essentially the maximum number of injections one can run
 # per instruction group (IGID) and bit-flip model (BFM).
