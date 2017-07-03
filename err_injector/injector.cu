@@ -101,8 +101,8 @@ void reset_inj_info() {
 // for debugging 
 void print_inj_info() {
 	printf("inj_kname=%s, inj_kcount=%d, ", inj_info.injKernelName, inj_info.injKCount);
-	printf("inj_igid=%d, inj_fault_model=%d, inj_PC=%llx, inj_PCCount=%lld, inj_thread_id=%lld",
-			inj_info.injIGID, inj_info.injBFM, inj_info.PC, inj_info.PCCount, inj_info.injTID);
+	printf("inj_igid=%d, inj_fault_model=%d, inj_PC=%lx, inj_PCCount=%lld, inj_thread_id=%lld",
+			inj_info.injIGID, inj_info.injBFM, inj_info.injPC, inj_info.injPCCount, inj_info.injTID);
 	printf("inj_destination_id=%f, inj_bit_location=%f \n", inj_info.injOpSeed, inj_info.injBIDSeed);
 }
 
@@ -122,8 +122,8 @@ void parse_params(std::string filename) {
 
 		ifs >> inj_info.injKernelName;
 		ifs >> inj_info.injKCount;
-		ifs >> inj_info.injPC; // instruction id
-		ifs >> inj_info.injPCCount;
+		ifs >> std::hex >> inj_info.injPC; // PC
+		ifs >> std::dec >> inj_info.injPCCount;
 		ifs >> inj_info.injTID;
 
 		ifs >> inj_info.injOpSeed; // destination id seed (float, 0-1 for inst injections and 0-256 for reg)
@@ -430,12 +430,12 @@ __device__ void sassi_before_handler(SASSIBeforeParams* bp, SASSIMemoryParams *m
 		return; 											// This is not the selected kernel. No need to proceed.
 
 	unsigned long long currInstCounter = atomicAdd(&injCounterAllInsts, 1LL) + 1;  // update counter, returns old value
-	uint64_t pupc = ap->GetPUPC();
+	uint64_t pupc = bp->GetPUPC();
 	unsigned long long *pc_counter = pcOccurrenceCounter->getOrInit(pupc, [](
 				unsigned long long *count){  *count = 1ULL; });
 	atomicAdd(pc_counter,1);
 
-	if (inj_info.PC == pupc && inj_info.PCCount==*pc_counter) { // the current PC matches the injPC (and count), time to inject the erorr
+	if (inj_info.injPC == pupc && inj_info.injPCCount==*pc_counter) { // the current PC matches the injPC (and count), time to inject the erorr
 		// record thread number, and RF to inject.	
 		// Note we are not injecting the error here, we are just recording it. We
 		// will inject the error when it is used as a source register by the
@@ -443,7 +443,7 @@ __device__ void sassi_before_handler(SASSIBeforeParams* bp, SASSIMemoryParams *m
 		inj_info.injThreadID = get_flat_tid();
 		inj_info.readyToInject = true;
 		DEBUG_PRINT(INJ_DEBUG_LIGHT, "Injection point reached: tid=%lld instCount=%lld,PC=%llx count=%lld \n", 
-				inj_info.injThreadID, currInstCounter, inj_info.PC, inj_info.PCCount);
+				inj_info.injThreadID, currInstCounter, inj_info.injPC, inj_info.injPCCount);
 	} 
 
 	// if readyToInject is set and this is the thread that was selected, check for error injection
@@ -483,29 +483,41 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp,
 
 	if (!inj_info.areParamsReady) // Check if this is the kernel of interest 
 		return; // This is not the selected kernel. No need to proceed.
+	int threadIdxInWarp = get_laneid();
+	int active = __ballot(1);
+	int firstActiveThread = (__ffs(active)-1); /*leader*/
+	// Get the "probably unique" PC.
+	uint64_t pupc = ap->GetPUPC();
+	unsigned long long *pc_counter;
+	// The warp leader gets to write results.
+	if (threadIdxInWarp == firstActiveThread) { 
+		pc_counter = pcOccurrenceCounter->getOrInit(pupc, [](
+		unsigned long long *count){  *count = 1ULL; });
+//	printf("---------\nINJECTOR.CU:: PC: %llx\n-----------\n", pupc);
+		atomicAdd(pc_counter,1);
+	}
+
  	atomicAdd(&injCounterAllInsts, 1LL) + 1;  // update counter, returns old value
 
 	switch (inj_info.injIGID) {
 		case GPR: {
 				if (has_dest_GPR(rp)) {
-					uint64_t pupc = ap->GetPUPC();
-					unsigned long long *pc_counter = pcOccurrenceCounter->getOrInit(pupc, [](
-								unsigned long long *count){  *count = 1ULL; });
-					atomicAdd(pc_counter,1);
 					unsigned long long currInstCounter = atomicAdd(&injCountersInstType[GPR], 1LL);
 					//printf("currinstcounter = %lld\n", currInstCounter);
 					// the current opcode matches injIGID and injPC and count match
-					bool cond1 = (inj_info.PC == pupc) && (inj_info.PCCount == *pc_counter);
+					bool cond1 = (inj_info.injPC == pupc) && (inj_info.injPCCount == *pc_counter);
 					if(cond1)
 					{
+						printf("REACHED PROG COUNTER: %llx - count: %lld\n",
+							pupc, *pc_counter);
 						cudaDeviceSynchronize();
 						//threadfence();
 						inj_info.readyToInject = true;
 					}
-					if (inj_info.readyToInject && !inj_info.errorInjected && (int)inj_info.injTID == get_flat_tid()) 
+					if ((inj_info.readyToInject && !inj_info.errorInjected ) && (int)inj_info.injTID == get_flat_tid()) 
 					{
 				
-//							printf("INJECTOR.CU ::: Found the correct thread\n");
+							printf("INJECTOR.CU ::: Found the correct thread\n");
 							cond1 = true;	
 					/// -- FRITZ - requiring a specific thread Id for injection
 
@@ -528,12 +540,7 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp,
 		case CC: {
 				if (has_dest_CC(rp)) {
 					unsigned long long currInstCounter = atomicAdd(&injCountersInstType[CC], 1LL);
-					uint64_t pupc = ap->GetPUPC();
-					unsigned long long *pc_counter = pcOccurrenceCounter->getOrInit(pupc, [](
-								unsigned long long *count){  *count = 1ULL; });
-					atomicAdd(pc_counter,1);
-
-					if ((inj_info.PC == pupc) && (inj_info.pc_counter == *pc_counter)) {
+					if ((inj_info.injPC == pupc) && (inj_info.injPCCount == *pc_counter)) {
 						inject_CC_error(ap, rp, inj_info.injBIDSeed, currInstCounter, inj_info.injBFM);
 					}
 				}
@@ -542,12 +549,7 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp,
 		case PR: {
 				if (has_dest_PR(rp)) {
 					unsigned long long currInstCounter = atomicAdd(&injCountersInstType[PR], 1LL);
-					uint64_t pupc = ap->GetPUPC();
-					unsigned long long *pc_counter = pcOccurrenceCounter->getOrInit(pupc, [](
-								unsigned long long *count){  *count = 1ULL; });
-					atomicAdd(pc_counter,1);
-
-					if ((inj_info.PC == pupc) && (inj_info.pc_counter == *pc_counter)) {
+					if ((inj_info.injPC == pupc) && (inj_info.injPCCount == *pc_counter)) {
 						inject_PR_error(ap, rp, inj_info.injBIDSeed, currInstCounter, inj_info.injBFM);
 					}
 				}
@@ -556,12 +558,7 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp,
 		case STORE_VAL: {
 				if (is_store_inst(ap, mp)) {
 					unsigned long long currInstCounter = atomicAdd(&injCountersInstType[STORE_VAL], 1LL); // update counter, return old value
-					uint64_t pupc = ap->GetPUPC();
-					unsigned long long *pc_counter = pcOccurrenceCounter->getOrInit(pupc, [](
-								unsigned long long *count){  *count = 1ULL; });
-					atomicAdd(pc_counter,1);
-
-					bool cond = (inj_info.PC == pupc) && (inj_info.PCCount == *pc_counter); 
+					bool cond = (inj_info.injPC == pupc) && (inj_info.injPCCount == *pc_counter); 
 
 					if (inj_info.injBFM == WARP_FLIP_SINGLE_BIT || inj_info.injBFM == WARP_FLIP_TWO_BITS  || inj_info.injBFM == WARP_RANDOM_VALUE || inj_info.injBFM == ZERO_VALUE || inj_info.injBFM == WARP_ZERO_VALUE) {  // For warp wide injections 
 						cond = (__any(cond) != 0) ; // __any() evaluates cond for all active threads of the warp and return non-zero if and only if cond evaluates to non-zero for any of them.
@@ -583,13 +580,9 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp,
 		case SETP_OP: {
 				int32_t currInstCat = get_op_category(ap->GetOpcode());
 				unsigned long long currInstCounter = atomicAdd(&injCountersInstType[currInstCat], 1LL);  // update counter, return old value 
-				uint64_t pupc = ap->GetPUPC();
-				unsigned long long *pc_counter = pcOccurrenceCounter->getOrInit(pupc, [](
-							unsigned long long *count){  *count = 1ULL; });
-				atomicAdd(pc_counter,1);
 				// the current opcode matches injIGID and injPC anad injPCcount match
-				bool cond = inj_info.injIGID == currInstCat && (inj_info.PC == pupc) &&
-					(inj_info.PCCount == *pc_counter); 
+				bool cond = inj_info.injIGID == currInstCat && (inj_info.injPC == pupc) &&
+					(inj_info.injPCCount == *pc_counter); 
 				
 				if (inj_info.injBFM == WARP_FLIP_SINGLE_BIT || inj_info.injBFM == WARP_FLIP_TWO_BITS  || inj_info.injBFM == WARP_RANDOM_VALUE || inj_info.injBFM == ZERO_VALUE || inj_info.injBFM == WARP_ZERO_VALUE) {  // For warp wide injections 
 					cond = (__any(cond) != 0) ; // __any() evaluates cond for all active threads of the warp and return non-zero if and only if cond evaluates to non-zero for any of them.
@@ -612,6 +605,7 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp,
 
 static void sassi_init() {
 	 // read seeds for random error injection
+	pcOccurrenceCounter = new sassi::dictionary<uint64_t, unsigned long long>();
 	parse_params(injInputFilename.c_str());  // injParams are updated based on injection seed file
 }
 

@@ -116,12 +116,12 @@ def run_multiple_injections_igid(app, is_rf, igid, where_to_run):
 
 			#_Z24bpnn_adjust_weights_cudaPfiS_iS_S_ 0 1297034 0.877316323856 0.214340876321
 			if len(line.split()) >= 6: 
-				[kname, kcount, iid, tid, opid, bid] = line.split() # obtains params for this injection
+				[kname, kcount, pc, pc_count, tid, opid, bid] = line.split() # obtains params for this injection
 				if cp.verbose: print "\n%d: app=%s, Kernel=%s,\
-                                kcount=%s, igid=%d, bfm=%d, instID=%s,\
-				tID=%s, opID=%s, bitLocation=%s" %(total_jobs, app, kname, kcount, igid, bfm, iid, tid, opid, bid)
-				cmd = "%s %s/scripts/run_one_injection.py %s %s %s %s %s %s %s %s %s" %(cp.PYTHON_P,
-						sp.SASSIFI_HOME, str(igid), str(bfm), app, kname, kcount, iid, tid, opid, bid)
+                                kcount=%s, igid=%d, bfm=%d, PC=%s, PCCount=%s\
+				tID=%s, opID=%s, bitLocation=%s" %(total_jobs, app, kname, kcount, igid, bfm, pc, pc_count, tid, opid, bid)
+				cmd = "%s %s/scripts/run_one_injection.py %s %s %s %s %s %s %s %s %s %s" %(cp.PYTHON_P,
+						sp.SASSIFI_HOME, str(igid), str(bfm), app, kname, kcount, pc, pc_count, tid, opid, bid)
 				if where_to_run == "cluster":
 					check_and_submit_cluster(cmd)
 				elif where_to_run == "multigpu":
