@@ -69,7 +69,8 @@ def set_env_variables(igid, bfm, app, kname, kcount, iid, opid, bid): # Set dire
 # mutliple parallel jobs can run safely write results to the file
 ###############################################################################
 execution_id = -1
-def record_result(igid, bfm, app, kname, kcount, iid,  opid, bid, cat, pc, bb_id, global_iid, inst_type, tid, injBID, runtime, dmesg):
+def record_result(igid, bfm, app, kname, kcount, iid,  opid, bid, cat, pc,
+        pc_count, bb_id, global_iid, inst_type, tid, injBID, runtime, dmesg):
 	global execution_id#, knames, kcounts, iids
 	res_fname = sp.app_log_dir[app] + "/results-igid" + str(igid) + ".bfm" + str(bfm) + "." + str(sp.NUM_INJECTIONS) + ".txt"
 
@@ -84,7 +85,8 @@ def record_result(igid, bfm, app, kname, kcount, iid,  opid, bid, cat, pc, bb_id
 
 	rf = open(res_fname, "a")
 	for i in range(sp.multiple_injections):
-		rf.write(str(execution_id) + "-" + knames[i] + "-" + str(kcounts[i]) + "-" + str(iids[i]) + "-" + str(opid) + "-" + str(bid) + ":" + str(pc[i]) + ":" + str(bb_id[i]) + ":" + str(global_iid[i]) + ":" + str(inst_type[i]) + ":" +  str(tid[i]) + ":" + str(injBID[i]) + ":" + str(runtime) + ":" + str(cat) + ":" + dmesg + "\n")
+		rf.write(str(execution_id) + "-" + knames[i] + "-" +
+                        str(kcounts[i]) + "-" + str(iids[i]) + "-" + str(opid) + "-" + str(bid) + ":" + str(pc[i]) + ":" + str(pc_count[i]) + ":" + str(bb_id[i]) + ":" + str(global_iid[i]) + ":" + str(inst_type[i]) + ":" +  str(tid[i]) + ":" + str(injBID[i]) + ":" + str(runtime) + ":" + str(cat) + ":" + dmesg + "\n")
 	rf.close()
 
 	if has_filelock:
@@ -134,22 +136,25 @@ def create_p_file(p_filename, igid, bfm, kname, kcount, iid, opid, bid, app):
 # Parse stadout file and get the injection information. 
 ###############################################################################
 def get_inj_info():
-	[pc, bb_id, global_iid, inst_type, tid, injBID] = [sp.multiple_injections*[""], sp.multiple_injections*[-1], sp.multiple_injections*[-1], sp.multiple_injections*[""], sp.multiple_injections*[-1], sp.multiple_injections*[-1]]
+	[pc, pc_count, bb_id, global_iid, inst_type, tid, injBID] = \
+        [sp.multiple_injections*[""], sp.multiple_injections*[-1], sp.multiple_injections*[-1], sp.multiple_injections*[-1], sp.multiple_injections*[""], sp.multiple_injections*[-1], sp.multiple_injections*[-1]]
 #	[pc, bb_id, global_iid, inst_type, tid, injBID] = ["", -1, -1, "", -1, -1]
 	if os.path.isfile(stdout_fname): 
 		logf = open(stdout_fname, "r")
 		for line in logf:
 			for i in range(sp.multiple_injections):
 				#":::Injecting: opcode=%s tid=%d instCount=%lld instType=GPR injOpID=%d injBIDSeed=%f:::", SASSIInstrOpcodeStrings[ap->GetOpcode()], get_flat_tid(), injInstID, injOpID, injBIDSeed);
-				matchObj = re.match( r'.*:::Injecting: ErrorId=(\d+) pc=(\S+) bbId=(\d+) GlobalInstCount=(\d+) opcode=(\S+) tid=(\d+) .* injBID=(\d+):::.*', line, re.M) #:::Injecting: opcode=IADD tid=583564 instCount=1284359 instType=CC injBID=0:::
+				matchObj = re.match( r'.*:::Injecting: ErrorId=(\d+) pc=(\S+) pcCounter=(\d+) bbId=(\d+) GlobalInstCount=(\d+) opcode=(\S+) tid=(\d+) .* injBID=(\d+):::.*', line, re.M) #:::Injecting: opcode=IADD tid=583564 instCount=1284359 instType=CC injBID=0:::
 				if matchObj:
 					error_id = int(matchObj.group(1))
-					[pc[error_id], bb_id[error_id], global_iid[error_id], inst_type[error_id], tid[error_id], injBID[error_id]] = [matchObj.group(2), matchObj.group(3),
+					[pc[error_id], pc_count[error_id], bb_id[error_id], global_iid[error_id], inst_type[error_id], tid[error_id], injBID[error_id]] = [matchObj.group(2), matchObj.group(3),
                                 	        matchObj.group(4), matchObj.group(5),
-                                        	matchObj.group(6), matchObj.group(7)]
+                                        	matchObj.group(6),
+                                                matchObj.group(7),
+                                                matchObj.group(8)]
 					break 
 		logf.close()
-	return [pc, bb_id, global_iid, inst_type, tid, injBID];
+	return [pc, pc_count, bb_id, global_iid, inst_type, tid, injBID];
 
 ###############################################################################
 # Classify error injection result based on stdout, stderr, application output,
@@ -284,19 +289,20 @@ def run_one_injection_job(igid, bfm, app, kname, kcount, iid, opid, bid):
 
 	if cp.verbose: os.system("cat " + sp.stdout_file + " " + sp.stderr_file)
 	
-        [pc, bb_id, global_iid, inst_type, tid, injBID] = [sp.multiple_injections*[""], sp.multiple_injections*[-1], sp.multiple_injections*[-1], sp.multiple_injections*[""], sp.multiple_injections*[-1], sp.multiple_injections*[-1]]
+        [pc, pc_count, bb_id, global_iid, inst_type, tid, injBID] = [sp.multiple_injections*[""],sp.multiple_injections*[-1], sp.multiple_injections*[-1], sp.multiple_injections*[-1], sp.multiple_injections*[""], sp.multiple_injections*[-1], sp.multiple_injections*[-1]]
 
 	if timeout_flag:
 		ret_cat = cp.TIMEOUT 
 	else:
 		ret_cat = classify_injection(app, igid, kname, kcount, iid, opid, bid, retcode, dmesg_delta)
-		[pc, bb_id, global_iid, inst_type, tid, injBID] = get_inj_info()
+		[pc, pc_count, bb_id, global_iid, inst_type, tid, injBID] = get_inj_info()
 	
 	os.chdir(cwd) # return to the main dir
 	#print ret_cat
 
 	elapsed = datetime.datetime.now() - start
-	record_result(igid, bfm, app, kname, kcount, iid, opid, bid, ret_cat, pc, bb_id, global_iid, inst_type, tid, injBID, get_seconds(elapsed), dmesg_delta)
+	record_result(igid, bfm, app, kname, kcount, iid, opid, bid, ret_cat,
+                pc, pc_count, bb_id, global_iid, inst_type, tid, injBID, get_seconds(elapsed), dmesg_delta)
 
 	if get_seconds(elapsed) < 0.5: time.sleep(0.5)
 	shutil.rmtree(new_directory, True) # remove the directory once injection job is done
