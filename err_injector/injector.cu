@@ -503,18 +503,25 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp,
 	}
 	if (!ready)
 		return; // This is not the selected kernel. No need to proceed.
+	int threadIdxInWarp = get_laneid();
+	int active = __ballot(1);
+	int firstActiveThread = (__ffs(active)-1); /*leader*/
+
+	// The warp leader gets to write results.
+	if (threadIdxInWarp == firstActiveThread) { 
+		// Get the "probably unique" PC.
+		uint64_t pupc = ap->GetPUPC();
+		unsigned long long *pc_counter =
+			pcOccurrenceCounter->getOrInit(pupc,[](unsigned long long *count){
+					*count = 1ULL;	});
+		atomicAdd(pc_counter, 1);
+	}
+
 	switch (inj_info[0].injIGID) {
 		case GPR: {
 				if (has_dest_GPR(rp)) {
 
 					unsigned long long currInstCounter = atomicAdd(&injCountersInstType[GPR], 1LL); // update counter, return old value
-					uint64_t pupc = ap->GetPUPC();
-					unsigned long long *pc_counter =
-						pcOccurrenceCounter->getOrInit(pupc,[](unsigned
-									long long *count){
-								*count = 1ULL;
-								});
-					atomicAdd(pc_counter, 1);
 					for (i=0; i<NUM_INJECTIONS; i++)
 					{
 						bool cond = inj_info[i].injInstID == currInstCounter &&
