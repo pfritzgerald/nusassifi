@@ -72,7 +72,6 @@ typedef struct {
 	int32_t injKCount;
 	int32_t injIGID; // arch state id
 	unsigned long long injInstID; // injection inst id
-	unsigned long long injTID; // injection thread id
 	float injOpSeed; // injection operand id seed (random number between 0-1)
 	uint32_t injBFM; // error model 
 	float injBIDSeed; // bit id seed (random number between 0-1)
@@ -85,7 +84,6 @@ void reset_inj_info() {
 	inj_info.errorInjected = false;
 	inj_info.writeBeforeRead = false;
 	inj_info.readyToInject = false;
-	inj_info.injTID = -1;
 	inj_info.injThreadID = -1; 
 	inj_info.injKernelName[0] = '\0';
 	inj_info.injKCount = 0;
@@ -99,8 +97,8 @@ void reset_inj_info() {
 // for debugging 
 void print_inj_info() {
 	printf("inj_kname=%s, inj_kcount=%d, ", inj_info.injKernelName, inj_info.injKCount);
-	printf("inj_igid=%d, inj_fault_model=%d, inj_inst_id=%lld, inj_thread_id=%lld",
-			inj_info.injIGID, inj_info.injBFM, inj_info.injInstID, inj_info.injTID);
+	printf("inj_igid=%d, inj_fault_model=%d, inj_inst_id=%lld",
+			inj_info.injIGID, inj_info.injBFM, inj_info.injInstID);
 	printf("inj_destination_id=%f, inj_bit_location=%f \n", inj_info.injOpSeed, inj_info.injBIDSeed);
 }
 
@@ -121,7 +119,6 @@ void parse_params(std::string filename) {
 		ifs >> inj_info.injKernelName;
 		ifs >> inj_info.injKCount;
 		ifs >> inj_info.injInstID; // instruction id
-		ifs >> inj_info.injTID;
 
 		ifs >> inj_info.injOpSeed; // destination id seed (float, 0-1 for inst injections and 0-256 for reg)
 #if INJ_MODE != RF_INJECTIONS
@@ -483,7 +480,6 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp,
 					unsigned long long currInstCounter = atomicAdd(&injCountersInstType[GPR], 1LL); // update counter, return old value 
 					bool cond = inj_info.injInstID == currInstCounter; // the current opcode matches injIGID and injInstID matches
 					/// -- FRITZ - requiring a specific thread Id for injection
-					bool cond = cond == (inj_info.injTID == get_flat_tid());
 					if (inj_info.injBFM == WARP_FLIP_SINGLE_BIT || inj_info.injBFM == WARP_FLIP_TWO_BITS  || inj_info.injBFM == WARP_RANDOM_VALUE || inj_info.injBFM == ZERO_VALUE || inj_info.injBFM == WARP_ZERO_VALUE) {  // For warp wide injections 
 						cond = (__any(cond) != 0) ; // __any() evaluates cond for all active threads of the warp and return non-zero if and only if cond evaluates to non-zero for any of them.
 					}

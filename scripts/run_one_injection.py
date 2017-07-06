@@ -98,12 +98,12 @@ def record_result(igid, bfm, app, kname, kcount, iid,  opid, bid, cat, pc, bb_id
 ###############################################################################
 # Create params file. The contents of this file will be read by the injection run.
 ###############################################################################
-def create_p_file(p_filename, igid, bfm, kname, kcount, iid, tid, opid, bid):
+def create_p_file(p_filename, igid, bfm, kname, kcount, iid, opid, bid):
 	outf = open(p_filename, "w")
 	if igid == "rf":
 		outf.write(bfm + "\n" + kname + "\n" + kcount + "\n" + iid + "\n" + opid + "\n" + bid)
 	else:
-		outf.write(igid + "\n" + bfm + "\n" + kname + "\n" + kcount + "\n" + iid + "\n" + tid + "\n" + opid + "\n" + bid)
+		outf.write(igid + "\n" + bfm + "\n" + kname + "\n" + kcount + "\n" + iid + "\n" + opid + "\n" + bid)
 	outf.close()
 
 ###############################################################################
@@ -232,13 +232,13 @@ def is_timeout(app, pr): # check if the process is active every 'factor' sec for
 ###############################################################################
 # Run the actual injection run 
 ###############################################################################
-def run_one_injection_job(igid, bfm, app, kname, kcount, iid, tid, opid, bid):
+def run_one_injection_job(igid, bfm, app, kname, kcount, iid, opid, bid):
 	start = datetime.datetime.now() # current time
 	[pc, bb_id, global_iid, inst_type, tid, injBID, ret_vat] = ["", -1, -1, "", -1, -1, -1]
 
 	shutil.rmtree(new_directory, True)
 	os.system("mkdir -p " + new_directory) # create directory to store temp_results
-	create_p_file(injection_seeds_file, igid, bfm, kname, kcount, iid, tid, opid, bid)
+	create_p_file(injection_seeds_file, igid, bfm, kname, kcount, iid, opid, bid)
 
 	dmesg_before = cmdline("dmesg")
 
