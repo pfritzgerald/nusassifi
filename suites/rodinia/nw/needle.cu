@@ -54,7 +54,7 @@ double gettime() {
 int
 main( int argc, char** argv) 
 {
-	cudaSetDevice(1);
+//	cudaSetDevice(1);
 	printf("WG size of kernel = %d \n", BLOCK_SIZE);
 
 	runTest( argc, argv);

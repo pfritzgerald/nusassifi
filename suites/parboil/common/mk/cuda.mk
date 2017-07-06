@@ -36,7 +36,7 @@ SASSI_CUDALDFLAGS = -L$(INST_LIB_DIR) -lprofiler $(CUPTI)
 endif
 
 ifeq ($(SASSI_OPTION),inst_injector)
-SASSI_CUDACFLAGS = $(AFTER_REG_MEM) $(AFTER_REG_MEM_INFO) $(BRANCH_AROUND) $(GENCODE) 
+SASSI_CUDACFLAGS = $(AFTER_REG_MEM) $(AFTER_REG_MEM_INFO) $(BRANCH_AROUND) $(GENCODE)  -Xptxas --sassi-function-entry -Xptxas --sassi-bb-entry
 SASSI_CUDALDFLAGS = -L$(INST_LIB_DIR) -linstinjector $(CUPTI) 
 endif
  

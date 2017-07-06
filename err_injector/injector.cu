@@ -43,6 +43,9 @@
 #include <sassi/sassi-regs.hpp>
 #include <sassi/sassi-memory.hpp>
 #include <sassi/sassi-opcodes.h>
+
+#include <sassi/sassi-function.hpp>
+
 #include "sassi_intrinsics.h"
 #include "sassi_dictionary.hpp"
 #include "sassi_lazyallocator.hpp"
@@ -57,7 +60,66 @@ std::map<std::string, int> knameCount;
 struct timeval start, end;
 float mTotalTime = 0;
 #endif
+// 8Mb of space for CFG information.
+#define POOLSIZE (1024 * 1024 * 8)
+#define MAX_FN_STR_LEN 64
 
+// Create a memory pool that we can populate on the device and read on the host.
+static __managed__ uint8_t sassi_mempool[POOLSIZE];
+static __managed__ int     sassi_mempool_cur;
+
+// A structure to record a basic block.  We will perform a deep copy
+// of SASSI's SASSIBasicBlockParams for each basic block.
+struct BLOCK {
+  int id;
+  unsigned long long weight;
+  bool isEntry;
+  bool isExit;
+  int numInstrs;
+  int numSuccs;
+  int succs[2];
+};
+
+// A structure to record a function's CFG.
+struct CFG {
+  char fnName[MAX_FN_STR_LEN];
+  int numBlocks;
+  BLOCK *blocks;
+};
+
+// A dictionary of CFGs.
+static __managed__ sassi::dictionary<int64_t, CFG*> *sassi_cfg;
+
+// A dictionary of basic blocks.
+static __managed__ sassi::dictionary<int64_t, BLOCK*> *sassi_cfg_blocks;
+
+///////////////////////////////////////////////////////////////////////////////////
+///
+///  Allocate data from the UVM mempool.
+///
+///////////////////////////////////////////////////////////////////////////////////
+__device__ void *simple_malloc(size_t sz)
+{
+  int ptr = atomicAdd(&sassi_mempool_cur, sz);
+  assert ((ptr + sz) <= POOLSIZE);
+  return (void*) &(sassi_mempool[ptr]);
+}
+
+///////////////////////////////////////////////////////////////////////////////////
+///
+///  A simple string copy to copy from device memory to our UVM malloc'd region.
+///
+///////////////////////////////////////////////////////////////////////////////////
+__device__ void simple_strncpy(char *dest, const char *src)
+{
+  int i;
+  for (i = 0; i < MAX_FN_STR_LEN-1; i++) {
+    char c = src[i];
+    if (c == 0) break;
+    dest[i] = c;
+  }
+  dest[i] = '\0';
+}
 //////////////////////////////////////////////////////////////////////
 // Error injection parameters and related functions
 //////////////////////////////////////////////////////////////////////
@@ -72,7 +134,6 @@ typedef struct {
 	int32_t injKCount;
 	int32_t injIGID; // arch state id
 	unsigned long long injInstID; // injection inst id
-	unsigned long long injTID; // injection thread id
 	float injOpSeed; // injection operand id seed (random number between 0-1)
 	uint32_t injBFM; // error model 
 	float injBIDSeed; // bit id seed (random number between 0-1)
@@ -85,7 +146,6 @@ void reset_inj_info() {
 	inj_info.errorInjected = false;
 	inj_info.writeBeforeRead = false;
 	inj_info.readyToInject = false;
-	inj_info.injTID = -1;
 	inj_info.injThreadID = -1; 
 	inj_info.injKernelName[0] = '\0';
 	inj_info.injKCount = 0;
@@ -99,8 +159,8 @@ void reset_inj_info() {
 // for debugging 
 void print_inj_info() {
 	printf("inj_kname=%s, inj_kcount=%d, ", inj_info.injKernelName, inj_info.injKCount);
-	printf("inj_igid=%d, inj_fault_model=%d, inj_inst_id=%lld, inj_thread_id=%lld",
-			inj_info.injIGID, inj_info.injBFM, inj_info.injInstID, inj_info.injTID);
+	printf("inj_igid=%d, inj_fault_model=%d, inj_inst_id=%lld",
+			inj_info.injIGID, inj_info.injBFM, inj_info.injInstID);
 	printf("inj_destination_id=%f, inj_bit_location=%f \n", inj_info.injOpSeed, inj_info.injBIDSeed);
 }
 
@@ -121,7 +181,6 @@ void parse_params(std::string filename) {
 		ifs >> inj_info.injKernelName;
 		ifs >> inj_info.injKCount;
 		ifs >> inj_info.injInstID; // instruction id
-		ifs >> inj_info.injTID;
 
 		ifs >> inj_info.injOpSeed; // destination id seed (float, 0-1 for inst injections and 0-256 for reg)
 #if INJ_MODE != RF_INJECTIONS
@@ -482,8 +541,6 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp,
 
 					unsigned long long currInstCounter = atomicAdd(&injCountersInstType[GPR], 1LL); // update counter, return old value 
 					bool cond = inj_info.injInstID == currInstCounter; // the current opcode matches injIGID and injInstID matches
-					/// -- FRITZ - requiring a specific thread Id for injection
-					bool cond = cond == (inj_info.injTID == get_flat_tid());
 					if (inj_info.injBFM == WARP_FLIP_SINGLE_BIT || inj_info.injBFM == WARP_FLIP_TWO_BITS  || inj_info.injBFM == WARP_RANDOM_VALUE || inj_info.injBFM == ZERO_VALUE || inj_info.injBFM == WARP_ZERO_VALUE) {  // For warp wide injections 
 						cond = (__any(cond) != 0) ; // __any() evaluates cond for all active threads of the warp and return non-zero if and only if cond evaluates to non-zero for any of them.
 					}
@@ -561,7 +618,12 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp,
 static void sassi_init() {
 	 // read seeds for random error injection
 	parse_params(injInputFilename.c_str());  // injParams are updated based on injection seed file
+	sassi_mempool_cur = 0;
+	bzero(sassi_mempool, sizeof(sassi_mempool));
+	sassi_cfg = new sassi::dictionary<int64_t, CFG*>(601);
+	sassi_cfg_blocks = new sassi::dictionary<int64_t, BLOCK*>(7919);
 }
+
 
 //////////////////////////////////////////////////////////////////////
 // This function is invoked before a cuda-kernel starts executing. 
@@ -596,7 +658,49 @@ static void onKernelEntry(const CUpti_CallbackData *cbInfo) {
 #endif
 
 } 
+///////////////////////////////////////////////////////////////////////////////////
+///
+///  A call to this function will be inserted at the beginning of every 
+///  CUDA function or kernel.  We will essentially perform a deep copy of the
+///  CFG SASSI presents.  All of the copied data only contains static information
+///  about the CFG.  In the sassi_basic_block_entry handler, below, we will 
+///  record the dynamic number of times the basic block is invoked.
+///
+///////////////////////////////////////////////////////////////////////////////////
+__device__ void sassi_function_entry(SASSIFunctionParams* fp)
+{
+  int numBlocks = fp->GetNumBlocks();
+  const SASSIBasicBlockParams * const * blocks = fp->GetBlocks();
+  
+  CFG *cPtr = *(sassi_cfg->getOrInit((int64_t)fp, [numBlocks, blocks, fp](CFG **cfg) {
+      CFG *cPtr = (CFG*) simple_malloc(sizeof(CFG));
+      simple_strncpy(cPtr->fnName, fp->GetFnName());
+      cPtr->numBlocks = numBlocks;
+      cPtr->blocks = (BLOCK*) simple_malloc(sizeof(BLOCK) * numBlocks);
+      *cfg = cPtr;
+  }));
 
+  __threadfence();
+
+  for (int bb = 0; bb < numBlocks; bb++) {
+    const SASSIBasicBlockParams *blockParam = blocks[bb];
+    BLOCK *blockPtr = &(cPtr->blocks[bb]);    
+    sassi_cfg_blocks->getOrInit((int64_t)blockParam, [blockParam, blockPtr](BLOCK **bpp) {
+	*bpp = blockPtr;
+	blockPtr->id = blockParam->GetID();
+	blockPtr->weight = 0;
+	blockPtr->isEntry = blockParam->IsEntryBlock();
+	blockPtr->isExit = blockParam->IsExitBlock();
+	blockPtr->numInstrs = blockParam->GetNumInstrs();
+	blockPtr->numSuccs = blockParam->GetNumSuccs();
+	assert(blockParam->GetNumSuccs() <= 2);
+	const SASSIBasicBlockParams * const * succs = blockParam->GetSuccs();
+	for (int s = 0; s < blockParam->GetNumSuccs(); s++) {
+	  blockPtr->succs[s] = succs[s]->GetID();
+	}
+      });
+  }
+}
 //////////////////////////////////////////////////////////////////////
 // This function is called after every cuda-kernel execution.
 //////////////////////////////////////////////////////////////////////
@@ -630,13 +734,64 @@ static void onKernelExit(const CUpti_CallbackData *cbInfo) {
 	mTotalTime += mTime;
 #endif
 
-} 
+}
+
+ ///////////////////////////////////////////////////////////////////////////////////
+///
+///  Simply lookup the basic block in our dictionary, get its "weight" feild
+///  and increment it.
+///
+///////////////////////////////////////////////////////////////////////////////////
+__device__ void sassi_basic_block_entry(SASSIBasicBlockParams *bb)
+{
+  BLOCK **blockStr = sassi_cfg_blocks->getOrInit((int64_t)bb, [](BLOCK **bpp) { assert(0); });
+  atomicAdd(&((*blockStr)->weight), 1);
+}
+
+///////////////////////////////////////////////////////////////////////////////////
+///
+///	Print Kernel Time  
+///	Print the graph out in "dot" format.  
+///  E.g., use:
+///
+///       dot -Tps -o graph.ps sassi-cfg.dot 
+///
+///  to render the graph in postscript.
+///
+///////////////////////////////////////////////////////////////////////////////////
 
 static void sassi_finalize(sassi::lazy_allocator::device_reset_reason reason)
 {
 #if TIMING
 	printf("\nTotal kernel time: %f ms\n", mTotalTime);
 #endif
+	cudaDeviceSynchronize();
+	FILE *cfgFile = fopen("sassi-cfg.dot", "w");
+	sassi_cfg->map([cfgFile](int64_t k, CFG* &cfg) {
+	fprintf(cfgFile, "digraph %s {\n", cfg->fnName);
+	double weightMax = 0.0;
+	for (int bb = 0; bb < cfg->numBlocks; bb++) {
+		BLOCK *block = &(cfg->blocks[bb]);
+		weightMax = std::max(weightMax, (double)block->weight);
+ 	}
+	for (int bb = 0; bb < cfg->numBlocks; bb++) {
+	BLOCK *block = &(cfg->blocks[bb]);
+	int per = block->isExit ? 3 : 1;
+	int boxWeight = 100 - std::round(100.0 * ((double)block->weight / weightMax));
+	int fontWeight = boxWeight > 40 ? 0 : 100;
+	fprintf(cfgFile, "\tBB%d [style=filled,fontcolor=gray%d,shape=box,"
+		"peripheries=%d,color=gray%lld,label=\"BB%d : %d ins\"];\n", 
+		block->id, fontWeight, per, block->weight, block->id, block->numInstrs);
+	}
+	for (int bb = 0; bb < cfg->numBlocks; bb++) {
+		BLOCK *block = &(cfg->blocks[bb]);
+		for (int s = 0; s < block->numSuccs; s++) {
+		fprintf(cfgFile, "\tBB%d -> BB%d;\n", block->id, block->succs[s]);
+		}
+	}
+	fprintf(cfgFile, "}\n");
+	});
+	fclose(cfgFile);
 }
 
 static sassi::lazy_allocator injectorInit(sassi_init, sassi_finalize, onKernelEntry, onKernelExit); 

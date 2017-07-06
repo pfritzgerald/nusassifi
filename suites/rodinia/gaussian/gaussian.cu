@@ -91,7 +91,7 @@ create_matrix(float *m, int size){
 
 int main(int argc, char *argv[])
 {
-  cudaSetDevice(1);
+  //cudaSetDevice(1);
   printf("WG size of kernel 1 = %d, WG size of kernel 2= %d X %d\n", MAXBLOCKSIZE, BLOCK_SIZE_XY, BLOCK_SIZE_XY);
     int verbose = 1;
     int i, j;

@@ -67,7 +67,9 @@ def set_env_variables(igid, bfm, app, kname, kcount, iid, opid, bid): # Set dire
 # Record result in to a common file. This function uses file-locking such that
 # mutliple parallel jobs can run safely write results to the file
 ###############################################################################
+#execution_id = -1
 def record_result(igid, bfm, app, kname, kcount, iid,  opid, bid, cat, pc, bb_id, global_iid, inst_type, tid, injBID, runtime, dmesg):
+	global execution_id
 	res_fname = sp.app_log_dir[app] + "/results-igid" + str(igid) + ".bfm" + str(bfm) + "." + str(sp.NUM_INJECTIONS) + ".txt"
 
 	has_filelock = False
@@ -94,23 +96,37 @@ def record_result(igid, bfm, app, kname, kcount, iid,  opid, bid, cat, pc, bb_id
 		map((lambda x: shutil.copy(x, full_sdc_dir)), [stdout_fname, stderr_fname, injection_seeds_file, new_directory + "/" + sp.output_diff_log]) # copy stdout, stderr injection seeds, output diff
 		shutil.make_archive(full_sdc_dir, 'gztar', full_sdc_dir) # archieve the outputs
 		shutil.rmtree(full_sdc_dir, True) # remove the directory
+			
+		cfg_sdc_dir = sp.app_log_dir[app] + "cfgs/sdcs"
+		if not os.path.isdir(cfg_sdc_dir): os.system("mkdir -p " + cfg_sdc_dir)
+		shutil.copy(new_directory + "/sassi-cfg.dot", cfg_sdc_dir + "/" + execution_id)
+	if cat == cp.MASKED_NOT_READ or cat == cp.MASKED_WRITTEN or cat == cp.MASKED_OTHER:
+		cfg_masked_dir = sp.app_log_dir[app] + "cfgs/masked"
+		if not os.path.isdir(cfg_masked_dir): os.system("mkdir -p " + cfg_masked_dir)
+		shutil.copy(new_directory + "/sassi-cfg.dot", cfg_masked_dir + "/" + execution_id)
+	if cat == cp.TIMEOUT or cat == cp.NON_ZERO_EC:
+		cfg_due_dir = sp.app_log_dir[app] + "cfgs/dues"
+		if not os.path.isdir(cfg_due_dir): os.system("mkdir -p " + cfg_due_dir)
+		shutil.copy(new_directory + "/sassi-cfg.dot", cfg_due_dir + "/" + execution_id)
+
+
 
 ###############################################################################
 # Create params file. The contents of this file will be read by the injection run.
 ###############################################################################
-def create_p_file(p_filename, igid, bfm, kname, kcount, iid, tid, opid, bid):
+def create_p_file(p_filename, igid, bfm, kname, kcount, iid, opid, bid):
 	outf = open(p_filename, "w")
 	if igid == "rf":
 		outf.write(bfm + "\n" + kname + "\n" + kcount + "\n" + iid + "\n" + opid + "\n" + bid)
 	else:
-		outf.write(igid + "\n" + bfm + "\n" + kname + "\n" + kcount + "\n" + iid + "\n" + tid + "\n" + opid + "\n" + bid)
+		outf.write(igid + "\n" + bfm + "\n" + kname + "\n" + kcount + "\n" + iid + "\n" + opid + "\n" + bid)
 	outf.close()
 
 ###############################################################################
 # Parse stadout file and get the injection information. 
 ###############################################################################
 def get_inj_info():
-	[pc, bb_id, global_iid, inst_type, tid, injBID] = ["", -1, -1, "", -1, -1]
+	[pc, bb_id, global_iid, inst_type, injBID] = ["", -1, -1, "", -1]
 	if os.path.isfile(stdout_fname): 
 		logf = open(stdout_fname, "r")
 		for line in logf:
@@ -232,13 +248,13 @@ def is_timeout(app, pr): # check if the process is active every 'factor' sec for
 ###############################################################################
 # Run the actual injection run 
 ###############################################################################
-def run_one_injection_job(igid, bfm, app, kname, kcount, iid, tid, opid, bid):
+def run_one_injection_job(igid, bfm, app, kname, kcount, iid, opid, bid):
 	start = datetime.datetime.now() # current time
-	[pc, bb_id, global_iid, inst_type, tid, injBID, ret_vat] = ["", -1, -1, "", -1, -1, -1]
+	[pc, bb_id, global_iid, inst_type, injBID, ret_vat] = ["", -1, -1, "", -1, -1]
 
 	shutil.rmtree(new_directory, True)
 	os.system("mkdir -p " + new_directory) # create directory to store temp_results
-	create_p_file(injection_seeds_file, igid, bfm, kname, kcount, iid, tid, opid, bid)
+	create_p_file(injection_seeds_file, igid, bfm, kname, kcount, iid, opid, bid)
 
 	dmesg_before = cmdline("dmesg")
 
@@ -282,9 +298,10 @@ def main():
 	if not os.path.isdir(sp.SASSIFI_HOME): print "Error: Regression dir not found!"
 	if not os.path.isdir(sp.logs_base_dir + "/results"): os.system("mkdir -p " + sp.logs_base_dir + "/results") # create directory to store summary
 
-	if len(sys.argv) == 9:
+	if len(sys.argv) == 10:
 		start= datetime.datetime.now()
-		[igid, bfm, app, kname, kcount, iid, opid, bid] = [sys.argv[1], sys.argv[2], sys.argv[3], str(sys.argv[4]), str(sys.argv[5]), str(sys.argv[6]), str(sys.argv[7]), str(sys.argv[8])]
+		global execution_id
+		[igid, bfm, app, kname, kcount, iid, opid, bid, execution_id] = [sys.argv[1], sys.argv[2], sys.argv[3], str(sys.argv[4]), str(sys.argv[5]), str(sys.argv[6]), str(sys.argv[7]), str(sys.argv[8]), str(sys.argv[9])]
 		set_env_variables(igid, bfm, app, kname, kcount, iid, opid, bid) 
 		
 		err_cat = run_one_injection_job(igid, bfm, app, kname, kcount, iid, opid, bid) 
