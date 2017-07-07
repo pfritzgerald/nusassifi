@@ -48,7 +48,7 @@ int
 main(	int argc, 
 		char *argv [])
 {
-        cudaSetDevice(1);
+        //cudaSetDevice(1);
 	printf("thread block size of kernel = %d \n", NUMBER_THREADS);
 	//======================================================================================================================================================150
 	//	CPU/MCPU VARIABLES

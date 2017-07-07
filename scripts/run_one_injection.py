@@ -68,7 +68,7 @@ def set_env_variables(igid, bfm, app, kname, kcount, iid, opid, bid): # Set dire
 # Record result in to a common file. This function uses file-locking such that
 # mutliple parallel jobs can run safely write results to the file
 ###############################################################################
-execution_id = -1
+#execution_id = -1
 def record_result(igid, bfm, app, kname, kcount, iid,  opid, bid, cat, pc,
         pc_count, bb_id, global_iid, inst_type, tid, injBID, runtime, dmesg):
 	global execution_id#, knames, kcounts, iids

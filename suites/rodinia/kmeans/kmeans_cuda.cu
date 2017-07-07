@@ -126,7 +126,7 @@ int
 main( int argc, char** argv) 
 {
 	// make sure we're running on the big card
-    cudaSetDevice(1);
+//    cudaSetDevice(1);
 	// as done in the CUDA start/help document provided
 	setup(argc, argv);    
 }
@@ -152,7 +152,7 @@ kmeansCuda(float  **feature,				/* in: [npoints][nfeatures] */
 	int i,j;				/* counters */
 
 
-	cudaSetDevice(1);
+//	cudaSetDevice(1);
 
 	/* copy membership (host to device) */
 	cudaMemcpy(membership_d, membership_new, npoints*sizeof(int), cudaMemcpyHostToDevice);

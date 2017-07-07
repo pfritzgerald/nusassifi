@@ -265,7 +265,7 @@ void usage(int argc, char **argv)
 int main(int argc, char** argv)
 {
   printf("WG size of kernel = %d X %d\n", BLOCK_SIZE, BLOCK_SIZE);
-    cudaSetDevice(1);
+    //cudaSetDevice(1);
     run(argc,argv);
 
     return EXIT_SUCCESS;
