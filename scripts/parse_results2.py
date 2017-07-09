@@ -27,7 +27,7 @@
 ###################################################################################
 
 
-import os, sys, re, string, math, datetime, time, pkgutil
+import os, sys, re, string, math, datetime, time, pkgutil, hashlib
 from optparse import OptionParser
 import common_params as cp
 import specific_params as sp
@@ -89,6 +89,19 @@ def parse_results_file(app, igid, bfm, c):
 	if num_lines == 0 and app in results_app_table and os.stat(sp.app_log_dir[app] + "injection-list/igid" + str(igid) + ".bfm" + str(bfm) + "." + str(sp.NUM_INJECTIONS) + ".txt").st_size != 0: 
 		print "%s, igid=%d, bfm=%d not done" %(app, igid, bfm)
 
+def parse_cfg_files(app, c):
+	for outcome in ['masked', 'sdcs', 'dues']:
+		if os.path.isdir(sp.app_log_dir[app]+"/cfgs/" + outcome)==False:
+			continue
+		for fault in os.listdir(sp.app_log_dir[app]+"/cfgs/" + outcome):
+			fault_id = int(fault)
+			hash_ = hashlib.md5(open(sp.app_log_dir[app]+"/cfgs/"+outcome+"/"+fault,
+				"rb").read()).hexdigest()
+			c.execute('INSERT OR IGNORE INTO CFG '\
+				'VALUES(NULL, \'%s\', %d, \'%s\', \'%s\')'
+				%(app, fault_id, hash_,outcome))
+
+
 ###################################################################################
 # Parse results files and populate summary to results table 
 ###################################################################################
@@ -99,6 +112,7 @@ def parse_results_apps(typ,c):
 			for igid in sp.parse_igid_bfm_map:
 				for bfm in sp.parse_igid_bfm_map[igid]:
 					parse_results_file(app, igid, bfm, c)
+					parse_cfg_files(app,c)
 		else:
 			for bfm in sp.parse_rf_bfm_list:
 				parse_results_file(app, "rf", bfm, c)
@@ -149,6 +163,9 @@ def CreateNewDB(c):
 	c.execute('CREATE TABLE IF NOT EXISTS '\
 		'Kernels(ID INTEGER PRIMARY KEY, Application TEXT, KernelName TEXT, '\
 		'InvocationIdx INTEGER, InvInstCount INTEGER, AppInstCount INTEGER)')
+	c.execute('CREATE TABLE IF NOT EXISTS '\
+		'CFG(ID INTEGER PRIMARY KEY, Application TEXT, FaultID INTEGER, '\
+		'CfgHash TEXT, Outcome TEXT)')
 
 	######
 	# fill up OutcomeMap table
