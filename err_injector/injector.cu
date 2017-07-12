@@ -433,6 +433,7 @@ __device__ void sassi_before_handler(SASSIBeforeParams* bp, SASSIMemoryParams *m
 
 	unsigned long long currInstCounter = atomicAdd(&injCounterAllInsts, 1LL) + 1;  // update counter, returns old value
 	uint64_t pupc = bp->GetPUPC();
+
 	unsigned long long *pc_counter = pcOccurrenceCounter->getOrInit(pupc, [](
 				unsigned long long *count){  *count = 1ULL; });
 	atomicAdd(pc_counter,1);
@@ -504,21 +505,20 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp,
 	switch (inj_info.injIGID) {
 		case GPR: {
 				if (has_dest_GPR(rp)) {
+					bool cond1 = false;
 					unsigned long long currInstCounter = atomicAdd(&injCountersInstType[GPR], 1LL);
 					//printf("currinstcounter = %lld\n", currInstCounter);
 					// the current opcode matches injIGID and injPC and count match
-					bool cond1 = (inj_info.injPC == pupc) && (inj_info.injPCCount == *pc_counter);
-					if(cond1)
-					{
-						printf("REACHED PROG COUNTER: %llx - count: %lld\n",
-							pupc, *pc_counter);
-						cudaDeviceSynchronize();
+					pc_counter = pcOccurrenceCounter->getOrInit(pupc, [](unsigned long long *counter) { assert(0);});
+					inj_info.readyToInject = (inj_info.injPC == pupc) && (inj_info.injPCCount == *pc_counter);
+					//	printf("REACHED PROG COUNTER: %llx - count: %lld\n",
+							//pupc, *pc_counter);
+					cudaDeviceSynchronize();
 						//threadfence();
-						inj_info.readyToInject = true;
-					}
+					
 					if ((inj_info.readyToInject && !inj_info.errorInjected ) && (int)inj_info.injTID == get_flat_tid()) 
 					{
-						printf("INJECTOR.CU ::: Found the correct thread\n");
+					//	printf("INJECTOR.CU ::: Found the correct thread\n");
 						cond1 = true;	
 					}
 					if (inj_info.injBFM == WARP_FLIP_SINGLE_BIT || inj_info.injBFM == WARP_FLIP_TWO_BITS  || 
