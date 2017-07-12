@@ -79,9 +79,32 @@ def count_done(fname):
 # check queue and launch multiple jobs on a cluster 
 # This feature is not implemented.
 ############################################################################
-def check_and_submit_cluster(cmd):
-		print "This feature is not implement. Please write code here to submit jobs to your cluster.\n"
-		sys.exit(-1)
+def create_sbatch_script(app,array_num):
+	filename =  sp.SASSIFI_HOME + "/scripts/tmp/" + app + "/" + str(array_num)+".sbatch"
+	outf = open(filename, "w")
+	outf.write("#!/bin/bash\n"
+		"# sassifi.sbatch\n#\n"
+		"#SBATCH --exclusive\n"
+		"#SBATCH -J " + app + str(array_num) + "\n"
+		"#SBATCH -p par-gpu\n"
+		"#SBATCH -n 32\n"
+		"#SBATCH -N 1\n"
+		"#SBATCH -o " + app + "_sbatch_%A_%a.out\n"
+		"#SBATCH -e " + app + "_sbatch_%A_%a.err\n\n"
+		"cmd=`sed \"${SLURM_ARRAY_TASK_ID}q;d\" cmds_" + str(array_num) + ".out`\n"
+		"$cmd\n")
+	outf.close()
+	return filename
+
+def check_and_submit_cluster(cmd, app, total_jobs):
+	array_num = (total_jobs / 1001) + 1 
+	if total_jobs < sp.THRESHOLD_JOBS + 1:
+		os.system("echo " + cmd + " >> " + sp.SASSIFI_HOME + "/scripts/tmp/" + app + "/cmds_" + str(array_num) + ".out")
+	if total_jobs == sp.THRESHOLD_JOBS or (total_jobs % 1000) == 0:	
+		sbatch_script=create_sbatch_script(app,array_num)	
+		num_jobs = (total_jobs % 1000) if (total_jobs % 1000) else 1000
+		os.system("sbatch -D " + sp.SASSIFI_HOME + "/scripts/tmp/" + app + "  --array=1-" + str(num_jobs) + " " + sbatch_script)
+#		os.system("rm cmds.out")
 
 ############################################################################
 # check queue and launch multiple jobs on the multigpu system 
@@ -103,12 +126,15 @@ def check_and_submit_multigpu(cmd):
 ###############################################################################
 def run_multiple_injections_igid(app, is_rf, igid, where_to_run):
 	bfm_list = sp.rf_bfm_list if is_rf else sp.igid_bfm_map[igid]
-		
+	if where_to_run == "cluster":
+		if not os.path.isdir(sp.SASSIFI_HOME + "/scripts/tmp/" + app):
+			os.system("mkdir -p " + sp.SASSIFI_HOME + "/scripts/tmp/" + app) 
 	for bfm in bfm_list:
 		#print "App: %s, IGID: %s, EM: %s" %(app, cp.IGID_STR[igid], cp.EM_STR[bfm])
 		total_jobs = 0
 		inj_list_filenmae = sp.app_log_dir[app] + "/injection-list/igid" + str(igid) + ".bfm" + str(bfm) + "." + str(sp.NUM_INJECTIONS) + ".txt"
 		inf = open(inj_list_filenmae, "r")
+		
 		for line in inf: # for each injection site 
 			total_jobs += 1
 			if total_jobs > sp.THRESHOLD_JOBS: 
@@ -122,8 +148,8 @@ def run_multiple_injections_igid(app, is_rf, igid, where_to_run):
 				tID=%s, opID=%s, bitLocation=%s" %(total_jobs, app, kname, kcount, igid, bfm, pc, pc_count, tid, opid, bid)
 				cmd = "%s %s/scripts/run_one_injection.py %s %s %s %s %s %s %s %s %s %s" %(cp.PYTHON_P,
 						sp.SASSIFI_HOME, str(igid), str(bfm), app, kname, kcount, pc, pc_count, tid, opid, bid)
-				if where_to_run == "cluster":
-					check_and_submit_cluster(cmd)
+				if where_to_run == "cluster":	
+					check_and_submit_cluster(cmd, app, total_jobs)
 				elif where_to_run == "multigpu":
 					check_and_submit_multigpu(cmd)
 				else:
@@ -132,6 +158,12 @@ def run_multiple_injections_igid(app, is_rf, igid, where_to_run):
 			else:
 				print "Line doesn't have enough params:%s" %line
 			print_heart_beat(total_jobs, where_to_run)
+#	if where_to_run == "cluster":
+#		os.system("cat " + app + "_sbatch_*.out >" + app + "_sbatch.out")
+#		os.system("cat " + app + "_sbatch_*.err >" + app + "_sbatch.err")
+#		os.system("rm " + app + "_sbatch_*.* sassifi.sbatch")
+
+
 
 
 ###############################################################################
