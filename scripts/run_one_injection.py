@@ -229,6 +229,15 @@ def is_timeout(app, pr): # check if the process is active every 'factor' sec for
 	else:
 		return [False, retcode]
 
+def handler(signum, frame):
+    print 'Signal handler called with signal ', signum
+#    exit(1)
+
+def preexec_function():
+    print "Prexec Function"
+    os.setsid()
+    signal.signal(signal.SIGINT, handler)
+
 ###############################################################################
 # Run the actual injection run 
 ###############################################################################
@@ -246,7 +255,8 @@ def run_one_injection_job(igid, bfm, app, kname, kcount, iid, opid, bid):
 	cwd = os.getcwd()
 	os.chdir(new_directory) # go to app dir
 	if cp.verbose: start_main = datetime.datetime.now() # current time
-	pr = subprocess.Popen(sp.script_dir[app] + "/" + sp.run_script, shell=True, executable='/bin/bash', preexec_fn=os.setsid) # run the injection job
+	pr = subprocess.Popen(sp.script_dir[app] + "/" + sp.run_script,
+                shell=True, executable='/bin/bash', preexec_fn=os.setsid) # run the injection job
 
 	[timeout_flag, retcode] = is_timeout(app, pr)
 	if cp.verbose: print "App runtime: " + str(get_seconds(datetime.datetime.now() - start_main))
