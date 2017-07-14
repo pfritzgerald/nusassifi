@@ -9,14 +9,21 @@ import specific_params as sp
 for app in sp.apps:
   print sp.app_log_dir[app]
 '
+where_to_run=$2
 inst_rf="inst"
 if [ "$inst_rf" == "inst" ] || [ "$inst_rf" == "rf" ] ; then
   printf "Mode: $inst_rf\n"
 else
   inst_rf="inst"
 
-  printf "Proceeding with $inst_rf\n"
 fi
+if [ "$where_to_run" == "cluster" ] || [ "$where_to_run" == "standalone" ] || [ "$where_to_run" == "multigpu" ] ; then
+	printf "Running on $where_to_run\n"
+else
+	where_to_run="standalone"
+fi
+
+printf "Proceeding with $inst_rf on $where_to_run\n"
 #printf "\nEnter directory for your application: "
 app_dir_list=`python -c "$python_app_dirs"`
 printf "\nDirectory list:\n" 
@@ -113,7 +120,7 @@ fi
 # Step 8: Run the error injection campaign 
 ################################################
 printf "\n------------\nStep 8: Run the error injection campaign\n"
-python run_injections.py $inst_rf standalone 
+python run_injections.py $inst_rf $where_to_run
 # to run the injection campaign on a single machine with single gpu
 
 #python run_injections.py $inst_rf multigpu 
