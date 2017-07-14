@@ -94,7 +94,8 @@ def parse_cfg_files(app, c):
 		if os.path.isdir(sp.app_log_dir[app]+"/cfgs/" + outcome)==False:
 			continue
 		for fault in os.listdir(sp.app_log_dir[app]+"/cfgs/" + outcome):
-			fault_id = int(fault)
+                        if fault.endswith(".ckpt")==False: continue
+			fault_id = int(fault.strip(".ckpt"))
 			hash_ = hashlib.md5(open(sp.app_log_dir[app]+"/cfgs/"+outcome+"/"+fault,
 				"rb").read()).hexdigest()
 			c.execute('INSERT OR IGNORE INTO CFG '\

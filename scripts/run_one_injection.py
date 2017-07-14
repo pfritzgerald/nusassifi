@@ -100,16 +100,21 @@ def record_result(igid, bfm, app, kname, kcount, iid,  opid, bid, cat, pc, bb_id
 		cfg_sdc_dir = sp.app_log_dir[app] + "cfgs/sdcs"
 		if not os.path.isdir(cfg_sdc_dir): os.system("mkdir -p " + cfg_sdc_dir)
 		shutil.copy(new_directory + "/sassi-cfg.dot", cfg_sdc_dir + "/" + execution_id)
+		shutil.copy(new_directory + "/checkpoint", cfg_sdc_dir + "/" +
+                        execution_id + ".ckpt")
 	if cat == cp.MASKED_NOT_READ or cat == cp.MASKED_WRITTEN or cat == cp.MASKED_OTHER:
 		cfg_masked_dir = sp.app_log_dir[app] + "cfgs/masked"
 		if not os.path.isdir(cfg_masked_dir): os.system("mkdir -p " + cfg_masked_dir)
 		shutil.copy(new_directory + "/sassi-cfg.dot", cfg_masked_dir + "/" + execution_id)
+                shutil.copy(new_directory + "/checkpoint", cfg_masked_dir + "/"
+                        + execution_id + ".ckpt")
 	if cat == cp.TIMEOUT or cat == cp.NON_ZERO_EC:
 		cfg_due_dir = sp.app_log_dir[app] + "cfgs/dues"
 		if not os.path.isdir(cfg_due_dir): os.system("mkdir -p " + cfg_due_dir)
-		shutil.copy(new_directory + "/sassi-cfg.dot", cfg_due_dir + "/" + execution_id)
-
-
+                if os.path.exists(new_directory + "/sassi-cfg.dot"):
+                        shutil.copy(new_directory + "/sassi-cfg.dot", cfg_due_dir + "/" + execution_id)
+		shutil.copy(new_directory + "/checkpoint", cfg_due_dir + "/" +
+                        execution_id + ".ckpt")
 
 ###############################################################################
 # Create params file. The contents of this file will be read by the injection run.

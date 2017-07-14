@@ -624,6 +624,37 @@ static void sassi_init() {
 	sassi_cfg_blocks = new sassi::dictionary<int64_t, BLOCK*>(7919);
 }
 
+static void take_checkpoint()
+{
+	cudaDeviceSynchronize();
+	FILE *cfgFile = fopen("checkpoint", "w");
+	sassi_cfg->map([cfgFile](int64_t k, CFG* &cfg) {
+	fprintf(cfgFile, "CHECKPOINT\ndigraph %s {\n", cfg->fnName);
+	double weightMax = 0.0;
+	for (int bb = 0; bb < cfg->numBlocks; bb++) {
+		BLOCK *block = &(cfg->blocks[bb]);
+		weightMax = std::max(weightMax, (double)block->weight);
+ 	}
+	for (int bb = 0; bb < cfg->numBlocks; bb++) {
+	BLOCK *block = &(cfg->blocks[bb]);
+	int per = block->isExit ? 3 : 1;
+	int boxWeight = 100 - std::round(100.0 * ((double)block->weight / weightMax));
+	int fontWeight = boxWeight > 40 ? 0 : 100;
+	fprintf(cfgFile, "\tBB%d [style=filled,fontcolor=gray%d,shape=box,"
+		"peripheries=%d,color=gray%d,label=\"BB%d : %d ins\"];\n", 
+		block->id, fontWeight, per, boxWeight, block->id, block->numInstrs);
+	}
+	for (int bb = 0; bb < cfg->numBlocks; bb++) {
+		BLOCK *block = &(cfg->blocks[bb]);
+		for (int s = 0; s < block->numSuccs; s++) {
+		fprintf(cfgFile, "\tBB%d -> BB%d;\n", block->id, block->succs[s]);
+		}
+	}
+	fprintf(cfgFile, "}\n");
+	});
+	fclose(cfgFile);
+}
+
 
 //////////////////////////////////////////////////////////////////////
 // This function is invoked before a cuda-kernel starts executing. 
@@ -657,6 +688,7 @@ static void onKernelEntry(const CUpti_CallbackData *cbInfo) {
 	gettimeofday(&start, NULL);
 #endif
 
+  take_checkpoint();
 } 
 ///////////////////////////////////////////////////////////////////////////////////
 ///
@@ -735,7 +767,6 @@ static void onKernelExit(const CUpti_CallbackData *cbInfo) {
 #endif
 
 }
-
  ///////////////////////////////////////////////////////////////////////////////////
 ///
 ///  Simply lookup the basic block in our dictionary, get its "weight" feild
