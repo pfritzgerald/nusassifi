@@ -82,7 +82,7 @@ def record_result(igid, bfm, app, kname, kcount, iid,  opid, bid, cat, pc, bb_id
 		lock.acquire() #acquire lock
 
 	rf = open(res_fname, "a")
-	rf.write(kname + "-" + kcount + "-" + iid + "-" + opid + "-" + bid + ":" + str(pc) + ":" + str(bb_id) + ":" + str(global_iid) + ":" + str(inst_type) + ":" +  str(tid) + ":" + str(injBID) + ":" + str(runtime) + ":" + str(cat) + ":" + dmesg + "\n")
+	rf.write(execution_id + "-" + kname + "-" + kcount + "-" + iid + "-" + opid + "-" + bid + ":" + str(pc) + ":" + str(bb_id) + ":" + str(global_iid) + ":" + str(inst_type) + ":" +  str(tid) + ":" + str(injBID) + ":" + str(runtime) + ":" + str(cat) + ":" + dmesg + "\n")
 	rf.close()
 
 	if has_filelock:

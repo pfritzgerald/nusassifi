@@ -64,11 +64,11 @@ def parse_results_file(app, igid, bfm, c):
 		#kname-kcount-iid-allIId-opid-bid:pc:opcode:tid:injBID:runtime_sec:outcome_category:dmesg
 		words = line.split(":")
 		inj_site_info = words[0].split("-")
-		[kname, invocation_index, opcode, injBID, runtime, outcome] = \
-			[inj_site_info[0], int(inj_site_info[1]), words[4], int(words[6]), float(words[7]), int(words[8])]
-		inst_id = int(inj_site_info[2])
-		opIdSeed = inj_site_info[3]
-		bIdSeed = inj_site_info[4]
+		[fault_id, kname, invocation_index, opcode, injBID, runtime, outcome] = \
+			[int(inj_site_info[0]), inj_site_info[1],int(inj_site_info[2]), words[4], int(words[6]), float(words[7]), int(words[8])]
+		inst_id = int(inj_site_info[3])
+		opIdSeed = inj_site_info[4]
+		bIdSeed = inj_site_info[5]
 #		print "words[1]: "+ str(words[1]),
 		pc_text = '0x'+str(words[1])
                 bb_id = int(words[2])
@@ -79,8 +79,8 @@ def parse_results_file(app, igid, bfm, c):
 #		pc = int(pc_text,0)
 		tId = int(words[5])
 		c.execute('INSERT OR IGNORE INTO Results '\
-				'VALUES(NULL, \'%s\',\'%s\',\'%s\',\'%s\', \'%s\', %d, %d, %d, %d, \'%s\', %d, %d, \'%s\', %d, %d, %f, %d)'
-				%(suite,app, kname, opIdSeed, bIdSeed, igid, bfm, invocation_index, inst_id, pc_text,
+				'VALUES(NULL, %d, \'%s\',\'%s\',\'%s\',\'%s\', \'%s\', %d, %d, %d, %d, \'%s\', %d, %d, \'%s\', %d, %d, %f, %d)'
+				%(fault_id,suite,app, kname, opIdSeed, bIdSeed, igid, bfm, invocation_index, inst_id, pc_text,
 					bb_id, global_inst_id, opcode, tId, injBID, runtime, (outcome-1)))
 
 		num_lines += 1
@@ -90,17 +90,40 @@ def parse_results_file(app, igid, bfm, c):
 		print "%s, igid=%d, bfm=%d not done" %(app, igid, bfm)
 
 def parse_cfg_files(app, c):
+	cfghash_table = []
 	for outcome in ['masked', 'sdcs', 'dues']:
 		if os.path.isdir(sp.app_log_dir[app]+"/cfgs/" + outcome)==False:
 			continue
 		for fault in os.listdir(sp.app_log_dir[app]+"/cfgs/" + outcome):
                         if fault.endswith(".ckpt")==False: continue
 			fault_id = int(fault.strip(".ckpt"))
-			hash_ = hashlib.md5(open(sp.app_log_dir[app]+"/cfgs/"+outcome+"/"+fault,
-				"rb").read()).hexdigest()
+			bb_file = open(sp.app_log_dir[app]+"/cfgs/"+outcome+"/"+fault,
+				"rb").read()
+			hash_ = hashlib.md5(bb_file).hexdigest()
+			if hash_ not in cfghash_table:
+				cfghash_table.append(hash_)
+				hash_id = cfghash_table.index(hash_)
+				[kname, last_invocation] = ['', -1]
+				for line in bb_file.split("\n"):
+					if 'CHECKPOINT'  in line:
+						kernel_line = line.split(": ")
+						kname = kernel_line[1]
+						print kName
+						last_invocation = int(kernel_line[3])
+						continue
+					if 'BB=' in line:
+						bb_line = re.split(', |=| |', line)
+						#print "bb_line: " + str(bb_line)
+						[bb_id, bb_weight, bb_num_ins] = [int(bb_line[1]), int(bb_line[3]), int(bb_line[5])]
+						c.execute('INSERT OR IGNORE INTO CfgHashes '\
+						'VALUES(NULL, %d, \'%s\', \'%s\', %d, %d, %d, %d)'
+						% (hash_id, app, kname, last_invocation, bb_id, bb_weight, bb_num_ins))
+			hash_id = cfghash_table.index(hash_)
 			c.execute('INSERT OR IGNORE INTO CFG '\
-				'VALUES(NULL, \'%s\', %d, \'%s\', \'%s\')'
-				%(app, fault_id, hash_,outcome))
+				'VALUES(NULL, \'%s\', %d, \'%s\', %d, \'%s\')'
+				%(app, fault_id, hash_,hash_id, outcome))
+	#		close(sp.app_log_dir[app]+"/cfgs/"+outcome+"/"+fault)
+
 
 
 ###################################################################################
@@ -148,7 +171,7 @@ def print_usage():
 def CreateNewDB(c):
 	print "creating data DB"
 	c.execute('CREATE TABLE IF NOT EXISTS '\
-          'Results(ID INTEGER PRIMARY KEY, Suite TEXT, App TEXT,  kName TEXT, '\
+          'Results(ID INTEGER PRIMARY KEY, FaultId INTEGER, Suite TEXT, App TEXT,  kName TEXT, '\
 	  'OpIdSeed TEXT, BIDSeed TEXT, IgId INTEGER, '\
           'BFM INTEGER, InvocationIdx INTEGER, InstId INTERGER, PC TEXT, BBId '\
           'INTEGER, GlobalInstId INTEGER, '\
@@ -162,11 +185,15 @@ def CreateNewDB(c):
 	c.execute('CREATE TABLE IF NOT EXISTS '\
           'OpcodeMap(ID INTEGER PRIMARY KEY, Description TEXT, App TEXT, InstCount INTEGER)')	
 	c.execute('CREATE TABLE IF NOT EXISTS '\
-		'Kernels(ID INTEGER PRIMARY KEY, Application TEXT, KernelName TEXT, '\
+		'Kernels(ID INTEGER PRIMARY KEY, App TEXT, KernelName TEXT, '\
 		'InvocationIdx INTEGER, InvInstCount INTEGER, AppInstCount INTEGER)')
 	c.execute('CREATE TABLE IF NOT EXISTS '\
-		'CFG(ID INTEGER PRIMARY KEY, Application TEXT, FaultID INTEGER, '\
-		'CfgHash TEXT, Outcome TEXT)')
+		'CFG(ID INTEGER PRIMARY KEY, App TEXT, FaultID INTEGER, '\
+		'CfgHash TEXT, HashId INTEGER, Outcome TEXT)')
+	c.execute('CREATE TABLE IF NOT EXISTS '\
+		'CfgHashes(ID INTEGER PRIMARY KEY, HashId INTEGER, App TEXT, kName TEXT, '\
+		'LastInvocation INTEGER, BBId INTEGER, BBWeight INTEGER, NumIns INTEGER)')
+
 
 	######
 	# fill up OutcomeMap table

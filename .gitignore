@@ -2,6 +2,7 @@ bin/
 scripts/*.pyc
 logs/*/*-igid*/
 logs/*/*/sdcs/
+logs/*/*/cfgs/
 suites/*/*/*.o
 suites/*/*/*.cpp*.i*
 suites/*/*/*.cubin

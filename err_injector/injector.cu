@@ -629,20 +629,13 @@ static void take_checkpoint()
 	cudaDeviceSynchronize();
 	FILE *cfgFile = fopen("checkpoint", "w");
 	sassi_cfg->map([cfgFile](int64_t k, CFG* &cfg) {
-	fprintf(cfgFile, "CHECKPOINT\ndigraph %s {\n", cfg->fnName);
-	double weightMax = 0.0;
-	for (int bb = 0; bb < cfg->numBlocks; bb++) {
-		BLOCK *block = &(cfg->blocks[bb]);
-		weightMax = std::max(weightMax, (double)block->weight);
- 	}
+	fprintf(cfgFile, "//CHECKPOINT: %s: LastInvocation: %d\n", 
+			cfg->fnName, knameCount[cfg->fnName]);
 	for (int bb = 0; bb < cfg->numBlocks; bb++) {
 	BLOCK *block = &(cfg->blocks[bb]);
-	int per = block->isExit ? 3 : 1;
-	int boxWeight = 100 - std::round(100.0 * ((double)block->weight / weightMax));
-	int fontWeight = boxWeight > 40 ? 0 : 100;
-	fprintf(cfgFile, "\tBB%d [style=filled,fontcolor=gray%d,shape=box,"
-		"peripheries=%d,color=gray%d,label=\"BB%d : %d ins\"];\n", 
-		block->id, fontWeight, per, boxWeight, block->id, block->numInstrs);
+
+	fprintf(cfgFile, "\tBB=%d weight=%lld, ins=%d\n", 
+		block->id, block->weight, block->numInstrs);
 	}
 	for (int bb = 0; bb < cfg->numBlocks; bb++) {
 		BLOCK *block = &(cfg->blocks[bb]);
@@ -650,7 +643,6 @@ static void take_checkpoint()
 		fprintf(cfgFile, "\tBB%d -> BB%d;\n", block->id, block->succs[s]);
 		}
 	}
-	fprintf(cfgFile, "}\n");
 	});
 	fclose(cfgFile);
 }
