@@ -131,7 +131,7 @@ def create_p_file(p_filename, igid, bfm, kname, kcount, iid, opid, bid):
 # Parse stadout file and get the injection information. 
 ###############################################################################
 def get_inj_info():
-	[pc, bb_id, global_iid, inst_type, injBID] = ["", -1, -1, "", -1]
+	[pc, bb_id, global_iid, inst_type, tid, injBID] = ["", -1, -1, "",-1, -1]
 	if os.path.isfile(stdout_fname): 
 		logf = open(stdout_fname, "r")
 		for line in logf:
@@ -152,12 +152,14 @@ def get_inj_info():
 def classify_injection(app, igid, kname, kcount, iid, opid, bid, retcode, dmesg_delta):
 	[found_line, found_error, found_skip] = [False, False, False]
 
-	if retcode != 0:
-		return cp.NON_ZERO_EC
-
+	if retcode != 0: os.system("grep \":::POST-INJ:\" " + stdout_fname + " >> checkpoint")
+	os.system("sed -i /POST-INJ/d " + stdout_fname)
 	stdout_str = "" 
 	if os.path.isfile(stdout_fname): 
 		stdout_str = open(stdout_fname).read()
+
+	if retcode != 0:
+		return cp.NON_ZERO_EC
 
 	if "Masked: Write before read" in stdout_str:
 		return cp.masked_written

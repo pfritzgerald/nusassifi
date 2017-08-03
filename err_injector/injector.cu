@@ -259,7 +259,7 @@ __device__ void inject_store_error_t(SASSIAfterParams* ap, SASSIMemoryParams *mp
 	T *memAddr = (T*) addr;
 
 	DEBUG_PRINT(INJ_DEBUG_LIGHT, "memAddr=%llx: value before=%llx\n", memAddr, *memAddr);
-	printf(":::Injecting: pc=%llx bbId=%d opcode=%s tid=%d instCount=%lld instType=st%d injBID=%d:::", ap->GetPUPC(), ap->GetBBID(), SASSIInstrOpcodeStrings[ap->GetOpcode()], get_flat_tid(), injInstID, bitwidth, injBID);
+	printf(":::Injecting: pc=%llx bbId=%d opcode=%s tid=%d instCount=%lld instType=st%d injBID=%d:::\n", ap->GetPUPC(), ap->GetBBID(), SASSIInstrOpcodeStrings[ap->GetOpcode()], get_flat_tid(), injInstID, bitwidth, injBID);
 
 	if (!DUMMY_INJECTION) {
 		if(injBFM == FLIP_SINGLE_BIT || injBFM == WARP_FLIP_SINGLE_BIT) {
@@ -282,7 +282,7 @@ __device__ void inject_store128_error_t(SASSIAfterParams* ap, SASSIMemoryParams 
 	uint128_t *memAddr = (uint128_t*) addr;
 
 	DEBUG_PRINT(INJ_DEBUG_LIGHT, "memAddr=%llx: value before=%llx, %llx\n", memAddr, (*memAddr).values[0], (*memAddr).values[1]);
-	printf(":::Injecting: pc=%llx bbId=%d opcode=%s tid=%d instCount=%lld instType=st%d injBID=%d:::", ap->GetPUPC(), ap->GetBBID(), SASSIInstrOpcodeStrings[ap->GetOpcode()], get_flat_tid(), injInstID, bitwidth, injBID);
+	printf(":::Injecting: pc=%llx bbId=%d opcode=%s tid=%d instCount=%lld instType=st%d injBID=%d:::\n", ap->GetPUPC(), ap->GetBBID(), SASSIInstrOpcodeStrings[ap->GetOpcode()], get_flat_tid(), injInstID, bitwidth, injBID);
 
 	if (!DUMMY_INJECTION) {
 		if (injBFM == FLIP_SINGLE_BIT || injBFM == WARP_FLIP_SINGLE_BIT) {
@@ -358,7 +358,7 @@ __device__ void inject_GPR_error(SASSICoreParams* cp, SASSIRegisterParams *rp, S
 		injectedVal.asUint = 0; 
 	}
 
-	printf(":::Injecting: pc=%llx bbId=%d GlobalInstCount=%lld opcode=%s tid=%d instCount=%lld instType=GPR regNum=%d injBID=%d:::", 
+	printf(":::Injecting: pc=%llx bbId=%d GlobalInstCount=%lld opcode=%s tid=%d instCount=%lld instType=GPR regNum=%d injBID=%d:::\n", 
 			cp->GetPUPC(), cp->GetBBID(), injCounterAllInsts, SASSIInstrOpcodeStrings[cp->GetOpcode()], get_flat_tid(), injInstID,
 			 rp->GetRegNum(regInfo), injBID);
 
@@ -548,6 +548,7 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp,
 					if(cond) { 
 						 // get destination register info, get the value in that register, and inject error
 						SASSIRegisterParams::GPRRegInfo regInfo = rp->GetGPRDst(get_int_inj_id(rp->GetNumGPRDsts(), inj_info.injOpSeed));
+						inj_info.errorInjected = true;
 						inject_GPR_error(ap, rp, regInfo, inj_info.injBIDSeed, inj_info.injInstID, inj_info.injBFM);
 					}
 				}
@@ -769,6 +770,19 @@ __device__ void sassi_basic_block_entry(SASSIBasicBlockParams *bb)
 {
   BLOCK **blockStr = sassi_cfg_blocks->getOrInit((int64_t)bb, [](BLOCK **bpp) { assert(0); });
   atomicAdd(&((*blockStr)->weight), 1);
+
+//------------------------------------------------------------------//
+/*	if (inj_info.errorInjected) {
+		int threadIdxInWarp = get_laneid();
+		int active = __ballot(1);
+		if ((__ffs(active)-1) == threadIdxInWarp) {
+//		cudaDeviceSynchronize();
+			printf(":::POST-INJ: Fn=%s BB=%d weight=%lld, ins=%d\n", 
+			bb->GetFnName(), (*blockStr)->id, (*blockStr)->weight, (*blockStr)->numInstrs);
+		}
+	}
+*/
+//--------------------------------------------------------------------//
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
