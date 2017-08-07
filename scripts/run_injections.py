@@ -97,7 +97,7 @@ def create_sbatch_script(app,array_num):
 	return filename
 
 def check_and_submit_cluster(cmd, app, total_jobs):
-	array_num = (total_jobs / 1001) + 1 
+	array_num = ((total_jobs - 1) / 1000) + 1
 	if total_jobs < sp.THRESHOLD_JOBS + 1:
 		os.system("echo " + cmd + " >> " + sp.SASSIFI_HOME + "/scripts/tmp/" + app + "/cmds_" + str(array_num) + ".out")
 	if total_jobs == sp.THRESHOLD_JOBS or (total_jobs % 1000) == 0:	

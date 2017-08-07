@@ -41,7 +41,7 @@ if [ `hostname -s` == "kepler1" ]; then
 	export CUDA_BASE_DIR=/home/previlon/sassi7/
 	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CUDA_BASE_DIR/lib64/:$CUDA_BASE_DIR/extras/CUPTI/lib64/
 else
-  . env.sh
+  . ../env.sh
 fi
 
 printf "\n------\nStep 1a: CLEAN?\n"
@@ -78,7 +78,9 @@ if [ $? -ne 0 ]; then
   exit -1
 fi
 make 2> stderr.txt
-make golden
+if [ "$where_to_run" != "cluster" ] ; then
+	make golden
+fi
 if [ $? -ne 0 ]; then
     echo "Return code was not zero: $?"
 		exit -1;
@@ -90,7 +92,9 @@ fi
 ################################################
 printf "\n------------\nStep 5: Profile the application\n"
 make OPTION=profiler
-make test 
+if [ "$where_to_run" != "cluster" ] ; then
+	make test
+fi
 if [ $? -ne 0 ]; then
     echo "Return code was not zero: $?"
 		exit -1;
