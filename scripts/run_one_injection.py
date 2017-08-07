@@ -106,26 +106,25 @@ def record_result(igid, bfm, app, kname, kcount, iid,  opid, bid, cat, pc,
 ###############################################################################
 [knames, kcounts, iids] = [[""]*sp.multiple_injections, [-1]*sp.multiple_injections, [-1]*sp.multiple_injections]
 def create_p_file(p_filename, igid, bfm, kname, kcount, iid, opid, bid, app):
-#	global knames, kcounts, iids
 	outf = open(p_filename, "w")
 	if igid == "rf":
 		outf.write(bfm + "\n" + kname + "\n" + kcount + "\n" + iid + "\n" + opid + "\n" + bid)
 	else:
 		outf.write(igid + "\n" + bfm + "\n" + kname + "\n" + kcount + "\n" + iid + "\n" + opid + "\n" + bid)
 		countList =  cf.read_inst_counts(sp.app_dir[app], app)
-		total_count = cf.get_total_counts(countList)[int(igid)]
-		
+		for item in countList:				#for each kernel and invocation
+			if item[0] == kname and item[1] == kcount:
+				max_inst = item[int(igid) + 2]	# 1 for kname, 2 for invocation_num
 		knames[0], kcounts[0], iids[0] = kname, kcount, iid
 		for i in range(1,sp.multiple_injections):
-			injection_num = random.randint(0, total_count)
-#                        inj_kname=kname
-#                        inj_kcount=kcount
-#                        inj_icount=int(iids[i-1])+1
+                        inj_kname=kname
+                        inj_kcount=kcount
+			if int(iids[i-1]) + sp.inst_window <= max_inst:
+                        	inj_icount=int(iids[i-1])+sp.inst_window
+			else:
+				inj_icount = int(iids[i-1])-sp.inst_window
 
-			[inj_kname, inj_kcount, inj_icount] = cf.get_injection_site_info(countList, injection_num, int(igid)) # convert injection index to [kname, kernel count, inst index]
-			while not inj_kname:
-				if cp.verbose: print "re-generating additional faults"
-				[inj_kname, inj_kcount, inj_icount] = cf.get_injection_site_info(countList, injection_num, int(igid)) 
+
 			knames[i],kcounts[i],iids[i] = inj_kname, inj_kcount, inj_icount
 			outf.write("\n" + igid + "\n" + bfm + "\n" + inj_kname + "\n" + str(inj_kcount) + "\n" + str(inj_icount) + "\n" + str(opid) + "\n" + str(bid))
 
