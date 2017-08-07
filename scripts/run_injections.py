@@ -79,9 +79,32 @@ def count_done(fname):
 # check queue and launch multiple jobs on a cluster 
 # This feature is not implemented.
 ############################################################################
-def check_and_submit_cluster(cmd):
-		print "This feature is not implement. Please write code here to submit jobs to your cluster.\n"
-		sys.exit(-1)
+def create_sbatch_script(app,array_num):
+	filename =  sp.SASSIFI_HOME + "/scripts/tmp/" + app + "/" + str(array_num)+".sbatch"
+	outf = open(filename, "w")
+	outf.write("#!/bin/bash\n"
+		"# sassifi.sbatch\n#\n"
+		"#SBATCH --exclusive\n"
+		"#SBATCH -J " + app + str(array_num) + "\n"
+		"#SBATCH -p par-gpu\n"
+		"#SBATCH -n 32\n"
+		"#SBATCH -N 1\n"
+		"#SBATCH -o " + app + "_sbatch_%A_%a.out\n"
+		"#SBATCH -e " + app + "_sbatch_%A_%a.err\n\n"
+		"cmd=`sed \"${SLURM_ARRAY_TASK_ID}q;d\" cmds_" + str(array_num) + ".out`\n"
+		"$cmd\n")
+	outf.close()
+	return filename
+
+def check_and_submit_cluster(cmd, app, total_jobs):
+	array_num = ((total_jobs - 1) / 1000) + 1
+	if total_jobs < sp.THRESHOLD_JOBS + 1:
+		os.system("echo " + cmd + " >> " + sp.SASSIFI_HOME + "/scripts/tmp/" + app + "/cmds_" + str(array_num) + ".out")
+	if total_jobs == sp.THRESHOLD_JOBS or (total_jobs % 1000) == 0:	
+		sbatch_script=create_sbatch_script(app,array_num)	
+		num_jobs = (total_jobs % 1000) if (total_jobs % 1000) else 1000
+		os.system("sbatch -D " + sp.SASSIFI_HOME + "/scripts/tmp/" + app + "  --array=1-" + str(num_jobs) + " " + sbatch_script)
+#		os.system("rm cmds.out")
 
 ############################################################################
 # check queue and launch multiple jobs on the multigpu system 
