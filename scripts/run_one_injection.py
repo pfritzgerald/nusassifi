@@ -240,7 +240,7 @@ def run_one_injection_job(igid, bfm, app, kname, kcount, iid, opid, bid):
 	os.system("mkdir -p " + new_directory) # create directory to store temp_results
 	create_p_file(injection_seeds_file, igid, bfm, kname, kcount, iid, opid, bid)
 
-	dmesg_before = cmdline("dmesg")
+	dmesg_before = cmdline("dmesg  | tail -100").split("\n")
 
 	if cp.verbose: print "%s: %s" %(new_directory, sp.script_dir[app] + "/" + sp.run_script)
 	cwd = os.getcwd()
@@ -252,8 +252,8 @@ def run_one_injection_job(igid, bfm, app, kname, kcount, iid, opid, bid):
 	if cp.verbose: print "App runtime: " + str(get_seconds(datetime.datetime.now() - start_main))
 
 	# Record kernel error messages (dmesg)
-	dmesg_after = cmdline("dmesg")
-	dmesg_delta = dmesg_after[len(dmesg_before):].replace("\n", "; ").replace(":", "-")
+	dmesg_after = cmdline("dmesg | tail -100").split("\n")
+	dmesg_delta = ';'.join(list(set(dmesg_after) - set(dmesg_before))).replace(":", "-")
 
 	if cp.verbose: os.system("cat " + sp.stdout_file + " " + sp.stderr_file)
 	
