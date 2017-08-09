@@ -358,6 +358,8 @@ __device__ void inject_GPR_error(SASSICoreParams* cp, SASSIRegisterParams *rp, S
 		injectedVal.asUint = 0; 
 	}
 
+	inj_info.errorInjected = true;
+	inj_info.injThreadID = get_flat_tid();;
 	printf(":::Injecting: pc=%llx bbId=%d GlobalInstCount=%lld opcode=%s tid=%d instCount=%lld instType=GPR regNum=%d injBID=%d:::", 
 			cp->GetPUPC(), cp->GetBBID(), injCounterAllInsts, SASSIInstrOpcodeStrings[cp->GetOpcode()], get_flat_tid(), injInstID,
 			 rp->GetRegNum(regInfo), injBID);
@@ -367,6 +369,7 @@ __device__ void inject_GPR_error(SASSICoreParams* cp, SASSIRegisterParams *rp, S
 	}
 
 	int32_t valueInRegAfter = rp->GetRegValue(cp, regInfo).asInt; 
+	
 	DEBUG_PRINT(INJ_DEBUG_LIGHT, "After Injection: register value = %x, ", valueInRegAfter);
 	DEBUG_PRINT(INJ_DEBUG_LIGHT, "injectedVal = %x \n", injectedVal.asUint);
 }
@@ -478,10 +481,10 @@ __device__ int32_t is_src_reg(SASSIRegisterParams *rp, int32_t injRegID) {
 //  thread exits, the injection run is categorized as masked. 
 ///////////////////////////////////////////////////////////////////////////////////
 __device__ void sassi_before_handler(SASSIBeforeParams* bp, SASSIMemoryParams *mp, SASSIRegisterParams *rp) {
-#if EMPTY_HANDLER && INJ_MODE != RF_INJECTIONS // if you don't want to inject RF based errors, return
-	return;
-#endif
-
+//#if EMPTY_HANDLER && INJ_MODE != RF_INJECTIONS // if you don't want to inject RF based errors, return
+//	return;
+//#endif
+/*
 	if (!inj_info.areParamsReady) 	// Check if this is the kernel of interest 
 		return; 											// This is not the selected kernel. No need to proceed.
 
@@ -513,7 +516,30 @@ __device__ void sassi_before_handler(SASSIBeforeParams* bp, SASSIMemoryParams *m
 			inject_GPR_error(bp, rp, rp->GetGPRSrc(src_reg), inj_info.injBIDSeed, inj_info.injInstID, inj_info.injBFM); // Inject the error and contine
 		}
 	}
-	
+*/
+	if (inj_info.errorInjected && (inj_info.injThreadID == get_flat_tid()))
+	{
+
+	printf("POST INJECTION -- before inst\n");
+
+		if (has_dest_GPR(rp))
+		{
+			printf("GPR inst after injection:\n");
+			for (int i=0; i<rp->GetNumGPRDsts(); i++) { // for all destination registers in this instruction
+				SASSIRegisterParams::GPRRegInfo regInfo = rp->GetGPRDst(i); // get destination register info
+				printf("\tAddress: %d\n",rp->GetRegNum(regInfo));
+				printf("\tValue: %x\n", rp->GetRegValue(bp, regInfo)); // get the value in that register
+				printf("\tThread: %d\n", get_flat_tid());
+			}
+		}
+		if (is_store_inst(bp,mp))
+		{
+			printf("STORE inst after injection:\nAddres: %llx\n", mp->GetAddress());
+			printf("\tThread: %d\n", get_flat_tid());
+
+		}
+	}
+//	cudaDeviceSynchronize();
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -524,7 +550,6 @@ __device__ void sassi_before_handler(SASSIBeforeParams* bp, SASSIMemoryParams *m
 //  the respective function to check and perform error injection. 
 ///////////////////////////////////////////////////////////////////////////////////
 __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp, SASSIRegisterParams *rp) { // order is important
-
 //	unsigned long long GlobalInstCounter = 
 
 #if EMPTY_HANDLER && INJ_MODE != INST_INJECTIONS // if you don't want to inject instruction level errors, return
