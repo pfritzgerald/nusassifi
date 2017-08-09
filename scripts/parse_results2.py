@@ -66,6 +66,17 @@ def parse_results_file(app, igid, bfm, c):
 		inj_site_info = words[0].split("-")
 		[fault_id, kname, invocation_index, opcode, injBID, runtime, outcome] = \
 			[int(inj_site_info[0]), inj_site_info[1],int(inj_site_info[2]), words[4], int(words[6]), float(words[7]), int(words[8])]
+		dmesg = words[9]
+		if dmesg is not None:
+			Xid = re.match(r'.*NVRM- Xid \(PCI.*\)- (\d+).*', dmesg, re.M)
+		else: dmesg=" ";print "SETTING DMESG to null"
+		if Xid is not None:
+			Xid = int(Xid.group(1))
+#			print "XID found: " + str(Xid)
+		else:
+			if dmesg == "\n": dmesg = ""
+			else: print "XID not in dmesg: " + dmesg
+			Xid = 0	
 		inst_id = int(inj_site_info[3])
 		opIdSeed = inj_site_info[4]
 		bIdSeed = inj_site_info[5]
@@ -78,10 +89,12 @@ def parse_results_file(app, igid, bfm, c):
 #		print "PC text: "  + " => " + pc_text
 #		pc = int(pc_text,0)
 		tId = int(words[5])
+		c.execute('INSERT OR IGNORE INTO Faults '\
+				'VALUES(NULL, %d, \'%s\',\'%s\',\'%s\',\'%s\', \'%s\', %d, %d, %d, %d)'
+				%(fault_id,suite,app, kname, opIdSeed, bIdSeed, igid, bfm, invocation_index, inst_id))
 		c.execute('INSERT OR IGNORE INTO Results '\
-				'VALUES(NULL, %d, \'%s\',\'%s\',\'%s\',\'%s\', \'%s\', %d, %d, %d, %d, \'%s\', %d, %d, \'%s\', %d, %d, %f, %d)'
-				%(fault_id,suite,app, kname, opIdSeed, bIdSeed, igid, bfm, invocation_index, inst_id, pc_text,
-					bb_id, global_inst_id, opcode, tId, injBID, runtime, (outcome-1)))
+				'VALUES(NULL, \'%s\', %d, %d, \'%s\', %d, %d, %f, %d, %d, \'%s\')'
+				%(pc_text, bb_id, global_inst_id, opcode, tId, injBID, runtime, (outcome-1),Xid, dmesg))
 
 		num_lines += 1
 	rf.close()
@@ -108,7 +121,6 @@ def parse_cfg_files(app, c):
 					if 'CHECKPOINT'  in line:
 						kernel_line = line.split(": ")
 						kname = kernel_line[1]
-						print kName
 						last_invocation = int(kernel_line[3])
 						continue
 					if 'BB=' in line:
@@ -171,11 +183,13 @@ def print_usage():
 def CreateNewDB(c):
 	print "creating data DB"
 	c.execute('CREATE TABLE IF NOT EXISTS '\
-          'Results(ID INTEGER PRIMARY KEY, FaultId INTEGER, Suite TEXT, App TEXT,  kName TEXT, '\
+          'Faults(ID INTEGER PRIMARY KEY, FaultId INTEGER, Suite TEXT, App TEXT,  kName TEXT, '\
 	  'OpIdSeed TEXT, BIDSeed TEXT, IgId INTEGER, '\
-          'BFM INTEGER, InvocationIdx INTEGER, InstId INTERGER, PC TEXT, BBId '\
+          'BFM INTEGER, InvocationIdx INTEGER, InstId INTERGER)')
+	c.execute('CREATE TABLE IF NOT EXISTS '\
+          'Results(ID INTEGER PRIMARY KEY, PC TEXT, BBId '\
           'INTEGER, GlobalInstId INTEGER, '\
-          'Opcode TEXT, TId INTEGER, InjBId INTEGER, Runtime INTEGER, OutcomeID INTEGER)')
+          'Opcode TEXT, TId INTEGER, InjBId INTEGER, Runtime INTEGER, OutcomeID INTEGER, Xid INTEGER, Dmesg TEXT)')
 	c.execute('CREATE TABLE IF NOT EXISTS '\
           'OutcomeMap(ID INTEGER PRIMARY KEY, Description TEXT)')
 	c.execute('CREATE TABLE IF NOT EXISTS '\
