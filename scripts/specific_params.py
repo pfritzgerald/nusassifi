@@ -40,7 +40,7 @@ import common_params as p
 #########################################################################
 
 multiple_injections = 2
-inst_window = 1
+inst_window = 5000
 # Specify the number of injection sites to create before starting the injection
 # campaign. This is essentially the maximum number of injections one can run
 # per instruction group (IGID) and bit-flip model (BFM).
