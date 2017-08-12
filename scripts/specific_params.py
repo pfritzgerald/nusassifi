@@ -98,15 +98,15 @@ apps = {
 	'bfs': ['rodinia', 'bfs', 3],
 #	'matrixMul': ['example', 'matrixMul', 2],
 #	'bfs': ['parboil', 'bfs', 10],
-	'cutcp': ['parboil', 'cutcp', 19],
-	'lbm': ['parboil', 'lbm', 100],
+#	'cutcp': ['parboil', 'cutcp', 19],
+#	'lbm': ['parboil', 'lbm', 100],
 	'mri-q': ['parboil', 'mri-q', 8],
 #	'mri-gridding': ['parboil', 'mri-gridding', 56],
 #	'stencil': ['parboil', 'stencil', 60],
 #	'tpacf': ['parboil', 'tpacf', 30],
 	'mst' : ['lonestargpu-2.0', 'mst', 5],
 #        'bh' : ['lonestargpu-2.0', 'bh', 106],
-        'sp' : ['lonestargpu-2.0', 'sp', 157],
+#        'sp' : ['lonestargpu-2.0', 'sp', 157],
 #        'pta' : ['lonestargpu-2.0', 'pta', 15],
 
 }
