@@ -40,7 +40,7 @@ import common_params as p
 #########################################################################
 
 multiple_injections = 2
-inst_window = 5000
+inst_window = 1000000
 # Specify the number of injection sites to create before starting the injection
 # campaign. This is essentially the maximum number of injections one can run
 # per instruction group (IGID) and bit-flip model (BFM).
@@ -90,22 +90,22 @@ igid_bfm_map = {
 
 apps = {
 #	'b+tree': ['rodinia', 'b+tree.out', 3],
-	'lavaMD': ['rodinia','lavaMD',3],
-	'nw': ['rodinia','nw', 3],
-	'gaussian': ['rodinia', 'gaussian', 2],
+#	'lavaMD': ['rodinia','lavaMD',3],
+#	'nw': ['rodinia','nw', 3],
+#	'gaussian': ['rodinia', 'gaussian', 2],
 #	'backprop': ['rodinia', 'backprop', 4],
 	'hotspot': ['rodinia', 'hotspot',5],
-	'kmeans': ['rodinia', 'kmeans',5],
-	'bfs': ['rodinia', 'bfs', 3],
+#	'kmeans': ['rodinia', 'kmeans',5],
+#	'bfs': ['rodinia', 'bfs', 3],
 #	'matrixMul': ['example', 'matrixMul', 2],
 #	'bfs': ['parboil', 'bfs', 10],
 #	'cutcp': ['parboil', 'cutcp', 19],
 #	'lbm': ['parboil', 'lbm', 100],
-	'mri-q': ['parboil', 'mri-q', 8],
+#	'mri-q': ['parboil', 'mri-q', 8],
 #	'mri-gridding': ['parboil', 'mri-gridding', 56],
 #	'stencil': ['parboil', 'stencil', 60],
 #	'tpacf': ['parboil', 'tpacf', 30],
-	'mst' : ['lonestargpu-2.0', 'mst', 5],
+#	'mst' : ['lonestargpu-2.0', 'mst', 5],
 #        'bh' : ['lonestargpu-2.0', 'bh', 106],
 #        'sp' : ['lonestargpu-2.0', 'sp', 157],
 #        'pta' : ['lonestargpu-2.0', 'pta', 15],
