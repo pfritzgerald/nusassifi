@@ -273,6 +273,7 @@ std::string  get_profile_format() {
 
 // Counters that we keep on the device.
 __managed__ unsigned long long injCounterAllInsts; // single counter for all instructions
+__managed__ unsigned long long AppDynInstCount; //single counter for all instructions across the aplication (kernels+invocations)
 __managed__ unsigned long long injCountersInstType[NUM_INST_TYPES]; // count instruction based on different instruction types as well as whether they write to GPR, CC, PR or STORE_VAL
 __managed__ unsigned long long opCounters[SASSI_NUM_OPCODES]; // count instruction based on opcode
 __managed__ unsigned long long opWillNotExecuteCount; // counter for instructions that will not execute 

@@ -234,7 +234,7 @@ def is_timeout(app, pr): # check if the process is active every 'factor' sec for
 ###############################################################################
 def run_one_injection_job(igid, bfm, app, kname, kcount, iid, opid, bid):
 	start = datetime.datetime.now() # current time
-	[pc, bb_id, global_iid, app_dyn_iid, inst_type, tid, injBID, ret_vat] = ["", -1, -1, "", -1, -1, -1]
+	[pc, bb_id, global_iid, app_dyn_iid, inst_type, tid, injBID, ret_vat] = ["", -1, -1, -1, "", -1, -1, -1]
 
 	shutil.rmtree(new_directory, True)
 	os.system("mkdir -p " + new_directory) # create directory to store temp_results
