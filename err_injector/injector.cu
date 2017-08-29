@@ -296,8 +296,8 @@ __device__ void inject_GPR_error(SASSICoreParams* cp, SASSIRegisterParams *rp, S
 		injectedVal.asUint = 0; 
 	}
 
-	printf(":::Injecting: pc=%llx bbId=%d GlobalInstCount=%lld opcode=%s tid=%d instCount=%lld instType=GPR regNum=%d injBID=%d:::", 
-			cp->GetPUPC(), cp->GetBBID(), injCounterAllInsts, SASSIInstrOpcodeStrings[cp->GetOpcode()], get_flat_tid(), injInstID,
+	printf(":::Injecting: pc=%llx bbId=%d GlobalInstCount=%lld AppDynInstCount=%lld opcode=%s tid=%d instCount=%lld instType=GPR regNum=%d injBID=%d:::", 
+			cp->GetPUPC(), cp->GetBBID(), injCounterAllInsts, AppDynInstCount, SASSIInstrOpcodeStrings[cp->GetOpcode()], get_flat_tid(), injInstID,
 			 rp->GetRegNum(regInfo), injBID);
 
 	if (!DUMMY_INJECTION) {
@@ -468,10 +468,10 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp,
 #if EMPTY_HANDLER && INJ_MODE != INST_INJECTIONS // if you don't want to inject instruction level errors, return
 	return;
 #endif
-
+	atomicAdd(&AppDynInstCount, 1LL);
 	if (!inj_info.areParamsReady) // Check if this is the kernel of interest 
 		return; // This is not the selected kernel. No need to proceed.
- 	atomicAdd(&injCounterAllInsts, 1LL) + 1;  // update counter, returns old value
+ 	atomicAdd(&injCounterAllInsts, 1LL);
 
 	switch (inj_info.injIGID) {
 		case GPR: {
@@ -557,6 +557,7 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp,
 static void sassi_init() {
 	 // read seeds for random error injection
 	parse_params(injInputFilename.c_str());  // injParams are updated based on injection seed file
+	AppDynInstCount = 0;
 }
 
 //////////////////////////////////////////////////////////////////////
