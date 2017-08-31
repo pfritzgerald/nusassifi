@@ -115,11 +115,11 @@ def get_inj_info():
 		logf = open(stdout_fname, "r")
 		for line in logf:
 			#":::Injecting: opcode=%s tid=%d instCount=%lld instType=GPR injOpID=%d injBIDSeed=%f:::", SASSIInstrOpcodeStrings[ap->GetOpcode()], get_flat_tid(), injInstID, injOpID, injBIDSeed);
-			matchObj = re.match( r'.*:::Injecting: pc=(\S+) bbId=(\d+) GlobalInstCount=(\d+) AppDynInstId=(\d+) opcode=(\S+) tid=(\d+) .* injBID=(\d+):::.*', line, re.M) #:::Injecting: opcode=IADD tid=583564 instCount=1284359 instType=CC injBID=0:::
+			matchObj = re.match( r'.*:::Injecting: pc=(\S+) bbId=(\d+) GlobalInstCount=(\d+) AppDynInstCount=(\d+) opcode=(\S+) tid=(\d+) .* injBID=(\d+):::.*', line, re.M) #:::Injecting: opcode=IADD tid=583564 instCount=1284359 instType=CC injBID=0:::
 			if matchObj:
 				[pc, bb_id, global_iid, app_dyn_iid, inst_type, tid,  injBID] = [matchObj.group(1), matchObj.group(2),
                                         matchObj.group(3), matchObj.group(4),
-                                        matchObj.group(5), matchObj.group(6)]
+                                        matchObj.group(5), matchObj.group(6), matchObj.group(7)]
 				break 
 		logf.close()
 	return [pc, bb_id, global_iid, app_dyn_iid, inst_type, tid, injBID];
