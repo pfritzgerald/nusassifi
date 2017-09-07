@@ -71,6 +71,11 @@ EXTRA_NVCC_FLAGS = $(LDWRAP) -lineinfo -Xptxas --sassi-function-entry -Xptxas --
 EXTRA_LINK_FLAGS = $(LDWRAP) -L$(INST_LIB_DIR) -lfritz_profiler $(CUPTI) -L$(BOOST_HOME)/lib -lboost_regex -lcrypto -Xlinker -rpath,$(BOOST_HOME)/lib
 endif
 
+ifeq (${OPTION},memaccesses)
+EXTRA_NVCC_FLAGS = $(BEFORE_ALL)  $(BEFORE_REG_MEM_INFO) -Xptxas --sassi-bb-entry#$(BEFORE_ALL) $(BEFORE_REG_MEM_INFO)
+EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lmemaccesses $(CUPTI) 
+endif
+
 NVCC_FLAGS = -g  -rdc=true -Xptxas -v -I$(CUDA_BASE_DIR)/include/ $(EXTRA_NVCC_FLAGS) $(GENCODE)
 LINK_FLAGS = -std=c++11 -g $(GENCODE) -lcudart -lcudadevrt -lm $(EXTRA_LINK_FLAGS)
 #

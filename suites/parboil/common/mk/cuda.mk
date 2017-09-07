@@ -55,10 +55,16 @@ SASSI_CUDACFLAGS = -Xptxas --sassi-function-entry -Xptxas --sassi-bb-entry $(GEN
 SASSI_CUDALDFLAGS = -L$(INST_LIB_DIR) -lfritz_cfg $(CUPTI)
 endif
 
-ifeq (${OPTION},fritz_profiler)
+ifeq (${SASSI_OPTION},fritz_profiler)
 SASSI_CUDACFLAGS = $(LDWRAP) -lineinfo -Xptxas --sassi-function-entry -Xptxas --sassi-bb-entry $(GENCODE)
 SASSI_CUDALDFLAGS = $(LDWRAP) -L$(INST_LIB_DIR) -lfritz_profiler $(CUPTI) -L$(BOOST_HOME)/lib -lboost_regex -lcrypto -Xlinker -rpath,$(BOOST_HOME)/lib
 endif
+
+ifeq (${SASSI_OPTION},memaccesses)
+SASSI_CUDACFLAGS = $(BEFORE_ALL)  $(BEFORE_REG_MEM_INFO) -Xptxas --sassi-bb-entry $(GENCODE)#$(BEFORE_ALL) $(BEFORE_REG_MEM_INFO)
+SASSI_CUDALDFLAGS = -L$(INST_LIB_DIR) -lmemaccesses $(CUPTI) 
+endif
+
 
 # CUDA specific
 LANG_CFLAGS=-I$(PARBOIL_ROOT)/common/include -I$(CUDA_PATH)/include

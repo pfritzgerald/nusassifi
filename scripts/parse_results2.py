@@ -65,7 +65,7 @@ def parse_results_file(app, igid, bfm, c):
 		words = line.split(":")
 		inj_site_info = words[0].split("-")
 		[kname, invocation_index, opcode, injBID, runtime, outcome] = \
-			[inj_site_info[0], int(inj_site_info[1]), words[4], int(words[6]), float(words[7]), int(words[8])]
+			[inj_site_info[0], int(inj_site_info[1]), words[5], int(words[7]), float(words[8]), int(words[9])]
 		inst_id = int(inj_site_info[2])
 		opIdSeed = inj_site_info[3]
 		bIdSeed = inj_site_info[4]
@@ -73,21 +73,80 @@ def parse_results_file(app, igid, bfm, c):
 		pc_text = '0x'+str(words[1])
                 bb_id = int(words[2])
                 global_inst_id = int(words[3])
+                app_dyn_inst_id = int(words[4])
 		if pc_text == '0x':
 			pc_text = "0x0"
 #		print "PC text: "  + " => " + pc_text
 #		pc = int(pc_text,0)
-		tId = int(words[5])
+		tId = int(words[6])
 		c.execute('INSERT OR IGNORE INTO Results '\
-				'VALUES(NULL, \'%s\',\'%s\',\'%s\',\'%s\', \'%s\', %d, %d, %d, %d, \'%s\', %d, %d, \'%s\', %d, %d, %f, %d)'
+				'VALUES(NULL, \'%s\',\'%s\',\'%s\',\'%s\', \'%s\', %d, %d, %d, %d, \'%s\', %d, %d, %d, \'%s\', %d, %d, %f, %d)'
 				%(suite,app, kname, opIdSeed, bIdSeed, igid, bfm, invocation_index, inst_id, pc_text,
-					bb_id, global_inst_id, opcode, tId, injBID, runtime, (outcome-1)))
+					bb_id, global_inst_id, app_dyn_inst_id, opcode, tId, injBID, runtime, (outcome-1)))
 
 		num_lines += 1
 	rf.close()
 
 	if num_lines == 0 and app in results_app_table and os.stat(sp.app_log_dir[app] + "injection-list/igid" + str(igid) + ".bfm" + str(bfm) + "." + str(sp.NUM_INJECTIONS) + ".txt").st_size != 0: 
 		print "%s, igid=%d, bfm=%d not done" %(app, igid, bfm)
+
+def parse_mem_accesses(app, c):
+	try:
+		rf = open(sp.app_dir[app] + "global_gpr_insts.txt", "r")
+	except IOError: 
+                print "NOT OPEN: " + sp.app_dir[app] + "global_gpr_insts.txt"
+	        return 
+	suite = sp.apps[app][0]
+        print "file is " + rf.name
+	kName = ""
+        invocation_id=0
+	for line in rf: # for each mem access (or new kernel and invocation)
+            if "kernel" in line:
+                words = line.split(",")
+                kName = words[1]
+                invocation_id = int(words[3])
+            else:
+                words = line.split(",")
+                gpr_inst_id = int(words[0])
+                global_mem = int(words[1])
+                is_load = int(words[2])
+                is_store = int(words[3])
+                is_atomic = int(words[4])
+                is_uniform = int(words[5])
+                is_volatile = int(words[6])
+                app_dyn_inst_id = int(words[7])
+		c.execute('INSERT OR IGNORE INTO MemAccesses '\
+				'VALUES(NULL, \'%s\',\'%s\', %d, %d, %d, %d, %d, %d, %d, %d, %d)'
+				%(app, kName, invocation_id, gpr_inst_id, app_dyn_inst_id, global_mem, is_load, 
+                                    is_store, is_atomic, is_uniform, is_volatile))
+def parse_bb_executions(app, c):
+	try:
+		rf = open(sp.app_dir[app] + "basic_block_insts.txt", "r")
+	except IOError: 
+                print "NOT OPEN: " + sp.app_dir[app] + "basic_block_insts.txt"
+		return 
+	suite = sp.apps[app][0]
+        print "file is " + rf.name
+	kName = ""
+        invocation_id=0
+	for line in rf: # for each mem access (or new kernel and invocation)
+            if "kernel" in line:
+                words = line.split(",")
+                kName = words[1]
+                invocation_id = int(words[3])
+            else:
+                words = line.split(",")
+                gpr_inst_id = int(words[0])
+                basic_block_id = int(words[1])
+                num_insts = int(words[3])
+                func_name = words[2]
+                app_dyn_inst_id =int(words[4])
+  		c.execute('INSERT OR IGNORE INTO BBProfile '\
+				'VALUES(NULL, \'%s\',\'%s\', %d, %d, %d, %d, %d, \'%s\');'
+				%(app, kName, invocation_id, gpr_inst_id, app_dyn_inst_id, basic_block_id, num_insts, 
+                                    func_name))
+
+
 
 ###################################################################################
 # Parse results files and populate summary to results table 
@@ -102,6 +161,8 @@ def parse_results_apps(typ,c):
 		else:
 			for bfm in sp.parse_rf_bfm_list:
 				parse_results_file(app, "rf", bfm, c)
+                parse_mem_accesses(app, c)
+                parse_bb_executions(app,c)
 
 
 def parse_options():
@@ -136,7 +197,7 @@ def CreateNewDB(c):
           'Results(ID INTEGER PRIMARY KEY, Suite TEXT, App TEXT,  kName TEXT, '\
 	  'OpIdSeed TEXT, BIDSeed TEXT, IgId INTEGER, '\
           'BFM INTEGER, InvocationIdx INTEGER, InstId INTERGER, PC TEXT, BBId '\
-          'INTEGER, GlobalInstId INTEGER, '\
+          'INTEGER, GlobalInstId INTEGER, AppDynInstId INTEGER, '\
           'Opcode TEXT, TId INTEGER, InjBId INTEGER, Runtime INTEGER, OutcomeID INTEGER)')
 	c.execute('CREATE TABLE IF NOT EXISTS '\
           'OutcomeMap(ID INTEGER PRIMARY KEY, Description TEXT)')
@@ -147,8 +208,17 @@ def CreateNewDB(c):
 	c.execute('CREATE TABLE IF NOT EXISTS '\
           'OpcodeMap(ID INTEGER PRIMARY KEY, Description TEXT, App TEXT, InstCount INTEGER)')	
 	c.execute('CREATE TABLE IF NOT EXISTS '\
-		'Kernels(ID INTEGER PRIMARY KEY, Application TEXT, KernelName TEXT, '\
+		'Kernels(ID INTEGER PRIMARY KEY, Application TEXT, kName TEXT, '\
 		'InvocationIdx INTEGER, InvInstCount INTEGER, AppInstCount INTEGER)')
+        c.execute('CREATE TABLE IF NOT EXISTS '\
+                'MemAccesses(ID INTEGER PRIMARY KEY, App TEXT, kName TEXT, '\
+                'InvocationIdx INTEGER, GlobalInstId INTEGER, AppDynInstId INTEGER, '\
+                ' isGlobal INTEGER, isLoad INTEGER, '\
+                'isStore INTEGER, isAtomic INTEGER, isUniform INTEGER, isVolatile INTEGER)')
+        c.execute('CREATE TABLE IF NOT EXISTS '\
+                'BBProfile(ID INTEGER PRIMARY KEY, App TEXT, KName TEXT, '\
+                'InvocationIdx INTEGER, GlobalInstId INTEGER, AppDynInstId INTEGER, '\
+                ' BasicBlockId INTEGER, NumInsts INTEGER, FuncName TEXT)')
 
 	######
 	# fill up OutcomeMap table

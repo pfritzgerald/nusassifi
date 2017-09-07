@@ -56,6 +56,11 @@ EXTRA_NVCC_FLAGS = $(BEFORE_ALL) $(BEFORE_REG_MEM_INFO)
 EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lrfinjector $(CUPTI)
 endif
 
+ifeq (${OPTION},memaccesses)
+EXTRA_NVCC_FLAGS = $(BEFORE_ALL)  $(BEFORE_REG_MEM_INFO) -Xptxas --sassi-bb-entry#$(BEFORE_ALL) $(BEFORE_REG_MEM_INFO)
+EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lmemaccesses $(CUPTI) 
+endif
+
 NVCC_FLAGS = -g -rdc=true -Xptxas -v -I$(CUDA_BASE_DIR)/include/ $(EXTRA_NVCC_FLAGS) $(GENCODE)
 LINK_FLAGS = -std=c++11 -g $(GENCODE) -lcuda -lcudart -lcudadevrt -lm $(EXTRA_LINK_FLAGS)
 #CC := $(CUDA_DIR)/bin/nvcc

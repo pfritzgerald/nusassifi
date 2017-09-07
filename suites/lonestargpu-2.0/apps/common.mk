@@ -63,6 +63,12 @@ ifeq (${OPTION},fritz_profiler)
 SASSI_CUDACFLAGS = $(LDWRAP) -lineinfo -Xptxas --sassi-function-entry -Xptxas --sassi-bb-entry $(GENCODE)
 SASSI_CUDALDFLAGS = $(LDWRAP) -L$(INST_LIB_DIR) -lfritz_profiler $(CUPTI) -L$(BOOST_HOME)/lib -lboost_regex -lcrypto -Xlinker -rpath,$(BOOST_HOME)/lib
 endif
+
+ifeq (${OPTION},memaccesses)
+SASSI_CUDACFLAGS = $(BEFORE_ALL)  $(BEFORE_REG_MEM_INFO) -Xptxas --sassi-bb-entry#$(BEFORE_ALL) $(BEFORE_REG_MEM_INFO)
+SASSI_CUDALDFLAGS = -L$(INST_LIB_DIR) -lmemaccesses $(CUPTI) 
+endif
+
 #----------------------------
 
 COMPUTECAPABILITY := sm_35

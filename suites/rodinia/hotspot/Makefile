@@ -34,7 +34,7 @@ AFTER_REG_MEM = -Xptxas --sassi-inst-after="reg-writes\,memory"
 BEFORE_ALL = -Xptxas --sassi-inst-before="all"
 BEFORE_COND_BRANCHES = -Xptxas --sassi-inst-before="cond-branches"
 BEFORE_MEM = -Xptxas --sassi-inst-before="memory"
-BEFORE_REGS = -Xptxas --sassi-inst-before="reg-writes,reg-reads"
+BEFORE_REGS = -Xptxas --sassi-inst-before="reg-writes\,reg-reads"
 
 AFTER_REG_INFO = -Xptxas --sassi-after-args="reg-info"
 AFTER_MEM_INFO = -Xptxas --sassi-after-args="mem-info"
@@ -79,6 +79,16 @@ endif
 ifeq (${OPTION}, branch)
 EXTRA_NVCC_FLAGS = $(LDWRAP) -lineinfo $(BEFORE_COND_BRANCHES) $(BEFORE_COND_BRANCH_INFO) 
 EXTRA_LINK_FLAGS = $(LDWRAP) -L$(INST_LIB_DIR) -lbranch $(CUPTI) -L$(BOOST_HOME)/lib -lboost_regex -lcrypto -Xlinker -rpath,$(BOOST_HOME)/lib
+endif
+
+ifeq (${OPTION},memaccesses)
+EXTRA_NVCC_FLAGS = $(BEFORE_ALL)  $(BEFORE_REG_MEM_INFO) -Xptxas --sassi-bb-entry#$(BEFORE_ALL) $(BEFORE_REG_MEM_INFO)
+EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lmemaccesses $(CUPTI) 
+endif
+
+ifeq (${OPTION},memdiverge)
+EXTRA_NVCC_FLAGS = $(BEFORE_MEM) $(BEFORE_MEM_INFO)
+EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lmemdiverge $(CUPTI) 
 endif
 
 NVCC_FLAGS = -g -G -rdc=true -Xptxas -v -I$(CUDA_BASE_DIR)/include/ $(EXTRA_NVCC_FLAGS)
