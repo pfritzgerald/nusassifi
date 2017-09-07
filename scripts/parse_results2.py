@@ -65,22 +65,23 @@ def parse_results_file(app, igid, bfm, c):
 		words = line.split(":")
 		inj_site_info = words[0].split("-")
 		[kname, invocation_index, opcode, injBID, runtime, outcome] = \
-			[inj_site_info[0], int(inj_site_info[1]), words[4], int(words[6]), float(words[7]), int(words[8])]
+			[inj_site_info[0], int(inj_site_info[1]), words[5], int(words[7]), float(words[8]), int(words[9])]
 		inst_id = int(inj_site_info[2])
 		opIdSeed = inj_site_info[3]
 		bIdSeed = inj_site_info[4]
 #		print "words[1]: "+ str(words[1]),
 		pc_text = '0x'+str(words[1])
-                bb_id = int(words[2])
-                global_inst_id = int(words[3])
+		pc_count = int(words[2])
+                bb_id = int(words[3])
+                global_inst_id = int(words[4])
 		if pc_text == '0x':
 			pc_text = "0x0"
 #		print "PC text: "  + " => " + pc_text
 #		pc = int(pc_text,0)
-		tId = int(words[5])
+		tId = int(words[6])
 		c.execute('INSERT OR IGNORE INTO Results '\
-				'VALUES(NULL, \'%s\',\'%s\',\'%s\',\'%s\', \'%s\', %d, %d, %d, %d, \'%s\', %d, %d, \'%s\', %d, %d, %f, %d)'
-				%(suite,app, kname, opIdSeed, bIdSeed, igid, bfm, invocation_index, inst_id, pc_text,
+				'VALUES(NULL, \'%s\',\'%s\',\'%s\',\'%s\', \'%s\', %d, %d, %d, %d, \'%s\', %d, %d, %d, \'%s\', %d, %d, %f, %d)'
+				%(suite,app, kname, opIdSeed, bIdSeed, igid, bfm, invocation_index, inst_id, pc_text, pc_count,
 					bb_id, global_inst_id, opcode, tId, injBID, runtime, (outcome-1)))
 
 		num_lines += 1
@@ -135,7 +136,7 @@ def CreateNewDB(c):
 	c.execute('CREATE TABLE IF NOT EXISTS '\
           'Results(ID INTEGER PRIMARY KEY, Suite TEXT, App TEXT,  kName TEXT, '\
 	  'OpIdSeed TEXT, BIDSeed TEXT, IgId INTEGER, '\
-          'BFM INTEGER, InvocationIdx INTEGER, InstId INTERGER, PC TEXT, BBId '\
+          'BFM INTEGER, InvocationIdx INTEGER, InstId INTERGER, PC TEXT, PCCount INTEGER, BBId '\
           'INTEGER, GlobalInstId INTEGER, '\
           'Opcode TEXT, TId INTEGER, InjBId INTEGER, Runtime INTEGER, OutcomeID INTEGER)')
 	c.execute('CREATE TABLE IF NOT EXISTS '\
