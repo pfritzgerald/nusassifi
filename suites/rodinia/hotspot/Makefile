@@ -110,10 +110,10 @@ install:
 	cp $(TARGET) $(SASSIFI_HOME)/bin/$(OPTION)/$(SUITE_NAME)/
 
 test:
-	./hotspot 64 4 4 ../data/hotspot/temp_64 ../data/hotspot/power_64 output.out
+	./hotspot 64 4 4 ../data/hotspot/temp_64.zeroes ../data/hotspot/power_64.zeroes output.out
 
 golden:
-	./hotspot 64 4 4 ../data/hotspot/temp_64 ../data/hotspot/power_64 output.out >golden_stdout.txt 2>golden_stderr.txt
+	./hotspot 64 4 4 ../data/hotspot/temp_64.zeroes ../data/hotspot/power_64.zeroes output.out >golden_stdout.txt 2>golden_stderr.txt
 
 clean:
 	rm -f *.o *~ $(TARGET)

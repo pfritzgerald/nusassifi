@@ -175,11 +175,11 @@ main(	int argc,
 			for(k=0; k<dim_cpu.boxes1d_arg; k++){
 
 				// current home box
-				box_cpu[nh].x = k;
-				box_cpu[nh].y = j;
-				box_cpu[nh].z = i;
-				box_cpu[nh].number = nh;
-				box_cpu[nh].offset = nh * NUMBER_PAR_PER_BOX;
+				box_cpu[nh].x =0;// k;
+				box_cpu[nh].y =0;// j;
+				box_cpu[nh].z =0;// i;
+				box_cpu[nh].number =0;// nh;
+				box_cpu[nh].offset =0;// nh * NUMBER_PAR_PER_BOX;
 
 				// initialize number of neighbor boxes
 				box_cpu[nh].nn = 0;
@@ -196,16 +196,16 @@ main(	int argc,
 									(l==0 && m==0 && n==0)==false	){
 
 								// current neighbor box
-								box_cpu[nh].nei[box_cpu[nh].nn].x = (k+n);
-								box_cpu[nh].nei[box_cpu[nh].nn].y = (j+m);
-								box_cpu[nh].nei[box_cpu[nh].nn].z = (i+l);
-								box_cpu[nh].nei[box_cpu[nh].nn].number =	(box_cpu[nh].nei[box_cpu[nh].nn].z * dim_cpu.boxes1d_arg * dim_cpu.boxes1d_arg) + 
+								box_cpu[nh].nei[box_cpu[nh].nn].x = 0;//(k+n);
+								box_cpu[nh].nei[box_cpu[nh].nn].y = 0;//(j+m);
+								box_cpu[nh].nei[box_cpu[nh].nn].z = 0;//(i+l);
+								box_cpu[nh].nei[box_cpu[nh].nn].number =0;//	(box_cpu[nh].nei[box_cpu[nh].nn].z * dim_cpu.boxes1d_arg * dim_cpu.boxes1d_arg) + 
 																			(box_cpu[nh].nei[box_cpu[nh].nn].y * dim_cpu.boxes1d_arg) + 
 																			 box_cpu[nh].nei[box_cpu[nh].nn].x;
-								box_cpu[nh].nei[box_cpu[nh].nn].offset = box_cpu[nh].nei[box_cpu[nh].nn].number * NUMBER_PAR_PER_BOX;
+								box_cpu[nh].nei[box_cpu[nh].nn].offset =0;// box_cpu[nh].nei[box_cpu[nh].nn].number * NUMBER_PAR_PER_BOX;
 
 								// increment neighbor box
-								box_cpu[nh].nn = box_cpu[nh].nn + 1;
+								box_cpu[nh].nn =0;// box_cpu[nh].nn + 1;
 
 							}
 
@@ -231,16 +231,16 @@ main(	int argc,
 	// input (distances)
 	rv_cpu = (FOUR_VECTOR*)malloc(dim_cpu.space_mem);
 	for(i=0; i<dim_cpu.space_elem; i=i+1){
-		rv_cpu[i].v = (rand()%10 + 1) / 10.0;			// get a number in the range 0.1 - 1.0
-		rv_cpu[i].x = (rand()%10 + 1) / 10.0;			// get a number in the range 0.1 - 1.0
-		rv_cpu[i].y = (rand()%10 + 1) / 10.0;			// get a number in the range 0.1 - 1.0
-		rv_cpu[i].z = (rand()%10 + 1) / 10.0;			// get a number in the range 0.1 - 1.0
+		rv_cpu[i].v = 0;//(rand()%10 + 1) / 10.0;			// get a number in the range 0.1 - 1.0
+		rv_cpu[i].x = 0;//(rand()%10 + 1) / 10.0;			// get a number in the range 0.1 - 1.0
+		rv_cpu[i].y = 0;//(rand()%10 + 1) / 10.0;			// get a number in the range 0.1 - 1.0
+		rv_cpu[i].z = 0;//(rand()%10 + 1) / 10.0;			// get a number in the range 0.1 - 1.0
 	}
 
 	// input (charge)
 	qv_cpu = (fp*)malloc(dim_cpu.space_mem2);
 	for(i=0; i<dim_cpu.space_elem; i=i+1){
-		qv_cpu[i] = (rand()%10 + 1) / 10.0;			// get a number in the range 0.1 - 1.0
+		qv_cpu[i] = 0;//(rand()%10 + 1) / 10.0;			// get a number in the range 0.1 - 1.0
 	}
 
 	// output (forces)

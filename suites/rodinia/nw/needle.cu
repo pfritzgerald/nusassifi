@@ -118,16 +118,16 @@ void runTest( int argc, char** argv)
 	printf("Start Needleman-Wunsch\n");
 	
 	for( int i=1; i< max_rows ; i++){    //please define your own sequence. 
-       input_itemsets[i*max_cols] = rand() % 10 + 1;
+       input_itemsets[i*max_cols] = 0;// rand() % 10 + 1;
 	}
     for( int j=1; j< max_cols ; j++){    //please define your own sequence.
-       input_itemsets[j] = rand() % 10 + 1;
+       input_itemsets[j] = 0;// rand() % 10 + 1;
 	}
 
 
 	for (int i = 1 ; i < max_cols; i++){
 		for (int j = 1 ; j < max_rows; j++){
-		referrence[i*max_cols+j] = blosum62[input_itemsets[i*max_cols]][input_itemsets[j]];
+		referrence[i*max_cols+j] =0;// blosum62[input_itemsets[i*max_cols]][input_itemsets[j]];
 		}
 	}
 

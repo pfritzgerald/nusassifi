@@ -115,10 +115,10 @@ install:
 	cp $(TARGET) $(SASSIFI_HOME)/bin/$(OPTION)/$(SUITE_NAME)/
 
 test:
-	./kmeans -o -i ../data/kmeans/100_34.txt.2
+	./kmeans -o -i ../data/kmeans/100_34.txt.0
 
 golden:
-	./kmeans -o -i ../data/kmeans/100_34.txt.2 >golden_stdout.txt 2>golden_stderr.txt
+	./kmeans -o -i ../data/kmeans/100_34.txt.0 >golden_stdout.txt 2>golden_stderr.txt
 
 clean:
 	rm -f *.o *~ kmeans kmeans_cuda.linkinfo
