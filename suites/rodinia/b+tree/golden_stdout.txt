@@ -1,0 +1,41 @@
+WG size of kernel 1 & 2  = 256 
+Selecting device 0
+Input File: ../data/b+tree/mil.txt 
+Command File: ../data/b+tree/command.txt 
+Command Buffer: 
+j 6000 3000
+k 10000
+
+
+Getting input from file ../data/b+tree/mil.txt...
+Transforming data to a GPU suitable structure...
+Tree transformation took 0.498787
+Waiting for command
+> 
+******command: j count=6000, rSize=6000 
+knodes_elem=7874, knodes_unit_mem=2068, knodes_mem=16283432
+# of blocks = 6000, # of threads/block = 256 (ensure that device can handle)
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.107625998557 s, 96.090354919434 % : GPU: SET DEVICE / DRIVER INIT
+ 0.000342000014 s,  0.305343508720 % : GPU MEM: ALO
+ 0.003120000008 s,  2.785589933395 % : GPU MEM: COPY IN
+ 0.000583000015 s,  0.520512461662 % : GPU: KERNEL
+ 0.000038999999 s,  0.034819874913 % : GPU MEM: COPY OUT
+ 0.000295000005 s,  0.263381093740 % : GPU MEM: FRE
+Total time:
+0.112005002797 s
+> > > > > > > > > > > > 
+ ******command: k count=10000 
+records_elem=1000000, records_unit_mem=4, records_mem=4000000
+knodes_elem=7874, knodes_unit_mem=2068, knodes_mem=16283432
+# of blocks = 10000, # of threads/block = 256 (ensure that device can handle)
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.000005000000 s,  0.090909093618 % : GPU: SET DEVICE / DRIVER INIT
+ 0.000607000024 s, 11.036363601685 % : GPU MEM: ALO
+ 0.003748999909 s, 68.163642883301 % : GPU MEM: COPY IN
+ 0.000641999999 s, 11.672726631165 % : GPU: KERNEL
+ 0.000028000000 s,  0.509090900421 % : GPU MEM: COPY OUT
+ 0.000468999991 s,  8.527273178101 % : GPU MEM: FRE
+Total time:
+0.005499999970 s
+> > > > > > > > > > 

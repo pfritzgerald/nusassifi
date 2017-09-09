@@ -1,0 +1,6 @@
+Reading File
+Read File
+Copied Everything to GPU memory
+Start traversing the tree
+Kernel Executed 1 times
+Result stored in result.txt

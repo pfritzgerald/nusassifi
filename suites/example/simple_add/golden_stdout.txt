@@ -1,0 +1,4 @@
+Device 0 (Tesla K40c) is being used
+memory: 11.9193 GB ECC off 15 SMs x745000
+#CTAs=10, nreps=10, threads/CTA=1024
+global sum = 102400 

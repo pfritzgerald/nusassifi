@@ -1,0 +1,8 @@
+WG size of kernel = 16 X 16
+pyramidHeight: 4
+gridSize: [64, 64]
+border:[4, 4]
+blockGrid:[8, 8]
+targetBlock:[8, 8]
+Start computing the transient temperature
+Ending simulation
