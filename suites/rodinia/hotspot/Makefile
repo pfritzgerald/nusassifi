@@ -3,6 +3,7 @@ TARGET = hotspot
 SUITE_NAME = rodinia
 
 OPTION = none
+KERNEL_DIM=-DRD_WG_SIZE_0=24 
 
 GENCODE = -gencode arch=compute_35,code=sm_35
 # SASSIFI_HOME, INST_LIB_DIR, CCDIR, and CUDA_BASE_DIR should be set 
@@ -110,10 +111,10 @@ install:
 	cp $(TARGET) $(SASSIFI_HOME)/bin/$(OPTION)/$(SUITE_NAME)/
 
 test:
-	./hotspot 64 4 4 ../data/hotspot/temp_64.ones ../data/hotspot/power_64.ones output.out
+	./hotspot 64 4 4 ../data/hotspot/temp_64 ../data/hotspot/power_64 output.out
 
 golden:
-	./hotspot 64 4 4 ../data/hotspot/temp_64.ones ../data/hotspot/power_64.ones output.out >golden_stdout.txt 2>golden_stderr.txt
+	./hotspot 64 4 4 ../data/hotspot/temp_64 ../data/hotspot/power_64 output.out >golden_stdout.txt 2>golden_stderr.txt
 
 clean:
 	rm -f *.o *~ $(TARGET)

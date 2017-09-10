@@ -6,6 +6,7 @@ GENCODE = -gencode arch=compute_35,code=sm_35# -gencode arch=compute_50,code=sm_
 
 LDWRAP := -Xlinker "--wrap=main" -Xlinker "--wrap=exit"
 
+KERNEL_DIM=-DRD_WG_SIZE_0=256 -DRD_WG_SIZE_1=8
 # SASSIFI_HOME, INST_LIB_DIR, CCDIR, and CUDA_BASE_DIR should be set 
 DATASET_DIR = $(SASSIFI_HOME)/suites/$(SUITE_NAME)/data/gaussian
 # SASSI/CUDA
@@ -86,10 +87,10 @@ install:
 	cp $(TARGET) run $(SASSIFI_HOME)/bin/$(OPTION)/$(SUITE_NAME)/
 
 test:
-	./gaussian -f ../data/gaussian/matrix16.txt.ones
+	./gaussian -f ../data/gaussian/matrix16.txt
 
 golden:
-	./gaussian -f $(DATASET_DIR)/matrix16.txt.ones >golden_stdout.txt 2>golden_stderr.txt
+	./gaussian -f $(DATASET_DIR)/matrix16.txt >golden_stdout.txt 2>golden_stderr.txt
 #	./gaussian -s 16 >>golden_stdout.txt 2>>golden_stderr.txt
 
 release: $(SRC)

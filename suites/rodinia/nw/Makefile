@@ -3,6 +3,7 @@ TARGET = nw
 SUITE_NAME = rodinia
 
 OPTION = none
+KERNEL_DIM=-DRD_WG_SIZE_0=32 
 
 GENCODE = -gencode arch=compute_35,code=sm_35# -gencode arch=compute_50,code=sm_50
 LDWRAP := -Xlinker "--wrap=main" -Xlinker "--wrap=exit"
@@ -92,7 +93,7 @@ SRC = needle.cu
 all: clean $(TARGET) install
 
 $(TARGET):
-	$(NVCC) $(SRC) -o $(TARGET) $(NVCC_FLAGS) -L$(CUDA_LIB_DIR) $(LINK_FLAGS)
+	$(NVCC) $(KERNEL_DIM) $(SRC) -o $(TARGET) $(NVCC_FLAGS) -L$(CUDA_LIB_DIR) $(LINK_FLAGS)
 
 install:
 	mkdir -p $(SASSIFI_HOME)/bin/$(OPTION)/$(SUITE_NAME)/

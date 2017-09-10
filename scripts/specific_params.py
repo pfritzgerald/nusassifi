@@ -93,7 +93,7 @@ apps = {
 	'gaussian': ['rodinia', 'gaussian', 2],
 #	'backprop': ['rodinia', 'backprop', 4],
 	'hotspot': ['rodinia', 'hotspot',5],
-	'kmeans': ['rodinia', 'kmeans',5],
+	#'kmeans': ['rodinia', 'kmeans',5],
 	'bfs': ['rodinia', 'bfs', 10],
 #	'matrixMul': ['example', 'matrixMul', 2],
 #	'bfs': ['parboil', 'bfs', 10],
