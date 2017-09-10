@@ -1,47 +1,47 @@
 WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
-Read file from /home/previlon/nusassifi//suites/rodinia/data/gaussian/matrix16.txt.0 
+Read file from /home/previlon/nusassifi//suites/rodinia/data/gaussian/matrix16.txt.ones 
 Matrix m is: 
     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00 
-     nan     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00 
-     nan      nan     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00 
-     nan      nan      nan     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00 
-     nan      nan      nan      nan     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00 
-     nan      nan      nan      nan      nan     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00 
-     nan      nan      nan      nan      nan      nan     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00 
-     nan      nan      nan      nan      nan      nan      nan     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00 
-     nan      nan      nan      nan      nan      nan      nan      nan     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00 
-     nan      nan      nan      nan      nan      nan      nan      nan      nan     0.00     0.00     0.00     0.00     0.00     0.00     0.00 
-     nan      nan      nan      nan      nan      nan      nan      nan      nan      nan     0.00     0.00     0.00     0.00     0.00     0.00 
-     nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan     0.00     0.00     0.00     0.00     0.00 
-     nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan     0.00     0.00     0.00     0.00 
-     nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan     0.00     0.00     0.00 
-     nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan     0.00     0.00 
-     nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan     0.00 
+    1.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00 
+    1.00      nan     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00 
+    1.00      nan      nan     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00 
+    1.00      nan      nan      nan     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00 
+    1.00      nan      nan      nan      nan     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00 
+    1.00      nan      nan      nan      nan      nan     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00 
+    1.00      nan      nan      nan      nan      nan      nan     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00 
+    1.00      nan      nan      nan      nan      nan      nan      nan     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00 
+    1.00      nan      nan      nan      nan      nan      nan      nan      nan     0.00     0.00     0.00     0.00     0.00     0.00     0.00 
+    1.00      nan      nan      nan      nan      nan      nan      nan      nan      nan     0.00     0.00     0.00     0.00     0.00     0.00 
+    1.00      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan     0.00     0.00     0.00     0.00     0.00 
+    1.00      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan     0.00     0.00     0.00     0.00 
+    1.00      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan     0.00     0.00     0.00 
+    1.00      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan     0.00     0.00 
+    1.00      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan     0.00 
 
 Matrix a is: 
+    1.00     1.00     1.00     1.00     1.00     1.00     1.00     1.00     1.00     1.00     1.00     1.00     1.00     1.00     1.00     1.00 
     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00 
-     nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan 
-     nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan 
-     nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan 
-     nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan 
-     nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan 
-     nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan 
-     nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan 
-     nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan 
-     nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan 
-     nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan 
-     nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan 
-     nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan 
-     nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan 
-     nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan 
-     nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan 
+    0.00      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan 
+    0.00      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan 
+    0.00      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan 
+    0.00      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan 
+    0.00      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan 
+    0.00      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan 
+    0.00      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan 
+    0.00      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan 
+    0.00      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan 
+    0.00      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan 
+    0.00      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan 
+    0.00      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan 
+    0.00      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan 
+    0.00      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan      nan 
 
 Array b is: 
-0.00 nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan 
+0.10 0.00 nan nan nan nan nan nan nan nan nan nan nan nan nan nan 
 
 The final solution is: 
 nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan 
 
 
-Time total (including memory transfers)	0.246809 sec
-Time for CUDA kernels:	0.000415 sec
+Time total (including memory transfers)	0.179052 sec
+Time for CUDA kernels:	0.000414 sec
