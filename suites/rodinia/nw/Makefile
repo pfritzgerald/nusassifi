@@ -3,7 +3,7 @@ TARGET = nw
 SUITE_NAME = rodinia
 
 OPTION = none
-KERNEL_DIM=-DRD_WG_SIZE_0=32 
+KERNEL_DIM=-DRD_WG_SIZE_0=64
 
 GENCODE = -gencode arch=compute_35,code=sm_35# -gencode arch=compute_50,code=sm_50
 LDWRAP := -Xlinker "--wrap=main" -Xlinker "--wrap=exit"

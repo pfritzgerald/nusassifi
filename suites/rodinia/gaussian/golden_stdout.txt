@@ -1,4 +1,4 @@
-WG size of kernel 1 = 256, WG size of kernel 2= 8 X 8
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
 Read file from /home/previlon/nusassifi//suites/rodinia/data/gaussian/matrix16.txt 
 Matrix m is: 
     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00 
@@ -43,5 +43,5 @@ The final solution is:
 -0.10 -0.00 -0.50 0.30 0.70 0.50 -0.60 0.90 -0.30 0.70 0.10 -0.70 -0.50 1.00 -0.10 0.60 
 
 
-Time total (including memory transfers)	0.159690 sec
-Time for CUDA kernels:	0.000417 sec
+Time total (including memory transfers)	0.270286 sec
+Time for CUDA kernels:	0.000382 sec

@@ -1,8 +1,8 @@
-WG size of kernel = 24 X 24
+WG size of kernel = 32 X 32
 pyramidHeight: 4
 gridSize: [64, 64]
 border:[4, 4]
-blockGrid:[4, 4]
-targetBlock:[16, 16]
+blockGrid:[3, 3]
+targetBlock:[24, 24]
 Start computing the transient temperature
 Ending simulation

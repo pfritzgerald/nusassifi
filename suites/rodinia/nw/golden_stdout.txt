@@ -1,4 +1,4 @@
-WG size of kernel = 32 
+WG size of kernel = 64 
 Start Needleman-Wunsch
 Processing top-left matrix
 Processing bottom-right matrix

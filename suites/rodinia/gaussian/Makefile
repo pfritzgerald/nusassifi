@@ -6,7 +6,7 @@ GENCODE = -gencode arch=compute_35,code=sm_35# -gencode arch=compute_50,code=sm_
 
 LDWRAP := -Xlinker "--wrap=main" -Xlinker "--wrap=exit"
 
-KERNEL_DIM=-DRD_WG_SIZE_0=256 -DRD_WG_SIZE_1=8
+KERNEL_DIM=-DRD_WG_SIZE_0=512 -DRD_WG_SIZE_1=4
 # SASSIFI_HOME, INST_LIB_DIR, CCDIR, and CUDA_BASE_DIR should be set 
 DATASET_DIR = $(SASSIFI_HOME)/suites/$(SUITE_NAME)/data/gaussian
 # SASSI/CUDA
