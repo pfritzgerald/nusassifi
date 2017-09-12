@@ -92,10 +92,10 @@ install:
 	cp $(TARGET) run $(SASSIFI_HOME)/bin/$(OPTION)/$(SUITE_NAME)/
 
 test:
-	./gaussian -f ../data/gaussian/matrix16.txt
+	./gaussian -f ../data/gaussian/matrix16.txt.2
 
 golden:
-	./gaussian -f $(DATASET_DIR)/matrix16.txt >golden_stdout.txt 2>golden_stderr.txt
+	./gaussian -f $(DATASET_DIR)/matrix16.txt.2 >golden_stdout.txt 2>golden_stderr.txt
 #	./gaussian -s 16 >>golden_stdout.txt 2>>golden_stderr.txt
 
 release: $(SRC)

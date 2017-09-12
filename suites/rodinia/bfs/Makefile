@@ -100,10 +100,10 @@ install:
 	cp $(TARGET) $(SASSIFI_HOME)/bin/$(OPTION)/$(SUITE_NAME)/
 
 test:
-	./bfs ../data/bfs/graph4k.txt
+	./bfs ../data/bfs/graph4k.txt.2
 
 golden:
-	./bfs ../data/bfs/graph4k.txt >golden_stdout.txt 2>golden_stderr.txt
+	./bfs ../data/bfs/graph4k.txt.2 >golden_stdout.txt 2>golden_stderr.txt
 
 clean:
 	rm -f *.o *~  bfs
