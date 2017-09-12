@@ -21,7 +21,7 @@
 #include <math.h>
 #include <cuda.h>
 
-#define MAX_THREADS_PER_BLOCK 128
+#define MAX_THREADS_PER_BLOCK 512
 
 int no_of_nodes;
 int edge_list_size;

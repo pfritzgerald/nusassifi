@@ -3,7 +3,7 @@ TARGET = hotspot
 SUITE_NAME = rodinia
 
 OPTION = none
-KERNEL_DIM=-DRD_WG_SIZE_0=32
+#KERNEL_DIM=-DRD_WG_SIZE_0=32
 
 GENCODE = -gencode arch=compute_35,code=sm_35
 # SASSIFI_HOME, INST_LIB_DIR, CCDIR, and CUDA_BASE_DIR should be set 

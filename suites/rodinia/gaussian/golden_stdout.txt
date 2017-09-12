@@ -43,5 +43,5 @@ The final solution is:
 -0.10 -0.00 -0.50 0.30 0.70 0.50 -0.60 0.90 -0.30 0.70 0.10 -0.70 -0.50 1.00 -0.10 0.60 
 
 
-Time total (including memory transfers)	0.177179 sec
-Time for CUDA kernels:	0.000418 sec
+Time total (including memory transfers)	0.170940 sec
+Time for CUDA kernels:	0.000410 sec
