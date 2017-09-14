@@ -2,5 +2,5 @@ Reading File
 Read File
 Copied Everything to GPU memory
 Start traversing the tree
-Kernel Executed 8 times
+Kernel Executed 6 times
 Result stored in result.txt
