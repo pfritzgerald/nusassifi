@@ -141,11 +141,11 @@ def parse_bb_executions(app, c):
                 num_insts = int(words[3])
                 func_name = words[2]
                 app_dyn_inst_id =int(words[4])
+                weight = int(words[5])
   		c.execute('INSERT OR IGNORE INTO BBProfile '\
-				'VALUES(NULL, \'%s\',\'%s\', %d, %d, %d, %d, %d, \'%s\');'
+				'VALUES(NULL, \'%s\',\'%s\', %d, %d, %d, %d, %d, \'%s\', %d);'
 				%(app, kName, invocation_id, gpr_inst_id, app_dyn_inst_id, basic_block_id, num_insts, 
-                                    func_name))
-
+                                    func_name, weight))
 
 
 ###################################################################################
@@ -218,7 +218,7 @@ def CreateNewDB(c):
         c.execute('CREATE TABLE IF NOT EXISTS '\
                 'BBProfile(ID INTEGER PRIMARY KEY, App TEXT, KName TEXT, '\
                 'InvocationIdx INTEGER, GlobalInstId INTEGER, AppDynInstId INTEGER, '\
-                ' BasicBlockId INTEGER, NumInsts INTEGER, FuncName TEXT)')
+                ' BasicBlockId INTEGER, NumInsts INTEGER, FuncName TEXT, Weight INTEGER)')
 
 	######
 	# fill up OutcomeMap table
