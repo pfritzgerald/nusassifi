@@ -3,9 +3,7 @@
 touch diff.log
 ##################################
 export PYTHONPATH=${APP_DIR}/../../common/python:$PYTHONPATH
-${APP_DIR}/tools/compare-output \
-  ${APP_DIR}/../../datasets/cutcp/small/output/lattice.dat \
-  ${APP_DIR}/run/small/lattice.dat > pass.txt
+${APP_DIR}/tools/compare-output  ${APP_DIR}/../../datasets/cutcp/small/output/lattice.dat ${APP_DIR}/run/small/lattice.dat > pass.txt
 if ! grep -q "Pass" pass.txt; then
   mv pass.txt diff.log
 fi

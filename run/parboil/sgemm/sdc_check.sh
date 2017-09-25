@@ -1,7 +1,11 @@
 #!/bin/bash
 # if your program creates an output file (e.g., output.txt) compare it to the file created just now and store the difference in diff.log
 touch diff.log
-diff ${APP_DIR}/run/1M/bfs.out ${APP_DIR}/../../datasets/bfs/1M/output/bfs.out > diff.log
+export PYTHONPATH=${APP_DIR}/../../common/python:$PYTHONPATH
+${APP_DIR}/tools/compare-output ${APP_DIR}/../../datasets/sgemm/medium/output/matrix3.txt ${APP_DIR}/run/medium/matrix3.txt > pass.txt
+if ! grep -q "Pass" pass.txt; then
+  mv pass.txt diff.log
+fi
 ##################################
 #diff  <(sed 's/:::Injecting.*::://g' stdout.txt) ${APP_DIR}/golden_stdout.txt > stdout_diff.log
 touch stdout_diff.log

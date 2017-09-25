@@ -1,5 +1,5 @@
-DATASET=short
-PROG=lbm
+DATASET=default
+PROG=sad
 SUITE_NAME=parboil
 OPTION=none
 
