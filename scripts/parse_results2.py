@@ -134,18 +134,21 @@ def parse_bb_executions(app, c):
                 words = line.split(",")
                 kName = words[1]
                 invocation_id = int(words[3])
+                interval_size = int(words[5])
             else:
                 words = line.split(",")
-                gpr_inst_id = int(words[0])
-                basic_block_id = int(words[1])
-                num_insts = int(words[3])
-                func_name = words[2]
-                app_dyn_inst_id =int(words[4])
-                weight = int(words[5])
+                basic_block_id = int(words[0])
+                num_insts = int(words[2])
+                func_name = words[1]
+                inst_interval =int(words[3])
+                weight = int(words[4])
   		c.execute('INSERT OR IGNORE INTO BBProfile '\
-				'VALUES(NULL, \'%s\',\'%s\', %d, %d, %d, %d, %d, \'%s\', %d);'
-				%(app, kName, invocation_id, gpr_inst_id, app_dyn_inst_id, basic_block_id, num_insts, 
+				'VALUES(NULL, \'%s\',\'%s\', %d, %d, %d, %d, \'%s\', %d);'
+				%(app, kName, invocation_id, inst_interval, basic_block_id, num_insts, 
                                     func_name, weight))
+        c.execute('INSERT OR IGNORE INTO BBVIntervalSizes '\
+                            'VALUES(NULL, \'%s\', %d);'
+                            %()app, interval_size)
 
 
 ###################################################################################
@@ -217,8 +220,10 @@ def CreateNewDB(c):
                 'isStore INTEGER, isAtomic INTEGER, isUniform INTEGER, isVolatile INTEGER)')
         c.execute('CREATE TABLE IF NOT EXISTS '\
                 'BBProfile(ID INTEGER PRIMARY KEY, App TEXT, KName TEXT, '\
-                'InvocationIdx INTEGER, GlobalInstId INTEGER, AppDynInstId INTEGER, '\
+                'InvocationIdx INTEGER, InstInterval INTEGER, '\
                 ' BasicBlockId INTEGER, NumInsts INTEGER, FuncName TEXT, Weight INTEGER)')
+        c.execute('CREATE TABLE IF NOT EXISTS '\
+                'BBVIntervalSizes(ID INTEGER PRIMARY KEY, App TEXT, IntervalSize INTEGER)')
 
 	######
 	# fill up OutcomeMap table

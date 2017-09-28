@@ -87,6 +87,21 @@ if [ $? -ne 0 ]; then
 fi
 
 ################################################
+# Step 4.b: Build the app for profiling of
+# basic blocks
+################################################
+printf "\n------------\nStep 5: Profile the application\n"
+make OPTION=bbv_profiler
+if [ "$where_to_run" != "cluster" ] ; then
+	make test
+fi
+if [ $? -ne 0 ]; then
+    echo "Return code was not zero: $?"
+		exit -1;
+fi
+
+
+################################################
 # Step 5: Build the app for profiling and
 # collect the instruction profile
 ################################################

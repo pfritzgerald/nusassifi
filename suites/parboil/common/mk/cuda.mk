@@ -65,6 +65,12 @@ SASSI_CUDACFLAGS = $(BEFORE_ALL)  $(BEFORE_REG_MEM_INFO) -Xptxas --sassi-bb-entr
 SASSI_CUDALDFLAGS = -L$(INST_LIB_DIR) -lmemaccesses $(CUPTI) 
 endif
 
+ifeq (${SASSI_OPTION},bbv_profiler)
+SASSI_CUDACFLAGS = $(BEFORE_ALL)   -Xptxas --sassi-bb-entry $(GENCODE)#$(BEFORE_ALL) $(BEFORE_REG_MEM_INFO)
+SASSI_CUDALDFLAGS = -L$(INST_LIB_DIR) -lbbv_profiler $(CUPTI) 
+endif
+
+
 
 # CUDA specific
 LANG_CFLAGS=-I$(PARBOIL_ROOT)/common/include -I$(CUDA_PATH)/include
