@@ -130,7 +130,7 @@ def parse_bb_executions(app, c):
 	kName = ""
         invocation_id=0
 	for line in rf: # for each mem access (or new kernel and invocation)
-            if "kernel" in line:
+            if "kernel," in line:
                 words = line.split(",")
                 kName = words[1]
                 invocation_id = int(words[3])
@@ -148,7 +148,7 @@ def parse_bb_executions(app, c):
                                     func_name, weight))
         c.execute('INSERT OR IGNORE INTO BBVIntervalSizes '\
                             'VALUES(NULL, \'%s\', %d);'
-                            %()app, interval_size)
+                            %(app, interval_size))
 
 
 ###################################################################################
