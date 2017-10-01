@@ -84,9 +84,13 @@ EXTRA_NVCC_FLAGS = $(BEFORE_ALL)  $(BEFORE_REG_MEM_INFO) -Xptxas --sassi-bb-entr
 EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lmemaccesses $(CUPTI) 
 endif
 
+ifeq (${OPTION},bbv_profiler)
+EXTRA_NVCC_FLAGS = $(BEFORE_ALL) -Xptxas --sassi-bb-entry $(GENCODE)
+EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lbbv_profiler $(CUPTI) 
+endif
+
 ifeq (${OPTION},memdiverge)
 EXTRA_NVCC_FLAGS = $(BEFORE_MEM) $(BEFORE_MEM_INFO)
 EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lmemdiverge $(CUPTI) 
 endif
-
 
