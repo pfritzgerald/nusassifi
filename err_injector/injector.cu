@@ -416,6 +416,10 @@ __device__ int32_t is_src_reg(SASSIRegisterParams *rp, int32_t injRegID) {
 //  thread exits, the injection run is categorized as masked. 
 ///////////////////////////////////////////////////////////////////////////////////
 __device__ void sassi_before_handler(SASSIBeforeParams* bp, SASSIMemoryParams *mp, SASSIRegisterParams *rp) {
+/***FRITZ**/
+  	if (bp->GetInstrWillExecute()) {
+		atomicAdd(&AppDynInstCount, 1LL);
+	}
 #if EMPTY_HANDLER && INJ_MODE != RF_INJECTIONS // if you don't want to inject RF based errors, return
 	return;
 #endif
@@ -468,7 +472,6 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp,
 #if EMPTY_HANDLER && INJ_MODE != INST_INJECTIONS // if you don't want to inject instruction level errors, return
 	return;
 #endif
-	atomicAdd(&AppDynInstCount, 1LL);
 	if (!inj_info.areParamsReady) // Check if this is the kernel of interest 
 		return; // This is not the selected kernel. No need to proceed.
  	atomicAdd(&injCounterAllInsts, 1LL);

@@ -50,7 +50,7 @@ EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lprofiler $(CUPTI)
 endif
 
 ifeq (${OPTION},inst_injector)
-EXTRA_NVCC_FLAGS = $(AFTER_REG_MEM) $(AFTER_REG_MEM_INFO) $(BRANCH_AROUND) 
+EXTRA_NVCC_FLAGS = $(BEFORE_ALL) $(BEFORE_REG_MEM_INFO) $(AFTER_REG_MEM) $(AFTER_REG_MEM_INFO) $(BRANCH_AROUND) 
 EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -linstinjector $(CUPTI) 
 endif
  
@@ -85,7 +85,7 @@ EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lmemaccesses $(CUPTI)
 endif
 
 ifeq (${OPTION},bbv_profiler)
-EXTRA_NVCC_FLAGS = $(BEFORE_ALL) -Xptxas --sassi-bb-entry $(GENCODE)
+EXTRA_NVCC_FLAGS = $(BEFORE_ALL) $(BEFORE_REG_INFO) -Xptxas --sassi-bb-entry $(GENCODE)
 EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lbbv_profiler $(CUPTI) 
 endif
 

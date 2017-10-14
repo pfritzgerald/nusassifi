@@ -135,21 +135,26 @@ def parse_bb_executions(app, c):
                 kName = words[1]
                 invocation_id = int(words[3])
                 interval_size = int(words[5])
-            else:
+            elif "INTERVAL," in line:
+		words = line.split(",")
+		interval_id = int(words[1])
+		num_gpr_insts = int(words[3])
+		c.execute('INSERT OR IGNORE INTO BBVIntervalSizes '\
+                            'VALUES(NULL, \'%s\', %d, %d, %d);'
+                            %(app, interval_size, interval_id,num_gpr_insts))
+
+	    else:
                 words = line.split(",")
                 basic_block_id = int(words[0])
                 num_insts = int(words[2])
                 func_name = words[1]
                 inst_interval =int(words[3])
-                weight = int(words[4])
+                bb_num_execs = int(words[4])
   		c.execute('INSERT OR IGNORE INTO BBProfile '\
 				'VALUES(NULL, \'%s\',\'%s\', %d, %d, %d, %d, \'%s\', %d);'
 				%(app, kName, invocation_id, inst_interval, basic_block_id, num_insts, 
-                                    func_name, weight))
-        c.execute('INSERT OR IGNORE INTO BBVIntervalSizes '\
-                            'VALUES(NULL, \'%s\', %d);'
-                            %(app, interval_size))
-
+                                    func_name, bb_num_execs))
+        
 
 ###################################################################################
 # Parse results files and populate summary to results table 
@@ -220,10 +225,11 @@ def CreateNewDB(c):
                 'isStore INTEGER, isAtomic INTEGER, isUniform INTEGER, isVolatile INTEGER)')
         c.execute('CREATE TABLE IF NOT EXISTS '\
                 'BBProfile(ID INTEGER PRIMARY KEY, App TEXT, KName TEXT, '\
-                'InvocationIdx INTEGER, InstInterval INTEGER, '\
-                ' BasicBlockId INTEGER, NumInsts INTEGER, FuncName TEXT, Weight INTEGER)')
+                'InvocationIdx INTEGER, InstIntervalId INTEGER, '\
+                ' BasicBlockId INTEGER, BBNumInsts INTEGER, FuncName TEXT, BBNumExecs INTEGER)')
         c.execute('CREATE TABLE IF NOT EXISTS '\
-                'BBVIntervalSizes(ID INTEGER PRIMARY KEY, App TEXT, IntervalSize INTEGER)')
+                'BBVIntervalSizes(ID INTEGER PRIMARY KEY, App TEXT, IntervalSize INTEGER,'\
+		' IntervalId INTEGER, NumGPRInsts INTEGER)')
 
 	######
 	# fill up OutcomeMap table
