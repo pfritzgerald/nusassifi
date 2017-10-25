@@ -96,12 +96,12 @@ def create_sbatch_script(app,array_num):
 	outf.close()
 	return filename
 
-def check_and_submit_cluster(cmd, app, total_jobs):
+def check_and_submit_cluster(cmd, app, total_jobs, interval_mode):
 	array_num = ((total_jobs - 1) / 1000) + 1
 	if total_jobs < sp.THRESHOLD_JOBS + 1:
 		os.system("echo " + cmd + " >> " + sp.SASSIFI_HOME + "/scripts/tmp/" + app + "/cmds_" + str(array_num) + ".out")
-	if total_jobs == sp.THRESHOLD_JOBS or (total_jobs % 1000) == 0:	
-		sbatch_script=create_sbatch_script(app,array_num)	
+	if (total_jobs == sp.THRESHOLD_JOBS) or ((total_jobs % 1000) == 0) or (interval_mode and (total_jobs == total_interval_jobs)):
+		sbatch_script=create_sbatch_script(app,array_num)
 		num_jobs = (total_jobs % 1000) if (total_jobs % 1000) else 1000
 		os.system("sbatch -D " + sp.SASSIFI_HOME + "/scripts/tmp/" + app + "  --array=1-" + str(num_jobs) + " " + sbatch_script)
 #		os.system("rm cmds.out")
@@ -124,32 +124,50 @@ def check_and_submit_multigpu(cmd):
 ###############################################################################
 # Run Multiple injection experiments
 ###############################################################################
-def run_multiple_injections_igid(app, is_rf, igid, where_to_run):
+def run_multiple_injections_igid(app, is_rf, igid, where_to_run, interval_mode):
 	bfm_list = sp.rf_bfm_list if is_rf else sp.igid_bfm_map[igid]
 	if where_to_run == "cluster":
 		if not os.path.isdir(sp.SASSIFI_HOME + "/scripts/tmp/" + app):
-			os.system("mkdir -p " + sp.SASSIFI_HOME + "/scripts/tmp/" + app) 
+			os.system("mkdir -p " + sp.SASSIFI_HOME + "/scripts/tmp/" + app)
+		os.system("rm -f " + sp.SASSIFI_HOME + "/scripts/tmp/" + app + "/cmds_*.out") 
 	for bfm in bfm_list:
 		#print "App: %s, IGID: %s, EM: %s" %(app, cp.IGID_STR[igid], cp.EM_STR[bfm])
 		total_jobs = 0
-		inj_list_filenmae = sp.app_log_dir[app] + "/injection-list/igid" + str(igid) + ".bfm" + str(bfm) + "." + str(sp.NUM_INJECTIONS) + ".txt"
+		if interval_mode:
+			inj_list_filenmae = sp.app_log_dir[app] + "/injection-list/igid" + str(igid) + ".bfm" + str(bfm) + ".interval.txt"
+			global total_interval_jobs
+			interval_file = open(sp.app_dir[app]+"/interval.txt", "r")
+			next(interval_file)
+			next(interval_file)
+			interval_line = next(interval_file).split(":")
+			total_interval_jobs = int(interval_line[2]) * len(interval_line[3:])
+		else:
+			inj_list_filenmae = sp.app_log_dir[app] + "/injection-list/igid" + str(igid) + ".bfm" + str(bfm) + "." + str(sp.NUM_INJECTIONS) + ".txt"
 		inf = open(inj_list_filenmae, "r")
 		
 		for line in inf: # for each injection site 
 			total_jobs += 1
-			if total_jobs > sp.THRESHOLD_JOBS: 
+			if not interval_mode and total_jobs > sp.THRESHOLD_JOBS: 
 				break; # no need to run more jobs
 
 			#_Z24bpnn_adjust_weights_cudaPfiS_iS_S_ 0 1297034 0.877316323856 0.214340876321
-			if len(line.split()) >= 5: 
-				[kname, kcount, iid, opid, bid] = line.split() # obtains params for this injection
-				if cp.verbose: print "\n%d: app=%s, Kernel=%s,\
-                                kcount=%s, igid=%d, bfm=%d, instID=%s,\
-				opID=%s, bitLocation=%s" %(total_jobs, app, kname, kcount, igid, bfm, iid, opid, bid)
-				cmd = "%s %s/scripts/run_one_injection.py %s %s %s %s %s %s %s %s" %(cp.PYTHON_P,
-						sp.SASSIFI_HOME, str(igid), str(bfm), app, kname, kcount, iid, opid, bid)
+			if len(line.split()) >= 3: 
+				if interval_mode:
+					[interval_size, interval_id, iid, opid, bid] = line.split()
+					if cp.verbose: print "\n%d: app:%s, interval_mode, igid=%d, bfm=%d"\
+					"intervalSize=%s, intervalID=%s, instID=%s, opId=%s, bitLocation=%s"\
+						%(total_jobs, app, igid, bfm, interval_size, interval_id, iid, opid, bid)
+					cmd = "%s %s/scripts/run_one_injection.py interval_mode %s %s %s %s %s %s %s %s"\
+						% (cp.PYTHON_P, sp.SASSIFI_HOME, str(igid), str(bfm), app, interval_size, interval_id, iid, opid, bid)
+				else:
+					[kname, kcount, iid, opid, bid] = line.split() # obtains params for this injection
+					if cp.verbose: print "\n%d: app=%s, Kernel=%s,"\
+					"kcount=%s, igid=%d, bfm=%d, instID=%s,"\
+					"opID=%s, bitLocation=%s" %(total_jobs, app, kname, kcount, igid, bfm, iid, opid, bid)
+					cmd = "%s %s/scripts/run_one_injection.py normal_mode %s %s %s %s %s %s %s %s" %(cp.PYTHON_P,
+							sp.SASSIFI_HOME, str(igid), str(bfm), app, kname, kcount, iid, opid, bid)
 				if where_to_run == "cluster":
-					check_and_submit_cluster(cmd, app, total_jobs)
+					check_and_submit_cluster(cmd, app, total_jobs, interval_mode)
 				elif where_to_run == "multigpu":
 					check_and_submit_multigpu(cmd)
 				else:
@@ -169,12 +187,12 @@ def run_multiple_injections_igid(app, is_rf, igid, where_to_run):
 ###############################################################################
 # wrapper function to call either RF injections or instruction level injections
 ###############################################################################
-def run_multiple_injections(app, is_rf, where_to_run):
+def run_multiple_injections(app, is_rf, where_to_run, interval_mode):
 	if is_rf:
-		run_multiple_injections_igid(app, is_rf, "rf", where_to_run)
+		run_multiple_injections_igid(app, is_rf, "rf", where_to_run, interval_mode)
 	else:
 		for igid in sp.igid_bfm_map:
-			run_multiple_injections_igid(app, is_rf, igid, where_to_run)
+			run_multiple_injections_igid(app, is_rf, igid, where_to_run, interval_mode)
 
 ###############################################################################
 # Starting point of the execution
@@ -182,7 +200,11 @@ def run_multiple_injections(app, is_rf, where_to_run):
 def main(): 
 	if len(sys.argv) >= 3: 
 		where_to_run = sys.argv[2]
-	
+		interval_mode = False
+		if len(sys.argv) == 4:
+			interval_mode = (sys.argv[3] == "interval")
+		if len(sys.argv) == 5:
+			interval_mode |= (sys.argv[4] == "interval")
 		if where_to_run != "standalone":
 			if pkgutil.find_loader('lockfile') is None:
 				print "lockfile module not found. This python module is needed to run injection experiments in parallel." 
@@ -196,7 +218,7 @@ def main():
 				if sys.argv[3] == "clean":
 					clear_results_file(app) # clean log files only if asked for
 	
-		 	run_multiple_injections(app, (sys.argv[1] == "rf"), where_to_run)
+		 	run_multiple_injections(app, (sys.argv[1] == "rf"), where_to_run, interval_mode)
 	
 	else:
 		print_usage()

@@ -50,7 +50,7 @@ EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lprofiler $(CUPTI)
 endif
 
 ifeq (${OPTION},inst_injector)
-EXTRA_NVCC_FLAGS = $(BEFORE_ALL) $(BEFORE_REG_MEM_INFO) $(AFTER_REG_MEM) $(AFTER_REG_MEM_INFO) $(BRANCH_AROUND) 
+EXTRA_NVCC_FLAGS =  $(AFTER_REG_MEM) $(AFTER_REG_MEM_INFO) $(BRANCH_AROUND) 
 EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -linstinjector $(CUPTI) 
 endif
  
@@ -79,13 +79,13 @@ EXTRA_NVCC_FLAGS = $(LDWRAP) -lineinfo $(BEFORE_COND_BRANCHES) $(BEFORE_COND_BRA
 EXTRA_LINK_FLAGS = $(LDWRAP) -L$(INST_LIB_DIR) -lbranch $(CUPTI) -L$(BOOST_HOME)/lib -lboost_regex -lcrypto -Xlinker -rpath,$(BOOST_HOME)/lib
 endif
 
-ifeq (${OPTION},memaccesses)
-EXTRA_NVCC_FLAGS = $(BEFORE_ALL)  $(BEFORE_REG_MEM_INFO) -Xptxas --sassi-bb-entry#$(BEFORE_ALL) $(BEFORE_REG_MEM_INFO)
-EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lmemaccesses $(CUPTI) 
+ifeq (${OPTION},mem_profiler)
+EXTRA_NVCC_FLAGS = $(AFTER_REG_MEM)  $(AFTER_REG_MEM_INFO)  $(BRANCH_AROUND) $(GENCODE)
+EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lmem_profiler $(CUPTI) 
 endif
 
 ifeq (${OPTION},bbv_profiler)
-EXTRA_NVCC_FLAGS = $(BEFORE_ALL) $(BEFORE_REG_INFO) -Xptxas --sassi-bb-entry $(GENCODE)
+EXTRA_NVCC_FLAGS = $(AFTER_REG_MEM) $(AFTER_REG_MEM_INFO) -Xptxas --sassi-bb-entry $(BRANCH_AROUND) $(GENCODE)
 EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lbbv_profiler $(CUPTI) 
 endif
 

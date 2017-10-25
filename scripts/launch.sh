@@ -41,7 +41,7 @@ if [ `hostname -s` == "kepler1" ]; then
 	export CUDA_BASE_DIR=/home/previlon/sassi7/
 	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CUDA_BASE_DIR/lib64/:$CUDA_BASE_DIR/extras/CUPTI/lib64/
 else
-  . ../env.sh
+  . `echo ../env.sh`
 fi
 
 printf "\n------\nStep 1a: CLEAN?\n"

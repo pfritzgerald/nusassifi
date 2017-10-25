@@ -38,6 +38,7 @@ INJ_DEBUG_HEAVY=0
 # Flags used by the build commands below
 RF_INJECTIONS=0
 INST_INJECTIONS=1
+INTERVAL_MODE_INJECTION=0
 
 ########################################
 # build rules: try "make -j3"
@@ -95,6 +96,7 @@ instinjector.o: injector.cu
 		-DINJ_DEBUG_LIGHT=$(INJ_DEBUG_LIGHT) \
 		-DINJ_DEBUG_HEAVY=$(INJ_DEBUG_HEAVY) \
 		-DINJ_MODE=$(INST_INJECTIONS) \
+		-DINTERVAL_MODE_INJECTION=$(INTERVAL_MODE_INJECTION) \
 		-DCC_DEBUG=$(CC_DEBUG) \
 		-I$(CUPTI)/include/ \
 		-I$(INSTALL_DIR)/utils/ \

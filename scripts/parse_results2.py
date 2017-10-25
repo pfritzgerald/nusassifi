@@ -50,11 +50,15 @@ inst_fraction = {}
 inst_count = {}
 
 def parse_results_file(app, igid, bfm, c):
+	if injection_mode == "interval":
+		results_f_name = sp.app_log_dir[app] + "results-igid" + str(igid) + ".bfm" + str(bfm) + ".interval.txt"
+	else:
+		results_f_name = sp.app_log_dir[app] + "results-igid" + str(igid) + ".bfm" + str(bfm) + "." + str(sp.NUM_INJECTIONS) + ".txt"
 	try:
-		rf = open(sp.app_log_dir[app] + "results-igid" + str(igid) + ".bfm" + str(bfm) + "." + str(sp.NUM_INJECTIONS) + ".txt", "r")
+		rf = open(results_f_name, "r")
 	except IOError: 
 		print "app=%s, igid=%d, bfm=%d " %(app, igid, bfm),
-		print sp.app_log_dir[app] + "results-igid" + str(igid) + ".bfm" + str(bfm) + "." + str(sp.NUM_INJECTIONS) + ".txt"
+		print "NOT OPEN: " + results_f_name
 		return 
 	suite = sp.apps[app][0]
         print "file is " + rf.name
@@ -64,11 +68,19 @@ def parse_results_file(app, igid, bfm, c):
 		#kname-kcount-iid-allIId-opid-bid:pc:opcode:tid:injBID:runtime_sec:outcome_category:dmesg
 		words = line.split(":")
 		inj_site_info = words[0].split("-")
-		[kname, invocation_index, opcode, injBID, runtime, outcome] = \
+		if injection_mode == "interval":
+			[interval_size, interval_id] = [int(inj_site_info[2]), int(inj_site_info[3])]
+			inst_id = int(inj_site_info[4])
+			opIdSeed = inj_site_info[5]
+			bIdSeed = inj_site_info[6]
+			[opcode, injBID, runtime, outcome] = \
+			[words[5], int(words[7]), float(words[8]), int(words[9])]
+		else:
+			[kname, invocation_index, opcode, injBID, runtime, outcome] = \
 			[inj_site_info[0], int(inj_site_info[1]), words[5], int(words[7]), float(words[8]), int(words[9])]
-		inst_id = int(inj_site_info[2])
-		opIdSeed = inj_site_info[3]
-		bIdSeed = inj_site_info[4]
+			inst_id = int(inj_site_info[2])
+			opIdSeed = inj_site_info[3]
+			bIdSeed = inj_site_info[4]
 #		print "words[1]: "+ str(words[1]),
 		pc_text = '0x'+str(words[1])
                 bb_id = int(words[2])
@@ -79,7 +91,13 @@ def parse_results_file(app, igid, bfm, c):
 #		print "PC text: "  + " => " + pc_text
 #		pc = int(pc_text,0)
 		tId = int(words[6])
-		c.execute('INSERT OR IGNORE INTO Results '\
+		if injection_mode == "interval":
+			c.execute('INSERT OR IGNORE INTO Results '\
+				'VALUES(NULL, \'%s\',\'%s\',%d,\'%s\', \'%s\', %d, %d, %d, %d, \'%s\', %d, %d, %d, \'%s\', %d, %d, %f, %d)'
+				%(suite,app, interval_size, opIdSeed, bIdSeed, igid, bfm, interval_id, inst_id, pc_text,
+					bb_id, global_inst_id, app_dyn_inst_id, opcode, tId, injBID, runtime, (outcome-1)))
+		else:
+			c.execute('INSERT OR IGNORE INTO Results '\
 				'VALUES(NULL, \'%s\',\'%s\',\'%s\',\'%s\', \'%s\', %d, %d, %d, %d, \'%s\', %d, %d, %d, \'%s\', %d, %d, %f, %d)'
 				%(suite,app, kname, opIdSeed, bIdSeed, igid, bfm, invocation_index, inst_id, pc_text,
 					bb_id, global_inst_id, app_dyn_inst_id, opcode, tId, injBID, runtime, (outcome-1)))
@@ -100,25 +118,16 @@ def parse_mem_accesses(app, c):
         print "file is " + rf.name
 	kName = ""
         invocation_id=0
-	for line in rf: # for each mem access (or new kernel and invocation)
-            if "kernel" in line:
-                words = line.split(",")
-                kName = words[1]
-                invocation_id = int(words[3])
-            else:
-                words = line.split(",")
-                gpr_inst_id = int(words[0])
-                global_mem = int(words[1])
-                is_load = int(words[2])
-                is_store = int(words[3])
-                is_atomic = int(words[4])
-                is_uniform = int(words[5])
-                is_volatile = int(words[6])
-                app_dyn_inst_id = int(words[7])
+	for line in rf: # for each mem access (or new kernel and invocation) 
+		words = line.split(",")
+		interval_id = int(words[1])
+                global_loads = int(words[3])
+                global_stores = int(words[5])
+		nonglobal_loads = int(words[7])
+                nonglobal_stores = int(words[9])
 		c.execute('INSERT OR IGNORE INTO MemAccesses '\
-				'VALUES(NULL, \'%s\',\'%s\', %d, %d, %d, %d, %d, %d, %d, %d, %d)'
-				%(app, kName, invocation_id, gpr_inst_id, app_dyn_inst_id, global_mem, is_load, 
-                                    is_store, is_atomic, is_uniform, is_volatile))
+				'VALUES(NULL, \'%s\',%d, %d, %d, %d, %d)'
+				%(app, interval_id, global_loads, global_stores, nonglobal_loads, nonglobal_stores))
 def parse_bb_executions(app, c):
 	try:
 		rf = open(sp.app_dir[app] + "basic_block_insts.txt", "r")
@@ -155,7 +164,26 @@ def parse_bb_executions(app, c):
 				%(app, kName, invocation_id, inst_interval, basic_block_id, num_insts, 
                                     func_name, bb_num_execs))
         
+def parse_fipoints(app, c):
+	try:
+		rf = open(sp.app_dir[app] + "interval.txt", "r")
+	except IOError:
+		print "NOT OPEN: " + sp.app_dir[app] + "interval.txt"
+		return
+	print "file is " + rf.name
+	next(rf)
+	next(rf)
+	next(rf)
+	for line in rf:
+		line = line.split(":")
+		[intervalId, intervalFreq] = [int(line[0]), float(line[2])]
+		c.execute('INSERT OR IGNORE INTO FiPointClusters '\
+				'VALUES(NULL, \'%s\', %d, %f);'
+				% (app, intervalId, intervalFreq)) 
+	
 
+	
+	
 ###################################################################################
 # Parse results files and populate summary to results table 
 ###################################################################################
@@ -171,7 +199,8 @@ def parse_results_apps(typ,c):
 				parse_results_file(app, "rf", bfm, c)
                 parse_mem_accesses(app, c)
                 parse_bb_executions(app,c)
-
+		if injection_mode == "interval":
+			parse_fipoints(app, c)
 
 def parse_options():
 	parser = OptionParser()
@@ -181,7 +210,8 @@ def parse_options():
                   help="Database file where our data is")
 	parser.add_option("-a", "--app", dest="application",
                   help="Application to analyze")
-	
+	parser.add_option("-m", "--mode", dest="injection_mode", default="normal",
+		help="Mode of injection - normal or interval (fipoint)")
 	# Create a database if one was not passed.
 	(options, args) = parser.parse_args()
 	if options.inj_type:
@@ -193,7 +223,7 @@ def parse_options():
 	if not options.database_file:
 		options.database_file = "data.db"
 		
-	return options.database_file, options.inj_type, options.application
+	return options.database_file, options.inj_type, options.application, options.injection_mode
 
 def print_usage():
 	print "Usage: \n python parse_results.py rf/inst"
@@ -201,12 +231,21 @@ def print_usage():
 
 def CreateNewDB(c):
 	print "creating data DB"
-	c.execute('CREATE TABLE IF NOT EXISTS '\
-          'Results(ID INTEGER PRIMARY KEY, Suite TEXT, App TEXT,  kName TEXT, '\
-	  'OpIdSeed TEXT, BIDSeed TEXT, IgId INTEGER, '\
-          'BFM INTEGER, InvocationIdx INTEGER, InstId INTERGER, PC TEXT, BBId '\
-          'INTEGER, GlobalInstId INTEGER, AppDynInstId INTEGER, '\
-          'Opcode TEXT, TId INTEGER, InjBId INTEGER, Runtime INTEGER, OutcomeID INTEGER)')
+	if injection_mode != "interval":
+		c.execute('CREATE TABLE IF NOT EXISTS '\
+		  'Results(ID INTEGER PRIMARY KEY, Suite TEXT, App TEXT,  kName TEXT, '\
+		  'OpIdSeed TEXT, BIDSeed TEXT, IgId INTEGER, '\
+		  'BFM INTEGER, InvocationIdx INTEGER, InstId INTERGER, PC TEXT, BBId '\
+		  'INTEGER, GlobalInstId INTEGER, AppDynInstId INTEGER, '\
+		  'Opcode TEXT, TId INTEGER, InjBId INTEGER, Runtime INTEGER, OutcomeID INTEGER)')
+	else:
+		c.execute('CREATE TABLE IF NOT EXISTS '\
+		  'Results(ID INTEGER PRIMARY KEY, Suite TEXT, App TEXT,  IntervalSize INTEGER, '\
+		  'OpIdSeed TEXT, BIDSeed TEXT, IgId INTEGER, '\
+		  'BFM INTEGER, IntervalId INTEGER, InstId INTERGER, PC TEXT, BBId '\
+		  'INTEGER, GlobalInstId INTEGER, AppDynInstId INTEGER, '\
+		  'Opcode TEXT, TId INTEGER, InjBId INTEGER, Runtime INTEGER, OutcomeID INTEGER)')
+
 	c.execute('CREATE TABLE IF NOT EXISTS '\
           'OutcomeMap(ID INTEGER PRIMARY KEY, Description TEXT)')
 	c.execute('CREATE TABLE IF NOT EXISTS '\
@@ -219,10 +258,9 @@ def CreateNewDB(c):
 		'Kernels(ID INTEGER PRIMARY KEY, Application TEXT, kName TEXT, '\
 		'InvocationIdx INTEGER, InvInstCount INTEGER, AppInstCount INTEGER)')
         c.execute('CREATE TABLE IF NOT EXISTS '\
-                'MemAccesses(ID INTEGER PRIMARY KEY, App TEXT, kName TEXT, '\
-                'InvocationIdx INTEGER, GlobalInstId INTEGER, AppDynInstId INTEGER, '\
-                ' isGlobal INTEGER, isLoad INTEGER, '\
-                'isStore INTEGER, isAtomic INTEGER, isUniform INTEGER, isVolatile INTEGER)')
+                'MemAccesses(ID INTEGER PRIMARY KEY, App TEXT, IntervalId INTEGER, '\
+                'GlobalLoads INTEGER, GlobalStores INTEGER, '\
+                'NonGlobalLoads INTEGER, NonGlobalStores INTEGER)')
         c.execute('CREATE TABLE IF NOT EXISTS '\
                 'BBProfile(ID INTEGER PRIMARY KEY, App TEXT, KName TEXT, '\
                 'InvocationIdx INTEGER, InstIntervalId INTEGER, '\
@@ -230,6 +268,10 @@ def CreateNewDB(c):
         c.execute('CREATE TABLE IF NOT EXISTS '\
                 'BBVIntervalSizes(ID INTEGER PRIMARY KEY, App TEXT, IntervalSize INTEGER,'\
 		' IntervalId INTEGER, NumGPRInsts INTEGER)')
+	if injection_mode == "interval":
+		c.execute('CREATE TABLE IF NOT EXISTS '\
+			'FIPointClusters(ID INTEGER PRIMARY KEY, App TEXT, IntervalId INTEGER,'\
+			' IntervalFrequency INTEGER)')
 
 	######
 	# fill up OutcomeMap table
@@ -300,7 +342,8 @@ def CreateNewDB(c):
 # xlsx file
 ###############################################################################
 def main():
-	db_file, inj_type, application = parse_options()
+	global injection_mode
+	db_file, inj_type, application, injection_mode = parse_options()
 
 	print "DB file is : " + db_file
 	conn = sqlite3.connect(db_file)

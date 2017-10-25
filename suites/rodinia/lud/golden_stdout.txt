@@ -2,6 +2,6 @@ WG size of kernel = 16 X 16
 Generate input matrix internally, size =256
 Creating matrix internally size=256
 Before LUD
-Time consumed(ms): 2.364000
+Time consumed(ms): 2.597000
 After LUD
 >>>Verify<<<<

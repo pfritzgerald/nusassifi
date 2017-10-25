@@ -35,7 +35,7 @@ import specific_params as sp
 ###############################################################################
 
 def print_usage():
-	print "Usage: run_one_injection.py <igid, bfm, app, kernel_name, kcount, instID, opID, bitID>"
+	print "Usage: run_one_injection.py <interval_mode, igid, bfm, app, kernel_name, kcount, instID, opID, bitID>"
 
 def get_seconds(td):
 	return (td.microseconds + (td.seconds + td.days * 24 * 3600) * 10**6) / float(10**6)
@@ -44,13 +44,14 @@ def get_seconds(td):
 # Set enviroment variables for run_script and clean_logs_script
 ###############################################################################
 [stdout_fname, stderr_fname, injection_seeds_file, new_directory] = ["", "", "", ""]
-def set_env_variables(igid, bfm, app, kname, kcount, iid, opid, bid): # Set directory paths 
+def set_env_variables(igid, bfm, app, kname, kcount, iid, opid, bid, interval_mode_): # Set directory paths 
 	if igid == "rf":
 		cp.rf_inst = "rf"
 	else:
 		cp.rf_inst = "inst"
 	sp.set_paths() # update paths 
-	global stdout_fname, stderr_fname, injection_seeds_file, new_directory
+	global stdout_fname, stderr_fname, injection_seeds_file, new_directory, interval_mode
+	interval_mode = interval_mode_
 	kname_truncated = kname[:100] if len(kname) > 100 else kname
 	new_directory = sp.logs_base_dir + sp.apps[app][0] + "/" + app + "-igid" +  igid + "-bfm" + bfm + "-" + kname_truncated + "-" + kcount + "-" + iid + "-" + opid + "-" + bid
 	stdout_fname = new_directory + "/" + sp.stdout_file 
@@ -68,7 +69,10 @@ def set_env_variables(igid, bfm, app, kname, kcount, iid, opid, bid): # Set dire
 # mutliple parallel jobs can run safely write results to the file
 ###############################################################################
 def record_result(igid, bfm, app, kname, kcount, iid,  opid, bid, cat, pc, bb_id, global_iid, app_dyn_iid, inst_type, tid, injBID, runtime, dmesg):
-	res_fname = sp.app_log_dir[app] + "/results-igid" + str(igid) + ".bfm" + str(bfm) + "." + str(sp.NUM_INJECTIONS) + ".txt"
+	if not interval_mode:
+		res_fname = sp.app_log_dir[app] + "/results-igid" + str(igid) + ".bfm" + str(bfm) + "." + str(sp.NUM_INJECTIONS) + ".txt"
+	else:
+		res_fname = sp.app_log_dir[app] + "/results-igid" + str(igid) + ".bfm" + str(bfm) + ".interval.txt"
 
 	has_filelock = False
 	if pkgutil.find_loader('lockfile') is not None:
@@ -80,7 +84,11 @@ def record_result(igid, bfm, app, kname, kcount, iid,  opid, bid, cat, pc, bb_id
 		lock.acquire() #acquire lock
 
 	rf = open(res_fname, "a")
-	rf.write(kname + "-" + kcount + "-" + iid + "-" + opid + "-" + bid + ":" + str(pc) + ":" + str(bb_id) + ":" + str(global_iid) + ":" + str(app_dyn_iid) + ":" + str(inst_type) + ":" +  str(tid) + ":" + str(injBID) + ":" + str(runtime) + ":" + str(cat) + ":" + dmesg + "\n")
+	if not interval_mode:
+		rf.write(kname + "-" + kcount + "-" + iid + "-" + opid + "-" + bid + ":" + str(pc) + ":" + str(bb_id) + ":" + str(global_iid) + ":" + str(app_dyn_iid) + ":" + str(inst_type) + ":" +  str(tid) + ":" + str(injBID) + ":" + str(runtime) + ":" + str(cat) + ":" + dmesg + "\n")
+	else:
+		rf.write(kname + "-" + kcount + "-" + interval_size + "-" + interval_id + "-" + iid + "-" + opid + "-" + bid + ":" + str(pc) + ":" + str(bb_id) + ":" + str(global_iid) + ":" + str(app_dyn_iid) + ":" + str(inst_type) + ":" +  str(tid) + ":" + str(injBID) + ":" + str(runtime) + ":" + str(cat) + ":" + dmesg + "\n")
+
 	rf.close()
 
 	if has_filelock:
@@ -103,7 +111,10 @@ def create_p_file(p_filename, igid, bfm, kname, kcount, iid, opid, bid):
 	if igid == "rf":
 		outf.write(bfm + "\n" + kname + "\n" + kcount + "\n" + iid + "\n" + opid + "\n" + bid)
 	else:
-		outf.write(igid + "\n" + bfm + "\n" + kname + "\n" + kcount + "\n" + iid + "\n" + opid + "\n" + bid)
+		if interval_mode:
+			outf.write(igid + "\n" + bfm + "\n" + interval_size +  "\n" + interval_id + "\n" + iid + "\n" + opid + "\n" + bid)
+		else:
+			outf.write(igid + "\n" + bfm + "\n" + kname + "\n" + kcount + "\n" + iid + "\n" + opid + "\n" + bid)
 	outf.close()
 
 ###############################################################################
@@ -282,10 +293,17 @@ def main():
 	if not os.path.isdir(sp.SASSIFI_HOME): print "Error: Regression dir not found!"
 	if not os.path.isdir(sp.logs_base_dir + "/results"): os.system("mkdir -p " + sp.logs_base_dir + "/results") # create directory to store summary
 
-	if len(sys.argv) == 9:
+	if len(sys.argv) == 10 or len(sys.argv)==11:
 		start= datetime.datetime.now()
-		[igid, bfm, app, kname, kcount, iid, opid, bid] = [sys.argv[1], sys.argv[2], sys.argv[3], str(sys.argv[4]), str(sys.argv[5]), str(sys.argv[6]), str(sys.argv[7]), str(sys.argv[8])]
-		set_env_variables(igid, bfm, app, kname, kcount, iid, opid, bid) 
+		interval_mode_ = sys.argv[1] == "interval_mode"
+		global interval_id, interval_size
+		interval_id = "-1"
+		interval_size = "-1"
+		if interval_mode_:
+			[igid, bfm, app, kname, kcount, interval_size, interval_id, iid, opid, bid] = [sys.argv[2], sys.argv[3], sys.argv[4], "", "", sys.argv[5], sys.argv[6], sys.argv[7], sys.argv[8], sys.argv[9]]
+		else:
+			[igid, bfm, app, kname, kcount, iid, opid, bid] = [sys.argv[2], sys.argv[3], sys.argv[4], str(sys.argv[5]), str(sys.argv[6]), str(sys.argv[7]), str(sys.argv[8]), str(sys.argv[9])]
+		set_env_variables(igid, bfm, app, kname, kcount, iid, opid, bid, interval_mode_) 
 		
 		err_cat = run_one_injection_job(igid, bfm, app, kname, kcount, iid, opid, bid) 
 	

@@ -63,6 +63,31 @@ def write_injection_list_file(app, igid, bfm, num_injections, total_count, count
 			print "%d/%d: Selected: %s" %(num_injections, total_count, selected_str)
 		f.write(selected_str + "\n") # print injection site information
 	f.close()
+########################################################################
+# FRITZ - write injection list file function for interval-specific injections
+#####################################################################
+def write_injection_list_file_interval(app, igid, bfm, intervalList):
+	#if verbose:
+	#	print "total_count = %d, num_injections = %d" %(total_)
+	fName = sp.app_log_dir[app] + "/injection-list/igid" + str(igid) + ".bfm" + str(bfm) + ".interval.txt"
+	print fName
+	f = open(fName, "w")
+	total_faults = 0	
+	num_faults_per_interval = intervalList[0][1]
+	interval_size = intervalList[0][0]
+	for i in range(0,len(intervalList)):
+		num_igid_insts = intervalList[i][3]
+		interval_id = intervalList[i][2]
+		for fault_id in range(0, num_faults_per_interval):
+			total_faults += 1 
+			inst_id = random.randint(0, num_igid_insts)
+			inj_op_id_seed = random.random()
+			inj_bid_seed = random.random()
+			selected_str = str(interval_size) + " " + str(interval_id) + " " +  str(inst_id) + " " + str(inj_op_id_seed) + " " + str(inj_bid_seed) + " "
+			#if verbose:
+			#	print ""
+			f.write(selected_str + "\n")
+	f.close()	
 
 #################################################################
 # Generate injection list of each app for 
@@ -74,18 +99,64 @@ def gen_lists(app, countList, is_rf):
 		total_count = cf.get_total_insts(countList)
 		for bfm in sp.rf_bfm_list:
 			write_injection_list_file(app, "rf", bfm, MAX_INJ, total_count, countList)
+		
 	else: # instruction injections
 		total_icounts = cf.get_total_counts(countList)
 		for igid in sp.igid_bfm_map:
 			for bfm in sp.igid_bfm_map[igid]: 
 				write_injection_list_file(app, igid, bfm, MAX_INJ, total_icounts[igid], countList)
 
+###################################################################
+# FRITZ - Generate injection list of each app for 
+# instruction-level injections for each error model and instruction type
+# for interval=specific injections
+#######################################################################
+def gen_lists_interval(app, intervalList):
+	for igid in sp.igid_bfm_map:
+		for bfm in sp.igid_bfm_map[igid]:
+			write_injection_list_file_interval(app, igid, bfm, intervalList)
+
+####################################################################
+# FRITZ added in for support for injections in specific intervals
+# 	This should eventually be moved to common_functions.py
+#
+#	This function reads the interval file for an app and 
+#		returns an array of this format:
+#		[App, IntervalSize,NumFaultsPerInterval,IntervalList...]
+#		IntervalList is a list of intervals that were selected for injections
+#			by FIPoints algorithm
+######################################################################
+def read_interval_file(app_dir, app):
+	intervalList = []
+	fName = app_dir + "/interval.txt"
+	if not os.path.exists(fName):
+		print "%s file not found" %fName
+		return intervalList
+	f = open(fName, "r")
+	next(f)
+	next(f)	#skip the first two lines which contain 1.interval size for SASSI profiler and 2.format
+	for i,line in enumerate(f):	#will probably contain only one line	
+		line = line.rstrip().split(":")
+		if i == 0:
+			[interval_size, num_faults_per_interval] = [int(line[1]), int(line[2])]
+			#intervalList.append([app,interval_size,num_faults_per_interval, interval1_id, interval2_id,....])
+		else:
+			[interval_id, num_igid_insts] = [int(line[0]), int(line[1])]
+			intervalList.append([interval_size, num_faults_per_interval, interval_id, num_igid_insts])
+	f.close()
+	print "intervalList : " + str(intervalList)
+	return intervalList
+		
 #################################################################
 # Starting point of the script
 #################################################################
 def main():
 	if len(sys.argv) == 2: 
 		is_rf = (sys.argv[1] == "rf")
+		interval = False
+	elif len(sys.argv) == 3:
+		is_rf = (sys.argv[1] == "rf")
+		interval = (sys.argv[2] == "interval")
 	else:
 		print "Usage: ./script-name <rf or inst>"
 		print "There are two modes to conduct error injections"
@@ -97,15 +168,21 @@ def main():
 	for app in sp.apps:
 		print "\nCreating list for %s ... " %(app)
 		os.system("mkdir -p %s/injection-list" %sp.app_log_dir[app]) # create directory to store injection list
-	
-		countList =  cf.read_inst_counts(sp.app_dir[app], app)
-		total_count = cf.get_total_insts(countList)
-		if total_count == 0:
-			print "Something is not right. Total instruction count = 0\n";
-			sys.exit(-1);
-	
-		gen_lists(app, countList, is_rf)
-		print "Output: Check %s" %(sp.app_log_dir[app] + "/injection-list/")
+		
+		if interval:
+			intervalList = read_interval_file(sp.app_dir[app], app)
+			if verbose: print intervalList
+			gen_lists_interval(app, intervalList)
+			print "OUTPUT : Check %s" % (sp.app_log_dir[app] + "/injection-list/")	
+		else:	
+			countList =  cf.read_inst_counts(sp.app_dir[app], app)
+			total_count = cf.get_total_insts(countList)
+			if total_count == 0:
+				print "Something is not right. Total instruction count = 0\n";
+				sys.exit(-1);
+		
+			gen_lists(app, countList, is_rf)
+			print "Output: Check %s" %(sp.app_log_dir[app] + "/injection-list/")
 
 if __name__ == "__main__":
     main()

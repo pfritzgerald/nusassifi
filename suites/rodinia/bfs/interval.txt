@@ -1,1 +1,5 @@
 10000
+App:IntervalSize:NumFaultsPerInterval:IntervalList...
+bfs:10000:400:275:88
+275:9602:0.980907
+88:9877:0.019093
