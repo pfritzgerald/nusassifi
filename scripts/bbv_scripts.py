@@ -85,7 +85,7 @@ def plotNormData(norm_values, app, interval_size, show=True):
 
     #Inverts y axis to show similarity accurately
     plt.gca().invert_yaxis()
-    plt.savefig(db_dir+"figs/"+app)
+#    plt.savefig(db_dir+"figs/"+app)
     if show == True:
          plt.show()
 #     plt.close()
@@ -206,6 +206,8 @@ def getBBV(app):
             else:
                 bbv_data = bbv_element[0] * bbv_element[1]
             bbv[inst_interval].append(float(bbv_data))
+	bbv[inst_interval] /= np.sum(bbv[inst_interval])
+
     return bbv
 
 

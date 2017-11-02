@@ -93,19 +93,27 @@ def parse_results_file(app, igid, bfm, c):
 		tId = int(words[6])
 		if injection_mode == "interval":
 			c.execute('INSERT OR IGNORE INTO Results '\
-				'VALUES(NULL, \'%s\',\'%s\',%d,\'%s\', \'%s\', %d, %d, %d, %d, \'%s\', %d, %d, %d, \'%s\', %d, %d, %f, %d)'
-				%(suite,app, interval_size, opIdSeed, bIdSeed, igid, bfm, interval_id, inst_id, pc_text,
-					bb_id, global_inst_id, app_dyn_inst_id, opcode, tId, injBID, runtime, (outcome-1)))
+				'VALUES(NULL, \'%s\',\'%s\',%d,\'%s\', \'%s\', %d, %d,'\
+				' %d, %d, \'%s\', %d, %d, %d, \'%s\', %d, %d, %f, %d)'
+				%(suite,app, interval_size, opIdSeed, bIdSeed, igid, bfm,
+					 interval_id, inst_id, pc_text,	bb_id, 
+					global_inst_id, app_dyn_inst_id, opcode, tId, 
+					injBID, runtime, (outcome-1)))
 		else:
 			c.execute('INSERT OR IGNORE INTO Results '\
-				'VALUES(NULL, \'%s\',\'%s\',\'%s\',\'%s\', \'%s\', %d, %d, %d, %d, \'%s\', %d, %d, %d, \'%s\', %d, %d, %f, %d)'
-				%(suite,app, kname, opIdSeed, bIdSeed, igid, bfm, invocation_index, inst_id, pc_text,
-					bb_id, global_inst_id, app_dyn_inst_id, opcode, tId, injBID, runtime, (outcome-1)))
+				'VALUES(NULL, \'%s\',\'%s\',\'%s\',\'%s\', \'%s\''\
+				', %d, %d, %d, %d, \'%s\', %d, %d, %d, \'%s\', %d, %d, %f, %d)'
+				%(suite,app, kname, opIdSeed, bIdSeed, igid, bfm, 
+					invocation_index, inst_id, pc_text,
+					bb_id, global_inst_id, app_dyn_inst_id, opcode, 
+					tId, injBID, runtime, (outcome-1)))
 
 		num_lines += 1
 	rf.close()
 
-	if num_lines == 0 and app in results_app_table and os.stat(sp.app_log_dir[app] + "injection-list/igid" + str(igid) + ".bfm" + str(bfm) + "." + str(sp.NUM_INJECTIONS) + ".txt").st_size != 0: 
+	if num_lines == 0 and app in results_app_table and os.stat(sp.app_log_dir[app] +
+			 "injection-list/igid" + str(igid) + ".bfm" + str(bfm) + "." + 
+			str(sp.NUM_INJECTIONS) + ".txt").st_size != 0: 
 		print "%s, igid=%d, bfm=%d not done" %(app, igid, bfm)
 
 def parse_mem_accesses(app, c):
@@ -120,14 +128,27 @@ def parse_mem_accesses(app, c):
         invocation_id=0
 	for line in rf: # for each mem access (or new kernel and invocation) 
 		words = line.split(",")
-		interval_id = int(words[1])
-                global_loads = int(words[3])
-                global_stores = int(words[5])
-		nonglobal_loads = int(words[7])
-                nonglobal_stores = int(words[9])
-		c.execute('INSERT OR IGNORE INTO MemAccesses '\
-				'VALUES(NULL, \'%s\',%d, %d, %d, %d, %d)'
-				%(app, interval_id, global_loads, global_stores, nonglobal_loads, nonglobal_stores))
+		if words[0] == "INTERVAL":
+			interval_id = int(words[1])
+			global_loads = int(words[3])
+			global_stores = int(words[5])
+			nonglobal_loads = int(words[7])
+			nonglobal_stores = int(words[9])
+			c.execute('INSERT OR IGNORE INTO MemAccesses '\
+					'VALUES(NULL, \'%s\',%d, %d, %d, %d, %d)'
+					%(app, interval_id, global_loads, global_stores, 
+						nonglobal_loads, nonglobal_stores))
+		elif words[0] == "PUPC":
+			pupc = words[1]
+			bb_id = int(words[3])
+			fnName = words[5]
+			opcode = words[7]
+			is_mem = int(words[9])
+			c.execute('INSERT OR IGNORE INTO PUPCs '\
+				'VALUES(NULL, \'%s\', \'%s\', '\
+				'%d,\'%s\',\'%s\', %d)'
+				%(app, pupc, bb_id, fnName, opcode, is_mem))
+
 def parse_bb_executions(app, c):
 	try:
 		rf = open(sp.app_dir[app] + "basic_block_insts.txt", "r")
@@ -249,7 +270,8 @@ def CreateNewDB(c):
 	c.execute('CREATE TABLE IF NOT EXISTS '\
           'OutcomeMap(ID INTEGER PRIMARY KEY, Description TEXT)')
 	c.execute('CREATE TABLE IF NOT EXISTS '\
-          'IgIdMap(ID INTEGER PRIMARY KEY, IDNum INTEGER, Description TEXT, App TEXT, InstCount INTEGER)')
+          'IgIdMap(ID INTEGER PRIMARY KEY, IDNum INTEGER, Description TEXT, App TEXT,'\
+		' InstCount INTEGER)')
 	c.execute('CREATE TABLE IF NOT EXISTS '\
           'BFMMap(ID INTEGER PRIMARY KEY, IDNum INTEGER, Description TEXT, App TEXT)')
 	c.execute('CREATE TABLE IF NOT EXISTS '\
@@ -268,6 +290,9 @@ def CreateNewDB(c):
         c.execute('CREATE TABLE IF NOT EXISTS '\
                 'BBVIntervalSizes(ID INTEGER PRIMARY KEY, App TEXT, IntervalSize INTEGER,'\
 		' IntervalId INTEGER, NumGPRInsts INTEGER)')
+	c.execute('CREATE TABLE IF NOT EXISTS '\
+		'PUPCs(ID INTEGER PRIMARY KEY, App TEXt, PUPC TEXT, BBId INTEGER, '\
+		'FnName TEXT, Opcode TEXT, IsMem INTEGER)')
 	if injection_mode == "interval":
 		c.execute('CREATE TABLE IF NOT EXISTS '\
 			'FIPointClusters(ID INTEGER PRIMARY KEY, App TEXT, IntervalId INTEGER,'\

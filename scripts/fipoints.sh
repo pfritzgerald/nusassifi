@@ -90,8 +90,22 @@ fi
 # Step 4.b: Build the app for profiling of
 # basic blocks
 ################################################
-printf "\n------------\nStep 5: Profile the application\n"
+printf "\n------------\nStep 4.2: BBV Profile of the application\n"
 make OPTION=bbv_profiler
+if [ "$where_to_run" != "cluster" ] ; then
+	make test
+fi
+if [ $? -ne 0 ]; then
+    echo "Return code was not zero: $?"
+		exit -1;
+fi
+
+################################################
+# Step 4.c: Build the app for profiling of
+# memory accesses
+################################################
+printf "\n------------\nStep 4.3: MEM Profile of the application\n"
+make OPTION=mem_profiler
 if [ "$where_to_run" != "cluster" ] ; then
 	make test
 fi
@@ -136,6 +150,7 @@ fi
 ################################################
 printf "\n------------\nStep 8: Run the error injection campaign\n"
 #python run_injections.py $inst_rf $where_to_run interval
+
 # to run the injection campaign on a single machine with single gpu
 
 #python run_injections.py $inst_rf multigpu 
