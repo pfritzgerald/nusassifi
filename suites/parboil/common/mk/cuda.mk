@@ -66,7 +66,7 @@ SASSI_CUDALDFLAGS = -L$(INST_LIB_DIR) -lmemaccesses $(CUPTI)
 endif
 
 ifeq (${SASSI_OPTION},bbv_profiler)
-SASSI_CUDACFLAGS = $(BEFORE_ALL)   -Xptxas --sassi-bb-entry $(GENCODE)#$(BEFORE_ALL) $(BEFORE_REG_MEM_INFO)
+SASSI_CUDACFLAGS = $(AFTER_REG_MEM) $(AFTER_REG_MEM_INFO)  -Xptxas --sassi-bb-entry $(BRANCH_AROUND) $(GENCODE)
 SASSI_CUDALDFLAGS = -L$(INST_LIB_DIR) -lbbv_profiler $(CUPTI) 
 endif
 
