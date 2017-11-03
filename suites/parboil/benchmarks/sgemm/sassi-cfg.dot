@@ -1,0 +1,17 @@
+digraph _Z9mysgemmNTPKfiS0_iPfiiff {
+	BB0 [style=filled,fontcolor=gray0,shape=box,peripheries=1,color=gray99,label="BB0 : 1 ins"];
+	BB1 [style=filled,fontcolor=gray0,shape=box,peripheries=1,color=gray99,label="BB1 : 26 ins"];
+	BB2 [style=filled,fontcolor=gray0,shape=box,peripheries=1,color=gray99,label="BB2 : 23 ins"];
+	BB3 [style=filled,fontcolor=gray100,shape=box,peripheries=1,color=gray0,label="BB3 : 7 ins"];
+	BB4 [style=filled,fontcolor=gray100,shape=box,peripheries=1,color=gray0,label="BB4 : 296 ins"];
+	BB5 [style=filled,fontcolor=gray100,shape=box,peripheries=1,color=gray0,label="BB5 : 3 ins"];
+	BB6 [style=filled,fontcolor=gray0,shape=box,peripheries=3,color=gray99,label="BB6 : 99 ins"];
+	BB0 -> BB1;
+	BB1 -> BB6;
+	BB1 -> BB2;
+	BB2 -> BB3;
+	BB3 -> BB4;
+	BB4 -> BB5;
+	BB5 -> BB3;
+	BB5 -> BB6;
+}

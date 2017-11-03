@@ -180,10 +180,22 @@ def parse_bb_executions(app, c):
                 func_name = words[1]
                 inst_interval =int(words[3])
                 bb_num_execs = int(words[4])
+                live_in_max_r_regused = int(words[5])
+                live_in_pred = int(words[6])
+                live_in_cc = int(words[7])
+                live_in_unused = int(words[8])
+                live_out_max_r_regused = int(words[9])
+                live_out_pred = int(words[10])
+                live_out_cc = int(words[11])
+                live_out_unused = int(words[12])
+
   		c.execute('INSERT OR IGNORE INTO BBProfile '\
-				'VALUES(NULL, \'%s\',\'%s\', %d, %d, %d, %d, \'%s\', %d);'
+				'VALUES(NULL, \'%s\',\'%s\', %d, %d, %d, %d, \'%s\', %d,'\
+                                '%d, %d, %d, %d, %d, %d, %d, %d);'
 				%(app, kName, invocation_id, inst_interval, basic_block_id, num_insts, 
-                                    func_name, bb_num_execs))
+                                    func_name, bb_num_execs, live_in_max_r_regused, live_in_pred,
+                                    live_in_cc, live_in_unused, live_out_max_r_regused,
+                                    live_out_pred, live_out_cc, live_out_unused))
         
 def parse_fipoints(app, c):
 	try:
@@ -286,7 +298,9 @@ def CreateNewDB(c):
         c.execute('CREATE TABLE IF NOT EXISTS '\
                 'BBProfile(ID INTEGER PRIMARY KEY, App TEXT, KName TEXT, '\
                 'InvocationIdx INTEGER, InstIntervalId INTEGER, '\
-                ' BasicBlockId INTEGER, BBNumInsts INTEGER, FuncName TEXT, BBNumExecs INTEGER)')
+                ' BasicBlockId INTEGER, BBNumInsts INTEGER, FuncName TEXT, BBNumExecs INTEGER,'\
+                'LiveInMaxRRegUsed INTEGER, LiveInPred INTEGER, LiveInCC INTEGER, LiveInUnused INTEGER,'
+                'LiveOutMaxRRegUsed INTEGER, LiveOutPred INTEGER, LiveOutCC INTEGER, LiveOutUnused INTEGER)')
         c.execute('CREATE TABLE IF NOT EXISTS '\
                 'BBVIntervalSizes(ID INTEGER PRIMARY KEY, App TEXT, IntervalSize INTEGER,'\
 		' IntervalId INTEGER, NumGPRInsts INTEGER)')

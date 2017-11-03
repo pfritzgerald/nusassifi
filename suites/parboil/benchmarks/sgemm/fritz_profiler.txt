@@ -1,0 +1,22 @@
+cfg: _Z9mysgemmNTPKfiS0_iPfiiff
+	blockID: 0, 1 INS, fnName:_Z9mysgemmNTPKfiS0_iPfiiff
+		start: 2a1570c600001608,file:/home/previlon/nusassifi/suites/parboil/benchmarks/sgemm/src/cuda/sgemm_kernel.cu, line:60
+		end: 2a1570c600001608,file:/home/previlon/nusassifi/suites/parboil/benchmarks/sgemm/src/cuda/sgemm_kernel.cu, line:60
+	blockID: 1, 26 INS, fnName:_Z9mysgemmNTPKfiS0_iPfiiff
+		start: 2a1570c6000015c8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/sgemm/src/cuda/sgemm_kernel.cu, line:56
+		end: 2a1570c600000118,file:/home/previlon/nusassifi/suites/parboil/benchmarks/sgemm/src/cuda/sgemm_kernel.cu, line:60
+	blockID: 2, 23 INS, fnName:_Z9mysgemmNTPKfiS0_iPfiiff
+		start: 2a1570c600001588,file:/home/previlon/nusassifi/suites/parboil/benchmarks/sgemm/src/cuda/sgemm_kernel.cu, line:62
+		end: 2a1570c6000001e8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/sgemm/src/cuda/sgemm_kernel.cu, line:62
+	blockID: 3, 7 INS, fnName:_Z9mysgemmNTPKfiS0_iPfiiff
+		start: 2a1570c600001520,file:/home/previlon/nusassifi/suites/parboil/benchmarks/sgemm/src/cuda/sgemm_kernel.cu, line:62
+		end: 2a1570c600000238,file:/home/previlon/nusassifi/suites/parboil/benchmarks/sgemm/src/cuda/sgemm_kernel.cu, line:63
+	blockID: 4, 296 INS, fnName:_Z9mysgemmNTPKfiS0_iPfiiff
+		start: 2a1570c6000013f0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/sgemm/src/cuda/sgemm_kernel.cu, line:65
+		end: 2a1570c600000cd0,file:/home/previlon/nusassifi/suites/parboil/benchmarks/sgemm/src/cuda/sgemm_kernel.cu, line:70
+	blockID: 5, 3 INS, fnName:_Z9mysgemmNTPKfiS0_iPfiiff
+		start: 2a1570c6000012c8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/sgemm/src/cuda/sgemm_kernel.cu, line:60
+		end: 2a1570c600000ce8,file:/home/previlon/nusassifi/suites/parboil/benchmarks/sgemm/src/cuda/sgemm_kernel.cu, line:60
+	blockID: 6, 99 INS, fnName:_Z9mysgemmNTPKfiS0_iPfiiff
+		start: 2a1570c600001198,file:/home/previlon/nusassifi/suites/parboil/benchmarks/sgemm/src/cuda/sgemm_kernel.cu, line:74
+		end: 2a1570c600001070,file:/home/previlon/nusassifi/suites/parboil/benchmarks/sgemm/src/cuda/sgemm_kernel.cu, line:76
