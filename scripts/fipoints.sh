@@ -120,9 +120,8 @@ fi
 printf "\n-------------\nStep 5: Prepare application for error injection\n"
 make OPTION=inst_injector
 
-
-
 done
+
 ################################################
 # Step 6: Generate DBs for all the BBV's
 ################################################

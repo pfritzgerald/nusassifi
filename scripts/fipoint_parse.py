@@ -21,7 +21,7 @@ def main():
     app_list = [row[0] for row in app_list]
     print "FI-PointResults\nApp,Masked,SDC,DUE,PotDUE"
     for app in app_list:
-      #  print app
+        #print app
         interval_size = c.execute('SELECT IntervalSize from BBVIntervalSizes '\
                                   'WHERE App is \'%s\';' %(app)).fetchone()[0]
         #print "Interval size: %d" % (interval_size)
@@ -35,6 +35,9 @@ def main():
                     num_faults = c.execute('SELECT COUNT(Results.ID) FROM Results WHERE App is \'%s\' AND '\
                                            'AppDynInstId>%d AND AppDynInstId<%d;'
                                         %(app, (interval*interval_size), ((interval+1)*interval_size))).fetchone()[0]
+		    if num_faults == 0:
+			print "zero fault in interval %d " % (interval)
+			continue
      #               print "\t\tCluster Freg. " + str(freq) +\
      #                   " NUMofFaults for Interval " + str(interval) + ": " + str(num_faults)
                     num_masked = c.execute('SELECT COUNT(Results.ID) FROM Results, OutcomeMap WHERE OutcomeId=OutcomeMap.Id '\
