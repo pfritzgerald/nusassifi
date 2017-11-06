@@ -32,12 +32,12 @@ def main():
     debug = False
     app_list = c.execute('SELECT App FROM BBProfile GROUP BY App;').fetchall()
     app_list = [row[0] for row in app_list]
-    #(u'hotspot',),#(u'kmeans',u'bfs'),#(u'gaussian',),#
+    #(u'hotspot',),#(u'kmeans',u'bfs'),#(u'bfs',),#
     fig_count=0
     for app in app_list:
-		print "\n---------" + app + "\n-----------"
+		print "\n---------\n" + app + "\n-----------"
 #		INJSimMatrix(app)
-		fig_count += 1	
+#		fig_count += 1	
 #		BBVSimilarityMatrix(app)
 		Clustering(app)
 
@@ -163,9 +163,10 @@ def getOutcomesByInterval(app, plot=True):
 # In[]
 def INJSimMatrix(app):
 	results, interval_size = getOutcomesByInterval(app, plot=False)
+#	print results
 	num_intervals = len(results)
-	print "SimMatrix for Injection Results"
-	print "FI - NUM INTERVALS: " + str(num_intervals) + "\n"
+	print "\n---------\nSimMatrix for Injection Results\n--------------"
+#	print "FI - NUM INTERVALS: \n"
 	similarity_matrix = np.zeros((num_intervals, num_intervals))
     # print bbv[0]
 	for interval_1 in range(0,num_intervals):
@@ -378,9 +379,9 @@ def choose_interval(policy,cluster_num,cluster_labels, cluster_centers,bbv, app=
 #                 dist_to_center = np.sum(bbv[i])
 #                 scipy.spatial.distance.cityblock(
                 dist_to_center = euclidean(bbv[i],cluster_centers)#
-                if debug: print "\tInterval " + str(i) + " - dist to center: " + str(dist_to_center)
+#                if debug: print "\tInterval " + str(i) + " - dist to center: " + str(dist_to_center)
                 if dist_to_center <= min_dist_to_center:
-                    if debug: print "\t\tNEW minimum distance"
+#                    if debug: print "\t\tNEW minimum distance"
                     min_dist_to_center=dist_to_center
                     return_interval_id = i
 
@@ -417,8 +418,6 @@ def choose_interval(policy,cluster_num,cluster_labels, cluster_centers,bbv, app=
 
 # In[]
 def BBVSimilarityMatrix(app):
-		print "SimMatrix for BBV Profiling"
-
 		bbv=getBBV(app)
 		num_intervals = len(bbv)
 		similarity_matrix = np.zeros((num_intervals, num_intervals))
@@ -431,7 +430,7 @@ def BBVSimilarityMatrix(app):
 				#         bbv[interval_] /= np.sum(bbv[interval_])
                 #     print "interval " + str(interval_1) + ":\n " + str(bbv[interval_1])
                 #norm_sim_matrix = getNormalizedMatrix(similarity_matrix)
-		print "\n" + str(len(bbv))
+		print "\n------------\nBBV PROFILING\n------------------"
 		interval_size = c.execute('SELECT IntervalSize from BBVIntervalSizes WHERE App is \'%s\';'
 							%(app)).fetchone()[0]
 		plt.figure(fig_count)
@@ -447,11 +446,11 @@ def Clustering(app):
 	best_num_cluster = 0
 	best_interval_freqs = []
 	best_interval_num_insts = []
-#	interval_size = c.execute('SELECT IntervalSize from BBVIntervalSizes WHERE App is \'%s\';'
-#		   %(app)).fetchone()[0]
+	interval_size = c.execute('SELECT IntervalSize from BBVIntervalSizes WHERE App is \'%s\';'
+		   %(app)).fetchone()[0]
 	print "CLUSTERING " + app
-#	bbv = getBBV(app)
-	bbv, interval_size = getOutcomesByInterval(app, False)
+	bbv = getBBV(app)
+#	bbv, interval_size = getOutcomesByInterval(app, False)
 	for num_clusters in range(2,15):
 		if debug: print "\nNUM CLUSTERS=" + str(num_clusters)
 		clusters = KMeans(n_clusters=num_clusters)            
@@ -468,6 +467,7 @@ def Clustering(app):
 			plt.xticks(np.arange(num_clusters))
 			plt.show()
 			#        print "PHASE frequencies: " + str(cluster_freq)
+		if debug:
 			adjusted_masked_rate = 0
 			adjusted_sdc_rate = 0
 			adjusted_due_rate = 0
