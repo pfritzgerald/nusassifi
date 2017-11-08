@@ -39,7 +39,7 @@ def main():
 #		INJSimMatrix(app)
 #		fig_count += 1	
 #		BBVSimilarityMatrix(app)
-		Clustering(app)
+		Clustering(app, 400)
 
 #    profileMemAccesses()
 
@@ -348,7 +348,8 @@ def getBBV(app):
 			else:
 				bbv_data = bbv_element[0] * bbv_element[2] * bbv_element[1]
 			bbv[inst_interval].append(float(bbv_data))
-		bbv[inst_interval] /= np.sum(bbv[inst_interval])
+		if np.sum(bbv[inst_interval]) != 0:
+			bbv[inst_interval] /= np.sum(bbv[inst_interval])
 
 	return bbv
 
@@ -439,7 +440,7 @@ def BBVSimilarityMatrix(app):
 
 
 # In[23]:
-def Clustering(app):
+def Clustering(app, num_faults):
 	fig_count=0
 	max_sil_coeff = 0.0
 	best_intervals = []
@@ -527,7 +528,7 @@ def Clustering(app):
 
 		if debug:
 			print "----------"
-			print "INERTIA : %f and silhouette coefficient %f" %(clusters.inertia_, sil_coeff)
+			print "INERTIA : %f and silhouette coefficient %f" % (clusters.inertia_, sil_coeff)
 			print "----------\n"
 			fig_count += 1
         #         print "labels: " + str(clusters.labels_)
@@ -536,14 +537,14 @@ def Clustering(app):
 	f = open(interval_fname, "w")
 	interval_str = "%d\nApp:IntervalSize:NumFaultsPerInterval:IntervalList...\n"\
 		%(interval_size)
-	interval_str += "%s:%d:200:%s\n" % (app, interval_size, ':'.join(map(str, best_intervals)))
+	interval_str += "%s:%d:%d:%s\n" % (app, interval_size, num_faults, ':'.join(map(str, best_intervals)))
 
 	print "\n%d" % interval_size
 	print "App:IntervalSize:NumFaultsPerInterval:IntervalList..."
 #        print "intervals chosen:"
 #        print best_cluster_intervals
 #        print interval_freqs
-	print "%s:%d:200:%s" % (app, interval_size, ':'.join(map(str, best_intervals)))
+	print "%s:%d:%d:%s" % (app, interval_size, num_faults,':'.join(map(str, best_intervals)))
 	for i in range(0,len(best_intervals)):
 		print "%d:%d:%f"\
 			% (best_intervals[i], best_interval_num_insts[i], best_interval_freqs[i])
