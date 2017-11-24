@@ -53,7 +53,8 @@ if [ "$clean" == "clean" ] ; then
   for app_log_dir in $app_log_dir_list
   do
     printf "\nRemoving from $app_log_dir ..."
-    rm -rf $app_log_dir/*
+    rm -rf $app_log_dir/*interval.txt
+    rm -rf $app_log_dir/*/*interval.txt
     if [ $? -ne 0 ]; then
       echo "Could not clear app log directory: $app_log_dir"
       exit -1

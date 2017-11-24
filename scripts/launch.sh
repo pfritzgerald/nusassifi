@@ -122,6 +122,7 @@ printf "\n-------------\nStep 6: Prepare application for error injection\n"
 make OPTION=inst_injector
 
 done
+
 ################################################
 # Step 7.b: Generate injection list for the 
 # selected error injection model
