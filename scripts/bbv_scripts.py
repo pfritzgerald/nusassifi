@@ -23,23 +23,23 @@ def main():
 # db_file="../multiple_injections/2ordered/1injections_bbs.db"
     global db_dir
     db_dir="./"
-    db_file=db_dir+"data.db"
+    db_file=db_dir+"rodinia.db"
     conn = sqlite3.connect(db_file)
     global c
     c = conn.cursor()
     global debug, plot_clusters, fig_count
     plot_clusters = False
     debug = False
-    app_list = (u'hotspot',),#c.execute('SELECT App FROM BBProfile GROUP BY App;').fetchall()
+    app_list = c.execute('SELECT App FROM BBProfile GROUP BY App;').fetchall()
     app_list = [row[0] for row in app_list]
-    #(u'hotspot',),#(u'kmeans',u'bfs'),#
+    #(u'hotspot',),#(u'kmeans',u'bfs'),#(u'sad',),#
     fig_count=0
     for app in app_list:
 		print "\n---------\n" + app + "\n-----------"
-		INJSimMatrix(app)
-		fig_count += 1	
-		BBVSimilarityMatrix(app)
-#		Clustering(app, 400)
+#		INJSimMatrix(app)
+#		fig_count += 1	
+#		BBVSimilarityMatrix(app)
+		Clustering(app, 50)
 
 #    profileMemAccesses()
 
@@ -48,12 +48,12 @@ def getOutcomesByInterval(app, plot=True):
 	results = []
 	interval_size = c.execute('SELECT IntervalSize FROM BBVIntervalSizes WHERE App IS \'%s\';'
 						   % (app)).fetchone()[0]
-#	interval_size /=4
+#	interval_size *= 2
 #    print "interval size: " + str(interval_size)
 	total_dyn_inst_count = c.execute('SELECT MAX(InstIntervalID) FROM BBProfile WHERE App IS \'%s\';'
 								  %(app)).fetchone()[0] * interval_size
 
-#	total_dyn_inst_count *= 4
+#	total_dyn_inst_count /= 2
 	masked_list = []
 	pot_due_list = []
 	due_list = []
@@ -149,10 +149,15 @@ def getOutcomesByInterval(app, plot=True):
 		y_offset = [ x + y for x,y in zip(y_offset, sdc_list)]
 		plt.bar(np.arange(len(pot_due_list)), pot_due_list, bottom=y_offset, color='purple', label="PotDUE")
 
-		plt.ylim(0,1.5)
+#		plt.ylim(0,1.5)
 		plt.legend()    
 		interval_mark = str(interval_size/1000000) + "M" if (interval_size/1000000) >= 1 else str(interval_size/1000) + "K" 
 		plt.xlabel("Inst-Intervals (Size:" + str(interval_mark)+ " insts)")
+		ax = plt.gca()
+		type(ax)
+		yvals = ax.get_yticks()
+		ax.set_yticklabels(['{:3.0f}%'.format(x*100) for x in yvals])
+		print "\n" + str(yvals)
 
 #		plt.savefig(db_dir+"figs/time_plots/"+app+"10K-2_time")
 		plt.show()
@@ -199,39 +204,41 @@ def getNormalizedMatrix(similarity_matrix):
 
 # In[]
 def plotNormData(norm_values, app, interval_size, show=True):
-    """Takes in  normalized values and plots 
-    the data
-    """
-    # Initialize lists for plt.scatter
-    x, y, colors = [], [], []
+	"""Takes in  normalized values and plots 
+	the data
+	"""
+	# Initialize lists for plt.scatter
+	x, y, colors = [], [], []
 
-    # Determines the height of the array for the graph's Y-Value
-    yval = norm_values.shape[0]
+	# Determines the height of the array for the graph's Y-Value
+	yval = norm_values.shape[0]
     
-    # The size of each point
-    # Dividing by 4.5 usually provides enough granularity, however this should 
-    # be adjusted if a different resolution requirement is needed
-    SIZE = yval/4.5
-   
-    #Adds data to x, y, and colors lists
-    for i in range(0, yval):
-        for j in range(i, yval):
-            x.append(j)
-            y.append(i)
-            colors.append(norm_values[i,j])    
-    interval_mark = str(interval_size/1000000) +\
-    "M" if (interval_size/1000000) >= 1 else str(interval_size/1000) + "K" 
-    #Plots data with gray colormap and aligns both axes to 0
-    plt.scatter(x, y, c = colors, cmap=cm.gray, s = SIZE)
-    plt.title(app + " (interval: "+ interval_mark + " insts)")
-    plt.xlim(0)
-    plt.ylim(0)
+	# The size of each point
+	# Dividing by 4.5 usually provides enough granularity, however this should 
+	# be adjusted if a different resolution requirement is needed
+	SIZE = yval/4.5
 
-    #Inverts y axis to show similarity accurately
-    plt.gca().invert_yaxis()
+	#Adds data to x, y, and colors lists
+	for i in range(0, yval):
+		for j in range(i, yval):
+			x.append(j)
+			y.append(i)
+			colors.append(norm_values[i,j])    
+	interval_mark = str(interval_size/1000000) +\
+	"M" if (interval_size/1000000) >= 1 else str(interval_size/1000) + "K" 
+	#Plots data with gray colormap and aligns both axes to 0
+	plt.scatter(x, y, c = colors, cmap=cm.gray, s = SIZE)
+	plt.title(app)
+	plt.xlabel("Inst-Intervals (Size:" + str(interval_mark)+ " insts)")
+
+	plt.xlim(0)
+	plt.ylim(0)
+
+	#Inverts y axis to show similarity accurately
+	plt.gca().invert_yaxis()
 #    plt.savefig(db_dir+"figs/"+app)
-    if show == True:
-         plt.show()
+	if show == True:
+		plt.show()
 #     plt.close()
 
 # In[2]:
@@ -356,7 +363,7 @@ def getBBV(app):
 			if (bbv_element is None):
 				bbv_data = 0
 			else:
-				bbv_data = num_mem_insts *  bbv_element[0] * bbv_element[2] * bbv_element[1]#
+				bbv_data = bbv_element[0] * bbv_element[2] * bbv_element[1]#
 			bbv[inst_interval].append(float(bbv_data))
 		if np.sum(bbv[inst_interval]) != 0:
 			bbv[inst_interval] /= np.sum(bbv[inst_interval])
