@@ -43,11 +43,11 @@ import common_params as p
 # campaign. This is essentially the maximum number of injections one can run
 # per instruction group (IGID) and bit-flip model (BFM).
 # 
-NUM_INJECTIONS = 50000
+NUM_INJECTIONS = 20000
 
 # Specify how many injections you want to perform per IGID and BFM combination. 
 # Only the first THRESHOLD_JOBS will be selected from the generated NUM_INJECTIONS.
-THRESHOLD_JOBS = 50000 # test
+THRESHOLD_JOBS = 20000 # test
 # THRESHOLD_JOBS sould be <= NUM_INJECTIONS
 assert THRESHOLD_JOBS <= NUM_INJECTIONS
 
