@@ -39,7 +39,7 @@ def main():
 #		INJSimMatrix(app)
 #		fig_count += 1	
 #		BBVSimilarityMatrix(app)
-		Clustering(app, 100)
+		Clustering(app, 150)
 
 #    profileMemAccesses()
 

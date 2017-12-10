@@ -1,5 +1,5 @@
 1000000
 App:IntervalSize:NumFaultsPerInterval:IntervalList...
-nw:1000000:100:1:101
+nw:1000000:150:1:101
 1:787187:0.500000
 101:788166:0.500000
