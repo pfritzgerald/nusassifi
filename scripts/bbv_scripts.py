@@ -363,7 +363,7 @@ def getBBV(app):
 			if (bbv_element is None):
 				bbv_data = 0
 			else:
-				bbv_data = bbv_element[0] * bbv_element[2] * bbv_element[1]
+				bbv_data = bbv_element[0]# * bbv_element[2] * bbv_element[1]
 			bbv[inst_interval].append(float(bbv_data))
 		if np.sum(bbv[inst_interval]) != 0:
 			bbv[inst_interval] /= np.sum(bbv[inst_interval])
