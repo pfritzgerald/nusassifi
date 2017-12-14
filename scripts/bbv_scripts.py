@@ -39,7 +39,7 @@ def main():
 #		INJSimMatrix(app)
 #		fig_count += 1	
 #		BBVSimilarityMatrix(app)
-		Clustering(app, 400)
+		Clustering(app, 150)
 
 #    profileMemAccesses()
 
@@ -458,6 +458,7 @@ def BBVSimilarityMatrix(app):
 
 # In[23]:
 def Clustering(app, num_faults):
+#	app='bfs'
 	fig_count=0
 	max_sil_coeff = 0.0
 	best_intervals = []
@@ -467,9 +468,9 @@ def Clustering(app, num_faults):
 	interval_size = c.execute('SELECT IntervalSize from BBVIntervalSizes WHERE App is \'%s\';'
 		   %(app)).fetchone()[0]
 	print "CLUSTERING " + app
-	bbv = getBBV(app)
-#	bbv, interval_size = getOutcomesByInterval(app, False)
-	for num_clusters in range(2,10):
+#	bbv = getBBV(app)
+	bbv, interval_size = getOutcomesByInterval(app, False)
+	for num_clusters in range(2,20):
 		clusters = KMeans(n_clusters=num_clusters)            
 		clusters.fit(bbv)
 
@@ -546,11 +547,13 @@ def dumpDbgInfo(best_intervals, interval_size, cluster_freq, app):
 	adjusted_sdc_rate = 0
 	adjusted_due_rate = 0
 	adjusted_pot_due_rate = 0
-	error_list = []	
+	error_list = []
+	total_num_faults = []
 	for (interval, cluster) in zip(best_intervals, np.arange(len(cluster_freq))):
 		num_faults = c.execute('SELECT COUNT(Results.ID) FROM Results WHERE App is \'%s\' AND '\
 					   'AppDynInstId>%d AND AppDynInstId<%d;'
 					   %(app, (interval*interval_size), ((interval+1)*interval_size))).fetchone()[0]
+		total_num_faults.append(num_faults)
 		if num_faults < 50:
 			print "-------------------\n< 50 FAULTS IN ONE OF THE CHOSEN INTERVALS\n-----------------------"
 #				print "\t\tCluster Freg. " + str(cluster_freq[cluster]) +\
@@ -599,12 +602,13 @@ def dumpDbgInfo(best_intervals, interval_size, cluster_freq, app):
 	print "\n====================================================================="
 	print "Masked: " + str(adjusted_masked_rate) + " - SDC: " + str(adjusted_sdc_rate) + " - DUE: "\
 		+ str(adjusted_due_rate) + " - Pot DUE: " + str(adjusted_pot_due_rate)
+	print "----------------------------------------------------------------------"
 	print "Masked +/- : " + str(masked_error)
 	print "SDC +/- : " + str(sdc_error)
 	print "DUE +/- : " + str(due_error)
-	print "Pot DUE +/- : " + str(potdue_error)			
+	print "Pot DUE +/- : " + str(potdue_error)
 	print "====================================================================="	
-
+	print "Num Faults: " + ' '.join(str(e) for e in total_num_faults)
 	plt.figure(fig_count)
 
 	plt.bar(np.arange(4),error_list)
