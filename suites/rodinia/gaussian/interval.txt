@@ -1,6 +1,6 @@
 50000
 App:IntervalSize:NumFaultsPerInterval:IntervalList...
-gaussian:50000:150:11:20:91
-11:44013:0.352941
+gaussian:50000:400:20:91:11
 20:44724:0.392157
 91:43373:0.254902
+11:44013:0.352941

@@ -1,6 +1,6 @@
 50000
 App:IntervalSize:NumFaultsPerInterval:IntervalList...
-bfs:50000:150:50:40:5
+bfs:50000:400:50:40:5
 50:42844:0.493976
 40:41586:0.301205
 5:41792:0.204819
