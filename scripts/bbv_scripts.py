@@ -30,16 +30,16 @@ def main():
     global debug, plot_clusters, fig_count
     plot_clusters = False
     debug = False
-    app_list = c.execute('SELECT App FROM BBProfile GROUP BY App;').fetchall()
+    app_list = (u'bfs',),#c.execute('SELECT App FROM BBProfile GROUP BY App;').fetchall()
     app_list = [row[0] for row in app_list]
     #(u'hotspot',),#(u'kmeans',u'bfs'),#(u'sad',),#
     fig_count=0
     for app in app_list:
 		print "\n---------\n" + app + "\n-----------"
 #		INJSimMatrix(app)
-#		fig_count += 1	
-#		BBVSimilarityMatrix(app)
-		Clustering(app, 400)
+		fig_count += 1	
+		BBVSimilarityMatrix(app)
+#		Clustering(app, 400)
 
 #    profileMemAccesses()
 
@@ -55,7 +55,7 @@ def getOutcomesByInterval(app, plot=True):
 
 #	total_dyn_inst_count /= 2
 	masked_list = []
-	pot_due_list = []
+#	pot_due_list = []
 	due_list = []
 	sdc_list = []
 	current_dyn_inst_id = 0
@@ -82,7 +82,7 @@ def getOutcomesByInterval(app, plot=True):
 			masked_list.append(float(num_masked))
 			results[current_interval].append(float(num_masked))
 		num_due = c.execute('SELECT COUNT(Results.ID) FROM Results, OutcomeMap WHERE OutcomeId=OutcomeMap.Id '\
-					  'AND Description LIKE \'DUE%%\' AND App is \'%s\' AND '\
+					  'AND Description LIKE \'%%DUE%%\' AND App is \'%s\' AND '\
 					  'AppDynInstId>%d AND AppDynInstId<%d;'
 					  %(app, current_dyn_inst_id, (current_dyn_inst_id+interval_size))).fetchone()[0]
 		if num_faults != 0:
@@ -93,16 +93,16 @@ def getOutcomesByInterval(app, plot=True):
 			due_list.append(float(num_due))
 			results[current_interval].append(float(num_due))
 
-		num_pot_due = c.execute('SELECT COUNT(Results.ID) FROM Results, OutcomeMap WHERE OutcomeId=OutcomeMap.Id '\
-						  'AND Description LIKE \'Pot DUE%%\' AND App is \'%s\' AND '\
-						  'AppDynInstId>%d AND AppDynInstId<%d;'
-						  %(app, current_dyn_inst_id, (current_dyn_inst_id+interval_size))).fetchone()[0]
-		if num_faults != 0:
-			pot_due_list.append(float(num_pot_due)/num_faults)
-			results[current_interval].append(float(num_pot_due)/num_faults)            
-		else:
-			pot_due_list.append(float(num_pot_due))
-			results[current_interval].append(float(num_pot_due))
+#		num_pot_due = c.execute('SELECT COUNT(Results.ID) FROM Results, OutcomeMap WHERE OutcomeId=OutcomeMap.Id '\
+#						  'AND Description LIKE \'Pot DUE%%\' AND App is \'%s\' AND '\
+#						  'AppDynInstId>%d AND AppDynInstId<%d;'
+#						  %(app, current_dyn_inst_id, (current_dyn_inst_id+interval_size))).fetchone()[0]
+#		if num_faults != 0:
+#			pot_due_list.append(float(num_pot_due)/num_faults)
+#			results[current_interval].append(float(num_pot_due)/num_faults)            
+#		else:
+#			pot_due_list.append(float(num_pot_due))
+#			results[current_interval].append(float(num_pot_due))
 
 
 		num_sdc = c.execute('SELECT COUNT(Results.ID) FROM Results, OutcomeMap WHERE OutcomeId=OutcomeMap.Id '\
@@ -146,13 +146,14 @@ def getOutcomesByInterval(app, plot=True):
 		"""
 		PotDUE
 		"""
-		y_offset = [ x + y for x,y in zip(y_offset, sdc_list)]
-		plt.bar(np.arange(len(pot_due_list)), pot_due_list, bottom=y_offset, color='purple', label="PotDUE")
+#		y_offset = [ x + y for x,y in zip(y_offset, sdc_list)]
+#		plt.bar(np.arange(len(pot_due_list)), pot_due_list, bottom=y_offset, color='purple', label="PotDUE")
 
 #		plt.ylim(0,1.5)
 		plt.legend()    
 		interval_mark = str(interval_size/1000000) + "M" if (interval_size/1000000) >= 1 else str(interval_size/1000) + "K" 
 		plt.xlabel("Inst-Intervals (Size:" + str(interval_mark)+ " insts)")
+		plt.ylabel("Outcome Percentage")
 		ax = plt.gca()
 		type(ax)
 		yvals = ax.get_yticks()
@@ -230,6 +231,7 @@ def plotNormData(norm_values, app, interval_size, show=True):
 	plt.scatter(x, y, c = colors, cmap=cm.gray, s = SIZE)
 	plt.title(app)
 	plt.xlabel("Inst-Intervals (Size:" + str(interval_mark)+ " insts)")
+	plt.ylabel("Inst-Intervals (Size:" + str(interval_mark)+ " insts)")
 
 	plt.xlim(0)
 	plt.ylim(0)
@@ -365,8 +367,8 @@ def getBBV(app):
 			else:
 				bbv_data = bbv_element[0]# * bbv_element[2] * bbv_element[1]
 			bbv[inst_interval].append(float(bbv_data))
-		if np.sum(bbv[inst_interval]) != 0:
-			bbv[inst_interval] /= np.sum(bbv[inst_interval])
+#		if np.sum(bbv[inst_interval]) != 0:
+#			bbv[inst_interval] /= np.sum(bbv[inst_interval])
 
 	return bbv
 
@@ -437,23 +439,30 @@ def choose_interval(policy,cluster_num,cluster_labels, cluster_centers,bbv, app=
 # In[]
 def BBVSimilarityMatrix(app):
 		bbv=getBBV(app)
-		num_intervals = len(bbv)
-		similarity_matrix = np.zeros((num_intervals, num_intervals))
-		# print bbv[0]
-		for interval_1 in range(0,num_intervals):
-			for interval_2 in range(interval_1,num_intervals):
-				sum_mntn_dist = sum_manhattan_distances(bbv[interval_1], bbv[interval_2])
-				similarity_matrix [interval_1, interval_2] = sum_mntn_dist
-				#         if bbv[interval_] != 0:
-				#         bbv[interval_] /= np.sum(bbv[interval_])
-                #     print "interval " + str(interval_1) + ":\n " + str(bbv[interval_1])
-                #norm_sim_matrix = getNormalizedMatrix(similarity_matrix)
-		print "\n------------\nBBV PROFILING\n------------------"
-		interval_size = c.execute('SELECT IntervalSize from BBVIntervalSizes WHERE App is \'%s\';'
-							%(app)).fetchone()[0]
-		plt.figure(fig_count)
-		plotNormData(similarity_matrix, app,interval_size, True)
-#		fig_count+=1
+		for interval in range(len(bbv)):
+			print "\nT",
+			for bb_num in range(len(bbv[interval])):
+				if bbv[interval][bb_num] != 0:
+					print ":" + str(bb_num) + ":" +	str(int(bbv[interval][bb_num]))+" ",
+	#		print "\n"
+#		for 
+#		num_intervals = len(bbv)
+#		similarity_matrix = np.zeros((num_intervals, num_intervals))
+#		# print bbv[0]
+#		for interval_1 in range(0,num_intervals):
+#			for interval_2 in range(interval_1,num_intervals):
+#				sum_mntn_dist = sum_manhattan_distances(bbv[interval_1], bbv[interval_2])
+#				similarity_matrix [interval_1, interval_2] = sum_mntn_dist
+#				#         if bbv[interval_] != 0:
+#				#         bbv[interval_] /= np.sum(bbv[interval_])
+#                #     print "interval " + str(interval_1) + ":\n " + str(bbv[interval_1])
+#                #norm_sim_matrix = getNormalizedMatrix(similarity_matrix)
+#		print "\n------------\nBBV PROFILING\n------------------"
+#		interval_size = c.execute('SELECT IntervalSize from BBVIntervalSizes WHERE App is \'%s\';'
+#							%(app)).fetchone()[0]
+#		plt.figure(fig_count)
+#		plotNormData(similarity_matrix, app,interval_size, True)
+##		fig_count+=1
 
 
 # In[23]:
