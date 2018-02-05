@@ -329,7 +329,7 @@ def getBBV(app):
 	max_interval = c.execute('SELECT MAX(InstIntervalId) FROM BBProfile WHERE App is \'%s\';'
 						  % (app)).fetchone()[0]
 #    bb_count = len(zip(bb_id_list,func_name_list))
-
+	
 	for inst_interval in range(0,max_interval):        
 		bb_counter = 0
 		bbv.append([])
@@ -339,6 +339,10 @@ def getBBV(app):
 #             print 'SELECT Weight, NumInsts FROM BBProfile WHERE BasicBlockId=%d '\
 #                                 'AND FuncName IS \'%s\' AND App is \'%s\' AND '\
 #                                 'InstInterval=%d;' %(bb_id, func_name, app, inst_interval)
+			sum_live_out_max_rreg_used = c.execute('SELECT SUM(LiveOutMaxRRegUsed) FROM BBProfile WHERE '\
+						   'FuncName IS \'%s\' AND App is \'%s\' AND '\
+						   'InstIntervalId=%d;'
+						   %(func_name, app, inst_interval)).fetchone()
 			bbv_element = c.execute('SELECT BBNumExecs, BBNumInsts, LiveOutMaxRRegUsed FROM BBProfile WHERE BasicBlockId=%d '\
 						   'AND FuncName IS \'%s\' AND App is \'%s\' AND '\
 						   'InstIntervalId=%d;'
@@ -349,6 +353,7 @@ def getBBV(app):
 							 'AND FuncName IS \'%s\' AND BBProfile.App is \'%s\' AND '\
 							 'InstIntervalId=%d;'
 						   %(bb_id, func_name, app, inst_interval)).fetchone()[0]
+			live_out_ratio = float(bbv_element[2])/sum_live_out_max_rreg_used
 			old_write_len = 0
 			sys.stdout.write('\r' + (' ' * old_write_len))            
 			old_write_len = sys.stdout.write('\rOverall Progress (All Intervals): ' + 
@@ -365,7 +370,7 @@ def getBBV(app):
 			if (bbv_element is None):
 				bbv_data = 0
 			else:
-				bbv_data = bbv_element[0] * bbv_element[1]# * bbv_element[1]
+				bbv_data = bbv_element[0] * bbv_element[1] * live_out_ratio
 			bbv[inst_interval].append(float(bbv_data))
 #		if np.sum(bbv[inst_interval]) != 0:
 #			bbv[inst_interval] /= np.sum(bbv[inst_interval])
