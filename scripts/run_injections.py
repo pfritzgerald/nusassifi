@@ -81,6 +81,7 @@ def count_done(fname):
 ############################################################################
 def create_sbatch_script(app,array_num):
 	filename =  sp.SASSIFI_HOME + "/scripts/tmp/" + app + "/" + str(array_num)+".sbatch"
+	user = os.environ["USER"]
 	outf = open(filename, "w")
 	outf.write("#!/bin/bash\n"
 		"# sassifi.sbatch\n#\n"
@@ -89,8 +90,8 @@ def create_sbatch_script(app,array_num):
 		"#SBATCH -p par-gpu\n"
 		"#SBATCH -n 32\n"
 		"#SBATCH -N 1\n"
-		"#SBATCH -o " + app + "_sbatch_%A_%a.out\n"
-		"#SBATCH -e " + app + "_sbatch_%A_%a.err\n\n"
+		"#SBATCH -o /gss_gpfs_scratch/" + user + "/nusassifi/" + app + "/" + app + "_sbatch_%A_%a.out\n"
+		"#SBATCH -e /gss_gpfs_scratch/" + user + "/nusassifi/" + app + "/" + app + "_sbatch_%A_%a.err\n\n"
 		"cmd=`sed \"${SLURM_ARRAY_TASK_ID}q;d\" cmds_" + str(array_num) + ".out`\n"
 		"$cmd\n")
 	outf.close()
@@ -129,6 +130,9 @@ def run_multiple_injections_igid(app, is_rf, igid, where_to_run, interval_mode):
 	if where_to_run == "cluster":
 		if not os.path.isdir(sp.SASSIFI_HOME + "/scripts/tmp/" + app):
 			os.system("mkdir -p " + sp.SASSIFI_HOME + "/scripts/tmp/" + app)
+		user = os.environ["USER"]
+		if not os.path.isdir("/gss_gpfs_scratch/" + user + "/nusassifi/" + app):
+			os.system("mkdir -p /gss_gpfs_scratch/" + user + "/nusassifi/" + app)
 		os.system("rm -f " + sp.SASSIFI_HOME + "/scripts/tmp/" + app + "/cmds_*.out") 
 	for bfm in bfm_list:
 		#print "App: %s, IGID: %s, EM: %s" %(app, cp.IGID_STR[igid], cp.EM_STR[bfm])
