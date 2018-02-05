@@ -14,7 +14,7 @@ from sklearn.cluster import KMeans
 from scipy.spatial.distance import euclidean
 from sklearn.metrics import silhouette_score
 from pylab import cm
-import sys
+import sys, os
 
 import specific_params as sp
 
@@ -30,17 +30,17 @@ def main():
     global debug, plot_clusters, fig_count
     plot_clusters = False
     debug = False
-    app_list = (u'bfs',),#c.execute('SELECT App FROM BBProfile GROUP BY App;').fetchall()
+    app_list = c.execute('SELECT App FROM BBProfile GROUP BY App;').fetchall()
     app_list = [row[0] for row in app_list]
-    #(u'hotspot',),#(u'kmeans',u'bfs'),#(u'sad',),#
+    #(u'hotspot',),#(u'kmeans',u'bfs'),#(u'sad',),#(u'bfs',),#
     fig_count=0
     for app in app_list:
 		print "\n---------\n" + app + "\n-----------"
 #		INJSimMatrix(app)
-		fig_count += 1	
-		BBVSimilarityMatrix(app)
+#		fig_count += 1	
+#		BBVSimilarityMatrix(app)
 #		Clustering(app, 400)
-
+		UseSimpoint(app, 400)
 #    profileMemAccesses()
 
 # In[]
@@ -365,7 +365,7 @@ def getBBV(app):
 			if (bbv_element is None):
 				bbv_data = 0
 			else:
-				bbv_data = bbv_element[0]# * bbv_element[2] * bbv_element[1]
+				bbv_data = bbv_element[0] * bbv_element[1]# * bbv_element[1]
 			bbv[inst_interval].append(float(bbv_data))
 #		if np.sum(bbv[inst_interval]) != 0:
 #			bbv[inst_interval] /= np.sum(bbv[inst_interval])
@@ -437,14 +437,11 @@ def choose_interval(policy,cluster_num,cluster_labels, cluster_centers,bbv, app=
     return return_interval_id
 
 # In[]
+#from __future__ import print_function
 def BBVSimilarityMatrix(app):
 		bbv=getBBV(app)
-		for interval in range(len(bbv)):
-			print "\nT",
-			for bb_num in range(len(bbv[interval])):
-				if bbv[interval][bb_num] != 0:
-					print ":" + str(bb_num) + ":" +	str(int(bbv[interval][bb_num]))+" ",
-	#		print "\n"
+	
+#		print "\n"
 #		for 
 #		num_intervals = len(bbv)
 #		similarity_matrix = np.zeros((num_intervals, num_intervals))
@@ -626,5 +623,58 @@ def dumpDbgInfo(best_intervals, interval_size, cluster_freq, app):
 	plt.gca().grid()
 	plt.xticks(np.arange(4), ['Masked', 'SDC', 'DUE', 'PotDUE'])
 	plt.show()
+# In[]
+def UseSimpoint(app, num_faults):
+	fipt_intervals = []
+	num_intervals = 0
+	fipt_intervals_weights = []
+	fipt_intervals_num_insts = []
+	interval_size = c.execute('SELECT IntervalSize from BBVIntervalSizes WHERE App is \'%s\';'
+		   %(app)).fetchone()[0]
+	print "CLUSTERING " + app
+	bbv = getBBV(app)
+	fv_file = open(app+".fv", "w")
+	for interval in range(len(bbv)):
+		fv_file.write("\nT")
+		for bb_num in range(len(bbv[interval])):
+			if bbv[interval][bb_num] != 0:
+				fv_file.write(":" + str(bb_num+1) + ":" +	str(int(bbv[interval][bb_num])) + " ")
+	fv_file.close()
+	simpt_filename = "simpt.out"
+	weight_filename = "weights.out"
+	os.system('./simpoint -loadFVFile ' + app + '.fv -k \"search\" -maxK 10 -dim \"noProject\" -saveSimpoints ' + simpt_filename + ' -saveSimpointWeights ' + weight_filename )
+	with open("simpt.out") as f:
+		fipts = f.readlines()
+	fipt_intervals = [int(x.split(' ')[0]) for x in fipts]
+	print "intervals chosen:"	
+	print fipt_intervals
+	with open("weights.out") as w:
+		wts = w.readlines()
+	fipt_intervals_weights = [float(x.split(' ')[0]) for x in wts]
+	print fipt_intervals_weights
+	
+	print "SP APP DIR: " + app
+	interval_fname = sp.app_dir[app] + "/interval.txt"
+	f = open(interval_fname, "w")
+	interval_str = "%d\nApp:IntervalSize:NumFaultsPerInterval:IntervalList...\n"\
+		%(interval_size)
+	interval_str += "%s:%d:%d:%s\n" % (app, interval_size, num_faults, ':'.join(map(str, fipt_intervals)))
+	print "\n%d" % interval_size
+	print "App:IntervalSize:NumFaultsPerInterval:IntervalList..."
+#
+	print "%s:%d:%d:%s" % (app, interval_size, num_faults,':'.join(map(str, fipt_intervals)))
+	for interval in range(0,len(fipt_intervals)):
+		num_insts  = c.execute('SELECT NumGPRInsts FROM BBVIntervalSizes WHERE App is \'%s\' AND '\
+							 'IntervalId==%d;'
+							 %(app, fipt_intervals[interval])).fetchone()[0]
+		fipt_intervals_num_insts.append(num_insts)
+		print "%d:%d:%f"\
+			% (fipt_intervals[interval], fipt_intervals_num_insts[interval], fipt_intervals_weights[interval])
+		interval_str += "%d:%d:%f\n"\
+			% (fipt_intervals[interval], fipt_intervals_num_insts[interval], fipt_intervals_weights[interval])
+#
+	f.write(interval_str)
+	f.close()
+
 # In[]
 main()

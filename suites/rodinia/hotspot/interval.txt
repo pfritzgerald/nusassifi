@@ -1,5 +1,4 @@
 500000
 App:IntervalSize:NumFaultsPerInterval:IntervalList...
-hotspot:500000:400:26:1
-26:365008:0.812500
-1:479776:0.187500
+hotspot:500000:400:7
+7:336987:1.000000

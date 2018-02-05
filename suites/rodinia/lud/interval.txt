@@ -1,5 +1,4 @@
 100000
 App:IntervalSize:NumFaultsPerInterval:IntervalList...
-lud:100000:400:292:13
-292:91177:0.571006
-13:92081:0.428994
+lud:100000:400:6
+6:81888:1.000000
