@@ -90,10 +90,12 @@ def create_sbatch_script(app,array_num):
 		"#SBATCH -p par-gpu\n"
 		"#SBATCH -n 32\n"
 		"#SBATCH -N 1\n"
-		"#SBATCH -o /gss_gpfs_scratch/" + user + "/nusassifi/" + app + "/" + app + "_sbatch_%A_%a.out\n"
-		"#SBATCH -e /gss_gpfs_scratch/" + user + "/nusassifi/" + app + "/" + app + "_sbatch_%A_%a.err\n\n"
-		"cmd=`sed \"${SLURM_ARRAY_TASK_ID}q;d\" cmds_" + str(array_num) + ".out`\n"
-		"$cmd\n")
+		"#SBATCH -o /gss_gpfs_scratch/" + user + "/nusassifi/" + app + "/" + app + "_sbatch_%j.out\n"
+		"#SBATCH -e /gss_gpfs_scratch/" + user + "/nusassifi/" + app + "/" + app + "_sbatch_%j.err\n\n"
+		"while IFS= read line\ndo\n"
+#		"cmd=`sed \"${SLURM_ARRAY_TASK_ID}q;d\" cmds_" + str(array_num) + ".out`\n"
+		"$line\n"
+		"done < cmds_" + str(array_num) + ".out\n")
 	outf.close()
 	return filename
 
@@ -104,7 +106,7 @@ def check_and_submit_cluster(cmd, app, total_jobs, interval_mode):
 	if (total_jobs == sp.THRESHOLD_JOBS) or ((total_jobs % 1000) == 0) or (interval_mode and (total_jobs == total_interval_jobs)):
 		sbatch_script=create_sbatch_script(app,array_num)
 		num_jobs = (total_jobs % 1000) if (total_jobs % 1000) else 1000
-		os.system("sbatch -D " + sp.SASSIFI_HOME + "/scripts/tmp/" + app + "  --array=1-" + str(num_jobs) + " " + sbatch_script)
+		os.system("sbatch -D " + sp.SASSIFI_HOME + "/scripts/tmp/" + app + " " + sbatch_script)
 #		os.system("rm cmds.out")
 
 ############################################################################
@@ -128,6 +130,7 @@ def check_and_submit_multigpu(cmd):
 def run_multiple_injections_igid(app, is_rf, igid, where_to_run, interval_mode):
 	bfm_list = sp.rf_bfm_list if is_rf else sp.igid_bfm_map[igid]
 	if where_to_run == "cluster":
+		# Create directories to store logs and tmp files for slurm
 		if not os.path.isdir(sp.SASSIFI_HOME + "/scripts/tmp/" + app):
 			os.system("mkdir -p " + sp.SASSIFI_HOME + "/scripts/tmp/" + app)
 		user = os.environ["USER"]
