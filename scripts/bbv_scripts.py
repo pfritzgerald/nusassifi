@@ -39,8 +39,8 @@ def main():
 #		INJSimMatrix(app)
 #		fig_count += 1	
 #		BBVSimilarityMatrix(app)
-#		Clustering(app, 400)
-		UseSimpoint(app, 400)
+		Clustering(app, 400)
+#		UseSimpoint(app, 400)
 #    profileMemAccesses()
 
 # In[]
@@ -480,8 +480,8 @@ def Clustering(app, num_faults):
 	interval_size = c.execute('SELECT IntervalSize from BBVIntervalSizes WHERE App is \'%s\';'
 		   %(app)).fetchone()[0]
 	print "CLUSTERING " + app
-#	bbv = getBBV(app)
-	bbv, interval_size = getOutcomesByInterval(app, False)
+	bbv = getBBV(app)
+#	bbv, interval_size = getOutcomesByInterval(app, False)
 	for num_clusters in range(2,20):
 		clusters = KMeans(n_clusters=num_clusters)            
 		clusters.fit(bbv)
