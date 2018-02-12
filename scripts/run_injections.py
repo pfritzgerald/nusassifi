@@ -90,6 +90,7 @@ def create_sbatch_script(app,array_num):
 		"#SBATCH -p par-gpu\n"
 		"#SBATCH -n 32\n"
 		"#SBATCH -N 1\n"
+		"#SBATCH -x compute-2-133\,compute-2-148\n"
 		"#SBATCH -o /gss_gpfs_scratch/" + user + "/nusassifi/" + app + "/" + app + "_sbatch_%j.out\n"
 		"#SBATCH -e /gss_gpfs_scratch/" + user + "/nusassifi/" + app + "/" + app + "_sbatch_%j.err\n\n"
 		"while IFS= read line\ndo\n"
