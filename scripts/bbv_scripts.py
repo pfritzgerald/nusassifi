@@ -648,7 +648,7 @@ def UseSimpoint(app, num_faults):
 	fv_file.close()
 	simpt_filename = "simpt.out"
 	weight_filename = "weights.out"
-	os.system('./simpoint -loadFVFile ' + app + '.fv -k \"search\" -maxK 10 -dim \"noProject\" -saveSimpoints ' + simpt_filename + ' -saveSimpointWeights ' + weight_filename )
+	os.system('./simpoint -loadFVFile ' + app + '.fv -k 2:10 -dim \"noProject\" -saveSimpoints ' + simpt_filename + ' -saveSimpointWeights ' + weight_filename )
 	with open("simpt.out") as f:
 		fipts = f.readlines()
 	fipt_intervals = [int(x.split(' ')[0]) for x in fipts]
