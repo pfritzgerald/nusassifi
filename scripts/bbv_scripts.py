@@ -39,8 +39,8 @@ def main():
 #		INJSimMatrix(app)
 #		fig_count += 1	
 #		BBVSimilarityMatrix(app)
-		Clustering(app, 400)
-#		UseSimpoint(app, 400)
+#		Clustering(app, 400)
+		UseSimpoint(app, 400)
 #    profileMemAccesses()
 
 # In[]
@@ -371,7 +371,7 @@ def getBBV(app):
 				bbv_data = 0
 			else:
 				live_out_ratio = 0 if sum_live_out_max_rreg_used==0 else float(bbv_element[2])/sum_live_out_max_rreg_used
-				bbv_data = bbv_element[0] * bbv_element[1] * live_out_ratio
+				bbv_data = bbv_element[0] * bbv_element[1]# * live_out_ratio
 			bbv[inst_interval].append(float(bbv_data))
 #		if np.sum(bbv[inst_interval]) != 0:
 #			bbv[inst_interval] /= np.sum(bbv[inst_interval])
