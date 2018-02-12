@@ -100,12 +100,13 @@ def create_sbatch_script(app,array_num):
 	return filename
 
 def check_and_submit_cluster(cmd, app, total_jobs, interval_mode):
-	array_num = ((total_jobs - 1) / 1000) + 1
+	threshold_num = 2000
+	array_num = ((total_jobs - 1) / threshold_num) + 1
 	if total_jobs < sp.THRESHOLD_JOBS + 1:
 		os.system("echo " + cmd + " >> " + sp.SASSIFI_HOME + "/scripts/tmp/" + app + "/cmds_" + str(array_num) + ".out")
-	if (total_jobs == sp.THRESHOLD_JOBS) or ((total_jobs % 1000) == 0) or (interval_mode and (total_jobs == total_interval_jobs)):
+	if (total_jobs == sp.THRESHOLD_JOBS) or ((total_jobs % threshold_num) == 0) or (interval_mode and (total_jobs == total_interval_jobs)):
 		sbatch_script=create_sbatch_script(app,array_num)
-		num_jobs = (total_jobs % 1000) if (total_jobs % 1000) else 1000
+		num_jobs = (total_jobs % threshold_num) if (total_jobs % threshold_num) else threshold_num
 		os.system("sbatch -D " + sp.SASSIFI_HOME + "/scripts/tmp/" + app + " " + sbatch_script)
 #		os.system("rm cmds.out")
 
