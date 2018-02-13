@@ -8,4 +8,4 @@ INPUT_LABEL=`basename $INPUT`
 # bfs-merrill is optional variant
 #../scripts/compare.sh bfs-merrill-${INPUT_LABEL}-bfs-output.txt bfs-*${INPUT_LABEL}-bfs-output.txt
 
-../scripts/compare.sh bfs-wlc-${INPUT_LABEL}-bfs-output.txt bfs-*${INPUT_LABEL}-bfs-output.txt
+#../scripts/compare.sh bfs-wlc-${INPUT_LABEL}-bfs-output.txt bfs-*${INPUT_LABEL}-bfs-output.txt
