@@ -14,7 +14,7 @@ from sklearn.cluster import KMeans
 from scipy.spatial.distance import euclidean
 from sklearn.metrics import silhouette_score
 from pylab import cm
-import sys
+import sys, os
 
 import specific_params as sp
 
@@ -32,15 +32,15 @@ def main():
     debug = False
     app_list = c.execute('SELECT App FROM BBProfile GROUP BY App;').fetchall()
     app_list = [row[0] for row in app_list]
-    #(u'hotspot',),#(u'kmeans',u'bfs'),#(u'sad',),#
+    #(u'hotspot',),#(u'kmeans',u'bfs'),#(u'sad',),#(u'bfs',),#
     fig_count=0
     for app in app_list:
 		print "\n---------\n" + app + "\n-----------"
 #		INJSimMatrix(app)
 #		fig_count += 1	
 #		BBVSimilarityMatrix(app)
-		Clustering(app, 400)
-
+#		Clustering(app, 400)
+		UseSimpoint(app, 400)
 #    profileMemAccesses()
 
 # In[]
@@ -55,7 +55,7 @@ def getOutcomesByInterval(app, plot=True):
 
 #	total_dyn_inst_count /= 2
 	masked_list = []
-	pot_due_list = []
+#	pot_due_list = []
 	due_list = []
 	sdc_list = []
 	current_dyn_inst_id = 0
@@ -82,7 +82,7 @@ def getOutcomesByInterval(app, plot=True):
 			masked_list.append(float(num_masked))
 			results[current_interval].append(float(num_masked))
 		num_due = c.execute('SELECT COUNT(Results.ID) FROM Results, OutcomeMap WHERE OutcomeId=OutcomeMap.Id '\
-					  'AND Description LIKE \'DUE%%\' AND App is \'%s\' AND '\
+					  'AND Description LIKE \'%%DUE%%\' AND App is \'%s\' AND '\
 					  'AppDynInstId>%d AND AppDynInstId<%d;'
 					  %(app, current_dyn_inst_id, (current_dyn_inst_id+interval_size))).fetchone()[0]
 		if num_faults != 0:
@@ -93,16 +93,16 @@ def getOutcomesByInterval(app, plot=True):
 			due_list.append(float(num_due))
 			results[current_interval].append(float(num_due))
 
-		num_pot_due = c.execute('SELECT COUNT(Results.ID) FROM Results, OutcomeMap WHERE OutcomeId=OutcomeMap.Id '\
-						  'AND Description LIKE \'Pot DUE%%\' AND App is \'%s\' AND '\
-						  'AppDynInstId>%d AND AppDynInstId<%d;'
-						  %(app, current_dyn_inst_id, (current_dyn_inst_id+interval_size))).fetchone()[0]
-		if num_faults != 0:
-			pot_due_list.append(float(num_pot_due)/num_faults)
-			results[current_interval].append(float(num_pot_due)/num_faults)            
-		else:
-			pot_due_list.append(float(num_pot_due))
-			results[current_interval].append(float(num_pot_due))
+#		num_pot_due = c.execute('SELECT COUNT(Results.ID) FROM Results, OutcomeMap WHERE OutcomeId=OutcomeMap.Id '\
+#						  'AND Description LIKE \'Pot DUE%%\' AND App is \'%s\' AND '\
+#						  'AppDynInstId>%d AND AppDynInstId<%d;'
+#						  %(app, current_dyn_inst_id, (current_dyn_inst_id+interval_size))).fetchone()[0]
+#		if num_faults != 0:
+#			pot_due_list.append(float(num_pot_due)/num_faults)
+#			results[current_interval].append(float(num_pot_due)/num_faults)            
+#		else:
+#			pot_due_list.append(float(num_pot_due))
+#			results[current_interval].append(float(num_pot_due))
 
 
 		num_sdc = c.execute('SELECT COUNT(Results.ID) FROM Results, OutcomeMap WHERE OutcomeId=OutcomeMap.Id '\
@@ -146,13 +146,14 @@ def getOutcomesByInterval(app, plot=True):
 		"""
 		PotDUE
 		"""
-		y_offset = [ x + y for x,y in zip(y_offset, sdc_list)]
-		plt.bar(np.arange(len(pot_due_list)), pot_due_list, bottom=y_offset, color='purple', label="PotDUE")
+#		y_offset = [ x + y for x,y in zip(y_offset, sdc_list)]
+#		plt.bar(np.arange(len(pot_due_list)), pot_due_list, bottom=y_offset, color='purple', label="PotDUE")
 
 #		plt.ylim(0,1.5)
 		plt.legend()    
 		interval_mark = str(interval_size/1000000) + "M" if (interval_size/1000000) >= 1 else str(interval_size/1000) + "K" 
 		plt.xlabel("Inst-Intervals (Size:" + str(interval_mark)+ " insts)")
+		plt.ylabel("Outcome Percentage")
 		ax = plt.gca()
 		type(ax)
 		yvals = ax.get_yticks()
@@ -230,6 +231,7 @@ def plotNormData(norm_values, app, interval_size, show=True):
 	plt.scatter(x, y, c = colors, cmap=cm.gray, s = SIZE)
 	plt.title(app)
 	plt.xlabel("Inst-Intervals (Size:" + str(interval_mark)+ " insts)")
+	plt.ylabel("Inst-Intervals (Size:" + str(interval_mark)+ " insts)")
 
 	plt.xlim(0)
 	plt.ylim(0)
@@ -327,7 +329,7 @@ def getBBV(app):
 	max_interval = c.execute('SELECT MAX(InstIntervalId) FROM BBProfile WHERE App is \'%s\';'
 						  % (app)).fetchone()[0]
 #    bb_count = len(zip(bb_id_list,func_name_list))
-
+	
 	for inst_interval in range(0,max_interval):        
 		bb_counter = 0
 		bbv.append([])
@@ -337,6 +339,10 @@ def getBBV(app):
 #             print 'SELECT Weight, NumInsts FROM BBProfile WHERE BasicBlockId=%d '\
 #                                 'AND FuncName IS \'%s\' AND App is \'%s\' AND '\
 #                                 'InstInterval=%d;' %(bb_id, func_name, app, inst_interval)
+			sum_live_out_max_rreg_used = c.execute('SELECT SUM(LiveOutMaxRRegUsed) FROM BBProfile WHERE '\
+						   'FuncName IS \'%s\' AND App is \'%s\' AND '\
+						   'InstIntervalId=%d;'
+						   %(func_name, app, inst_interval)).fetchone()[0]
 			bbv_element = c.execute('SELECT BBNumExecs, BBNumInsts, LiveOutMaxRRegUsed FROM BBProfile WHERE BasicBlockId=%d '\
 						   'AND FuncName IS \'%s\' AND App is \'%s\' AND '\
 						   'InstIntervalId=%d;'
@@ -347,6 +353,7 @@ def getBBV(app):
 							 'AND FuncName IS \'%s\' AND BBProfile.App is \'%s\' AND '\
 							 'InstIntervalId=%d;'
 						   %(bb_id, func_name, app, inst_interval)).fetchone()[0]
+			
 			old_write_len = 0
 			sys.stdout.write('\r' + (' ' * old_write_len))            
 			old_write_len = sys.stdout.write('\rOverall Progress (All Intervals): ' + 
@@ -363,10 +370,11 @@ def getBBV(app):
 			if (bbv_element is None):
 				bbv_data = 0
 			else:
-				bbv_data = bbv_element[0]# * bbv_element[2] * bbv_element[1]
+				live_out_ratio = 0 if sum_live_out_max_rreg_used==0 else float(bbv_element[2])/sum_live_out_max_rreg_used
+				bbv_data = bbv_element[0] * bbv_element[1]# * live_out_ratio
 			bbv[inst_interval].append(float(bbv_data))
-		if np.sum(bbv[inst_interval]) != 0:
-			bbv[inst_interval] /= np.sum(bbv[inst_interval])
+#		if np.sum(bbv[inst_interval]) != 0:
+#			bbv[inst_interval] /= np.sum(bbv[inst_interval])
 
 	return bbv
 
@@ -435,25 +443,29 @@ def choose_interval(policy,cluster_num,cluster_labels, cluster_centers,bbv, app=
     return return_interval_id
 
 # In[]
+#from __future__ import print_function
 def BBVSimilarityMatrix(app):
 		bbv=getBBV(app)
-		num_intervals = len(bbv)
-		similarity_matrix = np.zeros((num_intervals, num_intervals))
-		# print bbv[0]
-		for interval_1 in range(0,num_intervals):
-			for interval_2 in range(interval_1,num_intervals):
-				sum_mntn_dist = sum_manhattan_distances(bbv[interval_1], bbv[interval_2])
-				similarity_matrix [interval_1, interval_2] = sum_mntn_dist
-				#         if bbv[interval_] != 0:
-				#         bbv[interval_] /= np.sum(bbv[interval_])
-                #     print "interval " + str(interval_1) + ":\n " + str(bbv[interval_1])
-                #norm_sim_matrix = getNormalizedMatrix(similarity_matrix)
-		print "\n------------\nBBV PROFILING\n------------------"
-		interval_size = c.execute('SELECT IntervalSize from BBVIntervalSizes WHERE App is \'%s\';'
-							%(app)).fetchone()[0]
-		plt.figure(fig_count)
-		plotNormData(similarity_matrix, app,interval_size, True)
-#		fig_count+=1
+	
+#		print "\n"
+#		for 
+#		num_intervals = len(bbv)
+#		similarity_matrix = np.zeros((num_intervals, num_intervals))
+#		# print bbv[0]
+#		for interval_1 in range(0,num_intervals):
+#			for interval_2 in range(interval_1,num_intervals):
+#				sum_mntn_dist = sum_manhattan_distances(bbv[interval_1], bbv[interval_2])
+#				similarity_matrix [interval_1, interval_2] = sum_mntn_dist
+#				#         if bbv[interval_] != 0:
+#				#         bbv[interval_] /= np.sum(bbv[interval_])
+#                #     print "interval " + str(interval_1) + ":\n " + str(bbv[interval_1])
+#                #norm_sim_matrix = getNormalizedMatrix(similarity_matrix)
+#		print "\n------------\nBBV PROFILING\n------------------"
+#		interval_size = c.execute('SELECT IntervalSize from BBVIntervalSizes WHERE App is \'%s\';'
+#							%(app)).fetchone()[0]
+#		plt.figure(fig_count)
+#		plotNormData(similarity_matrix, app,interval_size, True)
+##		fig_count+=1
 
 
 # In[23]:
@@ -468,8 +480,8 @@ def Clustering(app, num_faults):
 	interval_size = c.execute('SELECT IntervalSize from BBVIntervalSizes WHERE App is \'%s\';'
 		   %(app)).fetchone()[0]
 	print "CLUSTERING " + app
-#	bbv = getBBV(app)
-	bbv, interval_size = getOutcomesByInterval(app, False)
+	bbv = getBBV(app)
+#	bbv, interval_size = getOutcomesByInterval(app, False)
 	for num_clusters in range(2,20):
 		clusters = KMeans(n_clusters=num_clusters)            
 		clusters.fit(bbv)
@@ -617,5 +629,58 @@ def dumpDbgInfo(best_intervals, interval_size, cluster_freq, app):
 	plt.gca().grid()
 	plt.xticks(np.arange(4), ['Masked', 'SDC', 'DUE', 'PotDUE'])
 	plt.show()
+# In[]
+def UseSimpoint(app, num_faults):
+	fipt_intervals = []
+	num_intervals = 0
+	fipt_intervals_weights = []
+	fipt_intervals_num_insts = []
+	interval_size = c.execute('SELECT IntervalSize from BBVIntervalSizes WHERE App is \'%s\';'
+		   %(app)).fetchone()[0]
+	print "CLUSTERING " + app
+	bbv = getBBV(app)
+	fv_file = open(app+".fv", "w")
+	for interval in range(len(bbv)):
+		fv_file.write("\nT")
+		for bb_num in range(len(bbv[interval])):
+			if bbv[interval][bb_num] != 0:
+				fv_file.write(":" + str(bb_num+1) + ":" +	str(int(bbv[interval][bb_num])) + " ")
+	fv_file.close()
+	simpt_filename = "simpt.out"
+	weight_filename = "weights.out"
+	os.system('./simpoint -loadFVFile ' + app + '.fv -k 2:10 -dim \"noProject\" -saveSimpoints ' + simpt_filename + ' -saveSimpointWeights ' + weight_filename )
+	with open("simpt.out") as f:
+		fipts = f.readlines()
+	fipt_intervals = [int(x.split(' ')[0]) for x in fipts]
+	print "intervals chosen:"	
+	print fipt_intervals
+	with open("weights.out") as w:
+		wts = w.readlines()
+	fipt_intervals_weights = [float(x.split(' ')[0]) for x in wts]
+	print fipt_intervals_weights
+	
+	print "SP APP DIR: " + app
+	interval_fname = sp.app_dir[app] + "/interval.txt"
+	f = open(interval_fname, "w")
+	interval_str = "%d\nApp:IntervalSize:NumFaultsPerInterval:IntervalList...\n"\
+		%(interval_size)
+	interval_str += "%s:%d:%d:%s\n" % (app, interval_size, num_faults, ':'.join(map(str, fipt_intervals)))
+	print "\n%d" % interval_size
+	print "App:IntervalSize:NumFaultsPerInterval:IntervalList..."
+#
+	print "%s:%d:%d:%s" % (app, interval_size, num_faults,':'.join(map(str, fipt_intervals)))
+	for interval in range(0,len(fipt_intervals)):
+		num_insts  = c.execute('SELECT NumGPRInsts FROM BBVIntervalSizes WHERE App is \'%s\' AND '\
+							 'IntervalId==%d;'
+							 %(app, fipt_intervals[interval])).fetchone()[0]
+		fipt_intervals_num_insts.append(num_insts)
+		print "%d:%d:%f"\
+			% (fipt_intervals[interval], fipt_intervals_num_insts[interval], fipt_intervals_weights[interval])
+		interval_str += "%d:%d:%f\n"\
+			% (fipt_intervals[interval], fipt_intervals_num_insts[interval], fipt_intervals_weights[interval])
+#
+	f.write(interval_str)
+	f.close()
+
 # In[]
 main()
