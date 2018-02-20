@@ -14,10 +14,10 @@ install:
 	cp $(TARGET) $(SASSIFI_HOME)/bin/$(OPTION)/$(SUITE_NAME)/
 
 test:
-	./nn filelist_4 -r 5 -lat 30 -lng 90
+	./nn list64k.txt -r 5 -lat 30 -lng 90
 
 golden:
-	./nn filelist_4 -r 5 -lat 30 -lng 90 >golden_stdout.txt 2>golden_stderr.txt
+	./nn list64k.txt -r 5 -lat 30 -lng 90 >golden_stdout.txt 2>golden_stderr.txt
 
 
 hurricane_gen : hurricane_gen.c

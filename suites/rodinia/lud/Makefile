@@ -14,9 +14,9 @@ install:
 	cp cuda/$(TARGET) $(SASSIFI_HOME)/bin/$(OPTION)/$(SUITE_NAME)/
 
 test:
-	cuda/lud_cuda -s 256 -v
+	cuda/lud_cuda -s 512 -v
 golden:
-	cuda/lud_cuda -s 256 -v > golden_stdout.txt 2>golden_stderr.txt
+	cuda/lud_cuda -s 512 -v > golden_stdout.txt 2>golden_stderr.txt
 clean:
 	cd cuda; make clean
 

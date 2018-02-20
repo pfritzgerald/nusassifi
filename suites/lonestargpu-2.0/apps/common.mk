@@ -69,6 +69,11 @@ SASSI_CUDACFLAGS = $(BEFORE_ALL)  $(BEFORE_REG_MEM_INFO) -Xptxas --sassi-bb-entr
 SASSI_CUDALDFLAGS = -L$(INST_LIB_DIR) -lmemaccesses $(CUPTI) 
 endif
 
+ifeq (${OPTION},bbv_profiler)
+SASSI_CUDACFLAGS = $(AFTER_REG_MEM) $(AFTER_REG_MEM_INFO) -Xptxas --sassi-bb-entry $(BRANCH_AROUND) $(GENCODE)
+SASSI_CUDALDFLAGS = -L$(INST_LIB_DIR) -lbbv_profiler $(CUPTI) 
+endif
+
 #----------------------------
 
 COMPUTECAPABILITY := sm_35

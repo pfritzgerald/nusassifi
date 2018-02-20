@@ -75,10 +75,10 @@ install:
 	cp $(TARGET) $(SASSIFI_HOME)/bin/$(OPTION)/$(SUITE_NAME)/
 
 test:
-	./lavaMD -boxes1d 2
+	./lavaMD -boxes1d 4
 
 golden:
-	./lavaMD -boxes1d 2 >golden_stdout.txt 2>golden_stderr.txt
+	./lavaMD -boxes1d 4 >golden_stdout.txt 2>golden_stderr.txt
 
 # delete all object and executable files
 clean:

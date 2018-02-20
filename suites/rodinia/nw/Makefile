@@ -27,10 +27,10 @@ install:
 	cp $(TARGET) $(SASSIFI_HOME)/bin/$(OPTION)/$(SUITE_NAME)/
 
 test:
-	./nw 2048 10
+	./nw 4096 10
 
 golden:
-	./nw 2048 10 >golden_stdout.txt 2>golden_stderr.txt
+	./nw 4096 10 >golden_stdout.txt 2>golden_stderr.txt
 
 clean: $(SRC)
 	rm -f $(TARGET) *.o *~
