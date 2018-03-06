@@ -92,9 +92,12 @@ def create_sbatch_script(app,array_num):
 		"#SBATCH -N 1\n"
 		"#SBATCH -x compute-2-133\,compute-2-148\n"
 		"#SBATCH -o /gss_gpfs_scratch/" + user + "/nusassifi/" + app + "/" + app + "_sbatch_%j.out\n"
-		"#SBATCH -e /gss_gpfs_scratch/" + user + "/nusassifi/" + app + "/" + app + "_sbatch_%j.err\n\n"
-		"while IFS= read line\ndo\n"
-#		"cmd=`sed \"${SLURM_ARRAY_TASK_ID}q;d\" cmds_" + str(array_num) + ".out`\n"
+		"#SBATCH -e /gss_gpfs_scratch/" + user + "/nusassifi/" + app + "/" + app + "_sbatch_%j.err\n\n")
+	if sp.USE_ARRAY:
+		outf.write("cmd=`sed \"${SLURM_ARRAY_TASK_ID}q;d\" cmds_" + str(array_num) + ".out`\n"			
+		"$cmd\n")
+	else:
+		outf.write("while IFS= read line\ndo\n"
 		"$line\n"
 		"done < cmds_" + str(array_num) + ".out\n")
 	outf.close()
@@ -108,7 +111,10 @@ def check_and_submit_cluster(cmd, app, total_jobs, interval_mode):
 	if (total_jobs == sp.THRESHOLD_JOBS) or ((total_jobs % threshold_num) == 0) or (interval_mode and (total_jobs == total_interval_jobs)):
 		sbatch_script=create_sbatch_script(app,array_num)
 		num_jobs = (total_jobs % threshold_num) if (total_jobs % threshold_num) else threshold_num
-		os.system("sbatch -D " + sp.SASSIFI_HOME + "/scripts/tmp/" + app + " " + sbatch_script)
+		if sp.USE_ARRAY:
+			os.system("sbatch -D " + sp.SASSIFI_HOME + "/scripts/tmp/" + app + " --array=1-" + str(num_jobs) + " " + sbatch_script)
+		else:
+			os.system("sbatch -D " + sp.SASSIFI_HOME + "/scripts/tmp/" + app + " " + sbatch_script)
 #		os.system("rm cmds.out")
 
 ############################################################################

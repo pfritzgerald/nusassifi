@@ -846,7 +846,7 @@ int main(int argc, char *argv[])
   cudaFuncSetCacheConfig(IntegrationKernel, cudaFuncCachePreferL1);
 
   cudaGetLastError();  // reset error value
-  for (run = 0; run < 3; run++) {
+  for (run = 0; run < 1; run++) {
     for (i = 0; i < 7; i++) timing[i] = 0.0f;
 
     nbodies = atoi(argv[1]);
@@ -1037,9 +1037,9 @@ int main(int argc, char *argv[])
 
   // print output
   i = 0;
-//  for (i = 0; i < nbodies; i++) {
+  for (i = 0; i < nbodies; i++) {
     printf("result: %.2e %.2e %.2e\n", posx[i], posy[i], posz[i]);
-//  }
+  }
 
   free(mass);
   free(posx);
