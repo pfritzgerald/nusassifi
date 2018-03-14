@@ -17,6 +17,7 @@ CUDA_BIN_DIR = $(CUDA_BASE_DIR)/bin
 CUPTI_LIB_DIR = $(CUDA_BASE_DIR)/extras/CUPTI/lib64
 CUPTI = -L$(CUPTI_LIB_DIR) -lcupti 
 NVCC = $(CUDA_BIN_DIR)/nvcc
+CUDA_SAMPLES_INC = -I$(CUDA_BASE_DIR)/samples/common/inc
 
 # The C/CPP compiler you want to use, and associated flags.
 CC = gcc

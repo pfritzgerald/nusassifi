@@ -218,7 +218,7 @@ endif
 ##############################
 # start deprecated interface #
 ##############################
-
+TARGET = recursiveGaussian
 SUITE_NAME = example
 
 OPTION = none
@@ -283,9 +283,7 @@ LINK_FLAGS = -std=c++11 -m64 -g $(GENCODE) -lcudart -lcudadevrt -lm $(EXTRA_LINK
 
 
 # Target rules
-all: build
-
-build: recursiveGaussian
+all: clean $(TARGET) install
 
 check.deps:
 ifeq ($(SAMPLE_ENABLED),0)
@@ -294,35 +292,27 @@ else
 	@echo "Sample is ready - all dependencies have been met"
 endif
 
-#bitonic.o:bitonic.cu
-#	$(EXEC) $(NVCC) $(NVCC_FLAGS) -I/shared/apps/cuda7.0/samples/common/inc/ -o $@ -c $< -L$(CUDA_LIB_DIR) $(LINK_FLAGS)
-
-#main.o:main.cpp
-#	$(EXEC) $(NVCC) $(INCLUDES) $(ALL_CCFLAGS) $(GENCODE_FLAGS) -o $@ -c $<
-#	$(EXEC) $(NVCC) -I/shared/apps/cuda7.0/samples/common/inc/ $(NVCC_FLAGS) -o $@ -c $<
-
 recursiveGaussian_cuda.o:recursiveGaussian_cuda.cu
 	$(EXEC) $(NVCC) $(NVCC_FLAGS) -I/shared/apps/cuda7.0/samples/common/inc/ -o $@ -c $< -L$(CUDA_LIB_DIR) $(LINK_FLAGS)
 
 recursiveGaussian.o:recursiveGaussian.cpp
 	$(EXEC) $(NVCC) -I/shared/apps/cuda7.0/samples/common/inc/ -m64 -po -o $@ -c $< 
 
-#bilateralFilter_cpu.o:bilateralFilter_cpu.cpp
-#	$(EXEC) $(NVCC) -m64 -po -I/shared/apps/cuda7.0/samples/common/inc/ -o $@ -c $<
-
-#bmploader.o:bmploader.cpp
-#	$(EXEC) $(NVCC) -m64 -po -I/shared/apps/cuda7.0/samples/common/inc/ -o $@ -c $<
-
-recursiveGaussian: recursiveGaussian.o recursiveGaussian_cuda.o
+$(TARGET): recursiveGaussian.o recursiveGaussian_cuda.o
 	$(EXEC) $(NVCC) $(NVCC_FLAGS) -o $@ $+ $(LINK_FLAGS) $(LIBRARIES)
-	$(EXEC) mkdir -p ../../bin/$(TARGET_ARCH)/$(TARGET_OS)/$(BUILD_TYPE)
-	$(EXEC) cp $@ ../../bin/$(TARGET_ARCH)/$(TARGET_OS)/$(BUILD_TYPE)
 
-run: build
-	$(EXEC) ./recursiveGaussian
+install:
+	mkdir -p $(SASSIFI_HOME)/bin/$(OPTION)/$(SUITE_NAME)/
+	cp $(TARGET) $(SASSIFI_HOME)/bin/$(OPTION)/$(SUITE_NAME)/
+
+test:
+	./recursiveGaussian file lena_10.ppm
+
+golden:
+	./recursiveGaussian file lena_10.ppm >golden_stdout.txt 2>golden_stderr.txt
 
 clean:
 	rm -f recursiveGaussian recursiveGaussian.o recursiveGaussian_cuda.o
-	rm -rf ../../bin/$(TARGET_ARCH)/$(TARGET_OS)/$(BUILD_TYPE)/recursiveGaussian
 
 clobber: clean
+	rm -f sassifi-inst-counts.txt sassifi-scalar-insts.txt golden* *_regcount.p stdout* stderr*

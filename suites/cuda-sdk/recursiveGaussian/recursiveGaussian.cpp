@@ -399,7 +399,7 @@ runSingleTest(const char *ref_file, const char *exec_path)
     checkCudaErrors(cudaMalloc((void **) &d_result, size));
 
     // warm-up
-    gaussianFilterRGBA(d_img, d_result, d_temp, width, height, sigma, order, nthreads);
+//    gaussianFilterRGBA(d_img, d_result, d_temp, width, height, sigma, order, nthreads);
 
     checkCudaErrors(cudaDeviceSynchronize());
     sdkStartTimer(&timer);
@@ -498,7 +498,7 @@ main(int argc, char **argv)
         sigma = getCmdLineArgumentFloat(argc, (const char **) argv, "sigma");
     }
 
-    runBenchmark = checkCmdLineFlag(argc, (const char **) argv, "benchmark");
+   // runBenchmark = checkCmdLineFlag(argc, (const char **) argv, "benchmark");
 
     int device;
     struct cudaDeviceProp prop;
@@ -508,8 +508,8 @@ main(int argc, char **argv)
     if (!strncmp("Tesla", prop.name, 5))
     {
         printf("Tesla card detected, running the test in benchmark mode (no OpenGL display)\n");
-        //        runBenchmark = true;
-        runBenchmark = true;
+    //        runBenchmark = true;
+    //    runBenchmark = true;
     }
 
     // Benchmark or AutoTest mode detected, no OpenGL
@@ -541,10 +541,10 @@ main(int argc, char **argv)
         // flushed before the application exits
         cudaDeviceReset();
 
-        exit(testPassed ? EXIT_SUCCESS : EXIT_FAILURE);
+       // exit(testPassed ? EXIT_SUCCESS : EXIT_FAILURE);
     }
 
-    if (runBenchmark)
+  /*  if (runBenchmark)
     {
         printf("(Run Benchmark)\n");
         benchmark(100);
@@ -559,7 +559,7 @@ main(int argc, char **argv)
         cudaDeviceReset();
 
         exit(EXIT_SUCCESS);
-    }
+    } */
 
     initGLBuffers();
     glutMainLoop();

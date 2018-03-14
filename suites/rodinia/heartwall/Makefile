@@ -25,10 +25,10 @@ install:
 	cp $(TARGET) $(SASSIFI_HOME)/bin/$(OPTION)/$(SUITE_NAME)/
 
 test:
-	./heartwall ../data/heartwall/test.avi 20
+	./heartwall ../data/heartwall/test.avi 5
 
 golden:
-	./heartwall ../data/heartwall/test.avi 20 >golden_stdout.txt 2>golden_stderr.txt
+	./heartwall ../data/heartwall/test.avi 5 >golden_stdout.txt 2>golden_stderr.txt
 
 
 

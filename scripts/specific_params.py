@@ -43,11 +43,12 @@ import common_params as p
 # campaign. This is essentially the maximum number of injections one can run
 # per instruction group (IGID) and bit-flip model (BFM).
 # 
-NUM_INJECTIONS = 10000
+USE_ARRAY = True
+NUM_INJECTIONS = 10#000
 
 # Specify how many injections you want to perform per IGID and BFM combination. 
 # Only the first THRESHOLD_JOBS will be selected from the generated NUM_INJECTIONS.
-THRESHOLD_JOBS = 10000 # test
+THRESHOLD_JOBS = 10#000 # test
 # THRESHOLD_JOBS sould be <= NUM_INJECTIONS
 assert THRESHOLD_JOBS <= NUM_INJECTIONS
 
@@ -86,33 +87,39 @@ igid_bfm_map = {
 
 apps = {
 #	'b+tree': ['rodinia', 'b+tree.out', 3],
-	'lavaMD': ['rodinia','lavaMD',6],
-	'nw': ['rodinia','nw', 7],
-	'gaussian': ['rodinia', 'gaussian', 50],
+	#'lavaMD': ['rodinia','lavaMD',6],
+	#'nw': ['rodinia','nw', 7],
+	#'gaussian': ['rodinia', 'gaussian', 50],
 #	'backprop': ['rodinia', 'backprop', 4],
-	'hotspot': ['rodinia', 'hotspot',10],
-	'kmeans': ['rodinia', 'kmeans',5],
-	'bfs': ['rodinia', 'bfs', 15],
+	#'hotspot': ['rodinia', 'hotspot',10],
+	#'kmeans': ['rodinia', 'kmeans',5],
+	#'bfs': ['rodinia', 'bfs', 15],
 #	'huffman': ['rodinia', 'pavle', 10],
-	'lud': ['rodinia', 'lud_cuda', 7],
-	'nn': ['rodinia', 'nn', 5],
+	#'lud': ['rodinia', 'lud_cuda', 7],
+	#'nn': ['rodinia', 'nn', 5],
 	#'srad_v1': ['rodinia', 'srad_v1', 110],
-        'srad_v2': ['rodinia', 'srad_v2', 25],
+        #'srad_v2': ['rodinia', 'srad_v2', 25],
+	#'dwt2d': ['rodinia', 'dwt2d', 6],
+	#'heartwall': ['rodinia', 'heartwall', 5],
+	'cfd': ['rodinia', 'euler3d', 5],
 #	'matrixMul': ['example', 'matrixMul', 2],
 #	'bfs': ['parboil', 'bfs', 20],
 #	'cutcp': ['parboil', 'cutcp', 5],
 	#'lbm': ['parboil', 'lbm', 120],
-        'histo': ['parboil', 'histo', 15],
-	'mri-q': ['parboil', 'mri-q', 10],
+        #'histo': ['parboil', 'histo', 15],
+	#'mri-q': ['parboil', 'mri-q', 10],
 #	'mri-gridding': ['parboil', 'mri-gridding', 200],
-	'sad': ['parboil', 'sad', 10],
-	'sgemm': ['parboil', 'sgemm', 17],
+	#'sad': ['parboil', 'sad', 10],
+	#'sgemm': ['parboil', 'sgemm', 17],
 	#'stencil': ['parboil', 'stencil', 140],
-	'tpacf': ['parboil', 'tpacf', 15],
-	'mst' : ['lonestargpu-2.0', 'mst', 50],
+	#'tpacf': ['parboil', 'tpacf', 15],
+	#'mst' : ['lonestargpu-2.0', 'mst', 50],
 	#'bh' : ['lonestargpu-2.0', 'bh', 120],
 	#'sp' : ['lonestargpu-2.0', 'sp', 180],
 #	'pta' : ['lonestargpu-2.0', 'pta', 10],
+	#'transpose_coalesced' : ['cuda-sdk', 'transpose_coalesced', 25],
+	#'matrix_mul' : ['cuda-sdk', 'matrix_mul', 25],
+
 
 }
 

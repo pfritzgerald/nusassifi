@@ -1844,7 +1844,7 @@ int
 main(	int argc, 
 		char** argv ) 
 {
-  cudaSetDevice(1);
+ // cudaSetDevice(1);
   printf("WG size of kernel 1 & 2  = %d \n", DEFAULT_ORDER);
 
 	// ------------------------------------------------------------60
