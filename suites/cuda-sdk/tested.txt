@@ -1,0 +1,3 @@
+This shows the status of the support for the SDK applications with SASSIFI:
+
+matrix_mul: in progress, updating the Makefile

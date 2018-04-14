@@ -122,15 +122,14 @@ printf "\n-------------\nStep 5: Prepare application for error injection\n"
 make OPTION=inst_injector
 
 done
-
 ################################################
 # Step 6: Generate DBs for all the BBV's
 ################################################
 printf "\n-------------\nStep 6: Generate database from the bbv profiling\n"
 cd $SASSIFI_HOME/scripts/
-rm -f data.db
-python parse_results2.py
-python bbv_scripts.py
+#rm -f data.db
+#python parse_results2.py
+#python bbv_scripts.py
 
 ################################################
 # Step 7.b: Generate injection list for the 
@@ -149,7 +148,7 @@ fi
 # Step 8: Run the error injection campaign 
 ################################################
 printf "\n------------\nStep 8: Run the error injection campaign\n"
-#python run_injections.py $inst_rf $where_to_run interval
+python run_injections.py $inst_rf $where_to_run interval
 
 # to run the injection campaign on a single machine with single gpu
 

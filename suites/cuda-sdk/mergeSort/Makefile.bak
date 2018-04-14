@@ -1,0 +1,149 @@
+################################################################################
+#
+# Copyright 1993-2015 NVIDIA Corporation.  All rights reserved.
+#
+# NOTICE TO USER:
+#
+# This source code is subject to NVIDIA ownership rights under U.S. and
+# international Copyright laws.
+#
+# NVIDIA MAKES NO REPRESENTATION ABOUT THE SUITABILITY OF THIS SOURCE
+# CODE FOR ANY PURPOSE.  IT IS PROVIDED "AS IS" WITHOUT EXPRESS OR
+# IMPLIED WARRANTY OF ANY KIND.  NVIDIA DISCLAIMS ALL WARRANTIES WITH
+# REGARD TO THIS SOURCE CODE, INCLUDING ALL IMPLIED WARRANTIES OF
+# MERCHANTABILITY, NONINFRINGEMENT, AND FITNESS FOR A PARTICULAR PURPOSE.
+# IN NO EVENT SHALL NVIDIA BE LIABLE FOR ANY SPECIAL, INDIRECT, INCIDENTAL,
+# OR CONSEQUENTIAL DAMAGES, OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
+# OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE
+# OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
+# OR PERFORMANCE OF THIS SOURCE CODE.
+#
+# U.S. Government End Users.  This source code is a "commercial item" as
+# that term is defined at 48 C.F.R. 2.101 (OCT 1995), consisting  of
+# "commercial computer software" and "commercial computer software
+# documentation" as such terms are used in 48 C.F.R. 12.212 (SEPT 1995)
+# and is provided to the U.S. Government only as a commercial end item.
+# Consistent with 48 C.F.R.12.212 and 48 C.F.R. 227.7202-1 through
+# 227.7202-4 (JUNE 1995), all U.S. Government End Users acquire the
+# source code with only those rights set forth herein.
+#
+################################################################################
+#
+# Makefile project only supported on Mac OS X and Linux Platforms)
+#
+################################################################################
+#include ../env.mk
+
+# Location of the CUDA Toolkit
+CUDA_PATH ?= "/home/kalra.c/sassi7"
+
+##############################
+# start deprecated interface #
+##############################
+
+TARGET = mergeSort
+SUITE_NAME = example
+
+OPTION = none
+
+GENCODE = -gencode arch=compute_35,code=sm_35 #-gencode arch=compute_50,code=sm_50 -gencode arch=compute_52,code=sm_52 
+
+# SASSIFI_HOME, INST_LIB_DIR, CCDIR, and CUDA_BASE_DIR should be set 
+#
+# # SASSI/CUDA
+	CUDA_LIB_DIR = $(CUDA_BASE_DIR)/lib64
+  CUDA_BIN_DIR = $(CUDA_BASE_DIR)/bin
+  CUPTI_LIB_DIR = $(CUDA_BASE_DIR)/extras/CUPTI/lib64
+  CUPTI = -L$(CUPTI_LIB_DIR) -lcupti 
+  NVCC = $(CUDA_BIN_DIR)/nvcc
+#
+# # The C/CPP compiler you want to use, and associated flags.
+  CC = gcc
+  CXX = g++
+  CFLAGS = -O3
+  CXXFLAGS = -O3
+  export PATH := $(CCDIR)/bin/:$(PATH)
+  export LD_LIBRARY_PATH := $(CCDIR)/lib64:$(LD_LIBRARY_PATH):$(CUDA_LIB_DIR):$(CUPTI_LIB_DIR)
+#
+  AFTER_REG = -Xptxas --sassi-inst-after="reg-writes" 
+  AFTER_MEM = -Xptxas --sassi-inst-after="memory" 
+  AFTER_REG_MEM = -Xptxas --sassi-inst-after="reg-writes\,memory" 
+  BEFORE_ALL = -Xptxas --sassi-inst-before="all"
+  BEFORE_COND_BRANCHES = -Xptxas --sassi-inst-before="cond-branches"
+  BEFORE_REG_MEM = -Xptxas --sassi-inst-before="reg-writes\,memory"
+#
+  AFTER_REG_INFO = -Xptxas --sassi-after-args="reg-info"
+  AFTER_MEM_INFO = -Xptxas --sassi-after-args="mem-info"
+  AFTER_REG_MEM_INFO = -Xptxas --sassi-after-args="reg-info\,mem-info"
+  BEFORE_COND_BRANCH_INFO = -Xptxas --sassi-before-args="cond-branch-info"
+  BEFORE_REG_MEM_INFO = -Xptxas --sassi-before-args="reg-info\,mem-info"
+#
+  BRANCH_AROUND = -Xptxas --sassi-iff-true-predicate-handler-call
+#
+  ifeq (${OPTION}, profiler)
+  EXTRA_NVCC_FLAGS = $(BEFORE_ALL) $(BEFORE_REG_MEM_INFO)
+  EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lprofiler $(CUPTI)
+  endif
+#
+  ifeq (${OPTION}, inst_value_injector)
+  EXTRA_NVCC_FLAGS = $(AFTER_REG_MEM) $(AFTER_REG_MEM_INFO) $(BRANCH_AROUND) 
+  EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -linstvalueinjector $(CUPTI)
+  endif
+#
+  ifeq (${OPTION}, inst_address_injector)
+  EXTRA_NVCC_FLAGS = $(AFTER_REG_MEM) $(AFTER_REG_MEM_INFO) $(BRANCH_AROUND) $(BEFORE_REG_MEM) $(BEFORE_REG_MEM_INFO)
+  EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -linstaddressinjector $(CUPTI)
+  endif
+#  
+   ifeq (${OPTION}, rf_injector)
+   EXTRA_NVCC_FLAGS = $(BEFORE_ALL) $(BEFORE_REG_MEM_INFO) 
+   EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lrfinjector $(CUPTI)
+   endif
+#
+
+NVCC_FLAGS = -O3 -g -rdc=true -Xptxas -v -I$(CUDA_BASE_DIR)/include/ $(EXTRA_NVCC_FLAGS)
+LINK_FLAGS = -std=c++11 -m64 -g $(GENCODE) -lcudart -lcudadevrt -lm $(EXTRA_LINK_FLAGS)
+
+
+# Target rules
+all: build
+
+build: mergeSort
+
+check.deps:
+ifeq ($(SAMPLE_ENABLED),0)
+	@echo "Sample will be waived due to the above missing dependencies"
+else
+	@echo "Sample is ready - all dependencies have been met"
+endif
+
+bitonic.o:bitonic.cu
+	$(EXEC) $(NVCC) $(NVCC_FLAGS) -I/shared/apps/cuda7.0/samples/common/inc/ -o $@ -c $< -L$(CUDA_LIB_DIR) $(LINK_FLAGS)
+
+main.o:main.cpp
+#	$(EXEC) $(NVCC) -po -I/home/ckalra/cuda_samples/common/inc $(ALL_CCFLAGS) -o $@ -c $<
+	$(EXEC) $(NVCC) -I/shared/apps/cuda7.0/samples/common/inc/ $(NVCC_FLAGS) -o $@ -c $<
+
+
+mergeSort.o:mergeSort.cu
+	$(EXEC) $(NVCC) $(NVCC_FLAGS) -I/shared/apps/cuda7.0/samples/common/inc/ -o $@ -c $< -L$(CUDA_LIB_DIR) $(LINK_FLAGS)
+
+mergeSort_host.o:mergeSort_host.cpp
+	$(EXEC) $(NVCC) -m64 -po -I/shared/apps/cuda7.0/samples/common/inc/ -o $@ -c $<
+
+mergeSort_validate.o:mergeSort_validate.cpp
+	$(EXEC) $(NVCC) -m64 -po -I/shared/apps/cuda7.0/samples/common/inc/ -o $@ -c $<
+
+mergeSort: bitonic.o main.o mergeSort.o mergeSort_host.o mergeSort_validate.o
+	$(EXEC) $(NVCC) $(NVCC_FLAGS) -o $@ $+ $(LINK_FLAGS)
+	$(EXEC) mkdir -p ../../bin/$(TARGET_ARCH)/$(TARGET_OS)/$(BUILD_TYPE)
+	$(EXEC) cp $@ ../../bin/$(TARGET_ARCH)/$(TARGET_OS)/$(BUILD_TYPE)
+
+run: build
+	$(EXEC) ./mergeSort
+
+clean:
+	rm -f mergeSort bitonic.o main.o mergeSort.o mergeSort_host.o mergeSort_validate.o
+	rm -rf ../../bin/$(TARGET_ARCH)/$(TARGET_OS)/$(BUILD_TYPE)/mergeSort
+
+clobber: clean

@@ -16,7 +16,7 @@ NVCC = $(CUDA_BIN_DIR)/nvcc
 # The C/CPP compiler you want to use, and associated flags.
 CC = gcc
 CXX = g++
-CFLAGS = -g -fopenmp -O2
+CFLAGS = -G -g -fopenmp -O2
 CXXFLAGS = -O3
 export PATH := $(CCDIR)/bin/:$(PATH)
 export LD_LIBRARY_PATH := $(CCDIR)/lib64:$(LD_LIBRARY_PATH):$(CUDA_LIB_DIR):$(CUPTI_LIB_DIR)
@@ -77,7 +77,7 @@ install:
 	cp $(TARGET) $(SASSIFI_HOME)/bin/$(OPTION)/$(SUITE_NAME)/
 
 test:
-	./b+tree.out file ../data/b+tree/mil.txt command ../data/b+tree/command.txt
+	./b+tree.out file ../data/b+tree/mil.txt command ../data/b+tree/command2.txt
 
 golden:
 	./b+tree.out file ../data/b+tree/mil.txt command ../data/b+tree/command.txt \
@@ -92,7 +92,7 @@ golden:
 # ================================================================================100
 
 main.o:	./common.h ./main.h ./main.c
-	$(CC)	$(KERNEL_DIM) ./main.c -c -o ./main.o -O3
+	$(CC)	$(KERNEL_DIM) ./main.c -c -o ./main.o -O3 -g
 
 # ================================================================================100
 #	KERNELS
@@ -101,7 +101,7 @@ main.o:	./common.h ./main.h ./main.c
 ./kernel/kernel_gpu_cuda_wrapper.o:	./common.h \
   					./kernel/kernel_gpu_cuda_wrapper.h \
 					./kernel/kernel_gpu_cuda_wrapper.cu
-	$(NVCC) $(KERNEL_DIM) ./kernel/kernel_gpu_cuda_wrapper.cu -c -o \
+	$(NVCC) $(KERNEL_DIM) ./kernel/kernel_gpu_cuda_wrapper.cu -g -G -c -o \
 	  			./kernel/kernel_gpu_cuda_wrapper.o \
 				-O3 $(NVCC_FLAGS)
 
@@ -109,7 +109,7 @@ main.o:	./common.h ./main.h ./main.c
   					./kernel/kernel_gpu_cuda_wrapper_2.h \
 					./kernel/kernel_gpu_cuda_wrapper_2.cu
 	$(NVCC) $(KERNEL_DIM) ./kernel/kernel_gpu_cuda_wrapper_2.cu \
-				-c -o ./kernel/kernel_gpu_cuda_wrapper_2.o \
+				-g -G -c -o ./kernel/kernel_gpu_cuda_wrapper_2.o \
 				-O3 $(NVCC_FLAGS)
 
 # ================================================================================100
