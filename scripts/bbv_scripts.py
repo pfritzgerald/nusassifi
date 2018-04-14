@@ -30,7 +30,7 @@ def main():
 	global debug, plot_clusters, fig_count
 	plot_clusters = False
 	debug = False
-	app_list = c.execute('SELECT App FROM BBProfile GROUP BY App;').fetchall()
+	app_list = (u'gaussian',),#c.execute('SELECT App FROM BBProfile GROUP BY App;').fetchall()
 	print app_list
 	app_list = [row[0] for row in app_list]
     #(u'hotspot',),#[(u'bfs',),(u'gaussian',),]#(u'sad',),#(u'bfs',),#
@@ -40,7 +40,7 @@ def main():
 #		INJSimMatrix(app)
 #		fig_count += 1	
 #		BBVSimilarityMatrix(app)
-		Clustering(app, 400)
+		Clustering(app, 800)
 #		UseSimpoint(app, 400)
 #    profileMemAccesses()
 
@@ -385,7 +385,7 @@ def getBBV(app):
 
 
 # In[4]:
-def choose_interval(policy,cluster_num,cluster_labels, cluster_centers,bbv, app="gaussian", interval_size=1000):
+def choose_interval(policy,cluster_num,cluster_labels, cluster_centers,bbv, appl="gaussian", interval_size=1000):
     """
     choose a interval that belongs to cluster <cluster_num>
     <cluster_labels> is an array of size <num_intervals> where 
@@ -510,7 +510,7 @@ def Clustering(app, num_faults):
 
 		for cluster in range(0,num_clusters):
 			interval = choose_interval("center", cluster, clusters.labels_,
-						  clusters.cluster_centers_[cluster], bbv, app=app,
+						  clusters.cluster_centers_[cluster], bbv, appl=app,
 						  interval_size=interval_size)
 			intervals.append(interval)
 			num_insts = c.execute('SELECT NumGPRInsts FROM BBVIntervalSizes WHERE App is \'%s\' AND '\
