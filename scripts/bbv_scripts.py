@@ -21,26 +21,27 @@ import specific_params as sp
 # In[5]:
 def main():
 # db_file="../multiple_injections/2ordered/1injections_bbs.db"
-    global db_dir
-    db_dir="./"
-    db_file=db_dir+"rodinia.db"
-    conn = sqlite3.connect(db_file)
-    global c
-    c = conn.cursor()
-    global debug, plot_clusters, fig_count
-    plot_clusters = False
-    debug = False
-    app_list = c.execute('SELECT App FROM BBProfile GROUP BY App;').fetchall()
-    app_list = [row[0] for row in app_list]
-    #(u'hotspot',),#(u'kmeans',u'bfs'),#(u'sad',),#(u'bfs',),#
-    fig_count=0
-    for app in app_list:
+	global db_dir
+	db_dir="./"
+	db_file=db_dir+"allapps_10K_.db"
+	conn = sqlite3.connect(db_file)
+	global c
+	c = conn.cursor()
+	global debug, plot_clusters, fig_count
+	plot_clusters = False
+	debug = False
+	app_list = c.execute('SELECT App FROM BBProfile GROUP BY App;').fetchall()
+	print app_list
+	app_list = [row[0] for row in app_list]
+    #(u'hotspot',),#[(u'bfs',),(u'gaussian',),]#(u'sad',),#(u'bfs',),#
+	fig_count=0
+	for app in app_list:
 		print "\n---------\n" + app + "\n-----------"
 #		INJSimMatrix(app)
 #		fig_count += 1	
 #		BBVSimilarityMatrix(app)
-#		Clustering(app, 400)
-		UseSimpoint(app, 400)
+		Clustering(app, 400)
+#		UseSimpoint(app, 400)
 #    profileMemAccesses()
 
 # In[]
@@ -48,7 +49,7 @@ def getOutcomesByInterval(app, plot=True):
 	results = []
 	interval_size = c.execute('SELECT IntervalSize FROM BBVIntervalSizes WHERE App IS \'%s\';'
 						   % (app)).fetchone()[0]
-#	interval_size *= 2
+#	interval_size /= 2
 #    print "interval size: " + str(interval_size)
 	total_dyn_inst_count = c.execute('SELECT MAX(InstIntervalID) FROM BBProfile WHERE App IS \'%s\';'
 								  %(app)).fetchone()[0] * interval_size
@@ -128,20 +129,20 @@ def getOutcomesByInterval(app, plot=True):
 		MASKED
 		"""
 		y_offset = 0
-		plt.bar(np.arange(len(masked_list)),masked_list, bottom=y_offset, color='g', label="Masked")
-		plt.title(app)
+		plt.bar(np.arange(len(masked_list)),masked_list, bottom=y_offset, color='k', label="Masked")
+		plt.title(app, size=20)
 
 		"""
 		DUE
 		"""
 		y_offset = [ x for x in  masked_list]
-		plt.bar(np.arange(len(due_list)),due_list, bottom=y_offset, color='orange', label="DUE")
+		plt.bar(np.arange(len(due_list)),due_list, bottom=y_offset, color='gray', label="DUE")
 
 		"""
 		SDC
 		"""
 		y_offset = [ x + y for x,y in zip(y_offset, due_list)]
-		plt.bar(np.arange(len(sdc_list)),sdc_list, bottom=y_offset, color='red', label="SDC")
+		plt.bar(np.arange(len(sdc_list)),sdc_list, bottom=y_offset, color='lightgray', label="SDC")
 
 		"""
 		PotDUE
@@ -150,14 +151,17 @@ def getOutcomesByInterval(app, plot=True):
 #		plt.bar(np.arange(len(pot_due_list)), pot_due_list, bottom=y_offset, color='purple', label="PotDUE")
 
 #		plt.ylim(0,1.5)
-		plt.legend()    
-		interval_mark = str(interval_size/1000000) + "M" if (interval_size/1000000) >= 1 else str(interval_size/1000) + "K" 
-		plt.xlabel("Inst-Intervals (Size:" + str(interval_mark)+ " insts)")
-		plt.ylabel("Outcome Percentage")
+#		plt.legend(handles[::-1], labels[::-1],)    
+#		interval_mark = str(interval_size/1000000) + "M" if (interval_size/1000000) >= 1 else str(interval_size/1000) + "K" 
+		plt.xlabel("Inst-Intervals", size=18)#(Size:" + str(interval_mark)+ " insts)
+		plt.ylabel("Outcome Percentage", size=18)
 		ax = plt.gca()
 		type(ax)
+		handles, labels = ax.get_legend_handles_labels()
+		ax.legend(handles[::-1], labels[::-1], loc='best')		
 		yvals = ax.get_yticks()
-		ax.set_yticklabels(['{:3.0f}%'.format(x*100) for x in yvals])
+		ax.set_yticklabels(['{:3.0f}%'.format(x*100) for x in yvals], size=18)
+		ax.tick_params(axis='x', labelsize=18)
 		print "\n" + str(yvals)
 
 #		plt.savefig(db_dir+"figs/time_plots/"+app+"10K-2_time")
@@ -192,7 +196,7 @@ def sum_manhattan_distances(interval_a, interval_b):
     sum_m_dist = 0
     interval_length = len(interval_a)
     for i in range(0,interval_length):
-        sum_m_dist += abs(interval_a[i]-interval_b[i])
+        sum_m_dist += euclidean(interval_a[i],interval_b[i])
     return sum_m_dist
 # In[]
 def getNormalizedMatrix(similarity_matrix):
@@ -225,13 +229,14 @@ def plotNormData(norm_values, app, interval_size, show=True):
 			x.append(j)
 			y.append(i)
 			colors.append(norm_values[i,j])    
-	interval_mark = str(interval_size/1000000) +\
-	"M" if (interval_size/1000000) >= 1 else str(interval_size/1000) + "K" 
+#	interval_mark = str(interval_size/1000000) +\
+#	"M" if (interval_size/1000000) >= 1 else str(interval_size/1000) + "K" 
 	#Plots data with gray colormap and aligns both axes to 0
 	plt.scatter(x, y, c = colors, cmap=cm.gray, s = SIZE)
-	plt.title(app)
-	plt.xlabel("Inst-Intervals (Size:" + str(interval_mark)+ " insts)")
-	plt.ylabel("Inst-Intervals (Size:" + str(interval_mark)+ " insts)")
+	plt.title(app, size=20)
+	plt.xlabel("Inst-Intervals", size=18)# (Size:" + str(interval_mark)+ " insts)
+	plt.ylabel("Inst-Intervals", size=18)# (Size:" + str(interval_mark)+ " insts)
+	plt.gca().tick_params(axis='both', labelsize=18)
 
 	plt.xlim(0)
 	plt.ylim(0)
@@ -347,12 +352,12 @@ def getBBV(app):
 						   'AND FuncName IS \'%s\' AND App is \'%s\' AND '\
 						   'InstIntervalId=%d;'
 						   %(bb_id, func_name, app, inst_interval)).fetchone()
-			num_mem_insts = c.execute('SELECT SUM(PUPCs.ID) FROM PUPCs,BBProfile WHERE  '\
-							 'BBProfile.BasicBlockId=PUPCs.BBId AND FuncName=FnName AND '\
-							 'BBProfile.App=PUPCs.App AND IsMem=1 AND BasicBlockId=%d '\
-							 'AND FuncName IS \'%s\' AND BBProfile.App is \'%s\' AND '\
-							 'InstIntervalId=%d;'
-						   %(bb_id, func_name, app, inst_interval)).fetchone()[0]
+#			num_mem_insts = c.execute('SELECT SUM(PUPCs.ID) FROM PUPCs,BBProfile WHERE  '\
+#							 'BBProfile.BasicBlockId=PUPCs.BBId AND FuncName=FnName AND '\
+#							 'BBProfile.App=PUPCs.App AND IsMem=1 AND BasicBlockId=%d '\
+#							 'AND FuncName IS \'%s\' AND BBProfile.App is \'%s\' AND '\
+#							 'InstIntervalId=%d;'
+#						   %(bb_id, func_name, app, inst_interval)).fetchone()[0]
 			
 			old_write_len = 0
 			sys.stdout.write('\r' + (' ' * old_write_len))            
@@ -364,8 +369,8 @@ def getBBV(app):
 			sys.stdout.flush()
 
 #			print bbv_element
-			if (num_mem_insts is None):
-				num_mem_insts = 1
+#			if (num_mem_insts is None):
+#				num_mem_insts = 1
 #				print "Caught none num_mem_insts"
 			if (bbv_element is None):
 				bbv_data = 0
@@ -449,23 +454,23 @@ def BBVSimilarityMatrix(app):
 	
 #		print "\n"
 #		for 
-#		num_intervals = len(bbv)
-#		similarity_matrix = np.zeros((num_intervals, num_intervals))
+		num_intervals = len(bbv)
+		similarity_matrix = np.zeros((num_intervals, num_intervals))
 #		# print bbv[0]
-#		for interval_1 in range(0,num_intervals):
-#			for interval_2 in range(interval_1,num_intervals):
-#				sum_mntn_dist = sum_manhattan_distances(bbv[interval_1], bbv[interval_2])
-#				similarity_matrix [interval_1, interval_2] = sum_mntn_dist
-#				#         if bbv[interval_] != 0:
-#				#         bbv[interval_] /= np.sum(bbv[interval_])
-#                #     print "interval " + str(interval_1) + ":\n " + str(bbv[interval_1])
-#                #norm_sim_matrix = getNormalizedMatrix(similarity_matrix)
-#		print "\n------------\nBBV PROFILING\n------------------"
-#		interval_size = c.execute('SELECT IntervalSize from BBVIntervalSizes WHERE App is \'%s\';'
-#							%(app)).fetchone()[0]
-#		plt.figure(fig_count)
-#		plotNormData(similarity_matrix, app,interval_size, True)
-##		fig_count+=1
+		for interval_1 in range(0,num_intervals):
+			for interval_2 in range(interval_1,num_intervals):
+				sum_mntn_dist = sum_manhattan_distances(bbv[interval_1], bbv[interval_2])
+				similarity_matrix [interval_1, interval_2] = sum_mntn_dist
+				#         if bbv[interval_] != 0:
+				#         bbv[interval_] /= np.sum(bbv[interval_])
+                #     print "interval " + str(interval_1) + ":\n " + str(bbv[interval_1])
+                #norm_sim_matrix = getNormalizedMatrix(similarity_matrix)
+		print "\n------------\nBBV PROFILING\n------------------"
+		interval_size = c.execute('SELECT IntervalSize from BBVIntervalSizes WHERE App is \'%s\';'
+							%(app)).fetchone()[0]
+		plt.figure(fig_count)
+		plotNormData(similarity_matrix, app,interval_size, True)
+#		fig_count+=1
 
 
 # In[23]:
@@ -521,11 +526,11 @@ def Clustering(app, num_faults):
 			best_interval_num_insts = interval_num_insts[:]
 			best_num_cluster = num_clusters
 
-#		if debug:
-#			 print "\nNUM CLUSTERS=" + str(num_clusters)
-#			print "----------"
-#			print "INERTIA : %f and silhouette coefficient %f" % (clusters.inertia_, sil_coeff)
-#			print "----------\n"
+		if debug:
+			print "\nNUM CLUSTERS=" + str(num_clusters)
+			print "----------"
+			print "INERTIA : %f and silhouette coefficient %f" % (clusters.inertia_, sil_coeff)
+			print "----------\n"
 
         #         print "labels: " + str(clusters.labels_)
 #        print "\nNUM CLUSTERS: %d" %(best_num_cluster)
