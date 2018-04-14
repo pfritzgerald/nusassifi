@@ -1,6 +1,8 @@
 bin/
 scripts/*.pyc
 logs/*/*-igid*/
+logs/*/*/results*
+logs/*/*/injection-list/*
 logs/*/*/sdcs/
 suites/*/*/*.o
 suites/*/*/*.cpp*.i*
