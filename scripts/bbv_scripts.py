@@ -31,7 +31,6 @@ def main():
 	plot_clusters = False
 	debug = False
 	app_list = (u'gaussian',),#c.execute('SELECT App FROM BBProfile GROUP BY App;').fetchall()
-	print app_list
 	app_list = [row[0] for row in app_list]
     #(u'hotspot',),#[(u'bfs',),(u'gaussian',),]#(u'sad',),#(u'bfs',),#
 	fig_count=0
@@ -425,7 +424,7 @@ def choose_interval(policy,cluster_num,cluster_labels, cluster_centers,bbv, appl
             if cluster_labels[i] == cluster_num:
                 num_of_faults = c.execute('SELECT COUNT(Results.ID) FROM Results WHERE App is \'%s\' AND '\
                                        'AppDynInstId>%d AND AppDynInstId<%d;'
-                                    %(app, (i*interval_size), ((i+1)*interval_size))).fetchone()[0]
+                                    %(appl, (i*interval_size), ((i+1)*interval_size))).fetchone()[0]
                 if num_of_faults >= max_num_of_faults:
                     max_num_of_faults=num_of_faults
                     return_interval_id = i
@@ -439,7 +438,7 @@ def choose_interval(policy,cluster_num,cluster_labels, cluster_centers,bbv, appl
             if cluster_labels[i] == cluster_num:
                 num_of_insts = c.execute('SELECT NumGPRInsts FROM BBVIntervalSizes WHERE App is \'%s\' AND '\
                                        'IntervalId==%d;'
-                                    %(app, i)).fetchone()[0]
+                                    %(appl, i)).fetchone()[0]
                 if num_of_insts >= max_num_of_insts:
                     max_num_of_insts=num_of_insts
                     return_interval_id = i
@@ -509,7 +508,7 @@ def Clustering(app, num_faults):
 		interval_num_insts = []
 
 		for cluster in range(0,num_clusters):
-			interval = choose_interval("center", cluster, clusters.labels_,
+			interval = choose_interval("most_insts", cluster, clusters.labels_,
 						  clusters.cluster_centers_[cluster], bbv, appl=app,
 						  interval_size=interval_size)
 			intervals.append(interval)
