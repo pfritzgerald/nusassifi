@@ -60,7 +60,11 @@ void bpnn_train_cuda(BPNN *net, float *eo, float *eh)
 {
   int in, hid, out;
   float out_err, hid_err;
-  
+	
+	// Charu
+ 	FILE *outfile;
+	outfile = fopen ("output.txt", "w+");
+	 
   in = net->input_n;
   hid = net->hidden_n;
   out = net->output_n;   
@@ -179,7 +183,14 @@ void bpnn_train_cuda(BPNN *net, float *eo, float *eh)
 
   cudaMemcpy(net->input_units, input_cuda, (in + 1) * sizeof(float), cudaMemcpyDeviceToHost);
   cudaMemcpy(input_weights_one_dim, input_hidden_cuda, (in + 1) * (hid + 1) * sizeof(float), cudaMemcpyDeviceToHost);
-    
+   
+	 for (int k = 0; k <= in; k++) {	
+	   for (int j = 0; j <= hid; j++) {
+	  	fprintf(outfile, "%f ", input_weights_one_dim[k*hid+j]); //= net->input_weights[k][j];
+    }
+  }
+  
+	fclose(outfile);
   cudaFree(input_cuda);
   cudaFree(output_hidden_cuda);
   cudaFree(input_hidden_cuda);

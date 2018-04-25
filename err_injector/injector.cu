@@ -330,14 +330,14 @@ __device__ void inject_GPR_error(SASSICoreParams* cp, SASSIRegisterParams *rp, S
 ////////////////////////////////////////////////////////////////////////////////////
 // Injecting errors in CC registers 
 ////////////////////////////////////////////////////////////////////////////////////
-__device__ void inject_CC_error(SASSIAfterParams* ap, SASSIRegisterParams *rp, float injBIDSeed, unsigned long long injInstID, uint32_t injBFM) {
+__device__ void inject_CC_error(SASSIAfterParams* ap, SASSIRegisterParams *rp, float injBIDSeed, unsigned long long injInstID, uint32_t injBFM, unsigned long long dyn_inst_count) {
 
 		uint8_t valueInReg = rp->SASSIGetCCRegisterVal(ap);  // read CC register value, only low 4 bits are used
 		uint8_t injBID = get_int_inj_id(4, injBIDSeed);
 
 		DEBUG_PRINT(INJ_DEBUG_LIGHT, "Before Injection: CC register value = %x \n", valueInReg);
-		printf(":::Injecting: pc=%llx bbId=%d opcode=%s tid=%d instCount=%lld instType=CC injBID=%d:::", ap->GetPUPC(),
-                    ap->GetBBID(), SASSIInstrOpcodeStrings[ap->GetOpcode()], get_flat_tid(), injInstID, injBID);
+		printf(":::Injecting: pc=%llx bbId=%d GlobalInstCount=%lld AppDynInstCount=%lld opcode=%s tid=%d instCount=%lld instType=CC regNum=-1 injBID=%d:::", 
+				ap->GetPUPC(), ap->GetBBID(), injCounterAllInsts, dyn_inst_count, SASSIInstrOpcodeStrings[ap->GetOpcode()], get_flat_tid(), injInstID, injBID);
 	
 		uint8_t injectedVal = 0;
 		if (injBFM == FLIP_SINGLE_BIT) {
@@ -356,12 +356,13 @@ __device__ void inject_CC_error(SASSIAfterParams* ap, SASSIRegisterParams *rp, f
 ////////////////////////////////////////////////////////////////////////////////////
 // Injecting errors in PR registers 
 ////////////////////////////////////////////////////////////////////////////////////
-__device__ void inject_PR_error(SASSIAfterParams* ap, SASSIRegisterParams *rp, float injBIDSeed, unsigned long long injInstID, uint32_t injBFM) {
+__device__ void inject_PR_error(SASSIAfterParams* ap, SASSIRegisterParams *rp, float injBIDSeed, unsigned long long injInstID, uint32_t injBFM, unsigned long long dyn_inst_count) {
 
 	uint8_t valueInReg = rp->SASSIGetPredicateRegisterVal(ap);  // read PR register value 
 
 	DEBUG_PRINT(INJ_DEBUG_LIGHT, "Before Injection: PR register value = %x \n", valueInReg);
-	printf(":::Injecting: pc=%llx bbId=%d opcode=%s tid=%d instCount=%lld instType=PR injBID=0:::", ap->GetPUPC(), ap->GetBBID(), SASSIInstrOpcodeStrings[ap->GetOpcode()], get_flat_tid(), injInstID);
+	printf(":::Injecting: pc=%llx bbId=%d GlobalInstCount=%lld AppDynInstCount=%lld opcode=%s tid=%d instCount=%lld instType=PR regNum=-1 injBID=0:::", 
+		ap->GetPUPC(), ap->GetBBID(), injCounterAllInsts, dyn_inst_count, SASSIInstrOpcodeStrings[ap->GetOpcode()], get_flat_tid(), injInstID);
 
 	uint8_t injectedVal = 0; 
 	if (injBFM == FLIP_SINGLE_BIT) {
@@ -394,9 +395,9 @@ __device__ __noinline__ void inject_reg_error(SASSIAfterParams* ap, SASSIRegiste
 		SASSIRegisterParams::GPRRegInfo regInfo = rp->GetGPRDst(injOpID); // get destination register info, get the value in that register, and inject error
 		inject_GPR_error(ap, rp, regInfo, injBIDSeed, injInstID, injBFM, dyn_inst_count);
 	} else if (injOpID - numDestRegs + 1  == rp->IsCCDefined()) { // inject in CC register
-		inject_CC_error(ap, rp, injBIDSeed, injInstID, injBFM);
+		inject_CC_error(ap, rp, injBIDSeed, injInstID, injBFM, dyn_inst_count);
 	} else { // inject in PR Register
-		inject_PR_error(ap, rp, injBIDSeed, injInstID, injBFM);
+		inject_PR_error(ap, rp, injBIDSeed, injInstID, injBFM, dyn_inst_count);
 	} 
 }
 
@@ -534,11 +535,35 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp,
 				}
 			}
 			break;
+		case DEST_REG: {
+				if (has_dest_reg(rp)) {
 
+					unsigned long long currInstCounter = atomicAdd(&injCountersInstType[DEST_REG], 1LL); // update counter, return old value
+#if INTERVAL_MODE_INJECTION == 1
+					//__threadfence();
+					unsigned long long currIntervalInstCount = atomicAdd(&IntervalInstCount, 1LL);
+					bool cond = inj_info.injInstID == currIntervalInstCount;// && inj_info.intervalModeReady && (!inj_info.intervalModeInjected);
+#else  
+					bool cond = inj_info.injInstID == currInstCounter; // the current opcode matches injIGID and injInstID matches
+#endif
+					if (inj_info.injBFM == WARP_FLIP_SINGLE_BIT || inj_info.injBFM == WARP_FLIP_TWO_BITS  || inj_info.injBFM == WARP_RANDOM_VALUE || inj_info.injBFM == ZERO_VALUE || inj_info.injBFM == WARP_ZERO_VALUE) {  // For warp wide injections 
+						cond = (__any(cond) != 0) ; // __any() evaluates cond for all active threads of the warp and return non-zero if and only if cond evaluates to non-zero for any of them.
+					}
+	
+					if(cond) { 
+						 // get destination register info, get the value in that register, and inject error
+#if INTERVAL_MODE_INJECTION == 1
+						inj_info.intervalModeInjected = true;
+#endif
+						inject_reg_error(ap, rp, inj_info.injOpSeed, inj_info.injBIDSeed, inj_info.injInstID, inj_info.injBFM, dyn_inst_count);
+					}
+				}
+			}
+			break;
 		case CC: {
 				if (has_dest_CC(rp)) {
 					if (inj_info.injInstID == atomicAdd(&injCountersInstType[CC], 1LL)) {
-						inject_CC_error(ap, rp, inj_info.injBIDSeed, inj_info.injInstID, inj_info.injBFM);
+						inject_CC_error(ap, rp, inj_info.injBIDSeed, inj_info.injInstID, inj_info.injBFM, dyn_inst_count);
 					}
 				}
 			}
@@ -546,7 +571,7 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp,
 		case PR: {
 				if (has_dest_PR(rp)) {
 					if (inj_info.injInstID == atomicAdd(&injCountersInstType[PR], 1LL)) {
-						inject_PR_error(ap, rp, inj_info.injBIDSeed, inj_info.injInstID, inj_info.injBFM);
+						inject_PR_error(ap, rp, inj_info.injBIDSeed, inj_info.injInstID, inj_info.injBFM, dyn_inst_count);
 					}
 				}
 			}

@@ -80,14 +80,15 @@ enum INST_TYPE {
 	GPR, 
 	CC, 
 	PR, 
-	STORE_VAL, 
+	STORE_VAL,
+	DEST_REG, 
 	NUM_INST_TYPES
 };
 
 const char *instCatName[NUM_INST_TYPES] = {
 	"IADD_IMUL_OP", "FADD_FMUL_OP", "MAD_OP", 
 	"FMA_OP", "SETP_OP", "LDS_OP", "LD_OP",
-	"MISC_OP", "GPR", "CC", "PR", "STORE_VAL"
+	"MISC_OP", "GPR", "CC", "PR", "STORE_VAL", "DEST_REG"
 };
 
 // Instruction groupings
@@ -285,7 +286,9 @@ __device__ inline void profile_instructions(SASSICoreParams* cp, SASSIMemoryPara
 	atomicAdd(&injCountersInstType[CC], (unsigned long long)has_dest_CC(rp)); 
 	atomicAdd(&injCountersInstType[PR], (unsigned long long)has_dest_PR(rp)); 
 	atomicAdd(&injCountersInstType[STORE_VAL], (unsigned long long)is_store_inst(cp, mp)); 
-
+	// FRITZ - adding DEST_REG
+	atomicAdd(&injCountersInstType[DEST_REG], (unsigned long long)has_dest_reg(rp));
+	// END - FRITZ
 	int op = cp->GetOpcode();
 	atomicAdd(&opCounters[op], 1LL);
 

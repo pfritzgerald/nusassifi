@@ -1,4 +1,4 @@
-DATASET=default
+DATASET=large
 PROG=sad
 SUITE_NAME=parboil
 OPTION=none

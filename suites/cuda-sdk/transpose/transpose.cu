@@ -38,8 +38,8 @@ const char *sSDKsample = "Transpose";
 #define BLOCK_ROWS  16
 
 // This sample assumes that MATRIX_SIZE_X = MATRIX_SIZE_Y
-int MATRIX_SIZE_X = 1024;
-int MATRIX_SIZE_Y = 1024;
+int MATRIX_SIZE_X = 4096;
+int MATRIX_SIZE_Y = 4096;
 int MUL_FACTOR    = TILE_DIM;
 
 #define FLOOR(a,b) (a-(a%b))

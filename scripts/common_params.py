@@ -51,11 +51,12 @@ GPR = 8
 CC = 9
 PR = 10
 STORE_VAL = 11
-NUM_INST_TYPES = 12
+DEST_REG = 12
+NUM_INST_TYPES = 13
 
 IGID_STR = ["IADD_IMUL", "FADD_FMUL", "MAD",
 "FMA", "SETP", "LDS", "LD",
-"MISC_OP", "GPR", "CC", "PR", "STORE_VAL"]
+"MISC_OP", "GPR", "CC", "PR", "STORE_VAL", "DEST_REG"]
 
 #######################################################################
 # Types of avaialble error models (bit-flip model, BFM): This should match the

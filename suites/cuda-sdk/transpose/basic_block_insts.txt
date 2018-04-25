@@ -1,0 +1,10 @@
+kernel,_Z14transposeNaivePfS_ii,invocation,0,interval_size,100000000
+1,_Z14transposeNaivePfS_ii,16,0,6259328,1,0,0,0,0,0,0,0
+0,_Z14transposeNaivePfS_ii,1,0,6266464,0,0,0,0,1,0,0,0
+1,_Z14transposeNaivePfS_ii,16,2,4266272,1,0,0,0,0,0,0,0
+0,_Z14transposeNaivePfS_ii,1,2,4260608,0,0,0,0,1,0,0,0
+1,_Z14transposeNaivePfS_ii,16,1,6251616,1,0,0,0,0,0,0,0
+0,_Z14transposeNaivePfS_ii,1,1,6250144,0,0,0,0,1,0,0,0
+INTERVAL,0,NUMGPRINSTS,93758243
+INTERVAL,1,NUMGPRINSTS,93749691
+INTERVAL,2,NUMGPRINSTS,64150306

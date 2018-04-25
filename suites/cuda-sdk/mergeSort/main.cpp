@@ -29,7 +29,7 @@ int main(int argc, char **argv)
     uint *d_SrcKey, *d_SrcVal, *d_BufKey, *d_BufVal, *d_DstKey, *d_DstVal;
     StopWatchInterface *hTimer = NULL;
 
-    const uint   N = 4 * 1048576;
+    const uint   N = 2 * 1048576;
     const uint DIR = 1;
     const uint numValues = 65536;
 

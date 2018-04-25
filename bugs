@@ -4,3 +4,5 @@ them.
 3. OutcomeID returned by run_one_injection does not correspond to the CAT_STR in
 common_parameters
 4. in run_one_injection script, the SCRIPT_DIR  is not set properly
+
+5. SASSIFI does not take into account whether the sdc_check script runs correctly or not. In case the sdc_check script crashes, SASIFI may indicate a masked injection run when in reality, we were not able to verify that.

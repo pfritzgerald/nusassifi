@@ -45,45 +45,45 @@ BEFORE_REG_MEM_INFO = -Xptxas --sassi-before-args="reg-info\,mem-info"
 BRANCH_AROUND = -Xptxas --sassi-iff-true-predicate-handler-call
 
 ifeq (${OPTION},profiler)
-EXTRA_NVCCFLAGS = $(BEFORE_ALL) $(BEFORE_REG_MEM_INFO)
-EXTRA_LDFLAGS = -L$(INST_LIB_DIR) -lprofiler $(CUPTI) 
+EXTRA_NVCC_FLAGS = $(BEFORE_ALL) $(BEFORE_REG_MEM_INFO)
+EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lprofiler $(CUPTI) 
 endif
 
 ifeq (${OPTION}, inst_injector)
-EXTRA_NVCCFLAGS = $(AFTER_REG_MEM) $(AFTER_REG_MEM_INFO) $(BRANCH_AROUND)
-EXTRA_LDFLAGS = -L$(INST_LIB_DIR) -linstinjector $(CUPTI)
+EXTRA_NVCC_FLAGS = $(AFTER_REG_MEM) $(AFTER_REG_MEM_INFO) $(BRANCH_AROUND)
+EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -linstinjector $(CUPTI)
 endif
 
 
 ifeq (${OPTION},rf_injector)
-EXTRA_NVCCFLAGS = $(BEFORE_ALL) $(BEFORE_REG_MEM_INFO) 
-EXTRA_LDFLAGS = -L$(INST_LIB_DIR) -lrfinjector $(CUPTI)
+EXTRA_NVCC_FLAGS = $(BEFORE_ALL) $(BEFORE_REG_MEM_INFO) 
+EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lrfinjector $(CUPTI)
 endif
 
 ifeq (${OPTION},cfg)
-EXTRA_NVCCFLAGS = -Xptxas --sassi-function-entry -Xptxas --sassi-bb-entry
-EXTRA_LDFLAGS = -L$(INST_LIB_DIR) -lcfg $(CUPTI)
+EXTRA_NVCC_FLAGS = -Xptxas --sassi-function-entry -Xptxas --sassi-bb-entry
+EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lcfg $(CUPTI)
 endif
 
 ifeq (${OPTION}, branch)
-EXTRA_NVCCFLAGS = $(LDWRAP) -lineinfo $(BEFORE_COND_BRANCHES) $(BEFORE_COND_BRANCH_INFO) 
-EXTRA_LDFLAGS = $(LDWRAP) -L$(INST_LIB_DIR) -lbranch $(CUPTI) -L$(BOOST_HOME)/lib -lboost_regex -lcrypto -Xlinker -rpath,$(BOOST_HOME)/lib
+EXTRA_NVCC_FLAGS = $(LDWRAP) -lineinfo $(BEFORE_COND_BRANCHES) $(BEFORE_COND_BRANCH_INFO) 
+EXTRA_LINK_FLAGS = $(LDWRAP) -L$(INST_LIB_DIR) -lbranch $(CUPTI) -L$(BOOST_HOME)/lib -lboost_regex -lcrypto -Xlinker -rpath,$(BOOST_HOME)/lib
 endif
 
 ifeq (${OPTION},mem_profiler)
-EXTRA_NVCCFLAGS = $(AFTER_REG_MEM)  $(AFTER_REG_MEM_INFO)  $(BRANCH_AROUND) $(GENCODE)
-EXTRA_LDFLAGS = -L$(INST_LIB_DIR) -lmem_profiler $(CUPTI) 
+EXTRA_NVCC_FLAGS = $(AFTER_REG_MEM)  $(AFTER_REG_MEM_INFO)  $(BRANCH_AROUND) $(GENCODE)
+EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lmem_profiler $(CUPTI) 
 endif
 
 ifeq (${OPTION},bbv_profiler)
-EXTRA_NVCCFLAGS = $(AFTER_REG_MEM) $(AFTER_REG_MEM_INFO) -Xptxas --sassi-bb-entry $(BRANCH_AROUND) $(GENCODE)
-EXTRA_LDFLAGS = -L$(INST_LIB_DIR) -lbbv_profiler $(CUPTI) 
+EXTRA_NVCC_FLAGS = $(AFTER_REG_MEM) $(AFTER_REG_MEM_INFO) -Xptxas --sassi-bb-entry $(BRANCH_AROUND) $(GENCODE)
+EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lbbv_profiler $(CUPTI) 
 endif
 
 
 ifeq (${OPTION},memdiverge)
-EXTRA_NVCCFLAGS = $(BEFORE_MEM) $(BEFORE_MEM_INFO)
-EXTRA_LDFLAGS = -L$(INST_LIB_DIR) -lmemdiverge $(CUPTI) 
+EXTRA_NVCC_FLAGS = $(BEFORE_MEM) $(BEFORE_MEM_INFO)
+EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lmemdiverge $(CUPTI) 
 endif
 
 NVCC_FLAGS = -O3 -g -rdc=true -Xptxas -v -I$(CUDA_BASE_DIR)/include/ $(EXTRA_NVCC_FLAGS)

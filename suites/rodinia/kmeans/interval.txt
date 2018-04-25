@@ -1,4 +1,4 @@
-5000000
+10000000
 App:IntervalSize:NumFaultsPerInterval:IntervalList...
 kmeans:5000000:400:2:50
 2:4155978:0.137255

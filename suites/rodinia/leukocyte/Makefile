@@ -11,10 +11,10 @@ install:
 	cp $(TARGET) $(SASSIFI_HOME)/bin/$(OPTION)/$(SUITE_NAME)/
 
 test:
-	./$(TARGET)  ../data/leukocyte/testfile.avi 3
+	./$(TARGET)  ../data/leukocyte/testfile.avi 2
 
 golden:
-	./$(TARGET) ../data/leukocyte/testfile.avi 3 >golden_stdout.txt 2>golden_stderr.txt
+	./$(TARGET) ../data/leukocyte/testfile.avi 2 >golden_stdout.txt 2>golden_stderr.txt
 
 
 clean:

@@ -1,4 +1,4 @@
-100000000
+10000000
 App:IntervalSize:NumFaultsPerInterval:IntervalList...
 histo:100000000:400:12:13:11:14
 12:81959518:0.269231

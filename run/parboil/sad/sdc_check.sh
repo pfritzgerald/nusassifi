@@ -2,7 +2,7 @@
 # if your program creates an output file (e.g., output.txt) compare it to the file created just now and store the difference in diff.log
 touch diff.log
 export PYTHONPATH=${APP_DIR}/../../common/python:$PYTHONPATH
-${APP_DIR}/tools/compare-output ${APP_DIR}/../../datasets/sad/default/output/out.bin ${APP_DIR}/run/default/out.bin > pass.txt
+${APP_DIR}/tools/compare-output ${APP_DIR}/../../datasets/sad/large/output/out.bin ${APP_DIR}/run/large/out.bin > pass.txt
 if ! grep -q "Pass" pass.txt; then
   mv pass.txt diff.log
 fi

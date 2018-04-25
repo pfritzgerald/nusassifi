@@ -1,0 +1,8 @@
+==4706== NVPROF is profiling process 4706, command: ./parIIR 4096
+==4706== Profiling application: ./parIIR 4096
+==4706== Profiling result:
+==4706== Metric result:
+Invocations                               Metric Name                        Metric Description         Min         Max         Avg
+Device "Tesla K20m (0)"
+	Kernel: void GpuParIIR<int=256>(float*, int, float, float*)
+          1                        achieved_occupancy                        Achieved Occupancy    0.613974    0.613974    0.613974

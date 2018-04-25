@@ -153,8 +153,8 @@ runTest(int argc, char **argv)
 				//strcpy(r_fname, "result.dat");
 				//strcpy(r_gold_fname, "/home/kalra.c/sassifi/suites/example/dwtHaar1D/data/regression.gold.dat");
 				//Charu
-        s_fname      = sdkFindFilePath("signal.dat",          argv[0]);
-        r_gold_fname = sdkFindFilePath("regression.gold.dat", argv[0]);
+        s_fname      = sdkFindFilePath("signal_2_18.dat",          argv[0]);
+        r_gold_fname = sdkFindFilePath("regression_2_18.gold.dat", argv[0]);
         strcpy(r_fname, "result.dat");
     }
 
