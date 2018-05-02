@@ -23,14 +23,14 @@ def main():
 # db_file="../multiple_injections/2ordered/1injections_bbs.db"
 	global db_dir
 	db_dir="./"
-	db_file=db_dir+"allapps_10K_.db"
+	db_file=db_dir+"DEST_REG.db"
 	conn = sqlite3.connect(db_file)
 	global c
 	c = conn.cursor()
 	global debug, plot_clusters, fig_count
 	plot_clusters = False
 	debug = False
-	app_list = (u'gaussian',),#c.execute('SELECT App FROM BBProfile GROUP BY App;').fetchall()
+	app_list = c.execute('SELECT App FROM BBProfile GROUP BY App;').fetchall()
 	app_list = [row[0] for row in app_list]
     #(u'hotspot',),#[(u'bfs',),(u'gaussian',),]#(u'sad',),#(u'bfs',),#
 	fig_count=0
@@ -39,7 +39,7 @@ def main():
 #		INJSimMatrix(app)
 #		fig_count += 1	
 #		BBVSimilarityMatrix(app)
-		Clustering(app, 800)
+		Clustering(app, 400)
 #		UseSimpoint(app, 400)
 #    profileMemAccesses()
 
@@ -486,7 +486,7 @@ def Clustering(app, num_faults):
 	print "CLUSTERING " + app
 	bbv = getBBV(app)
 #	bbv, interval_size = getOutcomesByInterval(app, False)
-	for num_clusters in range(2,20):
+	for num_clusters in range(2,11):
 		clusters = KMeans(n_clusters=num_clusters)            
 		clusters.fit(bbv)
 
@@ -508,7 +508,7 @@ def Clustering(app, num_faults):
 		interval_num_insts = []
 
 		for cluster in range(0,num_clusters):
-			interval = choose_interval("most_insts", cluster, clusters.labels_,
+			interval = choose_interval("center", cluster, clusters.labels_,
 						  clusters.cluster_centers_[cluster], bbv, appl=app,
 						  interval_size=interval_size)
 			intervals.append(interval)

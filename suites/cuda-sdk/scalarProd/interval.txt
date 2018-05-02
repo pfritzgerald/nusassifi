@@ -1,1 +1,5 @@
-100000000
+100000
+App:IntervalSize:NumFaultsPerInterval:IntervalList...
+scalarProd:100000:400:112:179
+112:90589:0.309783
+179:70931:0.690217
