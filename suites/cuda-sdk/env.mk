@@ -80,6 +80,10 @@ EXTRA_NVCC_FLAGS = $(AFTER_REG_MEM) $(AFTER_REG_MEM_INFO) -Xptxas --sassi-bb-ent
 EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lbbv_profiler $(CUPTI) 
 endif
 
+ifeq (${OPTION},fritz_profiler)
+EXTRA_NVCC_FLAGS = $(LDWRAP) -lineinfo -Xptxas --sassi-function-entry -Xptxas --sassi-bb-entry
+EXTRA_LINK_FLAGS = $(LDWRAP) -L$(INST_LIB_DIR) -lfritz_profiler $(CUPTI) -L$(BOOST_HOME)/lib -lboost_regex -lcrypto -Xlinker -rpath,$(BOOST_HOME)/lib
+endif
 
 ifeq (${OPTION},memdiverge)
 EXTRA_NVCC_FLAGS = $(BEFORE_MEM) $(BEFORE_MEM_INFO)
