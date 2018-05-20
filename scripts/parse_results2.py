@@ -144,10 +144,11 @@ def parse_mem_accesses(app, c):
 			fnName = words[5]
 			opcode = words[7]
 			is_mem = int(words[9])
+			weight = int(words[11])
 			c.execute('INSERT OR IGNORE INTO PUPCs '\
 				'VALUES(NULL, \'%s\', \'%s\', '\
-				'%d,\'%s\',\'%s\', %d)'
-				%(app, pupc, bb_id, fnName, opcode, is_mem))
+				'%d,%d,\'%s\',\'%s\', %d)'
+				%(app, pupc, weight, bb_id, fnName, opcode, is_mem))
 
 def parse_bb_executions(app, c):
 	try:
@@ -305,7 +306,7 @@ def CreateNewDB(c):
                 'BBVIntervalSizes(ID INTEGER PRIMARY KEY, App TEXT, IntervalSize INTEGER,'\
 		' IntervalId INTEGER, NumGPRInsts INTEGER)')
 	c.execute('CREATE TABLE IF NOT EXISTS '\
-		'PUPCs(ID INTEGER PRIMARY KEY, App TEXt, PUPC TEXT, BBId INTEGER, '\
+		'PUPCs(ID INTEGER PRIMARY KEY, App TEXt, PUPC TEXT, Weight INTEGER, BBId INTEGER, '\
 		'FnName TEXT, Opcode TEXT, IsMem INTEGER)')
 	if injection_mode == "interval":
 		c.execute('CREATE TABLE IF NOT EXISTS '\

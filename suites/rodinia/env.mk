@@ -9,7 +9,7 @@ GENCODE = -gencode arch=compute_35,code=sm_35
 # We only use this option for Fermi examples, where we don't have the luxury
 # of using UVM.
 LDWRAP := -Xlinker "--wrap=main" -Xlinker "--wrap=exit"
-
+IFF := -Xptxas --sassi-iff-true-predicate-handler-call
 
 # SASSI/CUDA
 CUDA_LIB_DIR = $(CUDA_BASE_DIR)/lib64
@@ -95,3 +95,7 @@ EXTRA_NVCC_FLAGS = $(BEFORE_MEM) $(BEFORE_MEM_INFO)
 EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lmemdiverge $(CUPTI) 
 endif
 
+ifeq (${OPTION}, valueprof)
+EXTRA_NVCC_FLAGS =  $(AFTER_REG) $(AFTER_REG_INFO) $(IFF)
+EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lvalueprof $(CUPTI)
+endif
