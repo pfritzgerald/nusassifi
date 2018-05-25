@@ -67,6 +67,16 @@ profiler.o: profiler.cu
 		-I$(INSTALL_DIR)/utils/ \
 		-I$(SASSI_HOME)/include/
 
+%_profiler.o: %_profiler.cu
+	$(NVCC) -ccbin $(CCBIN) -std=c++11 \
+		--compiler-options -Wall   \
+		-O3 $(GENCODE)             \
+		-lineinfo -c -rdc=true -o $@ $^ \
+		--maxrregcount=16 \
+		-I$(CUPTI)/include/ \
+		-I$(INSTALL_DIR)/utils/ \
+		-I$(SASSI_HOME)/include/ 
+
 rfinjector.o: injector.cu 
 	$(NVCC) -ccbin $(CCBIN) -std=c++11 \
 		--compiler-options -Wall \
