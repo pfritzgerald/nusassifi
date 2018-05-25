@@ -3,8 +3,10 @@ include ../../env.mk
 
 # Decide which libraries you want to compile.
 export LIBS := 	libprofiler.a \
+		libbbv_profiler.a \
 		librfinjector.a \
-		libinstinjector.a 
+		libinstinjector.a \
+		libpupc_profiler.a
 
 NVCC = $(CUDA_HOME)/bin/nvcc
 CUPTI = $(CUDA_HOME)/extras/CUPTI

@@ -33,6 +33,9 @@ BEFORE_REG_INFO = -Xptxas --sassi-before-args="reg-info"
 BEFORE_REG_MEM_INFO = -Xptxas --sassi-before-args="reg-info\,mem-info"
 
 BRANCH_AROUND = -Xptxas --sassi-iff-true-predicate-handler-call
+ifeq ($(OPTION), cubin)
+SASSI_CUDACFLAGS = -cubin
+endif
 
 ifeq ($(OPTION),profiler)
 SASSI_CUDACFLAGS = $(BEFORE_ALL) $(BEFORE_REG_MEM_INFO) $(GENCODE)

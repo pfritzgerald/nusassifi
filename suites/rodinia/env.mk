@@ -45,6 +45,11 @@ BEFORE_REG_MEM_INFO = -Xptxas --sassi-before-args="reg-info\,mem-info"
 
 BRANCH_AROUND = -Xptxas --sassi-iff-true-predicate-handler-call
 
+ifeq (${OPTION},cubin)
+EXTRA_NVCC_FLAGS = -cubin
+endif
+
+
 ifeq (${OPTION},profiler)
 EXTRA_NVCC_FLAGS = $(BEFORE_ALL) $(BEFORE_REG_MEM_INFO)
 EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lprofiler $(CUPTI) 
@@ -85,6 +90,11 @@ EXTRA_NVCC_FLAGS = $(AFTER_REG_MEM)  $(AFTER_REG_MEM_INFO)  $(BRANCH_AROUND) $(G
 EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lmem_profiler $(CUPTI) 
 endif
 
+ifeq (${OPTION},pupc_profiler)
+EXTRA_NVCC_FLAGS = $(AFTER_REG)  $(AFTER_REG_INFO)  $(BRANCH_AROUND) $(GENCODE)
+EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lpupc_profiler $(CUPTI) 
+endif
+
 ifeq (${OPTION},bbv_profiler)
 EXTRA_NVCC_FLAGS = $(AFTER_REG_MEM) $(AFTER_REG_MEM_INFO) -Xptxas --sassi-bb-entry $(BRANCH_AROUND) $(GENCODE)
 EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lbbv_profiler $(CUPTI) 
@@ -99,3 +109,9 @@ ifeq (${OPTION}, valueprof)
 EXTRA_NVCC_FLAGS =  $(AFTER_REG) $(AFTER_REG_INFO) $(IFF)
 EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lvalueprof $(CUPTI)
 endif
+
+ifeq (${OPTION}, opcode)
+EXTRA_NVCC_FLAGS = $(BEFORE_ALL) $(BEFORE_REG_INFO)
+EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lopcode $(CUPTI)
+endif
+

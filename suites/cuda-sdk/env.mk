@@ -44,6 +44,10 @@ BEFORE_REG_MEM_INFO = -Xptxas --sassi-before-args="reg-info\,mem-info"
 
 BRANCH_AROUND = -Xptxas --sassi-iff-true-predicate-handler-call
 
+ifeq (${OPTION},cubin)
+EXTRA_NVCC_FLAGS = -cubin
+endif
+
 ifeq (${OPTION},profiler)
 EXTRA_NVCC_FLAGS = $(BEFORE_ALL) $(BEFORE_REG_MEM_INFO)
 EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lprofiler $(CUPTI) 
