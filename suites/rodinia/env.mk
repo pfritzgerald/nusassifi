@@ -91,13 +91,18 @@ EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lmem_profiler $(CUPTI)
 endif
 
 ifeq (${OPTION},pupc_profiler)
-EXTRA_NVCC_FLAGS = $(AFTER_REG)  $(AFTER_REG_INFO)  $(BRANCH_AROUND) $(GENCODE)
+EXTRA_NVCC_FLAGS = $(AFTER_REG_MEM)  $(AFTER_REG_INFO)  $(BRANCH_AROUND) $(GENCODE)
 EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lpupc_profiler $(CUPTI) 
 endif
 
 ifeq (${OPTION},bbv_profiler)
 EXTRA_NVCC_FLAGS = $(AFTER_REG_MEM) $(AFTER_REG_MEM_INFO) -Xptxas --sassi-bb-entry $(BRANCH_AROUND) $(GENCODE)
 EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lbbv_profiler $(CUPTI) 
+endif
+
+ifeq (${OPTION},bb_profiler)
+EXTRA_NVCC_FLAGS = -Xptxas --sassi-function-entry -Xptxas --sassi-bb-entry
+EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lbb_profiler $(CUPTI)
 endif
 
 ifeq (${OPTION},memdiverge)

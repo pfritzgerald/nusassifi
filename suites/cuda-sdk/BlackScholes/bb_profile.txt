@@ -1,0 +1,15 @@
+kName,_Z15BlackScholesGPUP6float2S0_S0_S0_S0_ffi
+BBId,0,numExecs,30000000,numInsts,1,isEntry,1,isExit,0,InPred,0,InCC,0,InUnused,0,OutPred,0,OutCC,0,OutUnused,0,numSuccs,1,succs,BB1
+BBId,1,numExecs,30000000,numInsts,8,isEntry,0,isExit,1,InPred,0,InCC,0,InUnused,0,OutPred,0,OutCC,0,OutUnused,0,numSuccs,1,succs,BB2
+BBId,2,numExecs,30000000,numInsts,26,isEntry,0,isExit,0,InPred,0,InCC,0,InUnused,0,OutPred,0,OutCC,0,OutUnused,0,numSuccs,1,succs,BB3
+BBId,3,numExecs,30000000,numInsts,1,isEntry,0,isExit,0,InPred,0,InCC,0,InUnused,0,OutPred,0,OutCC,0,OutUnused,0,numSuccs,1,succs,BB4
+BBId,4,numExecs,30000000,numInsts,94,isEntry,0,isExit,0,InPred,0,InCC,0,InUnused,0,OutPred,0,OutCC,0,OutUnused,0,numSuccs,1,succs,BB5
+BBId,5,numExecs,30000000,numInsts,1,isEntry,0,isExit,0,InPred,0,InCC,0,InUnused,0,OutPred,0,OutCC,0,OutUnused,0,numSuccs,1,succs,BB6
+BBId,6,numExecs,30000000,numInsts,87,isEntry,0,isExit,0,InPred,0,InCC,0,InUnused,0,OutPred,0,OutCC,0,OutUnused,0,numSuccs,1,succs,BB7
+BBId,7,numExecs,30000000,numInsts,1,isEntry,0,isExit,1,InPred,0,InCC,0,InUnused,0,OutPred,0,OutCC,0,OutUnused,0,numSuccs,0,succs
+kName,__cuda_sm3x_div_rn_noftz_f32
+BBId,0,numExecs,60000000,numInsts,2,isEntry,1,isExit,0,InPred,0,InCC,0,InUnused,0,OutPred,0,OutCC,0,OutUnused,0,numSuccs,2,succs,BB2,BB1
+BBId,1,numExecs,60000000,numInsts,10,isEntry,0,isExit,0,InPred,0,InCC,0,InUnused,0,OutPred,0,OutCC,0,OutUnused,0,numSuccs,1,succs,BB4
+BBId,2,numExecs,0,numInsts,1,isEntry,0,isExit,0,InPred,0,InCC,0,InUnused,0,OutPred,0,OutCC,0,OutUnused,0,numSuccs,1,succs,BB4
+BBId,3,numExecs,0,numInsts,0,isEntry,0,isExit,0,InPred,0,InCC,0,InUnused,0,OutPred,0,OutCC,0,OutUnused,0,numSuccs,1,succs,BB4
+BBId,4,numExecs,60000000,numInsts,1,isEntry,0,isExit,1,InPred,0,InCC,0,InUnused,0,OutPred,0,OutCC,0,OutUnused,0,numSuccs,0,succs

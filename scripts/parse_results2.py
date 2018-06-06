@@ -138,19 +138,36 @@ def parse_mem_accesses(app, c):
 					'VALUES(NULL, \'%s\',%d, %d, %d, %d, %d)'
 					%(app, interval_id, global_loads, global_stores, 
 						nonglobal_loads, nonglobal_stores))
-		elif words[0] == "PUPC":
+def parse_pupcs(app, c):
+	try:
+		rf = open(sp.app_dir[app] + "pupcs.txt", "r")
+	except IOError: 
+                print "PUPC - NOT OPEN: " + sp.app_dir[app] + "pupcs.txt"
+	        return 
+	suite = sp.apps[app][0]
+        print "PUPC - file is " + rf.name
+	for line in rf: # for each mem access (or new kernel and invocation) 
+		words = line.split(",")
+		if words[0] == "PUPC":
 			pupc = words[1]
 			bb_id = int(words[3])
 			fnName = words[5]
 			opcode = words[7]
 			is_mem = int(words[9])
 			weight = int(words[11])
+			num_gpr_srcs = int(words[13])
+			gpr_srcs = ""
+			gpr_srcs = ",".join(map(str, words[15:15+num_gpr_srcs]))
+			num_gpr_dsts = int(words[16+num_gpr_srcs])
+			gpr_dsts = ",".join(map(str, words[18+num_gpr_srcs:18+num_gpr_srcs+num_gpr_dsts]))
 			c.execute('INSERT OR IGNORE INTO PUPCs '\
 				'VALUES(NULL, \'%s\', \'%s\', '\
-				'%d,%d,\'%s\',\'%s\', %d)'
-				%(app, pupc, weight, bb_id, fnName, opcode, is_mem))
+				'%d,%d,\'%s\',\'%s\', %d, %d, \'%s\', %d,\'%s\')'
+				%(app, pupc, weight, bb_id, fnName, opcode, is_mem, num_gpr_srcs,
+				gpr_srcs, num_gpr_dsts, gpr_dsts))
 
-def parse_bb_executions(app, c):
+
+def parse_bb_interval_executions(app, c):
 	try:
 		rf = open(sp.app_dir[app] + "basic_block_insts.txt", "r")
 	except IOError: 
@@ -197,6 +214,35 @@ def parse_bb_executions(app, c):
                                     func_name, bb_num_execs, live_in_max_r_regused, live_in_pred,
                                     live_in_cc, live_in_unused, live_out_max_r_regused,
                                     live_out_pred, live_out_cc, live_out_unused))
+def parse_bb_executions(app, c):
+	try:
+		rf = open(sp.app_dir[app] + "bb_profile.txt", "r")
+	except IOError: 
+                print "BB Profiling - NOT OPEN: " + sp.app_dir[app] + "bb_profile.txt"
+		return 
+	suite = sp.apps[app][0]
+        print "BB Profiling - file is " + rf.name
+	kName = ""
+        invocation_id=0
+	for line in rf: # for each mem access (or new kernel and invocation)
+		if "kName," in line:
+			words = line.split(",")
+			kName = words[1]
+			continue
+		elif "BBId," in line:
+			words = line.split(",")
+			basic_block_id = int(words[1])
+			num_insts = int(words[5])
+			bb_num_execs = int(words[3])
+			is_entry = int(words[7])
+			is_exit = int(words[9])
+			num_succ = int(words[23])
+			succs = ",".join(map(str, words[25:25+num_succ]))
+
+		c.execute('INSERT OR IGNORE INTO BBExecutions '\
+				'VALUES(NULL, \'%s\',\'%s\', %d, %d, %d, %d, %d, %d, \'%s\');'
+				%(app, kName, basic_block_id, bb_num_execs, num_insts, is_entry,
+					is_exit, num_succ, succs))
         
 def parse_fipoints(app, c):
 	try:
@@ -231,8 +277,10 @@ def parse_results_apps(typ,c):
 		else:
 			for bfm in sp.parse_rf_bfm_list:
 				parse_results_file(app, "rf", bfm, c)
-                parse_mem_accesses(app, c)
-                parse_bb_executions(app,c)
+		parse_mem_accesses(app, c)
+		parse_pupcs(app, c)
+		parse_bb_executions(app,c)
+		parse_bb_interval_executions(app,c)
 		if injection_mode == "interval":
 			parse_fipoints(app, c)
 
@@ -292,26 +340,32 @@ def CreateNewDB(c):
 	c.execute('CREATE TABLE IF NOT EXISTS '\
 		'Kernels(ID INTEGER PRIMARY KEY, Application TEXT, kName TEXT, '\
 		'InvocationIdx INTEGER, InvInstCount INTEGER, AppInstCount INTEGER)')
-        c.execute('CREATE TABLE IF NOT EXISTS '\
-                'MemAccesses(ID INTEGER PRIMARY KEY, App TEXT, IntervalId INTEGER, '\
-                'GlobalLoads INTEGER, GlobalStores INTEGER, '\
-                'NonGlobalLoads INTEGER, NonGlobalStores INTEGER)')
-        c.execute('CREATE TABLE IF NOT EXISTS '\
-                'BBProfile(ID INTEGER PRIMARY KEY, App TEXT, KName TEXT, '\
-                'InvocationIdx INTEGER, InstIntervalId INTEGER, '\
-                ' BasicBlockId INTEGER, BBNumInsts INTEGER, FuncName TEXT, BBNumExecs INTEGER,'\
-                'LiveInMaxRRegUsed INTEGER, LiveInPred INTEGER, LiveInCC INTEGER, LiveInUnused INTEGER,'
-                'LiveOutMaxRRegUsed INTEGER, LiveOutPred INTEGER, LiveOutCC INTEGER, LiveOutUnused INTEGER)')
-        c.execute('CREATE TABLE IF NOT EXISTS '\
-                'BBVIntervalSizes(ID INTEGER PRIMARY KEY, App TEXT, IntervalSize INTEGER,'\
-		' IntervalId INTEGER, NumGPRInsts INTEGER)')
 	c.execute('CREATE TABLE IF NOT EXISTS '\
-		'PUPCs(ID INTEGER PRIMARY KEY, App TEXt, PUPC TEXT, Weight INTEGER, BBId INTEGER, '\
-		'FnName TEXT, Opcode TEXT, IsMem INTEGER)')
+			'MemAccesses(ID INTEGER PRIMARY KEY, App TEXT, IntervalId INTEGER, '\
+			'GlobalLoads INTEGER, GlobalStores INTEGER, '\
+			'NonGlobalLoads INTEGER, NonGlobalStores INTEGER)')
+	c.execute('CREATE TABLE IF NOT EXISTS '\
+			'BBProfile(ID INTEGER PRIMARY KEY, App TEXT, KName TEXT, '\
+			'InvocationIdx INTEGER, InstIntervalId INTEGER, '\
+			' BasicBlockId INTEGER, BBNumInsts INTEGER, FuncName TEXT, BBNumExecs INTEGER,'\
+			'LiveInMaxRRegUsed INTEGER, LiveInPred INTEGER, LiveInCC INTEGER, LiveInUnused INTEGER,'
+			'LiveOutMaxRRegUsed INTEGER, LiveOutPred INTEGER, LiveOutCC INTEGER, LiveOutUnused INTEGER)')
+	c.execute('CREATE TABLE IF NOT EXISTS '\
+			'BBExecutions(ID INTEGER PRIMARY KEY, App TEXT, KName TEXT, '\
+			'BasicBlockId INTEGER, BBNumExecs INTEGER, BBNumInsts INTEGER,'\
+			'isEntry INTEGER, isExit INTEGER, numSuccs INTEGER, Succs TEXT)')
+	
+	c.execute('CREATE TABLE IF NOT EXISTS '\
+			'BBVIntervalSizes(ID INTEGER PRIMARY KEY, App TEXT, IntervalSize INTEGER,'\
+			' IntervalId INTEGER, NumGPRInsts INTEGER)')
+	c.execute('CREATE TABLE IF NOT EXISTS '\
+			'PUPCs(ID INTEGER PRIMARY KEY, App TEXt, PUPC TEXT, Weight INTEGER, BBId INTEGER, '\
+			'FnName TEXT, Opcode TEXT, IsMem INTEGER, NumGPRSrcs INTEGER, GPRSrcs TEXT, '\
+			'NumPRDsts INTEGER, GPRDsts TEXT)')
 	if injection_mode == "interval":
 		c.execute('CREATE TABLE IF NOT EXISTS '\
-			'FIPointClusters(ID INTEGER PRIMARY KEY, App TEXT, IntervalId INTEGER,'\
-			' IntervalFrequency INTEGER)')
+				'FIPointClusters(ID INTEGER PRIMARY KEY, App TEXT, IntervalId INTEGER,'\
+				' IntervalFrequency INTEGER)')
 
 	######
 	# fill up OutcomeMap table

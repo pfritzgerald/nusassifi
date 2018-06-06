@@ -82,6 +82,16 @@ SASSI_CUDACFLAGS = $(AFTER_REG_MEM)  $(AFTER_REG_MEM_INFO)  $(BRANCH_AROUND) $(G
 SASSI_CUDALDFLAGS = -L$(INST_LIB_DIR) -lmem_profiler $(CUPTI) 
 endif
 
+ifeq (${OPTION}, pupc_profiler)
+SASSI_CUDACFLAGS = $(AFTER_REG_MEM)  $(AFTER_REG_INFO) $(BRANCH_AROUND) $(GENCODE)
+SASSI_CUDALDFLAGS = -L$(INST_LIB_DIR) -lpupc_profiler $(CUPTI) 
+endif
+
+ifeq (${OPTION},bb_profiler)
+SASSI_CUDACFLAGS = -Xptxas --sassi-function-entry -Xptxas --sassi-bb-entry
+SASSI_CUDALDFLAGS = -L$(INST_LIB_DIR) -lbb_profiler $(CUPTI)
+endif
+
 
 #----------------------------
 

@@ -81,10 +81,20 @@ endif
 
 ifeq (${OPTION},bbv_profiler)
 EXTRA_NVCC_FLAGS = $(AFTER_REG_MEM) $(AFTER_REG_MEM_INFO) -Xptxas --sassi-bb-entry $(BRANCH_AROUND) $(GENCODE)
-EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lbbv_profiler $(CUPTI) 
+EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lbbv_profiler $(CUPTI)
 endif
 
-ifeq (${OPTION},fritz_profiler)
+ifeq (${OPTION}, pupc_profiler)
+EXTRA_NVCC_FLAGS = $(AFTER_REG_MEM)  $(AFTER_REG_INFO) $(BRANCH_AROUND) $(GENCODE)
+EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lpupc_profiler $(CUPTI)
+endif
+
+ifeq (${OPTION},bb_profiler)
+EXTRA_NVCC_FLAGS = -Xptxas --sassi-function-entry -Xptxas --sassi-bb-entry
+EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lbb_profiler $(CUPTI)
+endif
+
+ifeq (${OPTION}, fritz_profiler)
 EXTRA_NVCC_FLAGS = $(LDWRAP) -lineinfo -Xptxas --sassi-function-entry -Xptxas --sassi-bb-entry
 EXTRA_LINK_FLAGS = $(LDWRAP) -L$(INST_LIB_DIR) -lfritz_profiler $(CUPTI) -L$(BOOST_HOME)/lib -lboost_regex -lcrypto -Xlinker -rpath,$(BOOST_HOME)/lib
 endif

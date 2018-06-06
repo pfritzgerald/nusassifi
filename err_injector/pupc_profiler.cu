@@ -45,21 +45,20 @@
 #include "sassi_lazyallocator.hpp"
 
 #define MAX_FN_STR_LEN 64
-#define MAX_NUM_INTERVALS 600
-std::map<std::string, int> knameCount;
+//__managed__ sassi::dictionary<int64_t, uint64_t> *kname_map;
+//__managed__ int fname_counter;
 struct PUPC
 {
 	uint64_t pupc;
 	int basic_block_id;
 	char fnName[MAX_FN_STR_LEN];
-	char opcode[MAX_FN_STR_LEN];
+	SASSIInstrOpcode opcode;
 	int32_t numGPRDsts;
 	int32_t numGPRSrcs;
 	int GPRDsts[SASSI_NUMGPRDSTS];
 	int GPRSrcs[SASSI_NUMGPRSRCS];
 	bool isMem;
 	unsigned long long weight;
-	int BBOffset;
 };
 
 std::ofstream pupc_ofs;
@@ -91,23 +90,24 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIRegisterParams *r
 	PUPC *pc_entry = sassi_pupcs->getOrInit(pupc, [ap, pupc, rp] (PUPC* inst) {
 		inst->basic_block_id = ap->GetBBID();
 		inst->pupc = pupc;
+/*		int current_fn_counter = fname_counter;
+		uint64_t kname_code = kname_map->getOrInit((int64_t)(ap->GetFnName()), 
+						[current_fn_counter] (int knameCode) {
+			knameCode = current_fn_counter;
+			current_fn_counter += 1;
+		};
+		fname_counter = current_fn_counter;*/
+ 
 		simple_strncpy(inst->fnName, ap->GetFnName());
-		simple_strncpy(inst->opcode,
-			SASSIInstrOpcodeStrings[ap->GetOpcode()]);
+		//inst->fnName = kname_code;
+		inst->opcode = ap->GetOpcode();
 		inst->isMem = ap->IsMem();
 		inst->numGPRDsts = rp->GetNumGPRDsts();
 		inst->numGPRSrcs = rp->GetNumGPRSrcs();
 		for (int i=0; i<rp->GetNumGPRSrcs(); i++)
-			inst->GPRSrcs[i] = rp->GetGPRSrc(i);
+			inst->GPRSrcs[i] = rp->GetRegNum(rp->GetGPRSrc(i));
 		for (int i=0; i<rp->GetNumGPRDsts(); i++)
-			inst->GPRDsts[i] = rp->GetGPRDst(i);
-		for (int i=0; i<ap->GetBB()->GetNumInstrs(); i++)
-		{
-			if (ap->GetBB()->GetInstrPUPC(i) == ap->GetPUPC()) {
-				inst->BBOffset = i;
-				break;
-			}
-		}
+			inst->GPRDsts[i] = rp->GetRegNum(rp->GetGPRDst(i));
 	});
 	atomicAdd(&(pc_entry->weight), 1);
 }
@@ -116,6 +116,8 @@ static void sassi_init()
 {
 	pupc_ofs.open(pupcs_filename.c_str(), std::ofstream::out);
 	sassi_pupcs = new sassi::dictionary<uint64_t, PUPC>();
+	//kname_map = new sassi::dictionary<int64_t, uint64_t>();
+	//fname_counter = 0;
 }
 
 static void sassi_finalize(sassi::lazy_allocator::device_reset_reason reason)
@@ -124,16 +126,20 @@ static void sassi_finalize(sassi::lazy_allocator::device_reset_reason reason)
 
 	sassi_pupcs->map([](uint64_t &k, PUPC &inst) {
 		pupc_ofs << "PUPC," << std::hex << inst.pupc << ",BBId,"
-		<< std::dec << inst.basic_block_id << ",BBOffset," << 
-		inst.BBOffset << ",fnName," << inst.fnName << ",opcode," 
-		<< inst.opcode << ",isMem," << inst.isMem << ",weight," 
+		<< std::dec << inst.basic_block_id 
+		<< ",fnName," << inst.fnName << ",opcode," 
+		<< SASSIInstrOpcodeStrings[inst.opcode] << ",isMem," << inst.isMem << ",weight," 
 		<< inst.weight << ",numGPRSrcs," << inst.numGPRSrcs <<",GPRSrcs,";
 		for (int i=0; i<inst.numGPRSrcs; i++)
-			pupc_ofs << inst.GPRSrcs[i] << ",";
-		pupc_ofs << ",numGPRDsts," << inst.numGPRDsts << ",GPRDsts,";
+			pupc_ofs << std::dec << inst.GPRSrcs[i] << ",";
+		pupc_ofs << "numGPRDsts," << inst.numGPRDsts << ",GPRDsts,";
 		for (int i=0; i<inst.numGPRDsts; i++)
-			pupc_ofs << inst.GPRDsts[i] << "\n";
+			pupc_ofs << std::dec << inst.GPRDsts[i] << ",";
+		pupc_ofs << "\n";
 	});
+/*	kname_map->map([](int64_t &k, uint64_t &code) {
+		pupc_ofs << "kernel," << (char *)k << ",code," << code << "\n";
+	});*/
 	pupc_ofs.close();
 }
 

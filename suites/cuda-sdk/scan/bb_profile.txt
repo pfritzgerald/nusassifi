@@ -1,0 +1,8 @@
+kName,_Z19scanExclusiveSharedP5uint4S0_j
+BBId,0,numExecs,8388608,numInsts,1,isEntry,1,isExit,0,InPred,0,InCC,0,InUnused,0,OutPred,0,OutCC,0,OutUnused,0,numSuccs,1,succs,BB1
+BBId,1,numExecs,8388608,numInsts,24,isEntry,0,isExit,0,InPred,0,InCC,0,InUnused,0,OutPred,0,OutCC,0,OutUnused,0,numSuccs,2,succs,BB6,BB3
+BBId,2,numExecs,0,numInsts,0,isEntry,0,isExit,0,InPred,0,InCC,0,InUnused,0,OutPred,0,OutCC,0,OutUnused,0,numSuccs,1,succs,BB3
+BBId,3,numExecs,67108864,numInsts,1,isEntry,0,isExit,0,InPred,0,InCC,0,InUnused,0,OutPred,0,OutCC,0,OutUnused,0,numSuccs,1,succs,BB4
+BBId,4,numExecs,67108864,numInsts,6,isEntry,0,isExit,0,InPred,0,InCC,0,InUnused,0,OutPred,0,OutCC,0,OutUnused,0,numSuccs,1,succs,BB5
+BBId,5,numExecs,67108864,numInsts,4,isEntry,0,isExit,0,InPred,0,InCC,0,InUnused,0,OutPred,0,OutCC,0,OutUnused,0,numSuccs,2,succs,BB3,BB6
+BBId,6,numExecs,8388608,numInsts,10,isEntry,0,isExit,1,InPred,0,InCC,0,InUnused,0,OutPred,0,OutCC,0,OutUnused,0,numSuccs,0,succs
