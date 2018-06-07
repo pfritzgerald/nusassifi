@@ -60,6 +60,11 @@ EXTRA_NVCC_FLAGS =  $(AFTER_REG_MEM) $(AFTER_REG_MEM_INFO) $(BRANCH_AROUND)
 EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -linstinjector $(CUPTI) 
 endif
  
+ifeq (${OPTION},pc_inst_injector)
+EXTRA_NVCC_FLAGS =  $(AFTER_REG_MEM) $(AFTER_REG_MEM_INFO) $(BRANCH_AROUND) 
+EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lpcinstinjector $(CUPTI) 
+endif
+ 
 ifeq (${OPTION},rf_injector)
 EXTRA_NVCC_FLAGS = $(BEFORE_ALL) $(BEFORE_REG_MEM_INFO) 
 EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lrfinjector $(CUPTI)

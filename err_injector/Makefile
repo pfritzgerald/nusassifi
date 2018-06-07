@@ -7,6 +7,7 @@ export LIBS := 	libprofiler.a \
 		libbbv_profiler.a \
 		librfinjector.a \
 		libinstinjector.a \
+		libpcinstinjector.a \
 		libpupc_profiler.a
 
 NVCC = $(CUDA_HOME)/bin/nvcc
@@ -97,6 +98,25 @@ rfinjector.o: injector.cu
 		-I$(SASSI_HOME)/include/
 
 instinjector.o: injector.cu
+	$(NVCC) -ccbin $(CCBIN) -std=c++11 \
+		--compiler-options -Wall \
+		-O3 $(GENCODE) \
+		-lineinfo -c -rdc=true -o $@ $^ \
+		--maxrregcount=16 \
+		--compiler-options -Wall \
+		-DEMPTY_HANDLER=$(EMPTY_HANDLER) \
+		-DDUMMY_INJECTION=$(DUMMY_INJECTION) \
+		-DTIMING=$(TIMING) \
+		-DINJ_DEBUG_LIGHT=$(INJ_DEBUG_LIGHT) \
+		-DINJ_DEBUG_HEAVY=$(INJ_DEBUG_HEAVY) \
+		-DINJ_MODE=$(INST_INJECTIONS) \
+		-DINTERVAL_MODE_INJECTION=$(INTERVAL_MODE_INJECTION) \
+		-DCC_DEBUG=$(CC_DEBUG) \
+		-I$(CUPTI)/include/ \
+		-I$(INSTALL_DIR)/utils/ \
+		-I$(SASSI_HOME)/include/
+
+pcinstinjector.o: pc_injector.cu
 	$(NVCC) -ccbin $(CCBIN) -std=c++11 \
 		--compiler-options -Wall \
 		-O3 $(GENCODE) \

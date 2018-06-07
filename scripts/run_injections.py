@@ -135,7 +135,7 @@ def check_and_submit_multigpu(cmd):
 ###############################################################################
 # Run Multiple injection experiments
 ###############################################################################
-def run_multiple_injections_igid(app, is_rf, igid, where_to_run, interval_mode):
+def run_multiple_injections_igid(app, is_rf, igid, where_to_run, interval_mode, pc_mode):
 	bfm_list = sp.rf_bfm_list if is_rf else sp.igid_bfm_map[igid]
 	if where_to_run == "cluster":
 		# Create directories to store logs and tmp files for slurm
@@ -156,6 +156,9 @@ def run_multiple_injections_igid(app, is_rf, igid, where_to_run, interval_mode):
 			next(interval_file)
 			interval_line = next(interval_file).split(":")
 			total_interval_jobs = int(interval_line[2]) * len(interval_line[3:])
+		elif pc_mode:
+			inj_list_filenmae = sp.app_log_dir[app] + "/injection-list/igid" + str(igid) + ".bfm" + str(bfm) + "." + \
+					str(sp.NUM_INJECTIONS) + ".pc.txt"
 		else:
 			inj_list_filenmae = sp.app_log_dir[app] + "/injection-list/igid" + str(igid) + ".bfm" + str(bfm) + "." + str(sp.NUM_INJECTIONS) + ".txt"
 		inf = open(inj_list_filenmae, "r")
@@ -174,6 +177,13 @@ def run_multiple_injections_igid(app, is_rf, igid, where_to_run, interval_mode):
 						%(total_jobs, app, igid, bfm, interval_size, interval_id, iid, opid, bid)
 					cmd = "%s %s/scripts/run_one_injection.py interval_mode %s %s %s %s %s %s %s %s"\
 						% (cp.PYTHON_P, sp.SASSIFI_HOME, str(igid), str(bfm), app, interval_size, interval_id, iid, opid, bid)
+				elif pc_mode:
+					[pc, pc_count, opid, bid] = line.split()
+					if cp.verbose: print "\n%d: app=%s, pc_mode, igid=%s, bfm=%d, "\
+							"PC=%s, PC_count=%s, opId=%s, bitLocation=%s"\
+							%(total_jobs, app, igid, bfm, pc, pc_count, opid, bid)
+					cmd = "%s %s/scripts/run_one_injection.py pc_mode %s %s %s %s %s %s %s" %(cp.PYTHON_P,\
+							sp.SASSIFI_HOME, str(igid), str(bfm), app, pc, pc_count, opid, bid)
 				else:
 					[kname, kcount, iid, opid, bid] = line.split() # obtains params for this injection
 					if cp.verbose: print "\n%d: app=%s, Kernel=%s,"\
@@ -202,12 +212,12 @@ def run_multiple_injections_igid(app, is_rf, igid, where_to_run, interval_mode):
 ###############################################################################
 # wrapper function to call either RF injections or instruction level injections
 ###############################################################################
-def run_multiple_injections(app, is_rf, where_to_run, interval_mode):
+def run_multiple_injections(app, is_rf, where_to_run, interval_mode, pc_mode):
 	if is_rf:
-		run_multiple_injections_igid(app, is_rf, "rf", where_to_run, interval_mode)
+		run_multiple_injections_igid(app, is_rf, "rf", where_to_run, interval_mode, pc_mode)
 	else:
 		for igid in sp.igid_bfm_map:
-			run_multiple_injections_igid(app, is_rf, igid, where_to_run, interval_mode)
+			run_multiple_injections_igid(app, is_rf, igid, where_to_run, interval_mode, pc_mode)
 
 ###############################################################################
 # Starting point of the execution
@@ -216,10 +226,13 @@ def main():
 	if len(sys.argv) >= 3: 
 		where_to_run = sys.argv[2]
 		interval_mode = False
+		pc_mode = False
 		if len(sys.argv) == 4:
 			interval_mode = (sys.argv[3] == "interval")
+			pc_mode = (sys.argv[3] == "pc")
 		if len(sys.argv) == 5:
 			interval_mode |= (sys.argv[4] == "interval")
+			pc_mode |= (sys.argv[4] == "pc")
 		if where_to_run != "standalone":
 			if pkgutil.find_loader('lockfile') is None:
 				print "lockfile module not found. This python module is needed to run injection experiments in parallel." 
@@ -233,7 +246,7 @@ def main():
 				if sys.argv[3] == "clean":
 					clear_results_file(app) # clean log files only if asked for
 	
-		 	run_multiple_injections(app, (sys.argv[1] == "rf"), where_to_run, interval_mode)
+		 	run_multiple_injections(app, (sys.argv[1] == "rf"), where_to_run, interval_mode, pc_mode)
 	
 	else:
 		print_usage()

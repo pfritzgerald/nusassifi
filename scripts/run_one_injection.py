@@ -44,16 +44,21 @@ def get_seconds(td):
 # Set enviroment variables for run_script and clean_logs_script
 ###############################################################################
 [stdout_fname, stderr_fname, injection_seeds_file, new_directory] = ["", "", "", ""]
-def set_env_variables(igid, bfm, app, kname, kcount, iid, opid, bid, interval_mode_): # Set directory paths 
+def set_env_variables(igid, bfm, app, kname, kcount, iid, opid, bid, interval_mode_, pc_mode_): # Set directory paths 
 	if igid == "rf":
 		cp.rf_inst = "rf"
 	else:
 		cp.rf_inst = "inst"
 	sp.set_paths() # update paths 
-	global stdout_fname, stderr_fname, injection_seeds_file, new_directory, interval_mode
+	global stdout_fname, stderr_fname, injection_seeds_file, new_directory, interval_mode, pc_mode
 	interval_mode = interval_mode_
+	pc_mode = pc_mode_
 	kname_truncated = kname[:100] if len(kname) > 100 else kname
-	new_directory = sp.logs_base_dir + sp.apps[app][0] + "/" + app + "-igid" +  igid + "-bfm" + bfm + "-" + kname_truncated + "-" + kcount + "-" + iid + "-" + opid + "-" + bid
+	if pc_mode_:
+		new_directory = sp.logs_base_dir + sp.apps[app][0] + "/" + app + "-igid" + igid + "-bfm" + bfm + "-" + pc + "-"\
+				+ pc_count + "-" + opid + "-" + bid
+	else:
+		new_directory = sp.logs_base_dir + sp.apps[app][0] + "/" + app + "-igid" +  igid + "-bfm" + bfm + "-" + kname_truncated + "-" + kcount + "-" + iid + "-" + opid + "-" + bid
 	stdout_fname = new_directory + "/" + sp.stdout_file 
 	stderr_fname = new_directory + "/" + sp.stderr_file
 	injection_seeds_file = new_directory + "/" + sp.injection_seeds
@@ -69,10 +74,13 @@ def set_env_variables(igid, bfm, app, kname, kcount, iid, opid, bid, interval_mo
 # mutliple parallel jobs can run safely write results to the file
 ###############################################################################
 def record_result(igid, bfm, app, kname, kcount, iid,  opid, bid, cat, pc, bb_id, global_iid, app_dyn_iid, inst_type, tid, injBID, runtime, dmesg):
-	if not interval_mode:
-		res_fname = sp.app_log_dir[app] + "/results-igid" + str(igid) + ".bfm" + str(bfm) + "." + str(sp.NUM_INJECTIONS) + ".txt"
-	else:
+	if interval_mode:
 		res_fname = sp.app_log_dir[app] + "/results-igid" + str(igid) + ".bfm" + str(bfm) + ".interval.txt"
+	elif pc_mode:
+		res_fname = sp.app_log_dir[app] + "/results-igid" + str(igid) + ".bfm" + str(bfm) + "." +\
+				str(sp.NUM_INJECTIONS) + ".pc.txt"
+	else:
+		res_fname = sp.app_log_dir[app] + "/results-igid" + str(igid) + ".bfm" + str(bfm) + "." + str(sp.NUM_INJECTIONS) + ".txt"
 
 	has_filelock = False
 	if pkgutil.find_loader('lockfile') is not None:
@@ -84,13 +92,14 @@ def record_result(igid, bfm, app, kname, kcount, iid,  opid, bid, cat, pc, bb_id
 		lock.acquire() #acquire lock
 
 	rf = open(res_fname, "a")
-	if not interval_mode:
-		rf.write(kname + "-" + kcount + "-" + iid + "-" + opid + "-" + bid + ":" + str(pc) + ":" + str(bb_id) + ":" + str(global_iid) + ":" + str(app_dyn_iid) + ":" + str(inst_type) + ":" +  str(tid) + ":" + str(injBID) + ":" + str(runtime) + ":" + str(cat) + ":" + dmesg + "\n")
-	else:
+	if interval_mode:
 		rf.write(kname + "-" + kcount + "-" + interval_size + "-" + interval_id + "-" + iid + "-" + opid + "-" + bid + ":" + str(pc) + ":" + str(bb_id) + ":" + str(global_iid) + ":" + str(app_dyn_iid) + ":" + str(inst_type) + ":" +  str(tid) + ":" + str(injBID) + ":" + str(runtime) + ":" + str(cat) + ":" + dmesg + "\n")
+	elif pc_mode:
+		rf.write(str(kname) + "-" + str(kcount) + "-" + str(iid) + "-" + opid + "-" + bid + "-" + str(pc) + "-" + str(pc_count) + ":" + str(bb_id) + ":" + str(global_iid) + ":" + str(app_dyn_iid) + ":" + str(inst_type) + ":" +  str(tid) + ":" + str(injBID) + ":" + str(runtime) + ":" + str(cat) + ":" + dmesg + "\n")
+	else:
+		rf.write(kname + "-" + kcount + "-" + iid + "-" + opid + "-" + bid + ":" + str(pc) + ":" + str(bb_id) + ":" + str(global_iid) + ":" + str(app_dyn_iid) + ":" + str(inst_type) + ":" +  str(tid) + ":" + str(injBID) + ":" + str(runtime) + ":" + str(cat) + ":" + dmesg + "\n")
 
 	rf.close()
-
 	if has_filelock:
 		lock.release() # release lock
 
@@ -113,6 +122,8 @@ def create_p_file(p_filename, igid, bfm, kname, kcount, iid, opid, bid):
 	else:
 		if interval_mode:
 			outf.write(igid + "\n" + bfm + "\n" + interval_size +  "\n" + interval_id + "\n" + iid + "\n" + opid + "\n" + bid)
+		elif pc_mode:
+			outf.write(igid + "\n" + bfm + "\n" + pc + "\n" + pc_count + "\n" + opid + "\n" + bid)
 		else:
 			outf.write(igid + "\n" + bfm + "\n" + kname + "\n" + kcount + "\n" + iid + "\n" + opid + "\n" + bid)
 	outf.close()
@@ -122,18 +133,33 @@ def create_p_file(p_filename, igid, bfm, kname, kcount, iid, opid, bid):
 ###############################################################################
 def get_inj_info():
 	[pc, bb_id, global_iid, app_dyn_iid, inst_type, tid, injBID] = ["", -1, -1, -1, "", -1, -1]
+	[kname, kcount] = ["", ""]
 	if os.path.isfile(stdout_fname): 
 		logf = open(stdout_fname, "r")
 		for line in logf:
 			#":::Injecting: opcode=%s tid=%d instCount=%lld instType=GPR injOpID=%d injBIDSeed=%f:::", SASSIInstrOpcodeStrings[ap->GetOpcode()], get_flat_tid(), injInstID, injOpID, injBIDSeed);
-			matchObj = re.match( r'.*:::Injecting: pc=(\S+) bbId=(\d+) GlobalInstCount=(\d+) AppDynInstCount=(\d+) opcode=(\S+) tid=(\d+) .* injBID=(\d+):::.*', line, re.M) #:::Injecting: opcode=IADD tid=583564 instCount=1284359 instType=CC injBID=0:::
+			if pc_mode:
+				matchObj = re.match( r'.*:::Injecting: pc=(\S+) bbId=(\d+) GlobalInstCount=(\d+) AppDynInstCount=(\d+) opcode=(\S+) tid=(\d+) .* injBID=(\d+) kname=(\S+) kcount=(\d):::.*', line, re.M) 
+			else:
+				matchObj = re.match( r'.*:::Injecting: pc=(\S+) bbId=(\d+) GlobalInstCount=(\d+) AppDynInstCount=(\d+) opcode=(\S+) tid=(\d+) .* injBID=(\d+):::.*', line, re.M) #:::Injecting: opcode=IADD tid=583564 instCount=1284359 instType=CC injBID=0:::
+
+
 			if matchObj:
-				[pc, bb_id, global_iid, app_dyn_iid, inst_type, tid,  injBID] = [matchObj.group(1), matchObj.group(2),
+				if pc_mode:
+					[pc, bb_id, global_iid, app_dyn_iid, inst_type, tid,  injBID, kname, kcount] = [matchObj.group(1), matchObj.group(2),
+                                        matchObj.group(3), matchObj.group(4),
+                                        matchObj.group(5), matchObj.group(6), matchObj.group(7), matchObj.group(8),
+										matchObj.group(9)]
+				else:
+					[pc, bb_id, global_iid, app_dyn_iid, inst_type, tid,  injBID] = [matchObj.group(1), matchObj.group(2),
                                         matchObj.group(3), matchObj.group(4),
                                         matchObj.group(5), matchObj.group(6), matchObj.group(7)]
 				break 
 		logf.close()
-	return [pc, bb_id, global_iid, app_dyn_iid, inst_type, tid, injBID];
+	if pc_mode:
+		return [pc, bb_id, global_iid, app_dyn_iid, inst_type, tid, injBID, kname, kcount]
+	else:
+		return [pc, bb_id, global_iid, app_dyn_iid, inst_type, tid, injBID];
 
 ###############################################################################
 # Classify error injection result based on stdout, stderr, application output,
@@ -157,7 +183,12 @@ def classify_injection(app, igid, kname, kcount, iid, opid, bid, retcode, dmesg_
 		if cp.verbose: print "Skipped injection "
 		return cp.OTHERS
 	if ":::Injecting: " not in stdout_str: 
-		if cp.verbose: print "Error Not Injected: %s, %s, %s, %s, %s, %s" %(igid, kname, kcount, iid, opid, bid)
+		if cp.verbose: 
+			if pc_mode:
+				print "Error Not Injected: %s, %s, %s, %s, %s" %(igid, pc, pc_count, opid, bid)
+			else:
+				print "Error Not Injected: %s, %s, %s, %s, %s, %s" %(igid, kname, kcount, iid, opid, bid)
+
 		return cp.OTHERS
 	if "Error: misaligned address" in stdout_str: 
 		return cp.STDOUT_ERROR_MESSAGE
@@ -272,12 +303,16 @@ def run_one_injection_job(igid, bfm, app, kname, kcount, iid, opid, bid):
 		ret_cat = cp.TIMEOUT 
 	else:
 		ret_cat = classify_injection(app, igid, kname, kcount, iid, opid, bid, retcode, dmesg_delta)
-		[pc, bb_id, global_iid, app_dyn_iid, inst_type, tid, injBID] = get_inj_info()
-	
+		if pc_mode:
+			[kname, kcount, pc, bb_id, global_iid, app_dyn_iid, inst_type, tid, injBID] = get_inj_info()
+		else:
+			[pc, bb_id, global_iid, app_dyn_iid, inst_type, tid, injBID] = get_inj_info()
+		
 	os.chdir(cwd) # return to the main dir
 	#print ret_cat
 
 	elapsed = datetime.datetime.now() - start
+
 	record_result(igid, bfm, app, kname, kcount, iid, opid, bid, ret_cat, pc, bb_id, global_iid, app_dyn_iid, inst_type, tid, injBID, get_seconds(elapsed), dmesg_delta)
 
 	if get_seconds(elapsed) < 0.5: time.sleep(0.5)
@@ -289,21 +324,28 @@ def run_one_injection_job(igid, bfm, app, kname, kcount, iid, opid, bid):
 # Starting point of the execution
 ###############################################################################
 def main(): 
-	# check if paths exit
+	# check if paths exist
 	if not os.path.isdir(sp.SASSIFI_HOME): print "Error: Regression dir not found!"
 	if not os.path.isdir(sp.logs_base_dir + "/results"): os.system("mkdir -p " + sp.logs_base_dir + "/results") # create directory to store summary
 
-	if len(sys.argv) == 10 or len(sys.argv)==11:
+	if len(sys.argv) == 10 or len(sys.argv)==11 or len(sys.argv)==9:
 		start= datetime.datetime.now()
 		interval_mode_ = sys.argv[1] == "interval_mode"
-		global interval_id, interval_size
+		pc_mode_ = sys.argv[1] == "pc_mode"
+		global interval_id, interval_size, pc, pc_count
 		interval_id = "-1"
 		interval_size = "-1"
+		pc_count = "-1"
+		pc = "-1"
 		if interval_mode_:
 			[igid, bfm, app, kname, kcount, interval_size, interval_id, iid, opid, bid] = [sys.argv[2], sys.argv[3], sys.argv[4], "", "", sys.argv[5], sys.argv[6], sys.argv[7], sys.argv[8], sys.argv[9]]
+		elif pc_mode_:
+			[igid, bfm, app, pc, pc_count, opid, bid] = [sys.argv[2], sys.argv[3], sys.argv[4], str(sys.argv[5]),\
+					str(sys.argv[6]), str(sys.argv[7]), str(sys.argv[8])]
+			[kname, kcount, iid] = ["", "-1", "-1"]
 		else:
 			[igid, bfm, app, kname, kcount, iid, opid, bid] = [sys.argv[2], sys.argv[3], sys.argv[4], str(sys.argv[5]), str(sys.argv[6]), str(sys.argv[7]), str(sys.argv[8]), str(sys.argv[9])]
-		set_env_variables(igid, bfm, app, kname, kcount, iid, opid, bid, interval_mode_) 
+		set_env_variables(igid, bfm, app, kname, kcount, iid, opid, bid, interval_mode_, pc_mode_) 
 		
 		err_cat = run_one_injection_job(igid, bfm, app, kname, kcount, iid, opid, bid) 
 	

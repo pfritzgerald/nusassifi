@@ -26,7 +26,7 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ###################################################################################
 
-import sys, re, string, os, operator, math, datetime, random
+import sys, re, string, os, operator, math, datetime, random, sqlite3
 import common_params as cp
 import specific_params as sp
 import common_functions as cf 
@@ -63,6 +63,35 @@ def write_injection_list_file(app, igid, bfm, num_injections, total_count, count
 			print "%d/%d: Selected: %s" %(num_injections, total_count, selected_str)
 		f.write(selected_str + "\n") # print injection site information
 	f.close()
+
+########################################################################
+# FRITZ - write injection list file function for PC-specific injections
+#####################################################################
+def write_injection_list_file_pc(app, igid, bfm, pcList):
+	#if verbose:
+	#	print "total_count = %d, num_injections = %d" %(total_)
+	fName = sp.app_log_dir[app] + "/injection-list/igid" + str(igid) + ".bfm" + str(bfm) + "." + str(sp.NUM_INJECTIONS)+ ".pc.txt"
+	print fName
+	f = open(fName, "w")
+	total_faults = 0	
+	for pupc in pcList:
+		pc = pupc[0]
+		pc_count = int(pupc[2])
+		num_faults = int(round(sp.NUM_INJECTIONS * float(pupc[1])))
+		print "PC: " + pc + " num faults: " + str(num_faults)
+		for fault_id in range(0, num_faults):
+			total_faults += 1 
+			pc_count = random.randint(0, pc_count)
+			inj_op_id_seed = random.random()
+			inj_bid_seed = random.random()
+			selected_str = pc + " " + str(pc_count)  + " " + str(inj_op_id_seed) + " " + str(inj_bid_seed) + " "
+			#if verbose:
+			#	print ""
+			f.write(selected_str + "\n")
+	f.close()	
+
+
+
 ########################################################################
 # FRITZ - write injection list file function for interval-specific injections
 #####################################################################
@@ -109,9 +138,50 @@ def gen_lists(app, countList, is_rf):
 ###################################################################
 # FRITZ - Generate injection list of each app for 
 # instruction-level injections for each error model and instruction type
+# for PC-based injections
+#######################################################################
+def gen_lists_pc(app, pcList):
+	for igid in sp.igid_bfm_map:
+		for bfm in sp.igid_bfm_map[igid]:
+			write_injection_list_file_pc(app, igid, bfm, pcList)
+
+####################################################################
+# FRITZ added in for support for injections in specific PCs
+# 	This could eventually be moved to common_functions.py
+#
+#	This function reads the interval file for an app and 
+#		returns an array of this format:
+#		[App, PC, PC_ratio]
+#
+######################################################################
+def get_pc_distribution(app, db_file):
+	pcList = []
+	print app
+	if not os.path.exists(db_file):
+		print "%s DB file not found" %fName
+		return pcList
+	conn = sqlite3.connect(db_file)
+	c = conn.cursor()
+	pupcs = c.execute('SELECT PUPC, 1.0*(Weight)/IgIdMap.InstCount AS Pct, Weight FROM PUPCs,IgIdMap WHERE '\
+			'Description LIKE \'GPR\' AND IgIdMap.App==PUPCs.App AND NumPRDsts>0 AND PUPCs.App IS '\
+			'\'%s\' GROUP BY PUPC;' %(app)).fetchall()
+	for pupc in pupcs:
+		pcList.append([pupc[0],pupc[1],pupc[2]])
+#		print pupc[0],pupc[1]
+	
+	conn.close()
+	#intervalList.append([interval_size, num_faults_per_interval, interval_id, num_igid_insts])
+
+#	print "pclList : " + str(pcList)
+	return pcList
+	
+
+###################################################################
+# FRITZ - Generate injection list of each app for 
+# instruction-level injections for each error model and instruction type
 # for interval=specific injections
 #######################################################################
-def gen_lists_interval(app, intervalList):
+def gen_lists_interval(app, pcList):
 	for igid in sp.igid_bfm_map:
 		for bfm in sp.igid_bfm_map[igid]:
 			write_injection_list_file_interval(app, igid, bfm, intervalList)
@@ -151,14 +221,16 @@ def read_interval_file(app_dir, app):
 # Starting point of the script
 #################################################################
 def main():
+	db_file = "profiling.db"
 	if len(sys.argv) == 2: 
 		is_rf = (sys.argv[1] == "rf")
 		interval = False
 	elif len(sys.argv) == 3:
 		is_rf = (sys.argv[1] == "rf")
 		interval = (sys.argv[2] == "interval")
+		pc = (sys.argv[2] == "pc")
 	else:
-		print "Usage: ./script-name <rf or inst>"
+		print "Usage: ./script-name <rf or inst> [<pc or interval>]"
 		print "There are two modes to conduct error injections"
 		print "rf: tries to randomly pick a register and inject a bit flip in it (tries to model particle strikes in register file)"
 		print "inst: tries to randomly pick a dynamic instruction and inject error in the destimation regsiter" 
@@ -173,7 +245,12 @@ def main():
 			intervalList = read_interval_file(sp.app_dir[app], app)
 			if verbose: print intervalList
 			gen_lists_interval(app, intervalList)
-			print "OUTPUT : Check %s" % (sp.app_log_dir[app] + "/injection-list/")	
+			print "OUTPUT : Check %s" % (sp.app_log_dir[app] + "/injection-list/")
+		if pc:
+			pcList = get_pc_distribution(app, db_file)
+			if verbose: print pcList
+			gen_lists_pc(app, pcList)
+
 		else:	
 			countList =  cf.read_inst_counts(sp.app_dir[app], app)
 			total_count = cf.get_total_insts(countList)
