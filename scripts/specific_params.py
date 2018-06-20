@@ -44,11 +44,11 @@ import common_params as p
 # per instruction group (IGID) and bit-flip model (BFM).
 # 
 USE_ARRAY = True
-NUM_INJECTIONS = 100#00
+NUM_INJECTIONS = 500#00
 
 # Specify how many injections you want to perform per IGID and BFM combination. 
 # Only the first THRESHOLD_JOBS will be selected from the generated NUM_INJECTIONS.
-THRESHOLD_JOBS = 100#00 # test
+THRESHOLD_JOBS = 500#00 # test
 # THRESHOLD_JOBS sould be <= NUM_INJECTIONS
 assert THRESHOLD_JOBS <= NUM_INJECTIONS
 
@@ -90,13 +90,13 @@ igid_bfm_map = {
 apps = {
 #	'b+tree': ['rodinia', 'b+tree.out', 3],
 	'lavaMD': ['rodinia','lavaMD',6],
-	#'nw': ['rodinia','nw', 7],
-	#'gaussian': ['rodinia', 'gaussian', 50],
-	#'backprop': ['rodinia', 'backprop', 4],
+	'nw': ['rodinia','nw', 7],
+	'gaussian': ['rodinia', 'gaussian', 50],
+	'backprop': ['rodinia', 'backprop', 4],
 	#'hotspot': ['rodinia', 'hotspot',10],
 	#'kmeans': ['rodinia', 'kmeans',5],
 	#'bfs': ['rodinia', 'bfs', 15],
-#	#'huffman': ['rodinia', 'pavle', 10],
+#	##'huffman': ['rodinia', 'pavle', 10],
 	#'lud': ['rodinia', 'lud_cuda', 7],
 	#'nn': ['rodinia', 'nn', 5],
 	#'srad_v1': ['rodinia', 'srad_v1', 110],
@@ -132,7 +132,7 @@ apps = {
 	#'reduction' : ['cuda-sdk', 'reduction', 75],
 	#'scalarProd' : ['cuda-sdk', 'scalarProd', 50],
 	#'scan': ['cuda-sdk', 'scan', 100],
-	#'SobolQRNG':['cuda-sdk', 'SobolQRNG', 20],
+	'SobolQRNG':['cuda-sdk', 'SobolQRNG', 20],
 	#'IIR' :['nupar', 'IIR', 50],
 }
 
@@ -160,6 +160,7 @@ bin_base_dir = SASSIFI_HOME + "/bin/"
 app_log_dir = {} 
 script_dir = {} 
 bin_dir = {}
+pc_bin_dir = {}
 app_dir = {}
 app_data_dir = {}
 def set_paths(): 

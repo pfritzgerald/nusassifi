@@ -44,6 +44,8 @@
 #include "sassi_dictionary.hpp"
 #include "sassi_lazyallocator.hpp"
 
+#include "error_injector.h"
+
 #define MAX_FN_STR_LEN 64
 //__managed__ sassi::dictionary<int64_t, uint64_t> *kname_map;
 //__managed__ int fname_counter;
@@ -58,6 +60,7 @@ struct PUPC
 	int GPRDsts[SASSI_NUMGPRDSTS];
 	int GPRSrcs[SASSI_NUMGPRSRCS];
 	bool isMem;
+	bool isDestReg;
 	unsigned long long weight;
 };
 
@@ -102,6 +105,7 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIRegisterParams *r
 		//inst->fnName = kname_code;
 		inst->opcode = ap->GetOpcode();
 		inst->isMem = ap->IsMem();
+		inst->isDestReg = has_dest_reg(rp);
 		inst->numGPRDsts = rp->GetNumGPRDsts();
 		inst->numGPRSrcs = rp->GetNumGPRSrcs();
 		for (int i=0; i<rp->GetNumGPRSrcs(); i++)
@@ -128,7 +132,8 @@ static void sassi_finalize(sassi::lazy_allocator::device_reset_reason reason)
 		pupc_ofs << "PUPC," << std::hex << inst.pupc << ",BBId,"
 		<< std::dec << inst.basic_block_id 
 		<< ",fnName," << inst.fnName << ",opcode," 
-		<< SASSIInstrOpcodeStrings[inst.opcode] << ",isMem," << inst.isMem << ",weight," 
+		<< SASSIInstrOpcodeStrings[inst.opcode] << ",isMem," << inst.isMem << ",isDestReg,"
+		<< inst.isDestReg << ",weight," 
 		<< inst.weight << ",numGPRSrcs," << inst.numGPRSrcs <<",GPRSrcs,";
 		for (int i=0; i<inst.numGPRSrcs; i++)
 			pupc_ofs << std::dec << inst.GPRSrcs[i] << ",";

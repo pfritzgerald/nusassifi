@@ -55,7 +55,7 @@ def set_env_variables(igid, bfm, app, kname, kcount, iid, opid, bid, interval_mo
 	pc_mode = pc_mode_
 	kname_truncated = kname[:100] if len(kname) > 100 else kname
 	if pc_mode_:
-		new_directory = sp.logs_base_dir + sp.apps[app][0] + "/" + app + "-igid" + igid + "-bfm" + bfm + "-" + pc + "-"\
+		new_directory = sp.logs_base_dir + sp.apps[app][0] + "/" + app + "-igid" + igid + "-bfm" + bfm + "-" + pc_global + "-"\
 				+ pc_count + "-" + opid + "-" + bid
 	else:
 		new_directory = sp.logs_base_dir + sp.apps[app][0] + "/" + app + "-igid" +  igid + "-bfm" + bfm + "-" + kname_truncated + "-" + kcount + "-" + iid + "-" + opid + "-" + bid
@@ -65,7 +65,10 @@ def set_env_variables(igid, bfm, app, kname, kcount, iid, opid, bid, interval_mo
 
 	# Make sure that you use the same ENV variables in the run scripts
 	os.environ['RUNSCRIPT_DIR'] = sp.script_dir[app]
-	os.environ['BIN_DIR'] = sp.bin_dir[app]
+	if pc_mode:
+		os.environ['BIN_DIR'] = sp.pc_bin_dir[app]
+	else:
+		os.environ['BIN_DIR'] = sp.bin_dir[app]
 	os.environ['APP_DIR'] = sp.app_dir[app]
 	os.environ['DATASET_DIR'] = sp.app_data_dir[app]
 
@@ -95,7 +98,7 @@ def record_result(igid, bfm, app, kname, kcount, iid,  opid, bid, cat, pc, bb_id
 	if interval_mode:
 		rf.write(kname + "-" + kcount + "-" + interval_size + "-" + interval_id + "-" + iid + "-" + opid + "-" + bid + ":" + str(pc) + ":" + str(bb_id) + ":" + str(global_iid) + ":" + str(app_dyn_iid) + ":" + str(inst_type) + ":" +  str(tid) + ":" + str(injBID) + ":" + str(runtime) + ":" + str(cat) + ":" + dmesg + "\n")
 	elif pc_mode:
-		rf.write(str(kname) + "-" + str(kcount) + "-" + str(iid) + "-" + opid + "-" + bid + "-" + str(pc) + "-" + str(pc_count) + ":" + str(bb_id) + ":" + str(global_iid) + ":" + str(app_dyn_iid) + ":" + str(inst_type) + ":" +  str(tid) + ":" + str(injBID) + ":" + str(runtime) + ":" + str(cat) + ":" + dmesg + "\n")
+		rf.write(str(kname) + "-" + str(kcount) + "-" + str(iid) + "-" + opid + "-" + bid + "-" + str(pc_global) + "-" + str(pc_count) + ":" + str(bb_id) + ":" + str(global_iid) + ":" + str(app_dyn_iid) + ":" + str(inst_type) + ":" +  str(tid) + ":" + str(injBID) + ":" + str(runtime) + ":" + str(cat) + ":" + dmesg + "\n")
 	else:
 		rf.write(kname + "-" + kcount + "-" + iid + "-" + opid + "-" + bid + ":" + str(pc) + ":" + str(bb_id) + ":" + str(global_iid) + ":" + str(app_dyn_iid) + ":" + str(inst_type) + ":" +  str(tid) + ":" + str(injBID) + ":" + str(runtime) + ":" + str(cat) + ":" + dmesg + "\n")
 
@@ -106,7 +109,12 @@ def record_result(igid, bfm, app, kname, kcount, iid,  opid, bid, cat, pc, bb_id
 	# Record the outputs if 
 	if cat == cp.OUT_DIFF or cat == cp.STDOUT_ONLY_DIFF or cat == cp.APP_SPECIFIC_CHECK_FAIL:
 		if not os.path.isdir(sp.app_log_dir[app] + "/sdcs"): os.system("mkdir -p " + sp.app_log_dir[app] + "/sdcs") # create directory to store sdcs 
-		full_sdc_dir = sp.app_log_dir[app] + "/sdcs/sdc-" + app + "-igid" +  igid + "-bfm" + bfm + "-" + kname + "-" + kcount + "-" + iid + "-" + opid + "-" + bid 
+		if pc_mode:
+			full_sdc_dir = sp.app_log_dir[app] + "/sdcs/sdc-" + app + "-igid" +\
+					igid + "-bfm" + bfm + "-pc" + str(pc_global) + "-pccnt" +\
+					str(pc_count) + "-" + iid + "-" + opid + "-" + bid 
+		else:
+			full_sdc_dir = sp.app_log_dir[app] + "/sdcs/sdc-" + app + "-igid" +  igid + "-bfm" + bfm + "-" + kname + "-" + kcount + "-" + iid + "-" + opid + "-" + bid 
 		os.system("mkdir -p " + full_sdc_dir) # create directory to store sdc
 		map((lambda x: shutil.copy(x, full_sdc_dir)), [stdout_fname, stderr_fname, injection_seeds_file, new_directory + "/" + sp.output_diff_log]) # copy stdout, stderr injection seeds, output diff
 		shutil.make_archive(full_sdc_dir, 'gztar', full_sdc_dir) # archieve the outputs
@@ -123,7 +131,7 @@ def create_p_file(p_filename, igid, bfm, kname, kcount, iid, opid, bid):
 		if interval_mode:
 			outf.write(igid + "\n" + bfm + "\n" + interval_size +  "\n" + interval_id + "\n" + iid + "\n" + opid + "\n" + bid)
 		elif pc_mode:
-			outf.write(igid + "\n" + bfm + "\n" + pc + "\n" + pc_count + "\n" + opid + "\n" + bid)
+			outf.write(igid + "\n" + bfm + "\n0x" + pc_global + "\n" + pc_count + "\n" + opid + "\n" + bid)
 		else:
 			outf.write(igid + "\n" + bfm + "\n" + kname + "\n" + kcount + "\n" + iid + "\n" + opid + "\n" + bid)
 	outf.close()
@@ -139,17 +147,16 @@ def get_inj_info():
 		for line in logf:
 			#":::Injecting: opcode=%s tid=%d instCount=%lld instType=GPR injOpID=%d injBIDSeed=%f:::", SASSIInstrOpcodeStrings[ap->GetOpcode()], get_flat_tid(), injInstID, injOpID, injBIDSeed);
 			if pc_mode:
-				matchObj = re.match( r'.*:::Injecting: pc=(\S+) bbId=(\d+) GlobalInstCount=(\d+) AppDynInstCount=(\d+) opcode=(\S+) tid=(\d+) .* injBID=(\d+) kname=(\S+) kcount=(\d):::.*', line, re.M) 
+				matchObj = re.match( r'.*:::Injecting: pc=(\S+) bbId=(\d+) GlobalInstCount=(\d+) AppDynInstCount=(\d+) opcode=(\S+) tid=(\d+) .* injBID=(\d+):::.*', line, re.M) 
 			else:
 				matchObj = re.match( r'.*:::Injecting: pc=(\S+) bbId=(\d+) GlobalInstCount=(\d+) AppDynInstCount=(\d+) opcode=(\S+) tid=(\d+) .* injBID=(\d+):::.*', line, re.M) #:::Injecting: opcode=IADD tid=583564 instCount=1284359 instType=CC injBID=0:::
 
 
 			if matchObj:
 				if pc_mode:
-					[pc, bb_id, global_iid, app_dyn_iid, inst_type, tid,  injBID, kname, kcount] = [matchObj.group(1), matchObj.group(2),
+					[pc, bb_id, global_iid, app_dyn_iid, inst_type, tid, injBID] = [matchObj.group(1), matchObj.group(2),
                                         matchObj.group(3), matchObj.group(4),
-                                        matchObj.group(5), matchObj.group(6), matchObj.group(7), matchObj.group(8),
-										matchObj.group(9)]
+                                        matchObj.group(5), matchObj.group(6), matchObj.group(7)]
 				else:
 					[pc, bb_id, global_iid, app_dyn_iid, inst_type, tid,  injBID] = [matchObj.group(1), matchObj.group(2),
                                         matchObj.group(3), matchObj.group(4),
@@ -185,7 +192,7 @@ def classify_injection(app, igid, kname, kcount, iid, opid, bid, retcode, dmesg_
 	if ":::Injecting: " not in stdout_str: 
 		if cp.verbose: 
 			if pc_mode:
-				print "Error Not Injected: %s, %s, %s, %s, %s" %(igid, pc, pc_count, opid, bid)
+				print "Error Not Injected: %s, %s, %s, %s, %s" %(igid, pc_global, pc_count, opid, bid)
 			else:
 				print "Error Not Injected: %s, %s, %s, %s, %s, %s" %(igid, kname, kcount, iid, opid, bid)
 
@@ -304,7 +311,7 @@ def run_one_injection_job(igid, bfm, app, kname, kcount, iid, opid, bid):
 	else:
 		ret_cat = classify_injection(app, igid, kname, kcount, iid, opid, bid, retcode, dmesg_delta)
 		if pc_mode:
-			[kname, kcount, pc, bb_id, global_iid, app_dyn_iid, inst_type, tid, injBID] = get_inj_info()
+			[pc, bb_id, global_iid, app_dyn_iid, inst_type, tid, injBID, kname, kcount] = get_inj_info()
 		else:
 			[pc, bb_id, global_iid, app_dyn_iid, inst_type, tid, injBID] = get_inj_info()
 		
@@ -332,17 +339,17 @@ def main():
 		start= datetime.datetime.now()
 		interval_mode_ = sys.argv[1] == "interval_mode"
 		pc_mode_ = sys.argv[1] == "pc_mode"
-		global interval_id, interval_size, pc, pc_count
+		global interval_id, interval_size, pc_global, pc_count
 		interval_id = "-1"
 		interval_size = "-1"
 		pc_count = "-1"
-		pc = "-1"
+		pc_global = "-1"
 		if interval_mode_:
 			[igid, bfm, app, kname, kcount, interval_size, interval_id, iid, opid, bid] = [sys.argv[2], sys.argv[3], sys.argv[4], "", "", sys.argv[5], sys.argv[6], sys.argv[7], sys.argv[8], sys.argv[9]]
 		elif pc_mode_:
-			[igid, bfm, app, pc, pc_count, opid, bid] = [sys.argv[2], sys.argv[3], sys.argv[4], str(sys.argv[5]),\
+			[igid, bfm, app, pc_global, pc_count, opid, bid] = [sys.argv[2], sys.argv[3], sys.argv[4], str(sys.argv[5]),\
 					str(sys.argv[6]), str(sys.argv[7]), str(sys.argv[8])]
-			[kname, kcount, iid] = ["", "-1", "-1"]
+			[kname, kcount, iid] = ["", "", ""]
 		else:
 			[igid, bfm, app, kname, kcount, iid, opid, bid] = [sys.argv[2], sys.argv[3], sys.argv[4], str(sys.argv[5]), str(sys.argv[6]), str(sys.argv[7]), str(sys.argv[8]), str(sys.argv[9])]
 		set_env_variables(igid, bfm, app, kname, kcount, iid, opid, bid, interval_mode_, pc_mode_) 

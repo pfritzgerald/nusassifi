@@ -103,12 +103,14 @@ def create_sbatch_script(app,array_num):
 	outf.close()
 	return filename
 
-def check_and_submit_cluster(cmd, app, total_jobs, interval_mode):
+def check_and_submit_cluster(cmd, app, total_jobs, interval_mode, pc_mode):
 	threshold_num = 1000
 	array_num = ((total_jobs - 1) / threshold_num) + 1
 	if total_jobs < sp.THRESHOLD_JOBS + 1:
 		os.system("echo " + cmd + " >> " + sp.SASSIFI_HOME + "/scripts/tmp/" + app + "/cmds_" + str(array_num) + ".out")
-	if (total_jobs == sp.THRESHOLD_JOBS) or ((total_jobs % threshold_num) == 0) or (interval_mode and (total_jobs == total_interval_jobs)):
+	if (total_jobs == sp.THRESHOLD_JOBS) or ((total_jobs % threshold_num) == 0)\
+			or (interval_mode and (total_jobs == total_interval_jobs))\
+			or (pc_mode and (total_pc_jobs == total_jobs)):
 		sbatch_script=create_sbatch_script(app,array_num)
 		num_jobs = (total_jobs % threshold_num) if (total_jobs % threshold_num) else threshold_num
 		if sp.USE_ARRAY:
@@ -159,6 +161,8 @@ def run_multiple_injections_igid(app, is_rf, igid, where_to_run, interval_mode, 
 		elif pc_mode:
 			inj_list_filenmae = sp.app_log_dir[app] + "/injection-list/igid" + str(igid) + ".bfm" + str(bfm) + "." + \
 					str(sp.NUM_INJECTIONS) + ".pc.txt"
+			global total_pc_jobs
+			total_pc_jobs = sum(1 for line in open(inj_list_filenmae))
 		else:
 			inj_list_filenmae = sp.app_log_dir[app] + "/injection-list/igid" + str(igid) + ".bfm" + str(bfm) + "." + str(sp.NUM_INJECTIONS) + ".txt"
 		inf = open(inj_list_filenmae, "r")
@@ -192,7 +196,7 @@ def run_multiple_injections_igid(app, is_rf, igid, where_to_run, interval_mode, 
 					cmd = "%s %s/scripts/run_one_injection.py normal_mode %s %s %s %s %s %s %s %s" %(cp.PYTHON_P,
 							sp.SASSIFI_HOME, str(igid), str(bfm), app, kname, kcount, iid, opid, bid)
 				if where_to_run == "cluster":
-					check_and_submit_cluster(cmd, app, total_jobs, interval_mode)
+					check_and_submit_cluster(cmd, app, total_jobs, interval_mode,pc_mode)
 				elif where_to_run == "multigpu":
 					check_and_submit_multigpu(cmd)
 				else:

@@ -78,6 +78,8 @@ def write_injection_list_file_pc(app, igid, bfm, pcList):
 		pc = pupc[0]
 		pc_count = int(pupc[2])
 		num_faults = int(round(sp.NUM_INJECTIONS * float(pupc[1])))
+		if num_faults > (sp.NUM_INJECTIONS/100):
+			num_faults=int(sp.NUM_INJECTIONS/100)
 		print "PC: " + pc + " num faults: " + str(num_faults)
 		for fault_id in range(0, num_faults):
 			total_faults += 1 
@@ -163,11 +165,11 @@ def get_pc_distribution(app, db_file):
 	conn = sqlite3.connect(db_file)
 	c = conn.cursor()
 	pupcs = c.execute('SELECT PUPC, 1.0*(Weight)/IgIdMap.InstCount AS Pct, Weight FROM PUPCs,IgIdMap WHERE '\
-			'Description LIKE \'GPR\' AND IgIdMap.App==PUPCs.App AND NumPRDsts>0 AND PUPCs.App IS '\
+			'Description LIKE \'DEST_REG\' AND IgIdMap.App==PUPCs.App AND IsDestReg==1 AND PUPCs.App IS '\
 			'\'%s\' GROUP BY PUPC;' %(app)).fetchall()
 	for pupc in pupcs:
 		pcList.append([pupc[0],pupc[1],pupc[2]])
-#		print pupc[0],pupc[1]
+		print pupc[0],pupc[1]
 	
 	conn.close()
 	#intervalList.append([interval_size, num_faults_per_interval, interval_id, num_igid_insts])
@@ -225,6 +227,7 @@ def main():
 	if len(sys.argv) == 2: 
 		is_rf = (sys.argv[1] == "rf")
 		interval = False
+		pc = False
 	elif len(sys.argv) == 3:
 		is_rf = (sys.argv[1] == "rf")
 		interval = (sys.argv[2] == "interval")

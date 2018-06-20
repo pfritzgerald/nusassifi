@@ -132,11 +132,11 @@ void parse_params(std::string filename) {
 		ifs >> inj_info.injBFM; // fault model: single bit flip, all bit flip, random value
 		assert(inj_info.injBFM < NUM_BFM_TYPES); // ensure that the value is in the expected range
 #if INTERVAL_MODE_INJECTION != 1
-		ifs >> inj_info.injKernelName;
-		ifs >> inj_info.injKCount;
+	//	ifs >> inj_info.injKernelName;
+	//	ifs >> inj_info.injKCount;
 #else
-	//	ifs >> inj_info.injIntervalSize;
-	//	ifs >> inj_info.injIntervalID;
+		ifs >> inj_info.injIntervalSize;
+		ifs >> inj_info.injIntervalID;
 #endif
 		ifs >> std::hex >> inj_info.injPC; // PC
 		ifs >> std::dec >> inj_info.injPCCount;
@@ -494,12 +494,6 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp,
 #if INTERVAL_MODE_INJECTION == 1
 	int interval = dyn_inst_count / inj_info.injIntervalSize;
 	if (inj_info.injIntervalID != interval) //{
-//		printf("-------\nFRITZ: INTERVAL MODE READY FOR INJECTION\n---------\n");
-//		inj_info.intervalModeReady = true;
-		//__threadfence();
-		//inj_info.injThreadID = get_flat_tid();
-//	}
-//	else
 		return;
 
 #endif
@@ -516,12 +510,13 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp,
 	switch (inj_info.injIGID) {
 		case GPR: {
 				if (has_dest_GPR(rp)) {
-					unsigned long long pcCounter = atomicAdd(&InjPCCounter, 1LL); // update counter, return old value
+					unsigned long long pcCounter = atomicAdd(&InjPCCount, 1LL); // update counter, return old value
 #if INTERVAL_MODE_INJECTION == 1
 					//__threadfence();
 					unsigned long long currIntervalInstCount = atomicAdd(&IntervalInstCount, 1LL);
 					bool cond = inj_info.injInstID == currIntervalInstCount;// && inj_info.intervalModeReady && (!inj_info.intervalModeInjected);
-#else  
+#else
+
 					bool cond = inj_info.injPCCount == pcCounter; // the current opcode matches injIGID and injInstID matches
 #endif
 					if (inj_info.injBFM == WARP_FLIP_SINGLE_BIT || inj_info.injBFM == WARP_FLIP_TWO_BITS  || inj_info.injBFM == WARP_RANDOM_VALUE || inj_info.injBFM == ZERO_VALUE || inj_info.injBFM == WARP_ZERO_VALUE) {  // For warp wide injections 
@@ -529,6 +524,12 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp,
 					}
 	
 					if(cond) { 
+					/*	printf("--------------\n"
+						"injPC %lx , currentPC:%lx, pcCount=%lldi looking for %lld\n"
+						"----------------------------\n",
+						inj_info.injPC, ap->GetPUPC(), pcCounter,
+						inj_info.injPCCount);*/
+
 						 // get destination register info, get the value in that register, and inject error
 #if INTERVAL_MODE_INJECTION == 1
 						inj_info.intervalModeInjected = true;
@@ -541,14 +542,15 @@ __device__ void sassi_after_handler(SASSIAfterParams* ap, SASSIMemoryParams *mp,
 			break;
 		case DEST_REG: {
 				if (has_dest_reg(rp)) {
+					unsigned long long pcCounter = atomicAdd(&InjPCCount, 1LL); // update counter, return old value
 
-					unsigned long long currInstCounter = atomicAdd(&injCountersInstType[DEST_REG], 1LL); // update counter, return old value
 #if INTERVAL_MODE_INJECTION == 1
 					//__threadfence();
 					unsigned long long currIntervalInstCount = atomicAdd(&IntervalInstCount, 1LL);
 					bool cond = inj_info.injInstID == currIntervalInstCount;// && inj_info.intervalModeReady && (!inj_info.intervalModeInjected);
 #else  
-					bool cond = inj_info.injInstID == currInstCounter; // the current opcode matches injIGID and injInstID matches
+					bool cond = inj_info.injPCCount == pcCounter; // the current opcode matches injIGID and injInstID matches
+
 #endif
 					if (inj_info.injBFM == WARP_FLIP_SINGLE_BIT || inj_info.injBFM == WARP_FLIP_TWO_BITS  || inj_info.injBFM == WARP_RANDOM_VALUE || inj_info.injBFM == ZERO_VALUE || inj_info.injBFM == WARP_ZERO_VALUE) {  // For warp wide injections 
 						cond = (__any(cond) != 0) ; // __any() evaluates cond for all active threads of the warp and return non-zero if and only if cond evaluates to non-zero for any of them.

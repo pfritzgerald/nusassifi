@@ -52,6 +52,9 @@ inst_count = {}
 def parse_results_file(app, igid, bfm, c):
 	if injection_mode == "interval":
 		results_f_name = sp.app_log_dir[app] + "results-igid" + str(igid) + ".bfm" + str(bfm) + ".interval.txt"
+	elif injection_mode == "pc":
+		results_f_name = sp.app_log_dir[app] + "results-igid" + str(igid) +	".bfm" + str(bfm) + "." +\
+				str(sp.NUM_INJECTIONS) + ".pc.txt"
 	else:
 		results_f_name = sp.app_log_dir[app] + "results-igid" + str(igid) + ".bfm" + str(bfm) + "." + str(sp.NUM_INJECTIONS) + ".txt"
 	try:
@@ -64,6 +67,7 @@ def parse_results_file(app, igid, bfm, c):
         print "file is " + rf.name
 	num_lines = 0
 	for line in rf: # for each injection site 
+		print "-------LINE: " + str(num_lines) + "---------------"
 		#Example line: _Z22bpnn_layerforward_CUDAPfS_S_S_ii-0-26605491-0.506809798834-0.560204950825:..:MOV:773546:17:0.759537:3:dmesg, 
 		#kname-kcount-iid-allIId-opid-bid:pc:opcode:tid:injBID:runtime_sec:outcome_category:dmesg
 		words = line.split(":")
@@ -75,6 +79,13 @@ def parse_results_file(app, igid, bfm, c):
 			bIdSeed = inj_site_info[6]
 			[opcode, injBID, runtime, outcome] = \
 			[words[5], int(words[7]), float(words[8]), int(words[9])]
+		elif injection_mode == "pc":
+			[opIdSeed, bIdSeed, pc_text, pc_count] = [inj_site_info[3], inj_site_info[4],\
+					'0x'+str(inj_site_info[5]), int(inj_site_info[6])]
+			[bb_id, global_inst_id, app_dyn_inst_id, opcode, tId, injBID, runtime, outcome] = \
+					[int(words[1]), int(words[2]), int(words[3]), words[4], int(words[5]), int(words[6]),\
+					float(words[7]), int(words[8])]
+
 		else:
 			[kname, invocation_index, opcode, injBID, runtime, outcome] = \
 			[inj_site_info[0], int(inj_site_info[1]), words[5], int(words[7]), float(words[8]), int(words[9])]
@@ -82,15 +93,16 @@ def parse_results_file(app, igid, bfm, c):
 			opIdSeed = inj_site_info[3]
 			bIdSeed = inj_site_info[4]
 #		print "words[1]: "+ str(words[1]),
-		pc_text = '0x'+str(words[1])
-                bb_id = int(words[2])
-                global_inst_id = int(words[3])
-                app_dyn_inst_id = int(words[4])
+		if injection_mode != "pc":
+			pc_text = '0x'+str(words[1])
+			bb_id = int(words[2])
+			global_inst_id = int(words[3])
+			app_dyn_inst_id = int(words[4])
+			tId = int(words[6])
 		if pc_text == '0x':
 			pc_text = "0x0"
 #		print "PC text: "  + " => " + pc_text
 #		pc = int(pc_text,0)
-		tId = int(words[6])
 		if injection_mode == "interval":
 			c.execute('INSERT OR IGNORE INTO Results '\
 				'VALUES(NULL, \'%s\',\'%s\',%d,\'%s\', \'%s\', %d, %d,'\
@@ -99,6 +111,12 @@ def parse_results_file(app, igid, bfm, c):
 					 interval_id, inst_id, pc_text,	bb_id, 
 					global_inst_id, app_dyn_inst_id, opcode, tId, 
 					injBID, runtime, (outcome-1)))
+		elif injection_mode == "pc":
+			c.execute('INSERT OR IGNORE INTO Results '\
+					'VALUES(NULL, \'%s\', \'%s\', \'%s\', \'%s\', %d, %d, \'%s\', %d, %d, '\
+					'%d, %d, \'%s\', %d, %d, %f, %d)'
+					% (suite, app, opIdSeed, bIdSeed, igid, bfm, pc_text, pc_count, bb_id,
+						global_inst_id, app_dyn_inst_id, opcode, tId, injBID, runtime, (outcome-1)))
 		else:
 			c.execute('INSERT OR IGNORE INTO Results '\
 				'VALUES(NULL, \'%s\',\'%s\',\'%s\',\'%s\', \'%s\''\
@@ -149,21 +167,22 @@ def parse_pupcs(app, c):
 	for line in rf: # for each mem access (or new kernel and invocation) 
 		words = line.split(",")
 		if words[0] == "PUPC":
-			pupc = words[1]
+			pupc = '0x' + words[1]
 			bb_id = int(words[3])
 			fnName = words[5]
 			opcode = words[7]
 			is_mem = int(words[9])
-			weight = int(words[11])
-			num_gpr_srcs = int(words[13])
+			is_dest_reg = int(words[11])
+			weight = int(words[13])
+			num_gpr_srcs = int(words[15])
 			gpr_srcs = ""
-			gpr_srcs = ",".join(map(str, words[15:15+num_gpr_srcs]))
-			num_gpr_dsts = int(words[16+num_gpr_srcs])
-			gpr_dsts = ",".join(map(str, words[18+num_gpr_srcs:18+num_gpr_srcs+num_gpr_dsts]))
+			gpr_srcs = ",".join(map(str, words[17:17+num_gpr_srcs]))
+			num_gpr_dsts = int(words[18+num_gpr_srcs])
+			gpr_dsts = ",".join(map(str, words[20+num_gpr_srcs:18+num_gpr_srcs+num_gpr_dsts]))
 			c.execute('INSERT OR IGNORE INTO PUPCs '\
 				'VALUES(NULL, \'%s\', \'%s\', '\
-				'%d,%d,\'%s\',\'%s\', %d, %d, \'%s\', %d,\'%s\')'
-				%(app, pupc, weight, bb_id, fnName, opcode, is_mem, num_gpr_srcs,
+				'%d,%d,\'%s\',\'%s\', %d, %d, %d, \'%s\', %d,\'%s\')'
+				%(app, pupc, weight, bb_id, fnName, opcode, is_mem,is_dest_reg, num_gpr_srcs,
 				gpr_srcs, num_gpr_dsts, gpr_dsts))
 
 
@@ -313,18 +332,24 @@ def print_usage():
 
 def CreateNewDB(c):
 	print "creating data DB"
-	if injection_mode != "interval":
-		c.execute('CREATE TABLE IF NOT EXISTS '\
-		  'Results(ID INTEGER PRIMARY KEY, Suite TEXT, App TEXT,  kName TEXT, '\
-		  'OpIdSeed TEXT, BIDSeed TEXT, IgId INTEGER, '\
-		  'BFM INTEGER, InvocationIdx INTEGER, InstId INTERGER, PC TEXT, BBId '\
-		  'INTEGER, GlobalInstId INTEGER, AppDynInstId INTEGER, '\
-		  'Opcode TEXT, TId INTEGER, InjBId INTEGER, Runtime INTEGER, OutcomeID INTEGER)')
-	else:
+	if injection_mode == "interval":
 		c.execute('CREATE TABLE IF NOT EXISTS '\
 		  'Results(ID INTEGER PRIMARY KEY, Suite TEXT, App TEXT,  IntervalSize INTEGER, '\
 		  'OpIdSeed TEXT, BIDSeed TEXT, IgId INTEGER, '\
 		  'BFM INTEGER, IntervalId INTEGER, InstId INTERGER, PC TEXT, BBId '\
+		  'INTEGER, GlobalInstId INTEGER, AppDynInstId INTEGER, '\
+		  'Opcode TEXT, TId INTEGER, InjBId INTEGER, Runtime INTEGER, OutcomeID INTEGER)')
+	elif injection_mode == "pc":
+		c.execute('CREATE TABLE IF NOT EXISTS '\
+				'Results(ID INTEGER PRIMARY KEY, Suite TEXT, App TEXT, OpIdSeed TEXT, '\
+				'BIDSeed TEXT, IgId INTEGER, BFM INTEGER, PC TEXT, PCCount INTEGER, BBId INTEGER, '\
+				'GlobalInstId INTEGER, AppDynInstId INTEGER, Opcode TEXT, TId INTEGER, '\
+				'InjBId INTEGER, Runtime INTEGER, OutcomeId INTEGER)')
+	else:
+		c.execute('CREATE TABLE IF NOT EXISTS '\
+		  'Results(ID INTEGER PRIMARY KEY, Suite TEXT, App TEXT,  kName TEXT, '\
+		  'OpIdSeed TEXT, BIDSeed TEXT, IgId INTEGER, '\
+		  'BFM INTEGER, InvocationIdx INTEGER, InstId INTERGER, PC TEXT, BBId '\
 		  'INTEGER, GlobalInstId INTEGER, AppDynInstId INTEGER, '\
 		  'Opcode TEXT, TId INTEGER, InjBId INTEGER, Runtime INTEGER, OutcomeID INTEGER)')
 
@@ -360,8 +385,8 @@ def CreateNewDB(c):
 			' IntervalId INTEGER, NumGPRInsts INTEGER)')
 	c.execute('CREATE TABLE IF NOT EXISTS '\
 			'PUPCs(ID INTEGER PRIMARY KEY, App TEXt, PUPC TEXT, Weight INTEGER, BBId INTEGER, '\
-			'FnName TEXT, Opcode TEXT, IsMem INTEGER, NumGPRSrcs INTEGER, GPRSrcs TEXT, '\
-			'NumPRDsts INTEGER, GPRDsts TEXT)')
+			'FnName TEXT, Opcode TEXT, IsMem INTEGER, IsDestReg INTEGER, NumGPRSrcs INTEGER, GPRSrcs TEXT, '\
+			'NumGPRDsts INTEGER, GPRDsts TEXT)')
 	if injection_mode == "interval":
 		c.execute('CREATE TABLE IF NOT EXISTS '\
 				'FIPointClusters(ID INTEGER PRIMARY KEY, App TEXT, IntervalId INTEGER,'\

@@ -75,6 +75,11 @@ profiler.o: profiler.cu
 		-O3 $(GENCODE)             \
 		-lineinfo -c -rdc=true -o $@ $^ \
 		--maxrregcount=16 \
+		--compiler-options -Wall \
+		-DEMPTY_HANDLER=$(EMPTY_HANDLER) \
+		-DTIMING=$(TIMING) \
+		-DINJ_DEBUG_LIGHT=$(INJ_DEBUG_LIGHT) \
+		-DINJ_DEBUG_HEAVY=$(INJ_DEBUG_HEAVY) \
 		-I$(CUPTI)/include/ \
 		-I$(INSTALL_DIR)/utils/ \
 		-I$(SASSI_HOME)/include/ 
