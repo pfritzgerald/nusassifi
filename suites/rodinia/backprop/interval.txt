@@ -1,4 +1,4 @@
-500000
+100000
 App:IntervalSize:NumFaultsPerInterval:IntervalList...
 backprop:500000:400:60:44
 60:491776:0.859375

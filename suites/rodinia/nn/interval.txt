@@ -1,4 +1,4 @@
-50000
+20000
 App:IntervalSize:NumFaultsPerInterval:IntervalList...
 nn:50000:400:0:9:2
 0:50000:0.026316

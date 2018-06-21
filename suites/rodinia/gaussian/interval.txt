@@ -1,4 +1,4 @@
-10000000
+100000000
 App:IntervalSize:NumFaultsPerInterval:IntervalList...
 gaussian:10000000:400:937:571:1781:1699:1316
 937:8775831:0.175635

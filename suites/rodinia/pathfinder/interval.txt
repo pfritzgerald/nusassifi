@@ -1,4 +1,4 @@
-1000000
+500000
 App:IntervalSize:NumFaultsPerInterval:IntervalList...
 pathfinder:1000000:400:91:6:43:90:78
 91:861746:0.252632

@@ -51,6 +51,8 @@
 #include "sassi_dictionary.hpp"
 #include <sassi/sassi-function.hpp>
 
+#include "error_injector.h"
+
 #define MAX_FN_STR_LEN 64
 #define MAX_NUM_INTERVALS 600
 __managed__ unsigned long long AppDynInstCounter; // count all insts in the app
@@ -239,14 +241,16 @@ __device__ void sassi_basic_block_entry(SASSIBasicBlockParams *bb)
   atomicAdd(&(blockStr->weight), 1);
 }
 // This function will be called after every REG/MEM SASS instruction gets executed 
-__device__ void sassi_after_handler(SASSIAfterParams* ap,SASSIMemoryParams *mp, SASSIRegisterParams *rp) {
+__device__ void sassi_before_handler(SASSIBeforeParams* bp, SASSIMemoryParams *mp, SASSIRegisterParams *rp) {
 //	printf("FRITZ::::Will Execute\n");
 	//unsigned long long currGPRInstCount =
-	unsigned long long curDynInstCount = atomicAdd(&AppDynInstCounter, 1LL);
-	if (rp->GetNumGPRDsts() > 0) {
-		unsigned int interval = curDynInstCount / interval_size;
-		atomicAdd(&(GPRDynInstCounter[interval]), 1ULL);
-	} 
+	if (bp->GetInstrWillExecute()) {
+		unsigned long long curDynInstCount = atomicAdd(&AppDynInstCounter, 1LL);
+		if (has_dest_reg(rp)) {
+			unsigned int interval = curDynInstCount / interval_size;
+			atomicAdd(&(GPRDynInstCounter[interval]), 1ULL);
+		}
+	}
 }
 
 // This function will be exected after the kernel exits 

@@ -435,6 +435,10 @@ __device__ int32_t is_src_reg(SASSIRegisterParams *rp, int32_t injRegID) {
 //  thread exits, the injection run is categorized as masked. 
 ///////////////////////////////////////////////////////////////////////////////////
 __device__ void sassi_before_handler(SASSIBeforeParams* bp, SASSIMemoryParams *mp, SASSIRegisterParams *rp) {
+/***FRITZ**/
+	if (bp->GetInstrWillExecute() && has_dest_reg(rp))
+		atomicAdd(&AppDynInstCount, 1LL);
+
 
 #if EMPTY_HANDLER && INJ_MODE != RF_INJECTIONS // if you don't want to inject RF based errors, return
 	return;

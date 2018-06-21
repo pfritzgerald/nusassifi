@@ -1,4 +1,4 @@
-1000000
+100000
 App:IntervalSize:NumFaultsPerInterval:IntervalList...
 bfs:1000000:400:23:51:15:4
 23:843259:0.236842
