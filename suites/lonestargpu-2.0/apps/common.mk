@@ -43,7 +43,7 @@ SASSI_CUDALDFLAGS = -L$(INST_LIB_DIR) -lprofiler $(CUPTI)
 endif
 
 ifeq ($(OPTION),inst_injector)
-SASSI_CUDACFLAGS = $(AFTER_REG_MEM) $(AFTER_REG_MEM_INFO) $(BRANCH_AROUND) $(GENCODE) 
+SASSI_CUDACFLAGS = $(BEFORE_ALL) $(BEFORE_REG_MEM_INFO) $(AFTER_REG_MEM) $(AFTER_REG_MEM_INFO) $(BRANCH_AROUND) $(GENCODE) 
 SASSI_CUDALDFLAGS = -L$(INST_LIB_DIR) -linstinjector $(CUPTI) 
 endif
   
@@ -62,6 +62,11 @@ SASSI_CUDACFLAGS = -Xptxas --sassi-function-entry -Xptxas --sassi-bb-entry $(GEN
 SASSI_CUDALDFLAGS = -L$(INST_LIB_DIR) -lcfg $(CUPTI)
 endif
 
+ifeq (${OPTION},cfg_profiler)
+SASSI_CUDACFLAGS = -Xptxas --sassi-function-entry
+SASSI_CUDALDFLAGS = -L$(INST_LIB_DIR) -lcfg_profiler $(CUPTI)
+endif
+
 ifeq ($(OPTION),fritz_cfg)
 SASSI_CUDACFLAGS = -Xptxas --sassi-function-entry -Xptxas --sassi-bb-entry $(GENCODE)
 SASSI_CUDALDFLAGS = -L$(INST_LIB_DIR) -lfritz_cfg $(CUPTI)
@@ -78,7 +83,7 @@ SASSI_CUDALDFLAGS = -L$(INST_LIB_DIR) -lmemaccesses $(CUPTI)
 endif
 
 ifeq (${OPTION},bbv_profiler)
-SASSI_CUDACFLAGS = $(AFTER_REG_MEM) $(AFTER_REG_MEM_INFO) -Xptxas --sassi-bb-entry $(BRANCH_AROUND) $(GENCODE)
+SASSI_CUDACFLAGS = $(BEFORE_ALL) $(BEFORE_REG_MEM_INFO) -Xptxas --sassi-bb-entry $(BRANCH_AROUND) $(GENCODE)
 SASSI_CUDALDFLAGS = -L$(INST_LIB_DIR) -lbbv_profiler $(CUPTI) 
 endif
 

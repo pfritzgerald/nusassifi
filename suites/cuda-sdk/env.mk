@@ -73,6 +73,11 @@ EXTRA_NVCC_FLAGS = -Xptxas --sassi-function-entry -Xptxas --sassi-bb-entry
 EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lcfg $(CUPTI)
 endif
 
+ifeq (${OPTION},cfg_profiler)
+EXTRA_NVCC_FLAGS = -Xptxas --sassi-function-entry
+EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lcfg_profiler $(CUPTI)
+endif
+
 ifeq (${OPTION}, branch)
 EXTRA_NVCC_FLAGS = $(LDWRAP) -lineinfo $(BEFORE_COND_BRANCHES) $(BEFORE_COND_BRANCH_INFO) 
 EXTRA_LINK_FLAGS = $(LDWRAP) -L$(INST_LIB_DIR) -lbranch $(CUPTI) -L$(BOOST_HOME)/lib -lboost_regex -lcrypto -Xlinker -rpath,$(BOOST_HOME)/lib
@@ -97,6 +102,17 @@ ifeq (${OPTION},bb_profiler)
 EXTRA_NVCC_FLAGS = -Xptxas --sassi-function-entry -Xptxas --sassi-bb-entry
 EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lbb_profiler $(CUPTI)
 endif
+
+ifeq (${OPTION},bb_path_profiler)
+EXTRA_NVCC_FLAGS =  -Xptxas --sassi-bb-entry
+EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lbb_path_profiler $(CUPTI)
+endif
+
+ifeq (${OPTION},path_profiler)
+EXTRA_NVCC_FLAGS =  -Xptxas --sassi-bb-entry $(BEFORE_ALL) # -Xptxas --sassi-function-exit
+EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lpath_profiler $(CUPTI)
+endif
+
 
 ifeq (${OPTION}, fritz_profiler)
 EXTRA_NVCC_FLAGS = $(LDWRAP) -lineinfo -Xptxas --sassi-function-entry -Xptxas --sassi-bb-entry

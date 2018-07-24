@@ -82,6 +82,8 @@ def count_done(fname):
 def create_sbatch_script(app,array_num):
 	filename =  sp.SASSIFI_HOME + "/scripts/tmp/" + app + "/" + str(array_num)+".sbatch"
 	user = os.environ["USER"]
+	out_dir = sp.SASSIFI_HOME + "/scripts/tmp/" + app + "/"
+#	out_dir = "/gss_gpfs_scratch/" + user + "/nusassifi/" + app + "/"
 	outf = open(filename, "w")
 	outf.write("#!/bin/bash\n"
 		"# sassifi.sbatch\n#\n"
@@ -90,9 +92,9 @@ def create_sbatch_script(app,array_num):
 		"#SBATCH -p par-gpu\n"
 		"#SBATCH -n 32\n"
 		"#SBATCH -N 1\n"
-		"#SBATCH -x compute-2-133\,compute-2-148\n"
-		"#SBATCH -o /gss_gpfs_scratch/" + user + "/nusassifi/" + app + "/" + app + "_sbatch_%j.out\n"
-		"#SBATCH -e /gss_gpfs_scratch/" + user + "/nusassifi/" + app + "/" + app + "_sbatch_%j.err\n\n")
+		"#SBATCH -x compute-2-130\,compute-2-141\,compute-2-152\n"
+		"#SBATCH -o " + out_dir + "/" + app + "_sbatch_%j.out\n"
+		"#SBATCH -e " + out_dir + "/" + app + "_sbatch_%j.err\n\n")
 	if sp.USE_ARRAY:
 		outf.write("cmd=`sed \"${SLURM_ARRAY_TASK_ID}q;d\" cmds_" + str(array_num) + ".out`\n"			
 		"$cmd\n")
@@ -144,8 +146,10 @@ def run_multiple_injections_igid(app, is_rf, igid, where_to_run, interval_mode, 
 		if not os.path.isdir(sp.SASSIFI_HOME + "/scripts/tmp/" + app):
 			os.system("mkdir -p " + sp.SASSIFI_HOME + "/scripts/tmp/" + app)
 		user = os.environ["USER"]
-		if not os.path.isdir("/gss_gpfs_scratch/" + user + "/nusassifi/" + app):
-			os.system("mkdir -p /gss_gpfs_scratch/" + user + "/nusassifi/" + app)
+#		out_dir = "/gss_gpfs_scratch/" + user + "/nusassifi/" + app
+		out_dir = sp.SASSIFI_HOME + "/scripts/tmp/" + app
+		if not os.path.isdir(out_dir):
+			os.system("mkdir -p " + out_dir)
 		os.system("rm -f " + sp.SASSIFI_HOME + "/scripts/tmp/" + app + "/cmds_*.out") 
 	for bfm in bfm_list:
 		#print "App: %s, IGID: %s, EM: %s" %(app, cp.IGID_STR[igid], cp.EM_STR[bfm])

@@ -75,16 +75,9 @@ struct BLOCK {
   bool isExit;
   int numInstrs;
   int numSuccs;
+  int succs[2];
   char fnName[MAX_FN_STR_LEN];
   int interval;
-  int liveInMaxRRegUsed;
-  int liveInPred;
-  int liveInCc;
-  int liveInUnused;
-  int liveOutMaxRRegUsed;
-  int liveOutPred;
-  int liveOutCc;
-  int liveOutUnused;
 };
 
 // A dictionary of basic block executions per interval.
@@ -223,14 +216,10 @@ __device__ void sassi_basic_block_entry(SASSIBasicBlockParams *bb)
 		bpp->numInstrs = bb->GetNumInstrs();
 		bpp->numSuccs = bb->GetNumSuccs();
 		bpp->interval = interval;
-		bpp->liveInMaxRRegUsed = bb->liveIn->maxRRegUsed;
-		bpp->liveInPred = bb->liveIn->pred;
-		bpp->liveInCc = bb->liveIn->cc;
-		bpp->liveInUnused = bb->liveIn->unused;
-		bpp->liveOutMaxRRegUsed = bb->liveOut->maxRRegUsed;
-		bpp->liveOutPred = bb->liveOut->pred;
-		bpp->liveOutCc = bb->liveOut->cc;
-		bpp->liveOutUnused = bb->liveOut->unused;
+		const SASSIBasicBlockParams * const * succs = bb->GetSuccs();
+		for(int i=0; i < bb->GetNumSuccs(); i++) {
+			bpp->succs[i] = succs[i]->GetID();
+		}
 		assert(bb->GetNumSuccs() <= 2);
 		simple_strncpy(bpp->fnName, bb->GetFnName());
 //		printf("FRITZ ::: liveOut maxRRegUsed: %d\n", bb->liveOut->maxRRegUsed);
@@ -259,10 +248,12 @@ static void onKernelExit(const CUpti_CallbackData *cbInfo) {
 				BLOCK &bb) {
 			bb_ofs  << bb.id << "," << bb.fnName << "," << bb.numInstrs 
 			<< "," << bb.interval << "," << bb.weight << "," 
-			<< bb.liveInMaxRRegUsed << "," << bb.liveInPred << ","
-			<< bb.liveInCc << "," << bb.liveInUnused
-			<< "," << bb.liveOutMaxRRegUsed << "," << bb.liveOutPred 
-			<< "," << bb.liveOutCc << "," << bb.liveOutUnused << "\n";
+			<< bb.numSuccs << ",";
+			for (int i=0; i<bb.numSuccs; i++)
+			{
+				bb_ofs << bb.succs[i] << ",";
+			}
+			bb_ofs << "\n";
 			});
 }
 

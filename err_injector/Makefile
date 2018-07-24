@@ -3,10 +3,13 @@ include ../../env.mk
 
 # Decide which libraries you want to compile.
 export LIBS := 	libprofiler.a \
+		libbb_path_profiler.a \
 		libbb_profiler.a \
 		libbbv_profiler.a \
+		libcfg_profiler.a \
 		librfinjector.a \
 		libinstinjector.a \
+		libpath_profiler.a \
 		libpcinstinjector.a \
 		libpupc_profiler.a
 

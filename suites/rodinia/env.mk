@@ -75,6 +75,11 @@ EXTRA_NVCC_FLAGS = -Xptxas --sassi-function-entry -Xptxas --sassi-bb-entry
 EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lcfg $(CUPTI)
 endif
 
+ifeq (${OPTION},cfg_profiler)
+EXTRA_NVCC_FLAGS = -Xptxas --sassi-function-entry
+EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lcfg_profiler $(CUPTI)
+endif
+
 ifeq (${OPTION},fritz_cfg)
 EXTRA_NVCC_FLAGS = -Xptxas --sassi-function-entry -Xptxas --sassi-bb-entry
 EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lfritz_cfg $(CUPTI)
@@ -108,6 +113,16 @@ endif
 ifeq (${OPTION},bb_profiler)
 EXTRA_NVCC_FLAGS = -Xptxas --sassi-function-entry -Xptxas --sassi-bb-entry
 EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lbb_profiler $(CUPTI)
+endif
+
+ifeq (${OPTION},bb_path_profiler)
+EXTRA_NVCC_FLAGS =  -Xptxas --sassi-bb-entry
+EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lbb_path_profiler $(CUPTI)
+endif
+
+ifeq (${OPTION},path_profiler)
+EXTRA_NVCC_FLAGS =  -Xptxas --sassi-bb-entry $(BEFORE_ALL)# -Xptxas --sassi-function-exit
+EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lpath_profiler $(CUPTI)
 endif
 
 ifeq (${OPTION},memdiverge)

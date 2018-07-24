@@ -262,7 +262,39 @@ def parse_bb_executions(app, c):
 				'VALUES(NULL, \'%s\',\'%s\', %d, %d, %d, %d, %d, %d, \'%s\');'
 				%(app, kName, basic_block_id, bb_num_execs, num_insts, is_entry,
 					is_exit, num_succ, succs))
-        
+ 
+def parse_path_interval_executions(app, c):
+	try:
+		rf = open(sp.app_dir[app] + "path_profile.txt", "r")
+	except IOError: 
+		print "NOT OPEN: " + sp.app_dir[app] + "path_profile.txt"
+		return 
+	suite = sp.apps[app][0]
+	kInvocation = {}
+	print "file is " + rf.name
+	kName = ""
+	invocation_id=0
+	for line in rf: # for each mem access (or new kernel and invocation)
+		if "kernel," in line:
+			words = line.strip().split(",")
+			kName = words[1]
+			if kName not in kInvocation:
+				kInvocation[kName] = 0
+			else:
+				kInvocation[kName]+=1
+
+		elif "path_id," in line:
+			words = line.strip().split(",")
+			kernel = words[1]
+			invocation_id = kInvocation[kName]
+			path_id = int(words[3])
+			interval_start = int(words[5])
+			interval_end = int(words[7])
+			count = int(words[9])
+			c.execute('INSERT OR IGNORE INTO PathProfile '\
+				'VALUES(NULL, \'%s\',\'%s\', %d, %d, %d, %d, %d);'
+				%(app, kernel, invocation_id, path_id, interval_start, interval_end, count))
+
 def parse_fipoints(app, c):
 	try:
 		rf = open(sp.app_dir[app] + "interval.txt", "r")
@@ -300,6 +332,7 @@ def parse_results_apps(typ,c):
 		parse_pupcs(app, c)
 		parse_bb_executions(app,c)
 		parse_bb_interval_executions(app,c)
+		parse_path_interval_executions(app,c)
 		if injection_mode == "interval":
 			parse_fipoints(app, c)
 
@@ -379,7 +412,11 @@ def CreateNewDB(c):
 			'BBExecutions(ID INTEGER PRIMARY KEY, App TEXT, KName TEXT, '\
 			'BasicBlockId INTEGER, BBNumExecs INTEGER, BBNumInsts INTEGER,'\
 			'isEntry INTEGER, isExit INTEGER, numSuccs INTEGER, Succs TEXT)')
-	
+	c.execute('CREATE TABLE IF NOT EXISTS '\
+			'PATHProfile(ID INTEGER PRIMARY KEY, App TEXT, KName TEXT, '\
+			'InvocationIdx INTEGER, PathId INTEGER, IntervalStart INTEGER,'\
+			'IntervalEnd INTEGER, Count INTEGER)')
+
 	c.execute('CREATE TABLE IF NOT EXISTS '\
 			'BBVIntervalSizes(ID INTEGER PRIMARY KEY, App TEXT, IntervalSize INTEGER,'\
 			' IntervalId INTEGER, NumGPRInsts INTEGER)')
