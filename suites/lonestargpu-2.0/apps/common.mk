@@ -102,6 +102,11 @@ SASSI_CUDACFLAGS = -Xptxas --sassi-function-entry -Xptxas --sassi-bb-entry
 SASSI_CUDALDFLAGS = -L$(INST_LIB_DIR) -lbb_profiler $(CUPTI)
 endif
 
+ifeq (${OPTION},path_profiler)
+SASSI_CUDACFLAGS =  -Xptxas --sassi-bb-entry  # -Xptxas --sassi-function-exit
+SASSI_CUDALDFLAGS = -L$(INST_LIB_DIR) -lpath_profiler $(CUPTI)
+endif
+
 
 #----------------------------
 

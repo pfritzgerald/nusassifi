@@ -186,7 +186,7 @@ def get_pc_distribution(app, db_file):
 def gen_lists_interval(app, pcList):
 	for igid in sp.igid_bfm_map:
 		for bfm in sp.igid_bfm_map[igid]:
-			write_injection_list_file_interval(app, igid, bfm, intervalList)
+			write_injection_list_file_interval(app, igid, bfm, pcList)
 
 ####################################################################
 # FRITZ added in for support for injections in specific intervals

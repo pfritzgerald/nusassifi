@@ -121,7 +121,7 @@ EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lbb_path_profiler $(CUPTI)
 endif
 
 ifeq (${OPTION},path_profiler)
-EXTRA_NVCC_FLAGS =  -Xptxas --sassi-bb-entry $(BEFORE_ALL)# -Xptxas --sassi-function-exit
+EXTRA_NVCC_FLAGS =  -Xptxas --sassi-bb-entry # -Xptxas --sassi-function-exit
 EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lpath_profiler $(CUPTI)
 endif
 

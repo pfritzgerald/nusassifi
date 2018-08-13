@@ -7,7 +7,8 @@ logs/*/*/sdcs/
 suites/*/*/basic_block_insts.txt
 suites/*/*/cfgs.txt
 suites/*/*/simple-cfg.dot
-suies/*/*/path_profile.txt
+suites/*/*/path_profile.txt
+suites/*/*/full_paths.txt
 suites/*/*/*.o
 suites/*/*/*.cpp*.i*
 suites/*/*/*.cubin
@@ -19,7 +20,8 @@ suites/*/*/*.hash
 suites/*/*/*/basic_block_insts.txt
 suites/*/*/*/cfgs.txt
 suites/*/*/*/simple-cfg.dot
-suies/*/*/*/path_profile.txt
+suites/*/*/*/path_profile.txt
+suites/*/*/*/full_paths.txt
 suites/*/*/*/*.o
 suites/*/*/*/*/*.o
 suites/*/*/*/*/*/*.o

@@ -51,7 +51,7 @@
 
 
 // 8Mb of space for CFG information.
-#define POOLSIZE (1024 * 1024 * 8)
+#define POOLSIZE (1024 * 1024 * 1024)
 #define MAX_FN_STR_LEN 64
 #define MAX_KNAME_SIZE 200
 #define MAX_NUM_BBS	500
@@ -72,29 +72,27 @@ typedef struct {
 } path_sum_info_t;
 
 struct PathDesc {
-	uint16_t pathId;
-	uint16_t intervalStart;
-	uint16_t intervalEnd;
+	uint32_t pathId;
+	uint16_t BBStart;
+	uint16_t BBEnd;
 };
 
-static __managed__ unsigned int interval_size;
-__managed__ unsigned long long AppDynInstCounter;
+//static __managed__ unsigned int interval_size;
+//__managed__ unsigned long long AppDynInstCounter;
 __managed__ path_sum_info_t path_sums[50];
 __managed__ int current_kname_index;
-__managed__ int last_bb_executed[1024*1024];
+__managed__ uint32_t last_bb_executed[1024*1024]; //[..15b'0..1b'ExitBB?..|..16b'BBID..]
 __managed__ int max_path_id;
 
 __managed__ sassi::dictionary<int64_t, PathDesc> *path_tracker;
 __managed__ sassi::dictionary<int64_t, unsigned long long> *path_count;
 
+__managed__ sassi::dictionary<int64_t, int64_t*> *full_path_tracker;
+__managed__ uint16_t full_path_index[1024*1024];
+
 std::map<std::string, int> knameIndexMap;
 
 void parse_params(std::string filename) {
-	std::ifstream interval_filestream("interval.txt", std::ifstream::in);
-	if(interval_filestream.is_open())
-		interval_filestream >> interval_size;
-	interval_filestream.close();
-	printf("interval size is %d\n", interval_size);
 	std::ifstream ifs (filename.c_str(), std::ifstream::in);
 	int num_kernels = 0;
 	if (ifs.is_open())
@@ -148,10 +146,11 @@ void parse_params(std::string filename) {
 }
 		
 // Create a memory pool that we can populate on the device and read on the host.
-//static __managed__ uint8_t sassi_mempool[POOLSIZE];
-//static __managed__ int     sassi_mempool_cur;
+static __managed__ uint8_t sassi_mempool[POOLSIZE];
+static __managed__ int     sassi_mempool_cur;
 
 std::ofstream bb_ofs;
+std::ofstream fp_ofs;
 
 // A dictionary of paths per thread.
 //static __managed__ sassi::dictionary<int64_t, PATH_TRACKER> *sassi_path;
@@ -164,13 +163,13 @@ std::ofstream bb_ofs;
 ///  Allocate data from the UVM mempool.
 ///
 ///////////////////////////////////////////////////////////////////////////////////
-/*__device__ void *simple_malloc(size_t sz)
+__device__ void *simple_malloc(size_t sz)
 {
   int ptr = atomicAdd(&sassi_mempool_cur, sz);
   assert ((ptr + sz) <= POOLSIZE);
   return (void*) &(sassi_mempool[ptr]);
 }
-*/
+
 ///////////////////////////////////////////////////////////////////////////////////
 ///
 ///  A simple string copy to copy from device memory to our UVM malloc'd region.
@@ -211,46 +210,7 @@ __device__ int simple_strncmp(char *dest, const char *src)
 /*
 __device__ void sassi_function_entry(SASSIFunctionParams* fp)
 {
-  int numBlocks = fp->GetNumBlocks();
-  const SASSIBasicBlockParams * const * blocks = fp->GetBlocks();
-  
-  CFG *cPtr = *(sassi_cfg->getOrInit((int64_t)fp, [numBlocks, blocks, fp](CFG **cfg) {
-      CFG *cPtr = (CFG*) simple_malloc(sizeof(CFG));
-      simple_strncpy(cPtr->fnName, fp->GetFnName());
-      cPtr->numBlocks = numBlocks;
-      cPtr->blocks = (BLOCK*) simple_malloc(sizeof(BLOCK) * numBlocks);
-      *cfg = cPtr;
-  }));
 
-  __threadfence();
-
-  for (int bb = 0; bb < numBlocks; bb++) {
-    const SASSIBasicBlockParams *blockParam = blocks[bb];
-    BLOCK *blockPtr = &(cPtr->blocks[bb]);    
-    sassi_cfg_blocks->getOrInit((int64_t)blockParam, [blockParam, blockPtr](BLOCK **bpp) {
-	*bpp = blockPtr;
-	blockPtr->id = blockParam->GetID();
-	blockPtr->weight = 0;
-	blockPtr->isEntry = blockParam->IsEntryBlock();
-	blockPtr->isExit = blockParam->IsExitBlock();
-	blockPtr->numInstrs = blockParam->GetNumInstrs();
-	blockPtr->numSuccs = blockParam->GetNumSuccs();
-	assert(blockParam->GetNumSuccs() <= 2);
-	const SASSIBasicBlockParams * const * succs = blockParam->GetSuccs();
-	for (int s = 0; s < blockParam->GetNumSuccs(); s++) {
-	  blockPtr->succs[s] = succs[s]->GetID();
-	}
-	blockPtr->InPred = blockParam->liveIn->pred;
-	blockPtr->InCC = blockParam->liveIn->cc;
-	blockPtr->InUnused = blockParam->liveIn->unused;
-	blockPtr->OutPred = blockParam->liveOut->pred;
-	blockPtr->OutCC = blockParam->liveOut->cc;
-	blockPtr->OutUnused = blockParam->liveOut->unused;
-
-//	blockPtr->liveOut = blockParam->liveOut;
-//	simple_strncpy(blockPtr->fnName, blockParam->GetFnName());
-      });
-  }
 }
 */
 
@@ -267,98 +227,136 @@ __device__ void sassi_basic_block_entry(SASSIBasicBlockParams *bb)
 	int threadId = get_flat_tid();
 	bool is_backedge = false;
 	if ((threadId % 32) == 0) {
-		unsigned int interval = AppDynInstCounter/interval_size;
 		int64_t path_tracker_idx = threadId/32;
 		int bb_id = bb->GetID();
-		int last_bb_id = last_bb_executed[path_tracker_idx];
+		uint16_t last_bb_id = (uint16_t)(last_bb_executed[path_tracker_idx] & 0xffff);
 
-//		if (bb->IsEntryBlock())
-//		{
-			PathDesc *tracker = path_tracker->getOrInit(path_tracker_idx, [interval](PathDesc *pd) {
-			pd->pathId = 0;
-			pd->intervalStart = interval;
-			pd->intervalEnd = 65535;
+		PathDesc *tracker = path_tracker->getOrInit(path_tracker_idx, [bb_id](PathDesc *pd) {
+		pd->pathId = 0;
+		pd->BBStart = (uint16_t)bb_id;
+		pd->BBEnd = 65535;
+		});
+
+	//printf("threadID: %d reporting\n", threadId);
+	//FIXME:: What if somehow this entry already existed?
+		// Checking for self loop
+		if ((last_bb_id == (uint16_t)bb_id) && (!bb->IsEntryBlock())) // because last_bb is set to 0 at the kernel exit
+		{
+			// we have a self loop
+			int64_t path_key = ((int64_t)(0) << 32) | ((uint16_t)(bb_id) << 16) | (uint16_t)bb_id;
+			unsigned long long* PathCount = path_count->getOrInit(path_key, [] (unsigned long long *count) {
+				*count = 0;
 			});
+			atomicAdd(PathCount, 1);
 
-		//printf("threadID: %d reporting\n", threadId);
-//		}
-		//FIXME:: What if somehow this entry already existed?
+			int64_t* (full_path) = *(full_path_tracker->getOrInit(path_tracker_idx, [path_key](int64_t **(full_path)) {
+				int64_t *path = (int64_t*)simple_malloc(150*sizeof(int64_t));
+				path[0] = path_key;
+				*full_path = path;
+			}));
+			full_path[full_path_index[path_tracker_idx]] = path_key;
+			full_path_index[path_tracker_idx] += 1;
+
+		}
+		// We have not exited the kernel, check if last BB executed was an exit BB
+		if ((last_bb_executed[path_tracker_idx] >> 16) == 0x1)
+		{
+			uint16_t path_id = (tracker)->pathId;
+			__threadfence();
+			int64_t path_key = ((int64_t)(path_id) << 32) | ((tracker)->BBStart<<16) | (uint16_t)last_bb_id;
+			unsigned long long* PathCount = path_count->getOrInit(path_key, [] (unsigned long long *count) {
+				assert(0); // it should have existed already
+			});
+			atomicAdd(PathCount, -1);
+
+			int64_t* (full_path) = *(full_path_tracker->getOrInit(path_tracker_idx, [path_key](int64_t **(full_path)) {
+			}));
+			full_path[full_path_index[path_tracker_idx]] = 65535;
+			full_path_index[path_tracker_idx] -= 1;
+
+		}
 
 		// update path value based on inc_val
-//		else {
-//			PathDesc *tracker = *(path_tracker->getOrInit(path_tracker_idx, [] (PathDesc **pd) {
-//				assert(0); //we should have already initialized tracker for this threadIdx
-//			}));
+		uint64_t bbNext_and_Inc = path_sums[current_kname_index].bb_increments[last_bb_id];
+		uint16_t bbNext = (uint16_t) (((1 << 16)-1) & (bbNext_and_Inc >> 16));
+		uint16_t inc = 0;
+		if (bb_id == bbNext)
+			inc = (uint16_t) (((1 << 16) -1) & (bbNext_and_Inc));
+		else
+		{
+			bbNext = (uint16_t) (((1 << 16) -1) & (bbNext_and_Inc >> 48));
+			if (bb_id == bbNext) {
+				inc = (uint16_t) (((1 << 16) -1) & (bbNext_and_Inc >> 32));
+			}
+			else if (!bb->IsEntryBlock())// can't find an edge from last bb to this bb, it must be a backedge
+			{
+				is_backedge = true;
+			}
+		}
+		if (!is_backedge)
+			(tracker)->pathId += inc;
+		else
+		{
+//			printf("--------------BACK EDGE: BB%u->BB%u ------------------\n", last_bb_id, bb_id);
+			uint32_t path_id = (tracker)->pathId;
+			__threadfence();
+			if (path_id > max_path_id)
+				max_path_id = path_id;
+			// PATH KEY:
+			//|..........32 bits..........|...16 bits...|...16 bits...|
+			//|---------------------------|-------------|-------------|
+			//|          PATH ID          |   BBStart   |    BBEnd    |
+			//|---------------------------|-------------|-------------|
+			int64_t path_key = ((int64_t)(path_id) << 32) | ((tracker)->BBStart<<16) | (uint16_t)last_bb_id;
+			unsigned long long* PathCount = path_count->getOrInit(path_key, [] (unsigned long long *count) {
+				*count = 0;
+			});
+			atomicAdd(PathCount, 1LL);
+			(tracker)->pathId = 0;
+			(tracker)->BBStart = (uint16_t)bb_id;
+			(tracker)->BBEnd = 65535;
 
-			uint64_t bbNext_and_Inc = path_sums[current_kname_index].bb_increments[last_bb_id];
-			uint16_t bbNext = (uint16_t) (((1 << 16)-1) & (bbNext_and_Inc >> 16));
-			uint16_t inc = 0;
-			if (bb_id == bbNext)
-				inc = (uint16_t) (((1 << 16) -1) & (bbNext_and_Inc));
-			else
-			{
-				bbNext = (uint16_t) (((1 << 16) -1) & (bbNext_and_Inc >> 48));
-				if (bb_id == bbNext) {
-					inc = (uint16_t) (((1 << 16) -1) & (bbNext_and_Inc >> 32));
-				}
-				else // can't find an edge from last bb to this bb, it might be a backedge
-				{
-					is_backedge = true;
-				}
-			}
-			if (!is_backedge)
-				(tracker)->pathId += inc;
-			else
-			{
-				printf("BACK EDGE------------------\n");
-				uint16_t path_id = (tracker)->pathId;
-				__threadfence();
-				if (path_id > max_path_id)
-					max_path_id = path_id;
-				// PATH KEY:
-				//|...16 bits...|...16 bits...|...16 bits...|...16 bits...|
-				//|-------------|-------------|-------------|-------------|
-				//|   PATH ID   |    16b'0    |intervalStart| intervalEnd |
-				//|-------------|-------------|-------------|-------------|
-				int64_t path_key = ((int64_t)(path_id) << 48) | ((tracker)->intervalStart<<16) | interval;
-				unsigned long long* PathCount = path_count->getOrInit(path_key, [] (unsigned long long *count) {
-					*count = 1;
-				});
-				atomicAdd(PathCount, 1LL);
-				(tracker)->pathId = 0;
-				(tracker)->intervalStart = interval;
-				(tracker)->intervalEnd = 65535;
-			}
-//		}
-		
-		last_bb_executed[path_tracker_idx] = bb_id;
+			int64_t* (full_path) = *(full_path_tracker->getOrInit(path_tracker_idx, [path_key](int64_t **(full_path)) {
+				int64_t *path = (int64_t*)simple_malloc(150*sizeof(int64_t));
+				path[0] = path_key;
+				*full_path = path;
+			}));
+			full_path[full_path_index[path_tracker_idx]] = path_key;
+			full_path_index[path_tracker_idx] += 1;
+
+		}
+	
+		last_bb_executed[path_tracker_idx] = 0|(uint16_t)bb_id;
 		if (bb->IsExitBlock())
 		{
+			// A kernel may have multiple exits, therefore the kernel may not exit at this basic block.
+			// This is why we keep track of the BB that was marked as an exit
+			last_bb_executed[path_tracker_idx] = (0x1<<16) | (uint16_t)(bb_id);
 			//printf("exit block\n");
-//			PathDesc *tracker = *(path_tracker->getOrInit(path_tracker_idx, [] (PathDesc **pd) { }));
 			uint16_t path_id = (tracker)->pathId;
 			__threadfence();
 			if (path_id > max_path_id)
 				max_path_id = path_id;
-			int64_t path_key = ((int64_t)(path_id) << 48) | ((tracker)->intervalStart<<16) | interval;
-			//printf("path_id: %u, intervalStart %u, intervalStop %u\n",
-			//	path_id, (tracker)->intervalStart, interval);
+			int64_t path_key = ((int64_t)(path_id) << 32) | ((tracker)->BBStart<<16) | (uint16_t)bb_id;
+			//printf("path_id: %u, BBStart %u, BBEnd %u\n",
+			//	path_id, (tracker)->BBStart, bb_id);
 			unsigned long long* PathCount = path_count->getOrInit(path_key, [] (unsigned long long *count) {
 					*count = 0;
 				});
 				atomicAdd(PathCount, 1LL);
 
-//			atomicAdd(&(path_count[path_id]), 1LL);
+			int64_t* (full_path) = *(full_path_tracker->getOrInit(path_tracker_idx, [path_key](int64_t **(full_path)) {
+				int64_t *path = (int64_t*)simple_malloc(150*sizeof(int64_t));
+				path[0] = path_key;
+				*full_path = path;
+			}));
+			full_path[full_path_index[path_tracker_idx]] = path_key;
+			full_path_index[path_tracker_idx] += 1;
+
 		}
 	}
 }
 
-__device__ void sassi_before_handler(SASSIBeforeParams* bp)
-{
-	if (bp->GetInstrWillExecute()) {
-		atomicAdd(&AppDynInstCounter, 1LL);
-	}
-}
 
 // This function will be exected before a kernel is launced
 static void onKernelEntry(const CUpti_CallbackData *cbInfo) {
@@ -368,8 +366,10 @@ static void onKernelEntry(const CUpti_CallbackData *cbInfo) {
 		printf("Kernel Entry Error: %d\n", (*error));
 	}
 	path_tracker->clear();
+	cudaDeviceSynchronize();
 	std::string kName = cbInfo->symbolName; // name of kernel
 	bb_ofs << "kernel," << kName << "\n";
+	fp_ofs << "kernel," << kName << "\n";
 	current_kname_index = knameIndexMap[kName];
 	printf("kernel %s: index: %d\n", kName.c_str(), current_kname_index);
 
@@ -386,10 +386,27 @@ static void onKernelExit(const CUpti_CallbackData *cbInfo) {
 	//printf("printing path profile after %s\n", kName.c_str());
 	path_count->map([kName](int64_t k, unsigned long long &c) {
 		//printf("PATH  => %lld\n", c);//(uint16_t)(k>>48), *c);
-		bb_ofs << "kname," << kName << ",path_id," << (uint16_t) (k>>48) << ",intervalStart,"
-			<< (uint16_t)((k>>16)&(0x00ff)) << ",intervalEnd," <<(uint16_t)((k)&(0x000000ff)) <<",count,"
+		bb_ofs << "kname," << kName << ",path_id," << (uint32_t) (k>>32) << ",BBStart,"
+			<< (uint16_t)((k>>16)&(0x00ff)) << ",BBEnd," <<(uint16_t)((k)&(0x000000ff)) <<",count,"
 			<< c << "\n";
 	});
+	full_path_tracker->map([kName](int64_t k, int64_t* &c) {
+		//printf("PATH  => %lld\n", c);//(uint16_t)(k>>48), *c);
+		fp_ofs << "WARP " << k << "=>";
+		for (int i=0; i<full_path_index[k]; i++)
+			fp_ofs<< (uint32_t) (c[i]>>32) << ":"<< (uint16_t)((c[i]>>16)&(0x00ff)) << "-"
+			<<(uint16_t)((c[i])&(0x000000ff)) << ">";
+		fp_ofs << "\n";
+//			 <<",count,"
+//			<< c << "\n";
+	});
+
+	bzero(last_bb_executed, sizeof(last_bb_executed));
+	bzero(full_path_index, sizeof(full_path_index));
+	path_count->clear();
+	full_path_tracker->clear();
+	sassi_mempool_cur = 0;
+	bzero(sassi_mempool, sizeof(sassi_mempool));
 }
 ///////////////////////////////////////////////////////////////////////////////////
 ///
@@ -405,6 +422,7 @@ static void sassi_finalize(sassi::lazy_allocator::device_reset_reason unused)
 {
 	cudaDeviceSynchronize();
 	bb_ofs.close();
+	fp_ofs.close();
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -416,15 +434,18 @@ static void sassi_init()
 {
 	parse_params("cfgs.txt");
 	bb_ofs.open("path_profile.txt", std::ofstream::out);
-//	sassi_mempool_cur = 0;
+	fp_ofs.open("full_paths.txt", std::ofstream::out);
 //	bzero(path_count, sizeof(path_count));
 	path_tracker = new sassi::dictionary<int64_t, PathDesc>();
 	path_count = new sassi::dictionary<int64_t, unsigned long long>();
-	AppDynInstCounter = 0;
+	full_path_tracker = new sassi::dictionary<int64_t, int64_t*>();
+//	AppDynInstCounter = 0;
 	current_kname_index = 0;
 	max_path_id = 0;
 	bzero(last_bb_executed, sizeof(last_bb_executed));
-//	bzero(sassi_mempool, sizeof(sassi_mempool));
+	bzero(full_path_index, sizeof(full_path_index));
+	sassi_mempool_cur = 0;
+	bzero(sassi_mempool, sizeof(sassi_mempool));
 }
 
 

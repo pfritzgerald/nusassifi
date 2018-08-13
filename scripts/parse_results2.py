@@ -263,7 +263,7 @@ def parse_bb_executions(app, c):
 				%(app, kName, basic_block_id, bb_num_execs, num_insts, is_entry,
 					is_exit, num_succ, succs))
  
-def parse_path_interval_executions(app, c):
+def parse_path_executions(app, c):
 	try:
 		rf = open(sp.app_dir[app] + "path_profile.txt", "r")
 	except IOError: 
@@ -274,7 +274,7 @@ def parse_path_interval_executions(app, c):
 	print "file is " + rf.name
 	kName = ""
 	invocation_id=0
-	for line in rf: # for each mem access (or new kernel and invocation)
+	for line in rf: # for each path (or new kernel and invocation)
 		if "kernel," in line:
 			words = line.strip().split(",")
 			kName = words[1]
@@ -288,12 +288,69 @@ def parse_path_interval_executions(app, c):
 			kernel = words[1]
 			invocation_id = kInvocation[kName]
 			path_id = int(words[3])
-			interval_start = int(words[5])
-			interval_end = int(words[7])
+			bb_start = int(words[5])
+			bb_end = int(words[7])
 			count = int(words[9])
 			c.execute('INSERT OR IGNORE INTO PathProfile '\
 				'VALUES(NULL, \'%s\',\'%s\', %d, %d, %d, %d, %d);'
-				%(app, kernel, invocation_id, path_id, interval_start, interval_end, count))
+				%(app, kernel, invocation_id, path_id, bb_start, bb_end, count))
+
+def parse_path_incs(app, c):
+	try:
+		rf = open(sp.app_dir[app] + "cfgs.txt", "r")
+	except IOError: 
+		print "NOT OPEN: " + sp.app_dir[app] + "cfgs.txt"
+		return 
+	suite = sp.apps[app][0]
+	print "file is " + rf.name
+	kName = ""
+	num_kernels = int(rf.readline())
+	print "num kernels in app: " + app + " is " + str(num_kernels)
+	for kernel in range(0,num_kernels): # for each path inc (or new kernel and invocation)
+		kname=rf.readline().strip()
+		num_incs=int(rf.readline())
+		for inc in range(0,num_incs):
+			[bb_from,bb_to,inc_value] = map(int, rf.readline().split())
+			c.execute('INSERT OR IGNORE INTO PathIncs '\
+				'VALUES(NULL, \'%s\',\'%s\', %d, %d, %d);'
+				%(app, kname, bb_from, bb_to, inc_value))
+
+def parse_full_paths(app, c):
+	try:
+		rf = open(sp.app_dir[app] + "full_paths.txt", "r")
+	except IOError:
+		print "NOT OPEN: " + sp.app_dir[app] + "full_paths.txt"
+		return
+
+	print "FILE OPEN: " + rf.name
+	kInvocation = {}
+	kName = ""
+	invocation_id = 0
+	
+	for line in rf:
+		if "kernel," in line:
+			words = line.strip().split(",")
+			kName = words[1]
+			if kName  not in kInvocation:
+				kInvocation[kName] = 0
+			else:
+				kInvocation[kName] += 1
+
+		elif "WARP" in line:
+			words=line.strip().split("=>")
+			warp_id = int(words[0].split()[1])
+			full_path = words[1][:-1]
+			invocation_id = kInvocation[kName]
+			c.execute('INSERT OR IGNORE INTO FullPaths '\
+					'VALUES(NULL, \'%s\', \'%s\', \'%s\');'
+					% (app, kName, full_path))
+			full_path_id = c.execute('SELECT ID FROM FullPaths WHERE App IS \'%s\' AND kName IS \'%s\' '\
+					'AND FullPath IS \'%s\';'
+					%(app,kName, full_path)).fetchone()[0]
+			c.execute('INSERT OR IGNORE INTO FullPathExecs '\
+					'VALUES(NULL, \'%s\',\'%s\',%d,%d,%d);' 
+					% (app, kName, invocation_id, warp_id, full_path_id))
+			
 
 def parse_fipoints(app, c):
 	try:
@@ -332,7 +389,9 @@ def parse_results_apps(typ,c):
 		parse_pupcs(app, c)
 		parse_bb_executions(app,c)
 		parse_bb_interval_executions(app,c)
-		parse_path_interval_executions(app,c)
+		parse_path_executions(app,c)
+		parse_path_incs(app, c)
+		parse_full_paths(app,c)
 		if injection_mode == "interval":
 			parse_fipoints(app, c)
 
@@ -413,10 +472,17 @@ def CreateNewDB(c):
 			'BasicBlockId INTEGER, BBNumExecs INTEGER, BBNumInsts INTEGER,'\
 			'isEntry INTEGER, isExit INTEGER, numSuccs INTEGER, Succs TEXT)')
 	c.execute('CREATE TABLE IF NOT EXISTS '\
-			'PATHProfile(ID INTEGER PRIMARY KEY, App TEXT, KName TEXT, '\
-			'InvocationIdx INTEGER, PathId INTEGER, IntervalStart INTEGER,'\
-			'IntervalEnd INTEGER, Count INTEGER)')
-
+			'PathProfile(ID INTEGER PRIMARY KEY, App TEXT, kName TEXT, '\
+			'InvocationIdx INTEGER, PathId INTEGER, BBStart INTEGER,'\
+			'BBEnd INTEGER, Count INTEGER)')
+	c.execute('CREATE TABLE IF NOT EXISTS '\
+			'PathIncs(ID INTEGER PRIMARY KEY, App TEXT, kName TEXT, BBFrom INTEGER, '\
+			'BBTo INTEGER, Inc INTEGER)')
+	c.execute('CREATE TABLE IF NOT EXISTS '\
+			'FullPaths(ID INTEGER PRIMARY KEY, App TEXT, kName TEXT, FullPath TEXT, UNIQUE(App,kName,FullPath))')
+	c.execute('CREATE TABLE IF NOT EXISTS '\
+			'FullPathExecs(ID INTEGER PRIMARY KEY, App TEXT, kName TEXT, InvocationIdx INTEGER, '\
+			'WarpId INTEGER, FullPathID INTEGER)')
 	c.execute('CREATE TABLE IF NOT EXISTS '\
 			'BBVIntervalSizes(ID INTEGER PRIMARY KEY, App TEXT, IntervalSize INTEGER,'\
 			' IntervalId INTEGER, NumGPRInsts INTEGER)')
