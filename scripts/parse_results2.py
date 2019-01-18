@@ -33,7 +33,7 @@ import common_params as cp
 import specific_params as sp
 import common_functions as cf 
 import sqlite3
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import numpy as np
 
 
@@ -81,7 +81,7 @@ def parse_results_file(app, igid, bfm, c):
 			[words[5], int(words[7]), float(words[8]), int(words[9])]
 		elif injection_mode == "pc":
 			[opIdSeed, bIdSeed, pc_text, pc_count] = [inj_site_info[3], inj_site_info[4],\
-					'0x'+str(inj_site_info[5]), int(inj_site_info[6])]
+					str(inj_site_info[5]), int(inj_site_info[6])]
 			[bb_id, global_inst_id, app_dyn_inst_id, opcode, tId, injBID, runtime, outcome] = \
 					[int(words[1]), int(words[2]), int(words[3]), words[4], int(words[5]), int(words[6]),\
 					float(words[7]), int(words[8])]
@@ -387,11 +387,11 @@ def parse_results_apps(typ,c):
 				parse_results_file(app, "rf", bfm, c)
 		parse_mem_accesses(app, c)
 		parse_pupcs(app, c)
-		parse_bb_executions(app,c)
-		parse_bb_interval_executions(app,c)
-		parse_path_executions(app,c)
-		parse_path_incs(app, c)
-		parse_full_paths(app,c)
+		#parse_bb_executions(app,c)
+		#parse_bb_interval_executions(app,c)
+		#parse_path_executions(app,c)
+		#parse_path_incs(app, c)
+		#parse_full_paths(app,c)
 		if injection_mode == "interval":
 			parse_fipoints(app, c)
 

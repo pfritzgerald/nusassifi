@@ -93,7 +93,10 @@ def record_result(igid, bfm, app, kname, kcount, iid,  opid, bid, cat, pc, bb_id
 	if has_filelock:
 		lock = FileLock(res_fname)
 		lock.acquire() #acquire lock
-
+	if "e-" in opid:
+		opid = opid.replace("-","")
+	if "e-" in bid:
+		bid = bid.replace("-", "")
 	rf = open(res_fname, "a")
 	if interval_mode:
 		rf.write(kname + "-" + kcount + "-" + interval_size + "-" + interval_id + "-" + iid + "-" + opid + "-" + bid + ":" + str(pc) + ":" + str(bb_id) + ":" + str(global_iid) + ":" + str(app_dyn_iid) + ":" + str(inst_type) + ":" +  str(tid) + ":" + str(injBID) + ":" + str(runtime) + ":" + str(cat) + ":" + dmesg + "\n")
@@ -131,7 +134,7 @@ def create_p_file(p_filename, igid, bfm, kname, kcount, iid, opid, bid):
 		if interval_mode:
 			outf.write(igid + "\n" + bfm + "\n" + interval_size +  "\n" + interval_id + "\n" + iid + "\n" + opid + "\n" + bid)
 		elif pc_mode:
-			outf.write(igid + "\n" + bfm + "\n0x" + pc_global + "\n" + pc_count + "\n" + opid + "\n" + bid)
+			outf.write(igid + "\n" + bfm + "\n" + pc_global + "\n" + pc_count + "\n" + opid + "\n" + bid)
 		else:
 			outf.write(igid + "\n" + bfm + "\n" + kname + "\n" + kcount + "\n" + iid + "\n" + opid + "\n" + bid)
 	outf.close()

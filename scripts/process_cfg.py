@@ -86,6 +86,11 @@ class KernelCfg:
 				self.backEdgePassUtil(vertex, visited, stack)
 
 	def backEdgePass(self):
+		"""
+		Remove any back edge from the graph (BB to a previously executed BB)
+		and point the origin of the back edge to an exit BB,
+		then add an edge from an entry BB to the sink of the back edge 
+		"""
 		#visited = dict([(i,False) for i in self.graph])
 		#stack = dict([(i,False) for i in self.graph])
 		for vertex in self.graph:
@@ -101,11 +106,18 @@ def get_app_cfgs(cfg_file):
 	cfg=open(cfg_file, 'r')
 
 	for line in cfg:
+		"""
+		If this is the start of the profile info for a kernel
+		"""
 		if 'kernel' in line:
 			app_cfgs.append(KernelCfg())
 			kName = line.strip().split(",")[1]
 			app_cfgs[-1].kname = kName
 			#print "Added kernel " + kName + " to current cfg"
+
+		"""
+		If this is an entry Basic Block
+		"""
 		if 'entry' in line:
 			entry_bb = line.strip().split(",")[1]
 			app_cfgs[-1].entry.append(entry_bb)
@@ -113,22 +125,37 @@ def get_app_cfgs(cfg_file):
 				app_cfgs[-1].graph[entry_bb] = []
 
 			#print "Entry BB: " + str(entry_bb)
+
+		"""
+		If this is an exit basic block
+		"""
 		if 'exit' in line:
 			exit_bb = line.strip().split(",")[1]
 			app_cfgs[-1].exit.append(exit_bb)
 			if exit_bb not in app_cfgs[-1].graph:
 				app_cfgs[-1].graph[exit_bb] = []
 			#print "Exit BB" + str(exit_bb)
+
+		"""
+		If this is an edge for the CFG
+		"""
 		if '->' in line:
 			elements = line.split()
 			origin = elements[0]
 			sink = elements[2]
 			app_cfgs[-1].addEdge(origin, sink)
 			#print "added " + origin + " ==> " + sink + " to current cfg graph"
+
+		"""
+		If this is the end of parsing for this kernel
+		"""
 		if line.strip() == 'end':
 			#print app_cfgs[-1]
 			continue
-	# clean up the entry and exit bbs, remove the BBs that are not in any path
+	
+	"""
+	Clean up the entry and exit bbs, remove the BBs that are not in any path
+	"""
 	for kernel in app_cfgs:
 		for bb in kernel.entry:
 			if bb not in kernel.graph:
@@ -141,6 +168,10 @@ def get_app_cfgs(cfg_file):
 	return app_cfgs
 
 def path_sums(cfg, cfg_topo):
+	"""
+	Get the increment values from each node (vertex) to each neighbor
+	The sum of increments from each node to another node is unique
+	"""
 	num_paths = dict([(i,0) for i in cfg.graph])
 	edge_values = dict([(i, []) for i in cfg.graph])
 	

@@ -26,7 +26,6 @@
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 \***********************************************************************************/
 
-
 #define __STDC_FORMAT_MACROS
 #include <assert.h>
 #include <stdio.h>
@@ -46,7 +45,6 @@
 #include "sassi_intrinsics.h"
 #include "sassi_dictionary.hpp"
 #include "sassi_lazyallocator.hpp"
-
 #include "error_injector.h"
 
 // knameCount keeps track of kernel names and the number of invocations of the
@@ -111,7 +109,7 @@ void reset_inj_info() {
 // for debugging 
 void print_inj_info() {
 #if INTERVAL_MODE_INJECTION != 1
-	printf("inj_kname=%s, inj_kcount=%d, ", inj_info.injKernelName, inj_info.injKCount);
+	printf("injPC=%lx, injPCCount=%lld, ", inj_info.injPC, inj_info.injPCCount);
 #endif
 	printf("inj_igid=%d, inj_fault_model=%d, inj_inst_id=%lld",
 			inj_info.injIGID, inj_info.injBFM, inj_info.injInstID);

@@ -1,0 +1,5 @@
+5000000
+App:IntervalSize:NumFaultsPerInterval:IntervalList...
+lavaMD:5000000:400:40:0
+40:4774710:0.990291
+0:4681280:0.009709

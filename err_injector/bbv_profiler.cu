@@ -57,6 +57,8 @@
 #define MAX_NUM_INTERVALS 600
 __managed__ unsigned long long AppDynInstCounter; // count all insts in the app
 __managed__ unsigned long long GPRDynInstCounter[MAX_NUM_INTERVALS]; //reset each interval
+__managed__ long long int CycleCounter[MAX_NUM_INTERVALS];
+__managed__ long long int start_time, prev_time;
 
 std::map<std::string, int> knameCount;
 std::ofstream bb_ofs;
@@ -175,6 +177,7 @@ __device__ int simple_strncmp(char *dest, const char *src)
 // This function will be exected before a kernel is launced
 static void onKernelEntry(const CUpti_CallbackData *cbInfo) {
 	sassi_bb_profile->clear();
+	prev_time = (long long int) (clock() - prev_time);
 	cudaError_t * error = (cudaError_t*) cbInfo->functionReturnValue;
 
 	if ( (*error) != cudaSuccess ) {
@@ -235,8 +238,14 @@ __device__ void sassi_before_handler(SASSIBeforeParams* bp, SASSIMemoryParams *m
 	//unsigned long long currGPRInstCount =
 	if (bp->GetInstrWillExecute()) {
 		unsigned long long curDynInstCount = atomicAdd(&AppDynInstCounter, 1LL);
+		unsigned int interval = curDynInstCount / interval_size;
+		if (curDynInstCount % interval_size == 0) {
+			CycleCounter[interval] = (long long int)(clock64() - start_time - prev_time);
+			start_time = clock64();
+			prev_time = 0;
+		}
+
 		if (has_dest_reg(rp)) {
-			unsigned int interval = curDynInstCount / interval_size;
 			atomicAdd(&(GPRDynInstCounter[interval]), 1ULL);
 		}
 	}
@@ -244,6 +253,7 @@ __device__ void sassi_before_handler(SASSIBeforeParams* bp, SASSIMemoryParams *m
 
 // This function will be exected after the kernel exits 
 static void onKernelExit(const CUpti_CallbackData *cbInfo) {
+	prev_time = (long long int) clock();
 	sassi_bb_profile->map([](int64_t &k,
 				BLOCK &bb) {
 			bb_ofs  << bb.id << "," << bb.fnName << "," << bb.numInstrs 
@@ -273,7 +283,8 @@ static void sassi_finalize(sassi::lazy_allocator::device_reset_reason unused)
 	cudaDeviceSynchronize();
 	unsigned int max_interval = AppDynInstCounter/interval_size;
 	for (unsigned i = 0; i <= max_interval; i++) {
-		bb_ofs << "INTERVAL," << i << ",NUMGPRINSTS,"<< GPRDynInstCounter[i]<<"\n";
+		bb_ofs << "INTERVAL," << i << ",NUMGPRINSTS,"<< GPRDynInstCounter[i]<<",CYCLES," << (long long
+				int)(CycleCounter[i]) << "\n";
     	}
 
 	bb_ofs.close();
@@ -290,7 +301,10 @@ static void sassi_init()
 	bb_ofs.open(profiler_filename.c_str(), std::ofstream::out);
 	sassi_bb_profile = new sassi::dictionary<int64_t, BLOCK>();
 	bzero(GPRDynInstCounter, sizeof(GPRDynInstCounter));
+	bzero(CycleCounter, sizeof(CycleCounter));
 	AppDynInstCounter = 0;
+	start_time = 0;//clock64();
+	prev_time = 0;
 }
 
 

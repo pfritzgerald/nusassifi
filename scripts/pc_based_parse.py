@@ -3,20 +3,23 @@ import sys
 import specific_params as sp
 
 # threshold=0.1 * sp.NUM_INJECTIONS
+verbose = False
 
 def getAppOutcomes(app, c, threshold):
+	print "\n----------------------------------------------------------------"
 	print app
 	num_masked = 0
 	num_dues = 0
 	num_sdcs = 0
 	num_faults = 0
+	num_faults_trad = 0
 	num_unknwn = 0
 	num_filtered_faults = 0
 	common_pcs = c.execute('SELECT Results.PC, COUNT(Results.ID) FROM Results '\
 			'WHERE App IS \'%s\' GROUP BY Results.PC HAVING COUNT(Results.ID) '\
 			' >=	%d'
 			% (app, threshold)).fetchall()
-	print "common pcs: " + str(common_pcs)
+	if verbose: print "common pcs: " + str(common_pcs)
 	for pc in common_pcs:
 		if pc[0] == '0x0':
 			continue
@@ -33,6 +36,7 @@ def getAppOutcomes(app, c, threshold):
 			%(app, pc_value)).fetchone()[0] * sp.NUM_INJECTIONS
 #		print "PC: " + pc_value + " - num_pc_faults_trad: " + str(num_pc_faults_trad)
 #		print "\tPC: " + str(pc_value) + " num Faults: " + str(num_pc_faults)
+		num_faults_trad += num_pc_faults_trad
 		num_masked += c.execute('SELECT COUNT(Results.ID),PC,OutcomeID from OutcomeMap, '\
 				'Results WHERE App IS \'%s\' '\
 				'AND PC IS \'%s\' AND OutcomeID==OutcomeMap.ID '\
@@ -63,6 +67,7 @@ def getAppOutcomes(app, c, threshold):
 			% (app,threshold)).fetchone()[0]
 	num_filtered_faults += num_remained
 	num_faults += num_remained
+	num_faults_trad += num_remained
 	num_masked += c.execute('SELECT TOTAL(R.c) FROM OutcomeMap, '\
 			'(SELECT COUNT(ID) as c,PC,OutcomeID FROM Results WHERE App IS '\
 			'\'%s\'	GROUP BY PC HAVING COUNT(ID)<%d) AS R WHERE OutcomeMap.ID '\
@@ -81,14 +86,14 @@ def getAppOutcomes(app, c, threshold):
 	num_unknwn += c.execute('SELECT TOTAL(R.c) FROM OutcomeMap, '\
 			'(SELECT COUNT(ID) as c,PC,OutcomeID FROM Results WHERE App IS '\
 			'\'%s\'	GROUP BY PC HAVING COUNT(ID)<%d) AS R WHERE OutcomeMap.ID '\
-			'= R.OutcomeID AND Description LIKE \'Uncategorized:%%\';'
+			'= R.OutcomeID AND Description LIKE \'Uncategorized%%\';'
 			% (app,threshold)).fetchone()[0]
 
-	print app + "-- Faults: " + str(num_faults) + ",filtered: " + \
-			str(num_filtered_faults) + ",Masked:" + str(num_masked)\
-			+ ", DUES:" + str(num_dues)	+ ", SDCs:" + str(num_sdcs) + ", Unknwn:" + str(num_unknwn)
-	return float(num_masked)/sp.NUM_INJECTIONS, float(num_dues)/sp.NUM_INJECTIONS, \
-			float(num_sdcs)/sp.NUM_INJECTIONS, num_filtered_faults
+	print "\tNumFaults: " + str(num_faults) + " - Filtered: " + \
+			str(num_filtered_faults) + ", Trad: " + str(num_faults_trad) + ", Masked:" + str(num_masked)\
+			+ ", SDCs:" + str(num_sdcs) + ", DUES:" + str(num_dues)	+", Unknwn:" + str(num_unknwn)
+	return float(num_masked)/num_faults_trad, float(num_dues)/num_faults_trad, \
+			float(num_sdcs)/num_faults_trad, float(num_unknwn)/num_faults_trad, num_filtered_faults
 
 def getFilteredOutcomes(c):
 	masked_list = []
@@ -102,11 +107,10 @@ def getFilteredOutcomes(c):
 #	app_list = ['gaussian']
 	for app in app_list:
 #		print app
-		num_masked,num_dues,num_sdcs,num_filtered_faults = getAppOutcomes(app, c, threshold)
-		print "----------------------"
-		print "APP: " + app + " - MASKED_Pct: " + str(num_masked) + " - DUE_Pct: " + str(num_dues) + \
-				" - SDC_Pct: " + str(num_sdcs)
-		print "----------------------"
+		num_masked,num_dues,num_sdcs,num_unknwn,num_filtered_faults = getAppOutcomes(app, c, threshold)
+		print "\tMASKED_PCT: " + str(num_masked) + " -- SDC_PCT: " + str(num_sdcs)\
+				+ " -- DUE_PCT: " + str(num_dues) + " -- UNKNWN_PCT: " + str(num_unknwn)
+		print "---------------------------------------------------------------------"
 		masked_list.append(num_masked)
 		due_list.append(num_dues)
 		sdc_list.append(num_sdcs)

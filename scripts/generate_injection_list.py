@@ -67,12 +67,56 @@ def write_injection_list_file(app, igid, bfm, num_injections, total_count, count
 ########################################################################
 # FRITZ - write injection list file function for PC-specific injections
 #####################################################################
+
+def get_inj_site_info_pc(pcList, injection_num):	
+	start = 0
+	for pupc in pcList:
+		if start <= injection_num < start + int(pupc[2]):
+			pupc[4] += 1
+			return [pupc[0], injection_num - start, pupc[3], pupc[4]]
+		start += int(pupc[2])
+	return ["",-1]
+
 def write_injection_list_file_pc(app, igid, bfm, pcList):
 	#if verbose:
 	#	print "total_count = %d, num_injections = %d" %(total_)
 	fName = sp.app_log_dir[app] + "/injection-list/igid" + str(igid) + ".bfm" + str(bfm) + "." + str(sp.NUM_INJECTIONS)+ ".pc.txt"
 	print fName
+
 	f = open(fName, "w")
+	total_pc_counts = sum([int(pupc[2]) for pupc in pcList])
+	total_num_faults = 0
+	coverage = 0.00
+	for pupc in pcList:
+		coverage += pupc[1]
+		#if int(round(sp.NUM_INJECTIONS*float(pupc[1]))) > (sp.NUM_INJECTIONS/100):
+		#	pc_num_faults = int(sp.NUM_INJECTIONS/100)
+		#else:
+		pc_num_faults = int(round(sp.NUM_INJECTIONS * float(pupc[1])))
+		if coverage < .99 and pc_num_faults == 0:
+			pc_num_faults = 1
+
+		pupc.append(pc_num_faults)
+		pupc.append(0) # current number of faults for this pc
+		total_num_faults += pc_num_faults
+	
+	while total_num_faults > 0 and total_pc_counts != 0:
+		total_num_faults -= 1
+		injection_num = random.randint(0, total_pc_counts)
+		[pc,pc_count, pc_max_faults, pc_current_num_faults] = get_inj_site_info_pc(pcList, injection_num)
+		if pc_current_num_faults >pc_max_faults:
+			total_num_faults += 1
+			continue
+		inj_op_id_seed = random.random()
+		inj_bid_seed = random.random()
+		selected_str = pc + " " + str(pc_count)  + " " + str(inj_op_id_seed) + " " + str(inj_bid_seed) + " "
+			#if verbose:
+			#	print ""
+		f.write(selected_str + "\n")
+	f.close()	
+
+
+"""
 	total_faults = 0	
 	for pupc in pcList:
 		pc = pupc[0]
@@ -83,15 +127,12 @@ def write_injection_list_file_pc(app, igid, bfm, pcList):
 		print "PC: " + pc + " num faults: " + str(num_faults)
 		for fault_id in range(0, num_faults):
 			total_faults += 1 
-			pc_count = random.randint(0, pc_count)
-			inj_op_id_seed = random.random()
-			inj_bid_seed = random.random()
-			selected_str = pc + " " + str(pc_count)  + " " + str(inj_op_id_seed) + " " + str(inj_bid_seed) + " "
-			#if verbose:
-			#	print ""
-			f.write(selected_str + "\n")
-	f.close()	
-
+#			pc_count = random.randint(int((float(fault_id)/num_faults)*pc_count),\
+#					int((float(fault_id+1)/num_faults)*pc_count))
+			pc_count = int(0.5*((float(fault_id)/num_faults)*pc_count + \
+					(float(fault_id+1)/num_faults)*pc_count))
+"""
+	
 
 
 ########################################################################
@@ -166,10 +207,10 @@ def get_pc_distribution(app, db_file):
 	c = conn.cursor()
 	pupcs = c.execute('SELECT PUPC, 1.0*(Weight)/IgIdMap.InstCount AS Pct, Weight FROM PUPCs,IgIdMap WHERE '\
 			'Description LIKE \'DEST_REG\' AND IgIdMap.App==PUPCs.App AND IsDestReg==1 AND PUPCs.App IS '\
-			'\'%s\' GROUP BY PUPC;' %(app)).fetchall()
+			'\'%s\' GROUP BY PUPC ORDER BY Weight DESC;' %(app)).fetchall()
 	for pupc in pupcs:
 		pcList.append([pupc[0],pupc[1],pupc[2]])
-		print pupc[0],pupc[1]
+		#print pupc[0],pupc[1]
 	
 	conn.close()
 	#intervalList.append([interval_size, num_faults_per_interval, interval_id, num_igid_insts])
@@ -251,7 +292,7 @@ def main():
 			print "OUTPUT : Check %s" % (sp.app_log_dir[app] + "/injection-list/")
 		if pc:
 			pcList = get_pc_distribution(app, db_file)
-			if verbose: print pcList
+			#if verbose: print pcList
 			gen_lists_pc(app, pcList)
 
 		else:	
