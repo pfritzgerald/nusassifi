@@ -188,10 +188,12 @@ void BFSGraph( int argc, char** argv)
 		//if no thread changes this value then the loop stops
 		stop=false;
 		cudaMemcpy( d_over, &stop, sizeof(bool), cudaMemcpyHostToDevice) ;
+		printf("FRITZ::: Kernel, num_of_blocks:%d,num_of_threads_per_block:%d\n", 
+				num_of_blocks, num_of_threads_per_block);
 		Kernel<<< grid, threads, 0 >>>( d_graph_nodes, d_graph_edges, d_graph_mask, d_updating_graph_mask, d_graph_visited, d_cost, no_of_nodes);
 		// check if kernel execution generated and error
-		
-
+		printf("FRITZ::: Kernel2, num_of_blocks:%d,num_of_threads_per_block:%d\n", 
+			num_of_blocks, num_of_threads_per_block);
 		Kernel2<<< grid, threads, 0 >>>( d_graph_mask, d_updating_graph_mask, d_graph_visited, d_over, no_of_nodes);
 		// check if kernel execution generated and error
 		

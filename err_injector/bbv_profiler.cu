@@ -57,7 +57,7 @@
 #define MAX_NUM_INTERVALS 600
 __managed__ unsigned long long AppDynInstCounter; // count all insts in the app
 __managed__ unsigned long long GPRDynInstCounter[MAX_NUM_INTERVALS]; //reset each interval
-__managed__ long long int CycleCounter[MAX_NUM_INTERVALS];
+__managed__ unsigned long long int CycleCounter[MAX_NUM_INTERVALS];
 __managed__ long long int start_time, prev_time;
 
 std::map<std::string, int> knameCount;
@@ -240,7 +240,7 @@ __device__ void sassi_before_handler(SASSIBeforeParams* bp, SASSIMemoryParams *m
 		unsigned long long curDynInstCount = atomicAdd(&AppDynInstCounter, 1LL);
 		unsigned int interval = curDynInstCount / interval_size;
 		if (curDynInstCount % interval_size == 0) {
-			CycleCounter[interval] = (long long int)(clock64() - start_time - prev_time);
+			CycleCounter[interval] = (unsigned long long int)(clock64() - start_time - prev_time);
 			start_time = clock64();
 			prev_time = 0;
 		}
@@ -283,7 +283,7 @@ static void sassi_finalize(sassi::lazy_allocator::device_reset_reason unused)
 	cudaDeviceSynchronize();
 	unsigned int max_interval = AppDynInstCounter/interval_size;
 	for (unsigned i = 0; i <= max_interval; i++) {
-		bb_ofs << "INTERVAL," << i << ",NUMGPRINSTS,"<< GPRDynInstCounter[i]<<",CYCLES," << (long long
+		bb_ofs << "INTERVAL," << i << ",NUMGPRINSTS,"<< GPRDynInstCounter[i]<<",CYCLES," << (unsigned long long
 				int)(CycleCounter[i]) << "\n";
     	}
 

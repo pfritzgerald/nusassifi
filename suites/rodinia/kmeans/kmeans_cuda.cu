@@ -70,7 +70,9 @@ void allocateMemory(int npoints, int nfeatures, int nclusters, float **features)
 	cudaMemcpy(feature_flipped_d, features[0], npoints*nfeatures*sizeof(float), cudaMemcpyHostToDevice);
 	cudaMalloc((void**) &feature_d, npoints*nfeatures*sizeof(float));
 		
-	/* invert the data array (kernel execution) */	
+	/* invert the data array (kernel execution) */
+	printf("FRITZ:: invert_mapping,numBlocks:%d, numThreads:%d\n",
+			num_blocks, num_threads);
 	invert_mapping<<<num_blocks,num_threads>>>(feature_flipped_d,feature_d,npoints,nfeatures);
 		
 	/* allocate memory for membership_d[] and clusters_d[][] (device) */
@@ -193,7 +195,9 @@ kmeansCuda(float  **feature,				/* in: [npoints][nfeatures] */
 	   changed to 2d (source code on NVIDIA CUDA Programming Guide) */
     dim3  grid( num_blocks_perdim, num_blocks_perdim );
     dim3  threads( num_threads_perdim*num_threads_perdim );
-    
+   
+    printf("FRITZ: kmeansPoint,numBlocks:%d x %d, numThreads: %d\n",
+		    num_blocks_perdim,num_blocks_perdim, num_threads_perdim*num_threads_perdim);
 	/* execute the kernel */
     kmeansPoint<<< grid, threads >>>( feature_d,
                                       nfeatures,

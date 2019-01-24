@@ -26,7 +26,6 @@
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 \***********************************************************************************/
 
-
 #define __STDC_FORMAT_MACROS
 #include <assert.h>
 #include <stdio.h>
@@ -38,6 +37,7 @@
 #include <map>
 #include <sys/time.h>
 #include <cupti.h>
+
 
 #include <sassi/sassi-core.hpp>
 #include <sassi/sassi-regs.hpp>

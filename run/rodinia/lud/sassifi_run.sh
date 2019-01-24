@@ -1,1 +1,1 @@
-${BIN_DIR}/lud_cuda -s 512 -v >stdout.txt 2>stderr.txt
+${BIN_DIR}/lud_cuda -s 256 -v >stdout.txt 2>stderr.txt

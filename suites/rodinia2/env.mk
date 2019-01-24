@@ -1,4 +1,4 @@
-SUITE_NAME = rodinia
+SUITE_NAME = rodinia2
 
 OPTION = none
 

@@ -67,7 +67,7 @@ def parse_results_file(app, igid, bfm, c):
         print "file is " + rf.name
 	num_lines = 0
 	for line in rf: # for each injection site 
-		print "-------LINE: " + str(num_lines) + "---------------"
+#		print "-------LINE: " + str(num_lines) + "---------------"
 		#Example line: _Z22bpnn_layerforward_CUDAPfS_S_S_ii-0-26605491-0.506809798834-0.560204950825:..:MOV:773546:17:0.759537:3:dmesg, 
 		#kname-kcount-iid-allIId-opid-bid:pc:opcode:tid:injBID:runtime_sec:outcome_category:dmesg
 		words = line.split(":")
@@ -197,42 +197,37 @@ def parse_bb_interval_executions(app, c):
 	kName = ""
         invocation_id=0
 	for line in rf: # for each mem access (or new kernel and invocation)
-            if "kernel," in line:
-                words = line.split(",")
-                kName = words[1]
-                invocation_id = int(words[3])
-                interval_size = int(words[5])
-            elif "INTERVAL," in line:
-		words = line.split(",")
-		interval_id = int(words[1])
-		num_gpr_insts = int(words[3])
-		c.execute('INSERT OR IGNORE INTO BBVIntervalSizes '\
-                            'VALUES(NULL, \'%s\', %d, %d, %d);'
-                            %(app, interval_size, interval_id,num_gpr_insts))
-
-	    else:
-                words = line.split(",")
-                basic_block_id = int(words[0])
-                num_insts = int(words[2])
-                func_name = words[1]
-                inst_interval =int(words[3])
-                bb_num_execs = int(words[4])
-                live_in_max_r_regused = int(words[5])
-                live_in_pred = int(words[6])
-                live_in_cc = int(words[7])
-                live_in_unused = int(words[8])
-                live_out_max_r_regused = int(words[9])
-                live_out_pred = int(words[10])
-                live_out_cc = int(words[11])
-                live_out_unused = int(words[12])
-
-  		c.execute('INSERT OR IGNORE INTO BBProfile '\
+		if "kernel," in line:
+			words = line.split(",")
+			kName = words[1]
+			invocation_id = int(words[3])
+			interval_size = int(words[5])
+		elif "INTERVAL," in line:
+			words = line.split(",")
+			interval_id = int(words[1])
+			num_gpr_insts = int(words[3])
+			c.execute('INSERT OR IGNORE INTO BBVIntervalSizes '\
+					'VALUES(NULL, \'%s\', %d, %d, %d);'
+					%(app, interval_size, interval_id,num_gpr_insts))
+		else:
+			words = line.split(",")
+			basic_block_id = int(words[0])
+			num_insts = int(words[2])
+			func_name = words[1]
+			inst_interval =int(words[3])
+			bb_num_execs = int(words[4])
+			num_succs = int(words[5])
+			succs = ",".join(map(str, words[6:6+num_succs]))
+#			print 'INSERT OR IGNORE INTO BBProfile '\
+#				'VALUES(NULL, \'%s\',\'%s\', %d, %d, %d, %d, \'%s\', %d,'\
+#				'%d, \'%s\');'	%(app, kName, invocation_id, inst_interval, basic_block_id, num_insts, 
+#					func_name, bb_num_execs, num_succs, succs)
+			c.execute('INSERT OR IGNORE INTO BBProfile '\
 				'VALUES(NULL, \'%s\',\'%s\', %d, %d, %d, %d, \'%s\', %d,'\
-                                '%d, %d, %d, %d, %d, %d, %d, %d);'
+				'%d, \'%s\');'
 				%(app, kName, invocation_id, inst_interval, basic_block_id, num_insts, 
-                                    func_name, bb_num_execs, live_in_max_r_regused, live_in_pred,
-                                    live_in_cc, live_in_unused, live_out_max_r_regused,
-                                    live_out_pred, live_out_cc, live_out_unused))
+					func_name, bb_num_execs, num_succs, succs))
+
 def parse_bb_executions(app, c):
 	try:
 		rf = open(sp.app_dir[app] + "bb_profile.txt", "r")
@@ -388,7 +383,7 @@ def parse_results_apps(typ,c):
 		parse_mem_accesses(app, c)
 		parse_pupcs(app, c)
 		#parse_bb_executions(app,c)
-		#parse_bb_interval_executions(app,c)
+		parse_bb_interval_executions(app,c)
 		#parse_path_executions(app,c)
 		#parse_path_incs(app, c)
 		#parse_full_paths(app,c)
@@ -465,8 +460,7 @@ def CreateNewDB(c):
 			'BBProfile(ID INTEGER PRIMARY KEY, App TEXT, KName TEXT, '\
 			'InvocationIdx INTEGER, InstIntervalId INTEGER, '\
 			' BasicBlockId INTEGER, BBNumInsts INTEGER, FuncName TEXT, BBNumExecs INTEGER,'\
-			'LiveInMaxRRegUsed INTEGER, LiveInPred INTEGER, LiveInCC INTEGER, LiveInUnused INTEGER,'
-			'LiveOutMaxRRegUsed INTEGER, LiveOutPred INTEGER, LiveOutCC INTEGER, LiveOutUnused INTEGER)')
+			'numSuccs INTEGER, Succs TEXT)')
 	c.execute('CREATE TABLE IF NOT EXISTS '\
 			'BBExecutions(ID INTEGER PRIMARY KEY, App TEXT, KName TEXT, '\
 			'BasicBlockId INTEGER, BBNumExecs INTEGER, BBNumInsts INTEGER,'\
