@@ -1,0 +1,10 @@
+digraph _Z9vectorAddPKfS0_Pfi {
+	BB0 [style=filled,fontcolor=gray100,shape=box,peripheries=1,color=gray-2147483648,label="BB0 : 1 ins"];
+	BB1 [style=filled,fontcolor=gray100,shape=box,peripheries=1,color=gray-2147483648,label="BB1 : 5 ins"];
+	BB2 [style=filled,fontcolor=gray100,shape=box,peripheries=1,color=gray-2147483648,label="BB2 : 11 ins"];
+	BB3 [style=filled,fontcolor=gray100,shape=box,peripheries=3,color=gray-2147483648,label="BB3 : 1 ins"];
+	BB0 -> BB1;
+	BB1 -> BB3;
+	BB1 -> BB2;
+	BB2 -> BB3;
+}
