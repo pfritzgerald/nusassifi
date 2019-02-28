@@ -1,0 +1,176 @@
+cfg: _Z20needle_cuda_shared_2PiS_iiii
+	blockID: 0, 1 INS, fnName:_Z20needle_cuda_shared_2PiS_iiii
+		start: fbcd402e000028d8,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:120
+		end: fbcd402e000028d8,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:120
+	blockID: 1, 85 INS, fnName:_Z20needle_cuda_shared_2PiS_iiii
+		start: fbcd402e00002898,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:120
+		end: fbcd402e00000330,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:134
+	blockID: 2, 21 INS, fnName:_Z20needle_cuda_shared_2PiS_iiii
+		start: fbcd402e00002858,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:136
+		end: fbcd402e000003f0,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:142
+	blockID: 3, 7 INS, fnName:_Z20needle_cuda_shared_2PiS_iiii
+		start: fbcd402e00002750,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:144
+		end: fbcd402e00000430,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:146
+	blockID: 4, 9 INS, fnName:_Z20needle_cuda_shared_2PiS_iiii
+		start: fbcd402e00002690,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:149
+		end: fbcd402e00000488,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:149
+	blockID: 5, 12 INS, fnName:_Z20needle_cuda_shared_2PiS_iiii
+		start: fbcd402e000025d0,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:151
+		end: fbcd402e00000528,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:162
+	blockID: 6, 13 INS, fnName:_Z20needle_cuda_shared_2PiS_iiii
+		start: fbcd402e000024a0,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:149
+		end: fbcd402e000005a0,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:162
+	blockID: 7, 13 INS, fnName:_Z20needle_cuda_shared_2PiS_iiii
+		start: fbcd402e00002370,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:151
+		end: fbcd402e00000618,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:162
+	blockID: 8, 13 INS, fnName:_Z20needle_cuda_shared_2PiS_iiii
+		start: fbcd402e00002258,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:151
+		end: fbcd402e00000690,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:162
+	blockID: 9, 5 INS, fnName:_Z20needle_cuda_shared_2PiS_iiii
+		start: fbcd402e00002128,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:149
+		end: fbcd402e000006b8,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:149
+	blockID: 10, 8 INS, fnName:_Z20needle_cuda_shared_2PiS_iiii
+		start: fbcd402e00002048,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:174
+		end: fbcd402e00000708,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:169
+	blockID: 11, 10 INS, fnName:_Z20needle_cuda_shared_2PiS_iiii
+		start: fbcd402e00001f98,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:174
+		end: fbcd402e00000760,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:174
+	blockID: 12, 1 INS, fnName:_Z20needle_cuda_shared_2PiS_iiii
+		start: fbcd402e00001e78,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:181
+		end: fbcd402e00001e78,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:181
+	blockID: 13, 12 INS, fnName:_Z20needle_cuda_shared_2PiS_iiii
+		start: fbcd402e00001dd0,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:169
+		end: fbcd402e000007d8,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:181
+	blockID: 14, 12 INS, fnName:_Z20needle_cuda_shared_2PiS_iiii
+		start: fbcd402e00001cd8,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:169
+		end: fbcd402e00000848,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:181
+	blockID: 15, 12 INS, fnName:_Z20needle_cuda_shared_2PiS_iiii
+		start: fbcd402e00001be0,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:169
+		end: fbcd402e000008b0,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:181
+	blockID: 16, 12 INS, fnName:_Z20needle_cuda_shared_2PiS_iiii
+		start: fbcd402e00001ae8,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:169
+		end: fbcd402e00000920,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:181
+	blockID: 17, 12 INS, fnName:_Z20needle_cuda_shared_2PiS_iiii
+		start: fbcd402e000019f0,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:169
+		end: fbcd402e00000990,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:181
+	blockID: 18, 12 INS, fnName:_Z20needle_cuda_shared_2PiS_iiii
+		start: fbcd402e000018f8,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:169
+		end: fbcd402e000009f8,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:181
+	blockID: 19, 12 INS, fnName:_Z20needle_cuda_shared_2PiS_iiii
+		start: fbcd402e00001808,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:169
+		end: fbcd402e00000a68,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:181
+	blockID: 20, 12 INS, fnName:_Z20needle_cuda_shared_2PiS_iiii
+		start: fbcd402e00001710,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:169
+		end: fbcd402e00000ad8,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:181
+	blockID: 21, 12 INS, fnName:_Z20needle_cuda_shared_2PiS_iiii
+		start: fbcd402e00001618,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:169
+		end: fbcd402e00000b48,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:181
+	blockID: 22, 12 INS, fnName:_Z20needle_cuda_shared_2PiS_iiii
+		start: fbcd402e00001520,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:169
+		end: fbcd402e00000bb0,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:181
+	blockID: 23, 12 INS, fnName:_Z20needle_cuda_shared_2PiS_iiii
+		start: fbcd402e00001428,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:169
+		end: fbcd402e00000c20,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:181
+	blockID: 24, 12 INS, fnName:_Z20needle_cuda_shared_2PiS_iiii
+		start: fbcd402e00001330,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:169
+		end: fbcd402e00000c90,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:181
+	blockID: 25, 12 INS, fnName:_Z20needle_cuda_shared_2PiS_iiii
+		start: fbcd402e00001238,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:169
+		end: fbcd402e00000cf8,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:181
+	blockID: 26, 12 INS, fnName:_Z20needle_cuda_shared_2PiS_iiii
+		start: fbcd402e00001148,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:169
+		end: fbcd402e00000d68,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:181
+	blockID: 27, 69 INS, fnName:_Z20needle_cuda_shared_2PiS_iiii
+		start: fbcd402e00001060,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:123
+		end: fbcd402e00000fe0,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:188
+cfg: _Z20needle_cuda_shared_1PiS_iiii
+	blockID: 0, 1 INS, fnName:_Z20needle_cuda_shared_1PiS_iiii
+		start: 81bcc7d000002970,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:49
+		end: 81bcc7d000002970,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:49
+	blockID: 1, 11 INS, fnName:_Z20needle_cuda_shared_1PiS_iiii
+		start: 81bcc7d000002930,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:38
+		end: 81bcc7d000000090,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:48
+	blockID: 2, 6 INS, fnName:_Z20needle_cuda_shared_1PiS_iiii
+		start: 81bcc7d0000028f0,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:49
+		end: 81bcc7d0000000c8,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:49
+	blockID: 3, 75 INS, fnName:_Z20needle_cuda_shared_1PiS_iiii
+		start: 81bcc7d000002810,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:40
+		end: 81bcc7d000000370,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:55
+	blockID: 4, 12 INS, fnName:_Z20needle_cuda_shared_1PiS_iiii
+		start: 81bcc7d0000027a8,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:42
+		end: 81bcc7d0000003e0,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:59
+	blockID: 5, 8 INS, fnName:_Z20needle_cuda_shared_1PiS_iiii
+		start: 81bcc7d000002710,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:41
+		end: 81bcc7d000000428,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:63
+	blockID: 6, 9 INS, fnName:_Z20needle_cuda_shared_1PiS_iiii
+		start: 81bcc7d000002650,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:66
+		end: 81bcc7d000000478,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:66
+	blockID: 7, 12 INS, fnName:_Z20needle_cuda_shared_1PiS_iiii
+		start: 81bcc7d000002590,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:68
+		end: 81bcc7d0000004e8,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:81
+	blockID: 8, 13 INS, fnName:_Z20needle_cuda_shared_1PiS_iiii
+		start: 81bcc7d000002460,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:66
+		end: 81bcc7d000000560,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:81
+	blockID: 9, 13 INS, fnName:_Z20needle_cuda_shared_1PiS_iiii
+		start: 81bcc7d000002330,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:68
+		end: 81bcc7d0000005d8,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:81
+	blockID: 10, 13 INS, fnName:_Z20needle_cuda_shared_1PiS_iiii
+		start: 81bcc7d000002218,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:68
+		end: 81bcc7d000000650,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:81
+	blockID: 11, 5 INS, fnName:_Z20needle_cuda_shared_1PiS_iiii
+		start: 81bcc7d0000020e8,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:66
+		end: 81bcc7d000000678,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:66
+	blockID: 12, 8 INS, fnName:_Z20needle_cuda_shared_1PiS_iiii
+		start: 81bcc7d000002008,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:92
+		end: 81bcc7d0000006c8,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:87
+	blockID: 13, 10 INS, fnName:_Z20needle_cuda_shared_1PiS_iiii
+		start: 81bcc7d000001f58,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:92
+		end: 81bcc7d000000720,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:92
+	blockID: 14, 1 INS, fnName:_Z20needle_cuda_shared_1PiS_iiii
+		start: 81bcc7d000001e38,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:98
+		end: 81bcc7d000001e38,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:98
+	blockID: 15, 12 INS, fnName:_Z20needle_cuda_shared_1PiS_iiii
+		start: 81bcc7d000001d90,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:87
+		end: 81bcc7d000000798,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:98
+	blockID: 16, 12 INS, fnName:_Z20needle_cuda_shared_1PiS_iiii
+		start: 81bcc7d000001c98,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:87
+		end: 81bcc7d000000808,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:98
+	blockID: 17, 12 INS, fnName:_Z20needle_cuda_shared_1PiS_iiii
+		start: 81bcc7d000001ba0,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:87
+		end: 81bcc7d000000870,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:98
+	blockID: 18, 12 INS, fnName:_Z20needle_cuda_shared_1PiS_iiii
+		start: 81bcc7d000001aa8,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:87
+		end: 81bcc7d0000008e0,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:98
+	blockID: 19, 12 INS, fnName:_Z20needle_cuda_shared_1PiS_iiii
+		start: 81bcc7d0000019b0,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:87
+		end: 81bcc7d000000950,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:98
+	blockID: 20, 12 INS, fnName:_Z20needle_cuda_shared_1PiS_iiii
+		start: 81bcc7d0000018b8,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:87
+		end: 81bcc7d0000009b8,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:98
+	blockID: 21, 12 INS, fnName:_Z20needle_cuda_shared_1PiS_iiii
+		start: 81bcc7d0000017c8,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:87
+		end: 81bcc7d000000a28,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:98
+	blockID: 22, 12 INS, fnName:_Z20needle_cuda_shared_1PiS_iiii
+		start: 81bcc7d0000016d0,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:87
+		end: 81bcc7d000000a98,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:98
+	blockID: 23, 12 INS, fnName:_Z20needle_cuda_shared_1PiS_iiii
+		start: 81bcc7d0000015d8,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:87
+		end: 81bcc7d000000b08,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:98
+	blockID: 24, 12 INS, fnName:_Z20needle_cuda_shared_1PiS_iiii
+		start: 81bcc7d0000014e0,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:87
+		end: 81bcc7d000000b70,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:98
+	blockID: 25, 12 INS, fnName:_Z20needle_cuda_shared_1PiS_iiii
+		start: 81bcc7d0000013e8,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:87
+		end: 81bcc7d000000be0,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:98
+	blockID: 26, 12 INS, fnName:_Z20needle_cuda_shared_1PiS_iiii
+		start: 81bcc7d0000012f0,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:87
+		end: 81bcc7d000000c50,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:98
+	blockID: 27, 12 INS, fnName:_Z20needle_cuda_shared_1PiS_iiii
+		start: 81bcc7d0000011f8,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:87
+		end: 81bcc7d000000cb8,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:98
+	blockID: 28, 12 INS, fnName:_Z20needle_cuda_shared_1PiS_iiii
+		start: 81bcc7d000001108,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:87
+		end: 81bcc7d000000d28,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:98
+	blockID: 29, 69 INS, fnName:_Z20needle_cuda_shared_1PiS_iiii
+		start: 81bcc7d000001020,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:40
+		end: 81bcc7d000000fa0,file:/home/previlon/sassifi_package_final/suites/rodinia/nw/needle_kernel.cu, line:104

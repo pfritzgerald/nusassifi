@@ -1,0 +1,3 @@
+kernel name is not the same during the injection run as during the profiling run.
+Errors are not injected because we will never reach the actual kernel of interest
+during the injection run

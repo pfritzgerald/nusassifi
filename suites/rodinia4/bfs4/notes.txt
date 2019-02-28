@@ -1,0 +1,2 @@
+graph-4k-4 input has a maximum weight of 100 (as opposed to 10) for an edge 
+

@@ -1,0 +1,77 @@
+cfg: _Z14invert_mappingPfS_ii
+	blockID: 0, 1 INS, fnName:_Z14invert_mappingPfS_ii
+		start: 8059db8900000508,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:43
+		end: 8059db8900000508,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:43
+	blockID: 1, 6 INS, fnName:_Z14invert_mappingPfS_ii
+		start: 8059db89000004c8,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:39
+		end: 8059db8900000060,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:42
+	blockID: 2, 5 INS, fnName:_Z14invert_mappingPfS_ii
+		start: 8059db8900000488,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:43
+		end: 8059db8900000090,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:43
+	blockID: 3, 3 INS, fnName:_Z14invert_mappingPfS_ii
+		start: 8059db8900000448,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:43
+		end: 8059db89000000a8,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:43
+	blockID: 4, 20 INS, fnName:_Z14invert_mappingPfS_ii
+		start: 8059db89000003e0,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:44
+		end: 8059db8900000160,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:43
+	blockID: 5, 2 INS, fnName:_Z14invert_mappingPfS_ii
+		start: 8059db8900000368,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:43
+		end: 8059db8900000178,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:43
+	blockID: 6, 1 INS, fnName:_Z14invert_mappingPfS_ii
+		start: 0000000000000000,		no source for start
+		end: 8059db8900000308,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:44
+	blockID: 7, 11 INS, fnName:_Z14invert_mappingPfS_ii
+		start: 0000000000000000,		no source for start
+		end: 8059db89000001e8,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:43
+	blockID: 8, 1 INS, fnName:_Z14invert_mappingPfS_ii
+		start: 0000000000000000,		no source for start
+		end: 8059db8900000228,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:46
+cfg: _Z11kmeansPointPfiiiPiS_S_S0_
+	blockID: 0, 1 INS, fnName:_Z11kmeansPointPfiiiPiS_S_S0_
+		start: eefbe2ee00000c18,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:82
+		end: eefbe2ee00000c18,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:82
+	blockID: 1, 11 INS, fnName:_Z11kmeansPointPfiiiPiS_S_S0_
+		start: eefbe2ee00000bd0,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:69
+		end: eefbe2ee00000090,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:75
+	blockID: 2, 7 INS, fnName:_Z11kmeansPointPfiiiPiS_S_S0_
+		start: eefbe2ee00000b88,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:83
+		end: eefbe2ee000000d0,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:83
+	blockID: 3, 0 INS, fnName:_Z11kmeansPointPfiiiPiS_S_S0_
+		start: 0000000000000000,		no source for start
+		end: 0000000000000000,		no source for end
+	blockID: 4, 6 INS, fnName:_Z11kmeansPointPfiiiPiS_S_S0_
+		start: eefbe2ee00000b08,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:86
+		end: eefbe2ee00000108,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:86
+	blockID: 5, 6 INS, fnName:_Z11kmeansPointPfiiiPiS_S_S0_
+		start: eefbe2ee00000a60,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:86
+		end: eefbe2ee00000138,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:86
+	blockID: 6, 2 INS, fnName:_Z11kmeansPointPfiiiPiS_S_S0_
+		start: eefbe2ee000009a8,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:86
+		end: eefbe2ee00000150,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:86
+	blockID: 7, 28 INS, fnName:_Z11kmeansPointPfiiiPiS_S_S0_
+		start: eefbe2ee000008b8,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:86
+		end: eefbe2ee00000250,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:86
+	blockID: 8, 2 INS, fnName:_Z11kmeansPointPfiiiPiS_S_S0_
+		start: eefbe2ee000007d0,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:86
+		end: eefbe2ee00000260,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:86
+	blockID: 9, 0 INS, fnName:_Z11kmeansPointPfiiiPiS_S_S0_
+		start: 0000000000000000,		no source for start
+		end: 0000000000000000,		no source for end
+	blockID: 10, 10 INS, fnName:_Z11kmeansPointPfiiiPiS_S_S0_
+		start: eefbe2ee000006e0,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:86
+		end: eefbe2ee000002b8,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:86
+	blockID: 11, 6 INS, fnName:_Z11kmeansPointPfiiiPiS_S_S0_
+		start: eefbe2ee000005f0,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:97
+		end: eefbe2ee000002f0,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:82
+	blockID: 12, 1 INS, fnName:_Z11kmeansPointPfiiiPiS_S_S0_
+		start: eefbe2ee00000538,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:112
+		end: eefbe2ee00000538,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:112
+	blockID: 13, 1 INS, fnName:_Z11kmeansPointPfiiiPiS_S_S0_
+		start: eefbe2ee000004d0,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:112
+		end: eefbe2ee000004d0,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:112
+	blockID: 14, 4 INS, fnName:_Z11kmeansPointPfiiiPiS_S_S0_
+		start: eefbe2ee00000438,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:121
+		end: eefbe2ee00000328,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:121
+	blockID: 15, 1 INS, fnName:_Z11kmeansPointPfiiiPiS_S_S0_
+		start: eefbe2ee00000370,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:184
+		end: eefbe2ee00000370,file:/home/previlon/nusassifi/suites/rodinia/kmeans/kmeans_cuda_kernel.cu, line:184

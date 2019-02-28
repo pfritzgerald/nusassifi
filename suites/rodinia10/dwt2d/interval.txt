@@ -1,0 +1,6 @@
+100000
+App:IntervalSize:NumFaultsPerInterval:IntervalList...
+dwt2d:100000:400:5:65:11
+5:99648:0.086957
+65:86910:0.811594
+11:96901:0.101449

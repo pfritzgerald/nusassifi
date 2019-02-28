@@ -1,0 +1,7 @@
+kmeans4 has a biased input where the features for all objects are
+carefully crafted to belong to specific clusters (5 clusters).
+
+in Makefile, see '<input>.biased'.
+
+We expect that no change in the cluster assignments after a first 
+iteration.

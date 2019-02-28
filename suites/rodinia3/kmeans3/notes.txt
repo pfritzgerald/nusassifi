@@ -1,0 +1,4 @@
+kmeans3 has max number of clusters equal to 50 (instead of the default 5).
+in Makefile, see -m 50
+
+This means the application is going to do a clustering for n=5,6,7,8,....,50

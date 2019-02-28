@@ -1,0 +1,1815 @@
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=0 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_0
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=1 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_1
+ptxas warning : For profile sm_35 adjusting per thread register count of 1 to lower bound of 16
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 16 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=2 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_2
+ptxas warning : For profile sm_35 adjusting per thread register count of 2 to lower bound of 16
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 16 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=3 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_3
+ptxas warning : For profile sm_35 adjusting per thread register count of 3 to lower bound of 16
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 16 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=4 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_4
+ptxas warning : For profile sm_35 adjusting per thread register count of 4 to lower bound of 16
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 16 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=5 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_5
+ptxas warning : For profile sm_35 adjusting per thread register count of 5 to lower bound of 16
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 16 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=6 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_6
+ptxas warning : For profile sm_35 adjusting per thread register count of 6 to lower bound of 16
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 16 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=7 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_7
+ptxas warning : For profile sm_35 adjusting per thread register count of 7 to lower bound of 16
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 16 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=8 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_8
+ptxas warning : For profile sm_35 adjusting per thread register count of 8 to lower bound of 16
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 16 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=9 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_9
+ptxas warning : For profile sm_35 adjusting per thread register count of 9 to lower bound of 16
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 16 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=10 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_10
+ptxas warning : For profile sm_35 adjusting per thread register count of 10 to lower bound of 16
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 16 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=11 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_11
+ptxas warning : For profile sm_35 adjusting per thread register count of 11 to lower bound of 16
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 16 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=12 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_12
+ptxas warning : For profile sm_35 adjusting per thread register count of 12 to lower bound of 16
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 16 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=13 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_13
+ptxas warning : For profile sm_35 adjusting per thread register count of 13 to lower bound of 16
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 16 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=14 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_14
+ptxas warning : For profile sm_35 adjusting per thread register count of 14 to lower bound of 16
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 16 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=15 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_15
+ptxas warning : For profile sm_35 adjusting per thread register count of 15 to lower bound of 16
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 16 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=16 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_16
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 16 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=17 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_17
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=18 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_18
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=19 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_19
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=20 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_20
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=21 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_21
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=22 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_22
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=23 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_23
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=24 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_24
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=25 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_25
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=26 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_26
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=27 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_27
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=28 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_28
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=29 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_29
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=30 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_30
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=31 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_31
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=32 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_32
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=33 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_33
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=34 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_34
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=35 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_35
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=36 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_36
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=37 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_37
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=38 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_38
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=39 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_39
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=40 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_40
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=41 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_41
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=42 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_42
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=43 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_43
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=44 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_44
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=45 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_45
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=46 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_46
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=47 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_47
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=48 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_48
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=49 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_49
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=50 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_50
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=51 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_51
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=52 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_52
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=53 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_53
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=54 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_54
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=55 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_55
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=56 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_56
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=57 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_57
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=58 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_58
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=59 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_59
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=60 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_60
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=61 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_61
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=62 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_62
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=63 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_63
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=64 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_64
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=65 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_65
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=66 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_66
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=67 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_67
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=68 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_68
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=69 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_69
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=70 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_70
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=71 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_71
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=72 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_72
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=73 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_73
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=74 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_74
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=75 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_75
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=76 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_76
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=77 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_77
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=78 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_78
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=79 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_79
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=80 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_80
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=81 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_81
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=82 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_82
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=83 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_83
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=84 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_84
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=85 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_85
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=86 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_86
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=87 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_87
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=88 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_88
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=89 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_89
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=90 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_90
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=91 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_91
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=92 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_92
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=93 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_93
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=94 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_94
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=95 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_95
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=96 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_96
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=97 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_97
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=98 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_98
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=99 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_99
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=100 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_100
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=101 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_101
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=102 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_102
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=103 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_103
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=104 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_104
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=105 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_105
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=106 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_106
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=107 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_107
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=108 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_108
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=109 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_109
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=110 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_110
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=111 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_111
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=112 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_112
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=113 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_113
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=114 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_114
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=115 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_115
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=116 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_116
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=117 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_117
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=118 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_118
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=119 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_119
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=120 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_120
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=121 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_121
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=122 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_122
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=123 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_123
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=124 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_124
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=125 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_125
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=126 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_126
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=127 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_127
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=128 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_128
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=129 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_129
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=130 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_130
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=131 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_131
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=132 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_132
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=133 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_133
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=134 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_134
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=135 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_135
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=136 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_136
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=137 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_137
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=138 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_138
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=139 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_139
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=140 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_140
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=141 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_141
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=142 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_142
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=143 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_143
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=144 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_144
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=145 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_145
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=146 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_146
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=147 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_147
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=148 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_148
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=149 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_149
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=150 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_150
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=151 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_151
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=152 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_152
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=153 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_153
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=154 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_154
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=155 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_155
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=156 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_156
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=157 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_157
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=158 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_158
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=159 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_159
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=160 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_160
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=161 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_161
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=162 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_162
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=163 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_163
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=164 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_164
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=165 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_165
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=166 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_166
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=167 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_167
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=168 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_168
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=169 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_169
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=170 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_170
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=171 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_171
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=172 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_172
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=173 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_173
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=174 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_174
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=175 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_175
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=176 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_176
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=177 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_177
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=178 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_178
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=179 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_179
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=180 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_180
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=181 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_181
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=182 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_182
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=183 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_183
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=184 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_184
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=185 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_185
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=186 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_186
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=187 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_187
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=188 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_188
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=189 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_189
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=190 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_190
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=191 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_191
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=192 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_192
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=193 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_193
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=194 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_194
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=195 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_195
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=196 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_196
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=197 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_197
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=198 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_198
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=199 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_199
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=200 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_200
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=201 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_201
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=202 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_202
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=203 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_203
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=204 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_204
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=205 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_205
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=206 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_206
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=207 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_207
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=208 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_208
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=209 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_209
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=210 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_210
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=211 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_211
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=212 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_212
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=213 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_213
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=214 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_214
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=215 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_215
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=216 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_216
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=217 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_217
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=218 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_218
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=219 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_219
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=220 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_220
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=221 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_221
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=222 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_222
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=223 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_223
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=224 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_224
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=225 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_225
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=226 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_226
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=227 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_227
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=228 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_228
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=229 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_229
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=230 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_230
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=231 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_231
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=232 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_232
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=233 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_233
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=234 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_234
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=235 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_235
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=236 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_236
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=237 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_237
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=238 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_238
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=239 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_239
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=240 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_240
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=241 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_241
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=242 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_242
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=243 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_243
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=244 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_244
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=245 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_245
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=246 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_246
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=247 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_247
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=248 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_248
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=249 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_249
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=250 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_250
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=251 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_251
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=252 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_252
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=253 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_253
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=254 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_254
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=255 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_255
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
+nvcc  /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder.cu -O0 -maxrregcount=256 -arch=compute_35 -code=sm_35 --ptxas-options=-v -o /home/ckalra/rodinia_3.1/cuda/pathfinder/pathfinder_256
+ptxas warning : Too big maxrregcount value specified 256, will be ignored
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z14dynproc_kerneliPiS_S_iiii' for 'sm_35'
+ptxas info    : Function properties for _Z14dynproc_kerneliPiS_S_iiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 2048 bytes smem, 368 bytes cmem[0]
+-------------------------------------------------------------------------------------------------------------------------------
