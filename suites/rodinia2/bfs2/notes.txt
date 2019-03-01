@@ -1,0 +1,3 @@
+graph 4k 2 input has average number of edges equal to 2 (supposedly) and minimum 0
+
+The number of invocations for each kernel is different with this input

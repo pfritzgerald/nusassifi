@@ -19,10 +19,10 @@ install:
 	cp $(TARGET) $(SASSIFI_HOME)/bin/$(OPTION)/$(SUITE_NAME)/
 
 test:
-	./hotspot 64 4 4 ../../rodinia/data/hotspot/temp_64 ../../rodinia/data/hotspot/power_64 output.out
+	./hotspot 512 4 4 ../../rodinia/data/hotspot/temp_512 ../../rodinia/data/hotspot/power_512 output.out
 
 golden:
-	./hotspot 64 4 4 ../../rodinia/data/hotspot/temp_64 ../../rodinia/data/hotspot/power_64 output.out >golden_stdout.txt 2>golden_stderr.txt
+	./hotspot 512 4 4 ../../rodinia/data/hotspot/temp_512 ../../rodinia/data/hotspot/power_512 output.out >golden_stdout.txt 2>golden_stderr.txt
 
 clean:
 	rm -f *.o *~ $(TARGET)
