@@ -1,0 +1,588 @@
+cfg: __cuda_sm20_rcp_rn_f32
+	blockID: 0, 3 INS, fnName:__cuda_sm20_rcp_rn_f32
+		start: 55765fa2000003a8,file:Location not known, line:-1
+		end: 55765fa200000048,file:Location not known, line:-1
+	blockID: 1, 10 INS, fnName:__cuda_sm20_rcp_rn_f32
+		start: 55765fa200000360,file:Location not known, line:-1
+		end: 55765fa2000000a0,file:Location not known, line:-1
+	blockID: 2, 2 INS, fnName:__cuda_sm20_rcp_rn_f32
+		start: 0000000000000000,		no source for start
+		end: 55765fa2000000b0,file:Location not known, line:-1
+	blockID: 3, 1 INS, fnName:__cuda_sm20_rcp_rn_f32
+		start: 0000000000000000,		no source for start
+		end: 55765fa2000002d0,file:Location not known, line:-1
+	blockID: 4, 4 INS, fnName:__cuda_sm20_rcp_rn_f32
+		start: 0000000000000000,		no source for start
+		end: 55765fa2000000d8,file:Location not known, line:-1
+	blockID: 5, 5 INS, fnName:__cuda_sm20_rcp_rn_f32
+		start: 55765fa200000240,file:Location not known, line:-1
+		end: 55765fa200000100,file:Location not known, line:-1
+	blockID: 6, 1 INS, fnName:__cuda_sm20_rcp_rn_f32
+		start: 55765fa2000001f8,file:Location not known, line:-1
+		end: 55765fa2000001f8,file:Location not known, line:-1
+	blockID: 7, 5 INS, fnName:__cuda_sm20_rcp_rn_f32
+		start: 55765fa2000001b0,file:Location not known, line:-1
+		end: 55765fa200000130,file:Location not known, line:-1
+	blockID: 8, 1 INS, fnName:__cuda_sm20_rcp_rn_f32
+		start: 0000000000000000,		no source for start
+		end: 55765fa200000168,file:Location not known, line:-1
+cfg: _Z14calculate_tempiPfS_S_iiiiffffff
+	blockID: 0, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00006b20,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:104
+		end: 341033fe00006b20,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:104
+	blockID: 1, 4 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00006ae0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:104
+		end: 341033fe00000050,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:74
+	blockID: 2, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 0000000000000000,		no source for start
+		end: 341033fe00006aa0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:104
+	blockID: 3, 43 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00006a60,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:104
+		end: 341033fe000001e0,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:84
+	blockID: 4, 0 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 0000000000000000,		no source for start
+		end: 0000000000000000,		no source for end
+	blockID: 5, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00006a20,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:123
+		end: 341033fe00006a20,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:123
+	blockID: 6, 3 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000069a8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:127
+		end: 341033fe00000208,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:84
+	blockID: 7, 3 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00006948,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:128
+		end: 341033fe00000220,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:84
+	blockID: 8, 3 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000068e0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:130
+		end: 341033fe00000238,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:84
+	blockID: 9, 3 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00006878,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:131
+		end: 341033fe00000258,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:84
+	blockID: 10, 4 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00006818,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:133
+		end: 341033fe00000278,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:84
+	blockID: 11, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000067b0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:133
+		end: 341033fe000067b0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:133
+	blockID: 12, 2 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00006750,file:/home/previlon/sassi7/include/device_functions.hpp, line:1442
+		end: 341033fe00000298,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:84
+	blockID: 13, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000066e8,file:/home/previlon/sassi7/include/device_functions.hpp, line:1442
+		end: 341033fe000066e8,file:/home/previlon/sassi7/include/device_functions.hpp, line:1442
+	blockID: 14, 2 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00006688,file:/home/previlon/sassi7/include/device_functions.hpp, line:1442
+		end: 341033fe000002b0,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:84
+	blockID: 15, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00006630,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:133
+		end: 341033fe00006630,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:133
+	blockID: 16, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000065e0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:135
+		end: 341033fe000065e0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:135
+	blockID: 17, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000065a0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:135
+		end: 341033fe000065a0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:135
+	blockID: 18, 2 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00006550,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:135
+		end: 341033fe000002e0,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:84
+	blockID: 19, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000064f8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:136
+		end: 341033fe000064f8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:136
+	blockID: 20, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000064b8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:136
+		end: 341033fe000064b8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:136
+	blockID: 21, 2 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00006468,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:136
+		end: 341033fe00000308,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:84
+	blockID: 22, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00006418,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:137
+		end: 341033fe00006418,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:137
+	blockID: 23, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000063d8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:137
+		end: 341033fe000063d8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:137
+	blockID: 24, 2 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00006388,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:137
+		end: 341033fe00000328,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:84
+	blockID: 25, 4 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00006330,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:145
+		end: 341033fe00000350,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:84
+	blockID: 26, 2 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000062e0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:146
+		end: 341033fe00000360,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:84
+	blockID: 27, 2 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00006268,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:150
+		end: 341033fe00000370,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:84
+	blockID: 28, 2 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000061f0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:151
+		end: 341033fe00000388,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:84
+	blockID: 29, 2 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00006178,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:152
+		end: 341033fe00000398,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:84
+	blockID: 30, 2 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00006108,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:153
+		end: 341033fe000003a8,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:84
+	blockID: 31, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00006078,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:156
+		end: 341033fe00006078,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:156
+	blockID: 32, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00005fe0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:157
+		end: 341033fe00005fe0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:157
+	blockID: 33, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00005f30,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:160
+		end: 341033fe00005f30,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:160
+	blockID: 34, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00005e70,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:160
+		end: 341033fe00005e70,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:160
+	blockID: 35, 2 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00005db0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:161
+		end: 341033fe000003e0,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:84
+	blockID: 36, 5 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00005cf0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:163
+		end: 341033fe00000418,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:89
+	blockID: 37, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00005c20,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:163
+		end: 341033fe00005c20,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:163
+	blockID: 38, 2 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00005b50,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:163
+		end: 341033fe00000430,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:89
+	blockID: 39, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00005a78,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:163
+		end: 341033fe00005a78,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:163
+	blockID: 40, 4 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00005998,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:163
+		end: 341033fe00000468,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:89
+	blockID: 41, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000058b0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:163
+		end: 341033fe000058b0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:163
+	blockID: 42, 4 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000057f0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:163
+		end: 341033fe00000498,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:89
+	blockID: 43, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00005730,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:163
+		end: 341033fe00005730,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:163
+	blockID: 44, 2 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00005670,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:163
+		end: 341033fe000004b0,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:89
+	blockID: 45, 0 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 0000000000000000,		no source for start
+		end: 0000000000000000,		no source for end
+	blockID: 46, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000055b0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:163
+		end: 341033fe000055b0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:163
+	blockID: 47, 3 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000054e0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:163
+		end: 341033fe000004e0,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:89
+	blockID: 48, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00005410,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:163
+		end: 341033fe00005410,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:163
+	blockID: 49, 0 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 0000000000000000,		no source for start
+		end: 0000000000000000,		no source for end
+	blockID: 50, 78 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00005360,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:164
+		end: 341033fe000007b0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:165
+	blockID: 51, 0 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 0000000000000000,		no source for start
+		end: 0000000000000000,		no source for end
+	blockID: 52, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000052b0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:167
+		end: 341033fe000052b0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:167
+	blockID: 53, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00005208,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:167
+		end: 341033fe00005208,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:167
+	blockID: 54, 4 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00005158,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:172
+		end: 341033fe000007f0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:172
+	blockID: 55, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000050a8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:172
+		end: 341033fe000050a8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:172
+	blockID: 56, 2 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00004ff8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:172
+		end: 341033fe00000810,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:172
+	blockID: 57, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00004f50,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:172
+		end: 341033fe00004f50,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:172
+	blockID: 58, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00004eb0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:172
+		end: 341033fe00004eb0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:172
+	blockID: 59, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00004e08,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:172
+		end: 341033fe00004e08,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:172
+	blockID: 60, 5 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00004d58,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:173
+		end: 341033fe00000860,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:173
+	blockID: 61, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00004cb8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:173
+		end: 341033fe00004cb8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:173
+	blockID: 62, 5 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00004c20,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:173
+		end: 341033fe00000898,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:173
+	blockID: 63, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00004b88,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:173
+		end: 341033fe00004b88,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:173
+	blockID: 64, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00004af8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:173
+		end: 341033fe00004af8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:173
+	blockID: 65, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00004a60,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:173
+		end: 341033fe00004a60,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:173
+	blockID: 66, 4 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000049c8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:174
+		end: 341033fe000008e0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:174
+	blockID: 67, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00004938,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:174
+		end: 341033fe00004938,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:174
+	blockID: 68, 2 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000048b0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:174
+		end: 341033fe000008f8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:174
+	blockID: 69, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00004828,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:174
+		end: 341033fe00004828,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:174
+	blockID: 70, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000047b0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:174
+		end: 341033fe000047b0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:174
+	blockID: 71, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00004728,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:174
+		end: 341033fe00004728,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:174
+	blockID: 72, 5 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000046a0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:175
+		end: 341033fe00000950,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:175
+	blockID: 73, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00004628,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:175
+		end: 341033fe00004628,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:175
+	blockID: 74, 5 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000045b0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:175
+		end: 341033fe00000988,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:175
+	blockID: 75, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00004538,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:175
+		end: 341033fe00004538,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:175
+	blockID: 76, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000044d8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:175
+		end: 341033fe000044d8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:175
+	blockID: 77, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00004460,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:175
+		end: 341033fe00004460,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:175
+	blockID: 78, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000043e8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:177
+		end: 341033fe000043e8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:177
+	blockID: 79, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00004388,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:178
+		end: 341033fe00004388,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:178
+	blockID: 80, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00004310,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:179
+		end: 341033fe00004310,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:179
+	blockID: 81, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00004288,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:180
+		end: 341033fe00004288,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:180
+	blockID: 82, 4 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000041e8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:182
+		end: 341033fe000009f0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:182
+	blockID: 83, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00004138,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:182
+		end: 341033fe00004138,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:182
+	blockID: 84, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000040a0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:182
+		end: 341033fe000040a0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:182
+	blockID: 85, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00004008,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:182
+		end: 341033fe00004008,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:182
+	blockID: 86, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00003f58,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:182
+		end: 341033fe00003f58,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:182
+	blockID: 87, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00003ea8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:182
+		end: 341033fe00003ea8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:182
+	blockID: 88, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00003df8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:182
+		end: 341033fe00003df8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:182
+	blockID: 89, 4 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00003d50,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:183
+		end: 341033fe00000a58,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:183
+	blockID: 90, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00003cb0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:183
+		end: 341033fe00003cb0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:183
+	blockID: 91, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00003c28,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:183
+		end: 341033fe00003c28,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:183
+	blockID: 92, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00003ba0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:183
+		end: 341033fe00003ba0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:183
+	blockID: 93, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00003b08,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:183
+		end: 341033fe00003b08,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:183
+	blockID: 94, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00003a68,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:183
+		end: 341033fe00003a68,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:183
+	blockID: 95, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000039d0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:183
+		end: 341033fe000039d0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:183
+	blockID: 96, 4 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00003930,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:184
+		end: 341033fe00000ab8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:184
+	blockID: 97, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000038a8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:184
+		end: 341033fe000038a8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:184
+	blockID: 98, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00003830,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:184
+		end: 341033fe00003830,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:184
+	blockID: 99, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000037b8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:184
+		end: 341033fe000037b8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:184
+	blockID: 100, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00003730,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:184
+		end: 341033fe00003730,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:184
+	blockID: 101, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000036a8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:184
+		end: 341033fe000036a8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:184
+	blockID: 102, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00003620,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:184
+		end: 341033fe00003620,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:184
+	blockID: 103, 4 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00003598,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:185
+		end: 341033fe00000b20,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:185
+	blockID: 104, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00003520,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:185
+		end: 341033fe00003520,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:185
+	blockID: 105, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000034b8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:185
+		end: 341033fe000034b8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:185
+	blockID: 106, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00003458,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:185
+		end: 341033fe00003458,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:185
+	blockID: 107, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000033e0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:185
+		end: 341033fe000033e0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:185
+	blockID: 108, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00003368,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:185
+		end: 341033fe00003368,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:185
+	blockID: 109, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000032f0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:185
+		end: 341033fe000032f0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:185
+	blockID: 110, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00003278,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:185
+		end: 341033fe00003278,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:185
+	blockID: 111, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00003218,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:188
+		end: 341033fe00003218,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:188
+	blockID: 112, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000031a0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:188
+		end: 341033fe000031a0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:188
+	blockID: 113, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00003130,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:188
+		end: 341033fe00003130,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:188
+	blockID: 114, 2 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000030d0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:188
+		end: 341033fe00000b90,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:188
+	blockID: 115, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00003048,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:188
+		end: 341033fe00003048,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:188
+	blockID: 116, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00002fe0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:188
+		end: 341033fe00002fe0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:188
+	blockID: 117, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00002f78,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:189
+		end: 341033fe00002f78,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:189
+	blockID: 118, 6 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00002f08,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+		end: 341033fe00000be8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+	blockID: 119, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00002ea0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+		end: 341033fe00002ea0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+	blockID: 120, 4 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00002e38,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+		end: 341033fe00000c18,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+	blockID: 121, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00002dd8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+		end: 341033fe00002dd8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+	blockID: 122, 4 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00002d50,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+		end: 341033fe00000c50,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+	blockID: 123, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00002cc8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+		end: 341033fe00002cc8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+	blockID: 124, 5 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00002c60,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+		end: 341033fe00000c88,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+	blockID: 125, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00002bf8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+		end: 341033fe00002bf8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+	blockID: 126, 4 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00002b98,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+		end: 341033fe00000cb0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+	blockID: 127, 0 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 0000000000000000,		no source for start
+		end: 0000000000000000,		no source for end
+	blockID: 128, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00002b30,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+		end: 341033fe00002b30,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+	blockID: 129, 4 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00002aa8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+		end: 341033fe00000ce8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+	blockID: 130, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00002a20,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+		end: 341033fe00002a20,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+	blockID: 131, 4 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000029b8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+		end: 341033fe00000d18,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+	blockID: 132, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00002958,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+		end: 341033fe00002958,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+	blockID: 133, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000028f0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+		end: 341033fe000028f0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+	blockID: 134, 0 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 0000000000000000,		no source for start
+		end: 0000000000000000,		no source for end
+	blockID: 135, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00002890,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+		end: 341033fe00002890,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+	blockID: 136, 4 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00002808,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+		end: 341033fe00000d60,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+	blockID: 137, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00002778,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+		end: 341033fe00002778,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+	blockID: 138, 4 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00002718,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+		end: 341033fe00000d90,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+	blockID: 139, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000026b0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+		end: 341033fe000026b0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+	blockID: 140, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00002650,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+		end: 341033fe00002650,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+	blockID: 141, 0 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 0000000000000000,		no source for start
+		end: 0000000000000000,		no source for end
+	blockID: 142, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000025e8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+		end: 341033fe000025e8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+	blockID: 143, 3 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00002560,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+		end: 341033fe00000dd0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+	blockID: 144, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000024d8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+		end: 341033fe000024d8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+	blockID: 145, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00002470,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+		end: 341033fe00002470,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:190
+	blockID: 146, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00002410,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:194
+		end: 341033fe00002410,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:194
+	blockID: 147, 243 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00002398,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:195
+		end: 341033fe00001698,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:195
+	blockID: 148, 0 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 0000000000000000,		no source for start
+		end: 0000000000000000,		no source for end
+	blockID: 149, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00002330,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:201
+		end: 341033fe00002330,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:201
+	blockID: 150, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000022d0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:201
+		end: 341033fe000022d0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:201
+	blockID: 151, 4 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00002268,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:202
+		end: 341033fe000016d0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:202
+	blockID: 152, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00002208,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:202
+		end: 341033fe00002208,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:202
+	blockID: 153, 0 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 0000000000000000,		no source for start
+		end: 0000000000000000,		no source for end
+	blockID: 154, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000021b0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:203
+		end: 341033fe000021b0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:203
+	blockID: 155, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 0000000000000000,		no source for start
+		end: 341033fe00002160,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:204
+	blockID: 156, 7 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00002120,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:204
+		end: 341033fe00001730,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:204
+	blockID: 157, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe000020b8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:204
+		end: 341033fe000020b8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:204
+	blockID: 158, 0 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 0000000000000000,		no source for start
+		end: 0000000000000000,		no source for end
+	blockID: 159, 56 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00002058,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:205
+		end: 341033fe00001938,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:205
+	blockID: 160, 0 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 0000000000000000,		no source for start
+		end: 0000000000000000,		no source for end
+	blockID: 161, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00001ff0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:206
+		end: 341033fe00001ff0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:206
+	blockID: 162, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00001f90,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:206
+		end: 341033fe00001f90,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:206
+	blockID: 163, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00001f28,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:188
+		end: 341033fe00001f28,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:188
+	blockID: 164, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00001ec8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:188
+		end: 341033fe00001ec8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:188
+	blockID: 165, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 0000000000000000,		no source for start
+		end: 341033fe00001e60,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:212
+	blockID: 166, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 0000000000000000,		no source for start
+		end: 341033fe00001e20,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:212
+	blockID: 167, 7 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00001dd0,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:212
+		end: 341033fe000019b8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:212
+	blockID: 168, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00001d78,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:212
+		end: 341033fe00001d78,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:212
+	blockID: 169, 0 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 0000000000000000,		no source for start
+		end: 0000000000000000,		no source for end
+	blockID: 170, 39 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00001d28,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:213
+		end: 341033fe00001b28,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:213
+	blockID: 171, 0 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 0000000000000000,		no source for start
+		end: 0000000000000000,		no source for end
+	blockID: 172, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00001cd8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:215
+		end: 341033fe00001cd8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:215
+	blockID: 173, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00001c98,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:215
+		end: 341033fe00001c98,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:215
+	blockID: 174, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 0000000000000000,		no source for start
+		end: 341033fe00001c58,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:215
+	blockID: 175, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 0000000000000000,		no source for start
+		end: 341033fe00001c18,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:215
+	blockID: 176, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 341033fe00001bd8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:215
+		end: 341033fe00001bd8,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:215
+	blockID: 177, 1 INS, fnName:_Z14calculate_tempiPfS_S_iiiiffffff
+		start: 0000000000000000,		no source for start
+		end: 341033fe00001b98,file:/home/previlon/sassifi_package_final/suites/rodinia/hotspot/hotspot.cu, line:215
+cfg: __cuda_sm3x_div_rn_noftz_f32
+	blockID: 0, 11 INS, fnName:__cuda_sm3x_div_rn_noftz_f32
+		start: 518c7e06000003f0,file:Location not known, line:-1
+		end: 518c7e06000000a0,file:Location not known, line:-1
+	blockID: 1, 16 INS, fnName:__cuda_sm3x_div_rn_noftz_f32
+		start: 518c7e0600000398,file:Location not known, line:-1
+		end: 518c7e0600000120,file:Location not known, line:-1
+	blockID: 2, 4 INS, fnName:__cuda_sm3x_div_rn_noftz_f32
+		start: 0000000000000000,		no source for start
+		end: 518c7e0600000140,file:Location not known, line:-1
+	blockID: 3, 1 INS, fnName:__cuda_sm3x_div_rn_noftz_f32
+		start: 0000000000000000,		no source for start
+		end: 518c7e06000002e8,file:Location not known, line:-1
+	blockID: 4, 4 INS, fnName:__cuda_sm3x_div_rn_noftz_f32
+		start: 0000000000000000,		no source for start
+		end: 518c7e0600000168,file:Location not known, line:-1
+	blockID: 5, 1 INS, fnName:__cuda_sm3x_div_rn_noftz_f32
+		start: 518c7e0600000248,file:Location not known, line:-1
+		end: 518c7e0600000248,file:Location not known, line:-1
+	blockID: 6, 2 INS, fnName:__cuda_sm3x_div_rn_noftz_f32
+		start: 518c7e0600000200,file:Location not known, line:-1
+		end: 518c7e0600000180,file:Location not known, line:-1
+	blockID: 7, 1 INS, fnName:__cuda_sm3x_div_rn_noftz_f32
+		start: 0000000000000000,		no source for start
+		end: 518c7e06000001b8,file:Location not known, line:-1

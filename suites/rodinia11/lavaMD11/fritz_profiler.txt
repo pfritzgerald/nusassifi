@@ -1,0 +1,160 @@
+cfg: _Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+	blockID: 0, 1 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc000045c8,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:97
+		end: 5a17a0cc000045c8,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:97
+	blockID: 1, 6 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00004588,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:17
+		end: 5a17a0cc00000060,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:27
+	blockID: 2, 15 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00004548,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:72
+		end: 5a17a0cc000000e8,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:83
+	blockID: 3, 15 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc000044f0,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:83
+		end: 5a17a0cc00000170,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:83
+	blockID: 4, 22 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 0000000000000000,		no source for start
+		end: 5a17a0cc00000238,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:83
+	blockID: 5, 1 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00004360,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:83
+		end: 5a17a0cc00004360,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:83
+	blockID: 6, 1 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00004278,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:83
+		end: 5a17a0cc00004278,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:83
+	blockID: 7, 14 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00004198,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:84
+		end: 5a17a0cc000002d0,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:83
+	blockID: 8, 1 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc000040b0,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:90
+		end: 5a17a0cc000040b0,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:90
+	blockID: 9, 1 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00004008,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:90
+		end: 5a17a0cc00004008,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:90
+	blockID: 10, 3 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00003f58,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:97
+		end: 5a17a0cc000002f8,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:97
+	blockID: 11, 11 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00003ea8,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:97
+		end: 5a17a0cc00000360,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:97
+	blockID: 12, 8 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00003df8,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:103
+		end: 5a17a0cc000003a8,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:126
+	blockID: 13, 15 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00003ce0,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:115
+		end: 5a17a0cc00000430,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:126
+	blockID: 14, 29 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 0000000000000000,		no source for start
+		end: 5a17a0cc00000538,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:126
+	blockID: 15, 1 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00003b28,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:126
+		end: 5a17a0cc00003b28,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:126
+	blockID: 16, 1 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00003a30,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:126
+		end: 5a17a0cc00003a30,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:126
+	blockID: 17, 19 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00003938,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:127
+		end: 5a17a0cc000005f8,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:126
+	blockID: 18, 1 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00003848,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:126
+		end: 5a17a0cc00003848,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:126
+	blockID: 19, 1 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00003788,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:134
+		end: 5a17a0cc00003788,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:134
+	blockID: 20, 3 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc000036c8,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:142
+		end: 5a17a0cc00000628,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:142
+	blockID: 21, 2 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00003608,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:75
+		end: 5a17a0cc00000638,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:178
+	blockID: 22, 19 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00003548,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:166
+		end: 5a17a0cc000006e8,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:181
+	blockID: 23, 14 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00003488,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:166
+		end: 5a17a0cc00000768,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+	blockID: 24, 22 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00003378,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+		end: 5a17a0cc00000830,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+	blockID: 25, 1 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00003218,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+		end: 5a17a0cc00003218,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+	blockID: 26, 5 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 0000000000000000,		no source for start
+		end: 5a17a0cc00000868,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+	blockID: 27, 6 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 0000000000000000,		no source for start
+		end: 5a17a0cc000008a0,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+	blockID: 28, 2 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00002de8,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+		end: 5a17a0cc000008b0,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+	blockID: 29, 26 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00002c88,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:178
+		end: 5a17a0cc000009a0,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+	blockID: 30, 22 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00002b48,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+		end: 5a17a0cc00000a68,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+	blockID: 31, 1 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00002a08,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+		end: 5a17a0cc00002a08,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+	blockID: 32, 5 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 0000000000000000,		no source for start
+		end: 5a17a0cc00000aa0,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+	blockID: 33, 6 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 0000000000000000,		no source for start
+		end: 5a17a0cc00000ad8,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+	blockID: 34, 2 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00002610,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+		end: 5a17a0cc00000ae8,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+	blockID: 35, 29 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc000024b8,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:171
+		end: 5a17a0cc00000bf0,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+	blockID: 36, 22 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc000023a0,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+		end: 5a17a0cc00000cb8,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+	blockID: 37, 1 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00002260,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+		end: 5a17a0cc00002260,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+	blockID: 38, 5 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 0000000000000000,		no source for start
+		end: 5a17a0cc00000cf0,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+	blockID: 39, 6 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 0000000000000000,		no source for start
+		end: 5a17a0cc00000d28,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+	blockID: 40, 2 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00001e68,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+		end: 5a17a0cc00000d38,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+	blockID: 41, 26 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00001d18,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:171
+		end: 5a17a0cc00000e28,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+	blockID: 42, 22 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00001bd8,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+		end: 5a17a0cc00000ef0,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+	blockID: 43, 1 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00001a98,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+		end: 5a17a0cc00001a98,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+	blockID: 44, 5 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 0000000000000000,		no source for start
+		end: 5a17a0cc00000f28,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+	blockID: 45, 6 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 0000000000000000,		no source for start
+		end: 5a17a0cc00000f60,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+	blockID: 46, 2 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc000016a0,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+		end: 5a17a0cc00000f70,file:/home/previlon/sassi7/include/math_functions_dbl_ptx3.hpp, line:247
+	blockID: 47, 17 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00001550,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:178
+		end: 5a17a0cc00001010,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:145
+	blockID: 48, 7 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00001410,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:186
+		end: 5a17a0cc00001050,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:142
+	blockID: 49, 1 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00001308,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:194
+		end: 5a17a0cc00001308,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:194
+	blockID: 50, 1 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00001248,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:194
+		end: 5a17a0cc00001248,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:194
+	blockID: 51, 4 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc00001188,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:97
+		end: 5a17a0cc00001088,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:97
+	blockID: 52, 1 INS, fnName:_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+		start: 5a17a0cc000010c8,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:214
+		end: 5a17a0cc000010c8,file:/home/previlon/nusassifi/suites/rodinia/lavaMD/./kernel/./kernel_gpu_cuda.cu, line:214

@@ -382,7 +382,7 @@ def parse_results_apps(typ,c):
 				parse_results_file(app, "rf", bfm, c)
 		parse_mem_accesses(app, c)
 		parse_pupcs(app, c)
-		#parse_bb_executions(app,c)
+		parse_bb_executions(app,c)
 		parse_bb_interval_executions(app,c)
 		#parse_path_executions(app,c)
 		#parse_path_incs(app, c)

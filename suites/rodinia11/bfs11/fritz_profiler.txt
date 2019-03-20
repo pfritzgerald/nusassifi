@@ -1,0 +1,170 @@
+cfg: _Z7Kernel2PbS_S_S_i
+	blockID: 0, 1 INS, fnName:_Z7Kernel2PbS_S_S_i
+		start: c5a9b59900000bd0,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel2.cu, line:22
+		end: c5a9b59900000bd0,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel2.cu, line:22
+	blockID: 1, 0 INS, fnName:_Z7Kernel2PbS_S_S_i
+		start: 0000000000000000,		no source for start
+		end: 0000000000000000,		no source for end
+	blockID: 2, 10 INS, fnName:_Z7Kernel2PbS_S_S_i
+		start: c5a9b59900000b90,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel2.cu, line:22
+		end: c5a9b59900000088,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel2.cu, line:22
+	blockID: 3, 0 INS, fnName:_Z7Kernel2PbS_S_S_i
+		start: 0000000000000000,		no source for start
+		end: 0000000000000000,		no source for end
+	blockID: 4, 6 INS, fnName:_Z7Kernel2PbS_S_S_i
+		start: c5a9b59900000b50,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel2.cu, line:24
+		end: c5a9b599000000b8,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel2.cu, line:24
+	blockID: 5, 5 INS, fnName:_Z7Kernel2PbS_S_S_i
+		start: c5a9b59900000a78,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel2.cu, line:25
+		end: c5a9b599000000f0,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel2.cu, line:25
+	blockID: 6, 1 INS, fnName:_Z7Kernel2PbS_S_S_i
+		start: c5a9b59900000998,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel2.cu, line:25
+		end: c5a9b59900000998,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel2.cu, line:25
+	blockID: 7, 12 INS, fnName:_Z7Kernel2PbS_S_S_i
+		start: c5a9b599000008c8,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel2.cu, line:25
+		end: c5a9b59900000168,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel2.cu, line:25
+	blockID: 8, 1 INS, fnName:_Z7Kernel2PbS_S_S_i
+		start: c5a9b599000007f0,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel2.cu, line:25
+		end: c5a9b599000007f0,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel2.cu, line:25
+	blockID: 9, 3 INS, fnName:_Z7Kernel2PbS_S_S_i
+		start: c5a9b599000006f8,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel2.cu, line:25
+		end: c5a9b59900000198,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel2.cu, line:25
+	blockID: 10, 1 INS, fnName:_Z7Kernel2PbS_S_S_i
+		start: c5a9b59900000608,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel2.cu, line:25
+		end: c5a9b59900000608,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel2.cu, line:25
+	blockID: 11, 0 INS, fnName:_Z7Kernel2PbS_S_S_i
+		start: 0000000000000000,		no source for start
+		end: 0000000000000000,		no source for end
+	blockID: 12, 30 INS, fnName:_Z7Kernel2PbS_S_S_i
+		start: c5a9b59900000530,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel2.cu, line:28
+		end: c5a9b599000002b0,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel2.cu, line:31
+	blockID: 13, 0 INS, fnName:_Z7Kernel2PbS_S_S_i
+		start: 0000000000000000,		no source for start
+		end: 0000000000000000,		no source for end
+	blockID: 14, 1 INS, fnName:_Z7Kernel2PbS_S_S_i
+		start: c5a9b59900000460,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel2.cu, line:33
+		end: c5a9b59900000460,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel2.cu, line:33
+	blockID: 15, 1 INS, fnName:_Z7Kernel2PbS_S_S_i
+		start: c5a9b59900000420,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel2.cu, line:33
+		end: c5a9b59900000420,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel2.cu, line:33
+	blockID: 16, 1 INS, fnName:_Z7Kernel2PbS_S_S_i
+		start: 0000000000000000,		no source for start
+		end: c5a9b599000003e0,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel2.cu, line:33
+	blockID: 17, 1 INS, fnName:_Z7Kernel2PbS_S_S_i
+		start: 0000000000000000,		no source for start
+		end: c5a9b599000003a0,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel2.cu, line:33
+	blockID: 18, 1 INS, fnName:_Z7Kernel2PbS_S_S_i
+		start: c5a9b59900000360,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel2.cu, line:33
+		end: c5a9b59900000360,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel2.cu, line:33
+	blockID: 19, 1 INS, fnName:_Z7Kernel2PbS_S_S_i
+		start: 0000000000000000,		no source for start
+		end: c5a9b59900000320,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel2.cu, line:33
+cfg: _Z6KernelP4NodePiPbS2_S2_S1_i
+	blockID: 0, 1 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 079104ca00001d28,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:22
+		end: 079104ca00001d28,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:22
+	blockID: 1, 0 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 0000000000000000,		no source for start
+		end: 0000000000000000,		no source for end
+	blockID: 2, 14 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 079104ca00001ce8,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:22
+		end: 079104ca000000a8,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:74
+	blockID: 3, 0 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 0000000000000000,		no source for start
+		end: 0000000000000000,		no source for end
+	blockID: 4, 6 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 079104ca00001ca8,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:24
+		end: 079104ca000000e0,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:74
+	blockID: 5, 5 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 079104ca00001b90,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:25
+		end: 079104ca00000118,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:74
+	blockID: 6, 1 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 079104ca00001a60,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:25
+		end: 079104ca00001a60,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:25
+	blockID: 7, 12 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 079104ca00001948,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:25
+		end: 079104ca00000190,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:84
+	blockID: 8, 1 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 079104ca00001828,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:25
+		end: 079104ca00001828,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:25
+	blockID: 9, 3 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 079104ca000016e8,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:25
+		end: 079104ca000001b8,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:84
+	blockID: 10, 1 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 079104ca000015a8,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:25
+		end: 079104ca000015a8,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:25
+	blockID: 11, 0 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 0000000000000000,		no source for start
+		end: 0000000000000000,		no source for end
+	blockID: 12, 9 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 079104ca00001490,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:27
+		end: 079104ca00000218,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:84
+	blockID: 13, 12 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 079104ca00001370,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:28
+		end: 079104ca00000288,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:84
+	blockID: 14, 1 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 079104ca00001278,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:28
+		end: 079104ca00001278,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:28
+	blockID: 15, 0 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 0000000000000000,		no source for start
+		end: 0000000000000000,		no source for end
+	blockID: 16, 28 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 079104ca00001168,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:28
+		end: 079104ca00000390,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:84
+	blockID: 17, 1 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 079104ca00001060,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:28
+		end: 079104ca00001060,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:28
+	blockID: 18, 0 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 0000000000000000,		no source for start
+		end: 0000000000000000,		no source for end
+	blockID: 19, 12 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 079104ca00000f58,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:30
+		end: 079104ca00000408,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:89
+	blockID: 20, 16 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 079104ca00000e50,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:31
+		end: 079104ca000004a0,file:/home/previlon/sassi7/include/cuda_device_runtime_api.h, line:89
+	blockID: 21, 1 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 079104ca00000d30,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:31
+		end: 079104ca00000d30,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:31
+	blockID: 22, 0 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 0000000000000000,		no source for start
+		end: 0000000000000000,		no source for end
+	blockID: 23, 32 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 079104ca00000c18,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:33
+		end: 079104ca000005d0,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:34
+	blockID: 24, 0 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 0000000000000000,		no source for start
+		end: 0000000000000000,		no source for end
+	blockID: 25, 1 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 079104ca00000af8,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:28
+		end: 079104ca00000af8,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:28
+	blockID: 26, 1 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 079104ca000009f0,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:28
+		end: 079104ca000009f0,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:28
+	blockID: 27, 1 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 079104ca000008e8,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:28
+		end: 079104ca000008e8,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:28
+	blockID: 28, 1 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 0000000000000000,		no source for start
+		end: 079104ca000007e0,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:38
+	blockID: 29, 0 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 0000000000000000,		no source for start
+		end: 0000000000000000,		no source for end
+	blockID: 30, 1 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 079104ca000007a0,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:38
+		end: 079104ca000007a0,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:38
+	blockID: 31, 1 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 079104ca00000760,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:38
+		end: 079104ca00000760,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:38
+	blockID: 32, 1 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 0000000000000000,		no source for start
+		end: 079104ca00000720,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:38
+	blockID: 33, 1 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 0000000000000000,		no source for start
+		end: 079104ca000006e0,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:38
+	blockID: 34, 1 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 079104ca000006a0,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:38
+		end: 079104ca000006a0,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:38
+	blockID: 35, 1 INS, fnName:_Z6KernelP4NodePiPbS2_S2_S1_i
+		start: 0000000000000000,		no source for start
+		end: 079104ca00000660,file:/home/previlon/nusassifi/suites/rodinia/bfs/kernel.cu, line:38

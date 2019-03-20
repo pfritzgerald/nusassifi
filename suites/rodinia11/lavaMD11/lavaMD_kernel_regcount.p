@@ -1,0 +1,5 @@
+(dp1
+S'_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_'
+p2
+I58
+s.
