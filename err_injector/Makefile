@@ -11,7 +11,8 @@ export LIBS := 	libprofiler.a \
 		libinstinjector.a \
 		libpath_profiler.a \
 		libpcinstinjector.a \
-		libpupc_profiler.a
+		libpupc_profiler.a \
+		libsimple_path_profiler.a
 
 NVCC = $(CUDA_HOME)/bin/nvcc
 CUPTI = $(CUDA_HOME)/extras/CUPTI

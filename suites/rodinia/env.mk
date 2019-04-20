@@ -125,6 +125,11 @@ EXTRA_NVCC_FLAGS =  -Xptxas --sassi-bb-entry # -Xptxas --sassi-function-exit
 EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lpath_profiler $(CUPTI)
 endif
 
+ifeq (${OPTION},simple_path_profiler)
+EXTRA_NVCC_FLAGS =  -Xptxas --sassi-bb-entry $(AFTER_REG) $(AFTER_REG_INFO)
+EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lsimple_path_profiler $(CUPTI)
+endif
+
 ifeq (${OPTION},memdiverge)
 EXTRA_NVCC_FLAGS = $(BEFORE_MEM) $(BEFORE_MEM_INFO)
 EXTRA_LINK_FLAGS = -L$(INST_LIB_DIR) -lmemdiverge $(CUPTI) 
