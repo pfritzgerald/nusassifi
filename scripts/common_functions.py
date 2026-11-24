@@ -27,14 +27,15 @@
 ###################################################################################
 
 import sys, re, string, os, operator, math, datetime, random
+from pathlib import Path
 import common_params as cp
 
 # parse the file with inst count info per thread and create a tid->inst_count map
 def read_inst_counts(app_dir, app):
 	countList = []
-	fName = app_dir + "/sassifi-inst-counts.txt"
+	fName = Path(app_dir, "sassifi-inst-counts.txt")
 	if not os.path.exists(fName):
-		print "%s file not found!" %fName 
+		print("%s file not found!" % fName)
 		return countList
 
 	f = open(fName, "r")
@@ -63,7 +64,7 @@ def get_total_counts(countList):
 	length = get_inst_count_format().count(':')-1
 	total_icounts = [0] * length
 	for l in countList:
-		for i in range(length):
+		for i in range(length-1):
 			total_icounts[i] += int(l[2+i])
 	return total_icounts
 

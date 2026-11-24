@@ -26,7 +26,8 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ###################################################################################
 
-import os, sys, cPickle
+import os, sys
+from pathlib import Path
 import common_params as p
 
 #########################################################################
@@ -44,11 +45,11 @@ import common_params as p
 # per instruction group (IGID) and bit-flip model (BFM).
 # 
 USE_ARRAY = True
-NUM_INJECTIONS = 1000#0#00
+NUM_INJECTIONS = 10000#0#00
 
 # Specify how many injections you want to perform per IGID and BFM combination. 
 # Only the first THRESHOLD_JOBS will be selected from the generated NUM_INJECTIONS.
-THRESHOLD_JOBS = 1000#0#00 # test
+THRESHOLD_JOBS = 10000#00 # test
 # THRESHOLD_JOBS sould be <= NUM_INJECTIONS
 assert THRESHOLD_JOBS <= NUM_INJECTIONS
 
@@ -64,11 +65,11 @@ rf_bfm_list = [p.FLIP_SINGLE_BIT]#, p.FLIP_TWO_BITS]
 
 # Used for instruction output-level injection runs 
 igid_bfm_map = {
-#	p.GPR: [p.FLIP_SINGLE_BIT]
+	p.GPR: [p.FLIP_SINGLE_BIT],
 
 #  Supported models
 # 	p.GPR: [p.FLIP_SINGLE_BIT],# p.FLIP_TWO_BITS, p.RANDOM_VALUE, p.ZERO_VALUE],# p.WARP_FLIP_SINGLE_BIT, p.WARP_FLIP_TWO_BITS, p.WARP_RANDOM_VALUE, p.WARP_ZERO_VALUE],
-	p.DEST_REG: [p.FLIP_SINGLE_BIT],# p.FLIP_TWO_BITS, p.RANDOM_VALUE, p.ZERO_VALUE],# p.WARP_FLIP_SINGLE_BIT, p.WARP_FLIP_TWO_BITS, p.WARP_RANDOM_VALUE, p.WARP_ZERO_VALUE],
+#	p.DEST_REG: [p.FLIP_SINGLE_BIT],# p.FLIP_TWO_BITS, p.RANDOM_VALUE, p.ZERO_VALUE],# p.WARP_FLIP_SINGLE_BIT, p.WARP_FLIP_TWO_BITS, p.WARP_RANDOM_VALUE, p.WARP_ZERO_VALUE],
 
 # 	p.CC: [p.FLIP_SINGLE_BIT],
 # 	p.PR: [p.FLIP_SINGLE_BIT],
@@ -88,53 +89,53 @@ igid_bfm_map = {
 #########################################################################
 
 apps = {
-#	'b+tree': ['rodinia', 'b+tree.out', 3],
-	#'lavaMD': ['rodinia','lavaMD',6],
-	#'nw': ['rodinia','nw', 7],
-	'gaussian': ['rodinia', 'gaussian', 50],
-	#'backprop': ['rodinia', 'backprop', 4],
-	'hotspot': ['rodinia', 'hotspot',10],
-	'kmeans': ['rodinia', 'kmeans',5],
-	'bfs': ['rodinia', 'bfs', 15],
-	#'bfs2': ['rodinia2', 'bfs', 15],
-#	##'huffman': ['rodinia', 'pavle', 10],
-	'lud': ['rodinia', 'lud_cuda', 7],
-	##'nn': ['rodinia', 'nn', 5],
-	#'srad_v1': ['rodinia', 'srad_v1', 110],
-	#'srad_v2': ['rodinia', 'srad_v2', 25],
-	##'dwt2d': ['rodinia', 'dwt2d', 6],
-	#'heartwall': ['rodinia', 'heartwall', 5],
-	#'cfd': ['rodinia', 'euler3d', 5],
-	#'hybridsort': ['rodinia', 'hybridsort', 30],
-	#'leukocyte': ['rodinia', 'CUDA/leukocyte', 70],
-	##'pathfinder': ['rodinia', 'pathfinder', 50], 
-#	##'matrixMul': ['example', 'matrixMul', 2],
-#	##'bfs': ['parboil', 'bfs', 20],
-#	##'cutcp': ['parboil', 'cutcp', 5],
-	###'lbm': ['parboil', 'lbm', 120],
-	###'histo': ['parboil', 'histo', 15],
-	###'mri-q': ['parboil', 'mri-q', 10],
-	###'mri-gridding': ['parboil', 'mri-gridding', 200],
-	###'sad': ['parboil', 'sad', 10],
-	###'sgemm': ['parboil', 'sgemm', 17],
-	###'stencil': ['parboil', 'stencil', 140],
-	###'tpacf': ['parboil', 'tpacf', 15],
-	#'mst' : ['lonestargpu-2.0', 'mst', 50],
-	#'bh' : ['lonestargpu-2.0', 'bh', 120],
-	#'sp' : ['lonestargpu-2.0', 'sp', 180],
-#	##'pta' : ['lonestargpu-2.0', 'pta', 10],
-	#'transpose' : ['cuda-sdk', 'transpose', 25],
-	#'matrix_mul' : ['cuda-sdk', 'matrix_mul', 25],
-	#'binomialOptions': ['cuda-sdk', 'binomialOptions', 60],
-	#'BlackScholes': ['cuda-sdk', 'BlackScholes', 75],
-	#'dwtHaar1D': ['cuda-sdk', 'dwtHaar1D', 25],
-	##'fastWalshTransform' : ['cuda-sdk', 'fastWalshTransform', 35],
-	##'mergeSort':['cuda-sdk', 'mergeSort', 75],
-	#'reduction' : ['cuda-sdk', 'reduction', 75],
-	##'scalarProd' : ['cuda-sdk', 'scalarProd', 50],
-	##'scan': ['cuda-sdk', 'scan', 100],
-	#'SobolQRNG':['cuda-sdk', 'SobolQRNG', 20],
-	#'IIR' :['nupar', 'IIR', 50],
+	# 'b+tree': ['rodinia', 'b+tree.out', 3],
+	# 'lavaMD': ['rodinia','lavaMD',6],
+	# 'nw': ['rodinia','nw', 7],
+	# 'gaussian': ['rodinia', 'gaussian', 50],
+	# 'backprop': ['rodinia', 'backprop', 4],
+	# 'hotspot': ['rodinia', 'hotspot',10],
+	# 'kmeans': ['rodinia', 'kmeans',5],
+	# 'bfs': ['rodinia', 'bfs', 15],
+	# 'bfs2': ['rodinia2', 'bfs', 15],
+	# 'huffman': ['rodinia', 'pavle', 10],
+	# 'lud': ['rodinia', 'lud_cuda', 7],
+	# 'nn': ['rodinia', 'nn', 5],
+	# 'srad_v1': ['rodinia', 'srad_v1', 110],
+	# 'srad_v2': ['rodinia', 'srad_v2', 25],
+	# 'dwt2d': ['rodinia', 'dwt2d', 6],
+	# 'heartwall': ['rodinia', 'heartwall', 5],
+	# 'cfd': ['rodinia', 'euler3d', 5],
+	# 'hybridsort': ['rodinia', 'hybridsort', 30],
+	# 'leukocyte': ['rodinia', 'CUDA/leukocyte', 70],
+	# 'pathfinder': ['rodinia', 'pathfinder', 50], 
+	# 'matrixMul': ['example', 'matrixMul', 2],
+	'bfs': ['parboil', 'bfs', 20],
+	# 'cutcp': ['parboil', 'cutcp', 5],
+	# 'lbm': ['parboil', 'lbm', 120],
+	# 'histo': ['parboil', 'histo', 15],
+	# 'mri-q': ['parboil', 'mri-q', 10],
+	# 'mri-gridding': ['parboil', 'mri-gridding', 200],
+	# 'sad': ['parboil', 'sad', 10],
+	# 'sgemm': ['parboil', 'sgemm', 17],
+	# 'stencil': ['parboil', 'stencil', 140],
+	# 'tpacf': ['parboil', 'tpacf', 15],
+	# 'mst' : ['lonestargpu-2.0', 'mst', 50],
+	# 'bh' : ['lonestargpu-2.0', 'bh', 120],
+	# 'sp' : ['lonestargpu-2.0', 'sp', 180],
+	# 'pta' : ['lonestargpu-2.0', 'pta', 10],
+	# 'transpose' : ['cuda-sdk', 'transpose', 25],
+	# 'matrix_mul' : ['cuda-sdk', 'matrix_mul', 25],
+	# 'binomialOptions': ['cuda-sdk', 'binomialOptions', 60],
+	# 'BlackScholes': ['cuda-sdk', 'BlackScholes', 75],
+	# 'dwtHaar1D': ['cuda-sdk', 'dwtHaar1D', 25],
+	# 'fastWalshTransform' : ['cuda-sdk', 'fastWalshTransform', 35],
+	# 'mergeSort':['cuda-sdk', 'mergeSort', 75],
+	# 'reduction' : ['cuda-sdk', 'reduction', 75],
+	# 'scalarProd' : ['cuda-sdk', 'scalarProd', 50],
+	# 'scan': ['cuda-sdk', 'scan', 100],
+	# 'SobolQRNG':['cuda-sdk', 'SobolQRNG', 20],
+	# 'IIR' :['nupar', 'IIR', 50],
 }
 
 #########################################################################
@@ -148,15 +149,15 @@ parse_apps = apps
 #########################################################################
 # Set paths for application binary, run script, etc. 
 #########################################################################
-if 'SASSIFI_HOME' not in os.environ:
-	print "Error: Please set SASSIFI_HOME environment variable" 
-	sys.exit(-1)
+# if 'SASSIFI_HOME' not in os.environ:
+# 	print("Error: Please set SASSIFI_HOME environment variable")
+# 	sys.exit(-1)
 
-SASSIFI_HOME = os.environ['SASSIFI_HOME']
-suites_base_dir = SASSIFI_HOME + "/suites/"
-logs_base_dir = SASSIFI_HOME + "/logs/"#"/scratch/previlon.f/nusassifi/logs/"#
-run_script_base_dir = SASSIFI_HOME + "/run/"
-bin_base_dir = SASSIFI_HOME + "/bin/"
+SASSIFI_HOME = Path(__file__).resolve().parents[1]
+suites_base_dir = SASSIFI_HOME / "suites"
+logs_base_dir = SASSIFI_HOME /"logs"#"/scratch/previlon.f/nusassifi/logs/"#
+run_script_base_dir = SASSIFI_HOME / "run"
+bin_base_dir = SASSIFI_HOME / "bin"
 
 app_log_dir = {} 
 script_dir = {} 
@@ -171,24 +172,23 @@ def set_paths():
 	for app in merged_apps:
 		suite_name = merged_apps[app][0]
 
-		app_log_dir[app] = logs_base_dir + suite_name + "/" + app + "/"
-		script_dir[app] = run_script_base_dir + suite_name + "/" + app + "/"
-		bin_dir[app] = bin_base_dir + p.rf_inst + "_injector/" + suite_name + "/"
-		pc_bin_dir[app] = bin_base_dir + "pc_" + p.rf_inst + "_injector/" + suite_name + "/"
-                if suite_name == 'parboil':
-                    app_dir[app] = suites_base_dir +  suite_name + "/benchmarks/" + app + "/"
-                elif suite_name == 'lonestargpu-2.0':
-                    app_dir[app] = suites_base_dir + suite_name + "/apps/" + app + "/"
-            
-                else:
-                    app_dir[app] = suites_base_dir +  suite_name + "/" + app + "/"
+		app_log_dir[app] = logs_base_dir / suite_name / app
+		script_dir[app] = run_script_base_dir / suite_name /  app
+		bin_dir[app] = Path(bin_base_dir, f"{p.rf_inst}" + "_injector", suite_name)
+		pc_bin_dir[app] = Path(bin_base_dir, "pc_" + f"{p.rf_inst}" + "_injector", suite_name + "/")
+		if suite_name == 'parboil':
+			app_dir[app] = suites_base_dir / suite_name / "benchmarks" / app 
+		elif suite_name == 'lonestargpu-2.0':
+			app_dir[app] = suites_base_dir / suite_name / "apps" / app
+		else:
+			app_dir[app] = suites_base_dir / suite_name / app
 
-                if app == 'srad_v1':
-                    app_data_dir[app] = suites_base_dir + suite_name + "/data/srad/"
+		if app == 'srad_v1':
+			app_data_dir[app] = suites_base_dir / suite_name / "data" / "srad"
 		elif suite_name == 'rodinia2':
-			app_data_dir[app] = suites_base_dir + "/rodinia/data/" + app[:-1] + "/"
-                else:
-		    app_data_dir[app] = suites_base_dir +  suite_name + "/data/" + app + "/"# without the app name here!
+			app_data_dir[app] = suites_base_dir / "rodinia" / "data" / app[:-1]
+		else:
+			app_data_dir[app] = suites_base_dir / suite_name / "data" / app # without the app name here!
 
 set_paths()
 

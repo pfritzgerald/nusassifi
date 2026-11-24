@@ -27,7 +27,7 @@
 ###################################################################################
 
 
-import os, sys, re, string, math, datetime, time, pkgutil
+import os, sys, re, string, math, datetime, time, importlib.util
 import common_params as cp
 import specific_params as sp
 import common_functions as cf 
@@ -133,8 +133,8 @@ def parse_results_file(app, igid, bfm):
 	try:
 		rf = open(sp.app_log_dir[app] + "results-igid" + str(igid) + ".bfm" + str(bfm) + "." + str(sp.NUM_INJECTIONS) + ".txt", "r")
 	except IOError: 
-		print "app=%s, igid=%d, bfm=%d " %(app, igid, bfm),
-		print sp.app_log_dir[app] + "results-igid" + str(igid) + ".bfm" + str(bfm) + "." + str(sp.NUM_INJECTIONS) + ".txt"
+		print("app=%s, igid=%d, bfm=%d " %(app, igid, bfm))
+		print(sp.app_log_dir[app] + "results-igid" + str(igid) + ".bfm" + str(bfm) + "." + str(sp.NUM_INJECTIONS) + ".txt")
 		return 
 
 	num_lines = 0
@@ -155,7 +155,7 @@ def parse_results_file(app, igid, bfm):
 	rf.close()
 
 	if num_lines == 0 and app in results_app_table and os.stat(sp.app_log_dir[app] + "injection-list/igid" + str(igid) + ".bfm" + str(bfm) + "." + str(sp.NUM_INJECTIONS) + ".txt").st_size != 0: 
-		print "%s, igid=%d, bfm=%d not done" %(app, igid, bfm)
+		print("%s, igid=%d, bfm=%d not done" %(app, igid, bfm))
 
 ###################################################################################
 # Parse results files and populate summary to results table 
@@ -290,7 +290,7 @@ def print_detailed_sassifi_results_worksheet(typ):
 
 
 def print_usage():
-	print "Usage: \n python parse_results.py rf/inst"
+	print("Usage: \n python parse_results.py rf/inst")
 	exit(1)
 
 ###############################################################################
@@ -307,11 +307,12 @@ def main():
 	if inj_type == "inst":
 		populate_inst_fraction()
 
-	if pkgutil.find_loader('xlsxwriter') is not None:
+	if importlib.util.find_spec('xlsxwriter') is not None:
 		import xlsxwriter
 
 		workbook_name = sp.logs_base_dir + "results/results_" + inj_type + "_" + str(sp.NUM_INJECTIONS) + ".xlsx"
-		os.system("rm -f " + workbook_name)
+		if os.path.exists(workbook_name):
+			os.remove(workbook_name)
 		global workbook
 		workbook = xlsxwriter.Workbook(workbook_name)
 
@@ -321,7 +322,7 @@ def main():
 		print_stats_worksheet(sys.argv[1])
 
 		workbook.close()
-		print "Results: %s" %workbook_name
+		print("Results: %s" % workbook_name)
 
 	else:
 		global fname_prefix 
@@ -332,7 +333,7 @@ def main():
 		print_detailed_sassifi_results_txt(sys.argv[1])
 		print_stats_txt(sys.argv[1])
 
-		print "Results: %s" %(sp.logs_base_dir + "results/")
+		print("Results: %s" % (sp.logs_base_dir + "results/"))
 
 
 if __name__ == "__main__":

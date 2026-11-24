@@ -29,11 +29,11 @@
 
 import os, sys, re, string, math, datetime, time, pkgutil
 from optparse import OptionParser
+from pathlib import Path
 import common_params as cp
 import specific_params as sp
 import common_functions as cf 
 import sqlite3
-#import matplotlib.pyplot as plt
 import numpy as np
 
 
@@ -56,15 +56,15 @@ def parse_results_file(app, igid, bfm, c):
 		results_f_name = sp.app_log_dir[app] + "results-igid" + str(igid) +	".bfm" + str(bfm) + "." +\
 				str(sp.NUM_INJECTIONS) + ".pc.txt"
 	else:
-		results_f_name = sp.app_log_dir[app] + "results-igid" + str(igid) + ".bfm" + str(bfm) + "." + str(sp.NUM_INJECTIONS) + ".txt"
+		results_f_name = Path(sp.app_log_dir[app], f"results-igid{igid}.bfm{bfm}.{sp.NUM_INJECTIONS}.txt")
 	try:
 		rf = open(results_f_name, "r")
 	except IOError: 
-		print "app=%s, igid=%d, bfm=%d " %(app, igid, bfm),
-		print "NOT OPEN: " + results_f_name
+		print("app=%s, igid=%d, bfm=%d " % (app, igid, bfm), end="")
+		print("NOT OPEN: " + results_f_name)
 		return 
 	suite = sp.apps[app][0]
-        print "file is " + rf.name
+	print("file is " + rf.name)
 	num_lines = 0
 	for line in rf: # for each injection site 
 #		print "-------LINE: " + str(num_lines) + "---------------"
@@ -132,19 +132,19 @@ def parse_results_file(app, igid, bfm, c):
 	if num_lines == 0 and app in results_app_table and os.stat(sp.app_log_dir[app] +
 			 "injection-list/igid" + str(igid) + ".bfm" + str(bfm) + "." + 
 			str(sp.NUM_INJECTIONS) + ".txt").st_size != 0: 
-		print "%s, igid=%d, bfm=%d not done" %(app, igid, bfm)
+		print("%s, igid=%d, bfm=%d not done" % (app, igid, bfm))
 
 def parse_mem_accesses(app, c):
 	try:
 		rf = open(sp.app_dir[app] + "global_gpr_insts.txt", "r")
-	except IOError: 
-                print "NOT OPEN: " + sp.app_dir[app] + "global_gpr_insts.txt"
-	        return 
+	except IOError:
+		print("NOT OPEN: " + sp.app_dir[app] + "global_gpr_insts.txt")
+		return
 	suite = sp.apps[app][0]
-        print "file is " + rf.name
+	print("file is " + rf.name)
 	kName = ""
-        invocation_id=0
-	for line in rf: # for each mem access (or new kernel and invocation) 
+	invocation_id = 0
+	for line in rf: # for each mem access (or new kernel and invocation)
 		words = line.split(",")
 		if words[0] == "INTERVAL":
 			interval_id = int(words[1])
@@ -160,10 +160,10 @@ def parse_pupcs(app, c):
 	try:
 		rf = open(sp.app_dir[app] + "pupcs.txt", "r")
 	except IOError: 
-                print "PUPC - NOT OPEN: " + sp.app_dir[app] + "pupcs.txt"
-	        return 
+		print("PUPC - NOT OPEN: " + sp.app_dir[app] + "pupcs.txt")
+		return 
 	suite = sp.apps[app][0]
-        print "PUPC - file is " + rf.name
+	print("PUPC - file is " + rf.name)
 	for line in rf: # for each mem access (or new kernel and invocation) 
 		words = line.split(",")
 		if words[0] == "PUPC":
@@ -189,13 +189,13 @@ def parse_pupcs(app, c):
 def parse_bb_interval_executions(app, c):
 	try:
 		rf = open(sp.app_dir[app] + "basic_block_insts.txt", "r")
-	except IOError: 
-                print "NOT OPEN: " + sp.app_dir[app] + "basic_block_insts.txt"
-		return 
+	except IOError:
+		print("NOT OPEN: " + sp.app_dir[app] + "basic_block_insts.txt")
+		return
 	suite = sp.apps[app][0]
-        print "file is " + rf.name
+	print("file is " + rf.name)
 	kName = ""
-        invocation_id=0
+	invocation_id = 0
 	for line in rf: # for each mem access (or new kernel and invocation)
 		if "kernel," in line:
 			words = line.split(",")
@@ -231,13 +231,13 @@ def parse_bb_interval_executions(app, c):
 def parse_bb_executions(app, c):
 	try:
 		rf = open(sp.app_dir[app] + "bb_profile.txt", "r")
-	except IOError: 
-                print "BB Profiling - NOT OPEN: " + sp.app_dir[app] + "bb_profile.txt"
-		return 
+	except IOError:
+		print("BB Profiling - NOT OPEN: " + sp.app_dir[app] + "bb_profile.txt")
+		return
 	suite = sp.apps[app][0]
-        print "BB Profiling - file is " + rf.name
+	print("BB Profiling - file is " + rf.name)
 	kName = ""
-        invocation_id=0
+	invocation_id = 0
 	for line in rf: # for each mem access (or new kernel and invocation)
 		if "kName," in line:
 			words = line.split(",")
@@ -262,11 +262,11 @@ def parse_path_executions(app, c):
 	try:
 		rf = open(sp.app_dir[app] + "path_profile.txt", "r")
 	except IOError: 
-		print "NOT OPEN: " + sp.app_dir[app] + "path_profile.txt"
+		print("NOT OPEN: " + sp.app_dir[app] + "path_profile.txt")
 		return 
 	suite = sp.apps[app][0]
 	kInvocation = {}
-	print "file is " + rf.name
+	print("file is " + rf.name)
 	kName = ""
 	invocation_id=0
 	for line in rf: # for each path (or new kernel and invocation)
@@ -294,13 +294,13 @@ def parse_path_incs(app, c):
 	try:
 		rf = open(sp.app_dir[app] + "cfgs.txt", "r")
 	except IOError: 
-		print "NOT OPEN: " + sp.app_dir[app] + "cfgs.txt"
+		print("NOT OPEN: " + sp.app_dir[app] + "cfgs.txt")
 		return 
 	suite = sp.apps[app][0]
-	print "file is " + rf.name
+	print("file is " + rf.name)
 	kName = ""
 	num_kernels = int(rf.readline())
-	print "num kernels in app: " + app + " is " + str(num_kernels)
+	print("num kernels in app: " + app + " is " + str(num_kernels))
 	for kernel in range(0,num_kernels): # for each path inc (or new kernel and invocation)
 		kname=rf.readline().strip()
 		num_incs=int(rf.readline())
@@ -314,10 +314,10 @@ def parse_full_paths(app, c):
 	try:
 		rf = open(sp.app_dir[app] + "full_paths.txt", "r")
 	except IOError:
-		print "NOT OPEN: " + sp.app_dir[app] + "full_paths.txt"
+		print("NOT OPEN: " + sp.app_dir[app] + "full_paths.txt")
 		return
 
-	print "FILE OPEN: " + rf.name
+	print("FILE OPEN: " + rf.name)
 	kInvocation = {}
 	kName = ""
 	invocation_id = 0
@@ -351,9 +351,9 @@ def parse_fipoints(app, c):
 	try:
 		rf = open(sp.app_dir[app] + "interval.txt", "r")
 	except IOError:
-		print "NOT OPEN: " + sp.app_dir[app] + "interval.txt"
+		print("NOT OPEN: " + sp.app_dir[app] + "interval.txt")
 		return
-	print "file is " + rf.name
+	print("file is " + rf.name)
 	next(rf)
 	next(rf)
 	next(rf)
@@ -372,7 +372,7 @@ def parse_fipoints(app, c):
 ###################################################################################
 def parse_results_apps(typ,c): 
 	for app in sp.parse_apps:
-                print app
+		print(app)
 		if typ == "inst":
 			for igid in sp.parse_igid_bfm_map:
 				for bfm in sp.parse_igid_bfm_map[igid]:
@@ -380,10 +380,10 @@ def parse_results_apps(typ,c):
 		else:
 			for bfm in sp.parse_rf_bfm_list:
 				parse_results_file(app, "rf", bfm, c)
-		parse_mem_accesses(app, c)
-		parse_pupcs(app, c)
+		# parse_mem_accesses(app, c)
+		# parse_pupcs(app, c)
 		#parse_bb_executions(app,c)
-		parse_bb_interval_executions(app,c)
+		#parse_bb_interval_executions(app,c)
 		#parse_path_executions(app,c)
 		#parse_path_incs(app, c)
 		#parse_full_paths(app,c)
@@ -414,11 +414,11 @@ def parse_options():
 	return options.database_file, options.inj_type, options.application, options.injection_mode
 
 def print_usage():
-	print "Usage: \n python parse_results.py rf/inst"
+	print("Usage: \n python parse_results2.py rf/inst")
 	exit(1)
 
 def CreateNewDB(c):
-	print "creating data DB"
+	print("creating data DB")
 	if injection_mode == "interval":
 		c.execute('CREATE TABLE IF NOT EXISTS '\
 		  'Results(ID INTEGER PRIMARY KEY, Suite TEXT, App TEXT,  IntervalSize INTEGER, '\
@@ -561,7 +561,7 @@ def main():
 	global injection_mode
 	db_file, inj_type, application, injection_mode = parse_options()
 
-	print "DB file is : " + db_file
+	print("DB file is : " + db_file)
 	conn = sqlite3.connect(db_file)
 	c = conn.cursor()
 	if db_file == "data.db":
