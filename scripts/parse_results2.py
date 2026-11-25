@@ -136,9 +136,9 @@ def parse_results_file(app, igid, bfm, c):
 
 def parse_mem_accesses(app, c):
 	try:
-		rf = open(sp.app_dir[app] + "global_gpr_insts.txt", "r")
+		rf = open(Path(sp.app_dir[app], "global_gpr_insts.txt"), "r")
 	except IOError:
-		print("NOT OPEN: " + sp.app_dir[app] + "global_gpr_insts.txt")
+		print("NOT OPEN: " + str(Path(sp.app_dir[app], "global_gpr_insts.txt")))
 		return
 	suite = sp.apps[app][0]
 	print("file is " + rf.name)
@@ -158,9 +158,9 @@ def parse_mem_accesses(app, c):
 						nonglobal_loads, nonglobal_stores))
 def parse_pupcs(app, c):
 	try:
-		rf = open(sp.app_dir[app] + "pupcs.txt", "r")
+		rf = open(Path(sp.app_dir[app], "pupcs.txt"), "r")
 	except IOError: 
-		print("PUPC - NOT OPEN: " + sp.app_dir[app] + "pupcs.txt")
+		print("PUPC - NOT OPEN: " + str(Path(sp.app_dir[app], "pupcs.txt")))
 		return 
 	suite = sp.apps[app][0]
 	print("PUPC - file is " + rf.name)
@@ -188,9 +188,9 @@ def parse_pupcs(app, c):
 
 def parse_bb_interval_executions(app, c):
 	try:
-		rf = open(sp.app_dir[app] + "basic_block_insts.txt", "r")
+		rf = open(Path(sp.app_dir[app], "basic_block_insts.txt"), "r")
 	except IOError:
-		print("NOT OPEN: " + sp.app_dir[app] + "basic_block_insts.txt")
+		print("NOT OPEN: " + str(Path(sp.app_dir[app], "basic_block_insts.txt")))
 		return
 	suite = sp.apps[app][0]
 	print("file is " + rf.name)
@@ -230,9 +230,9 @@ def parse_bb_interval_executions(app, c):
 
 def parse_bb_executions(app, c):
 	try:
-		rf = open(sp.app_dir[app] + "bb_profile.txt", "r")
+		rf = open(Path(sp.app_dir[app], "bb_profile.txt"), "r")
 	except IOError:
-		print("BB Profiling - NOT OPEN: " + sp.app_dir[app] + "bb_profile.txt")
+		print("BB Profiling - NOT OPEN: " + str(Path(sp.app_dir[app], "bb_profile.txt")))
 		return
 	suite = sp.apps[app][0]
 	print("BB Profiling - file is " + rf.name)
@@ -260,9 +260,9 @@ def parse_bb_executions(app, c):
  
 def parse_path_executions(app, c):
 	try:
-		rf = open(sp.app_dir[app] + "path_profile.txt", "r")
+		rf = open(Path(sp.app_dir[app], "path_profile.txt"), "r")
 	except IOError: 
-		print("NOT OPEN: " + sp.app_dir[app] + "path_profile.txt")
+		print("NOT OPEN: " + str(Path(sp.app_dir[app], "path_profile.txt")))
 		return 
 	suite = sp.apps[app][0]
 	kInvocation = {}
@@ -380,10 +380,10 @@ def parse_results_apps(typ,c):
 		else:
 			for bfm in sp.parse_rf_bfm_list:
 				parse_results_file(app, "rf", bfm, c)
-		# parse_mem_accesses(app, c)
-		# parse_pupcs(app, c)
-		#parse_bb_executions(app,c)
-		#parse_bb_interval_executions(app,c)
+		parse_mem_accesses(app, c)
+		parse_pupcs(app, c)
+		parse_bb_executions(app,c)
+		parse_bb_interval_executions(app,c)
 		#parse_path_executions(app,c)
 		#parse_path_incs(app, c)
 		#parse_full_paths(app,c)
